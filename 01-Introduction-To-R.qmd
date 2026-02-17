@@ -4,8 +4,9 @@ title: "Introduction To R"
 
 Welcome to the programming language R!
 
-::: {.callout-tip}
+::: callout-tip
 ## Data is art, and as you will read many times in this book:
+
 R puts the **r** in Artist.
 :::
 
@@ -34,7 +35,11 @@ First, it's important to understand RStudio and its layout.
 
 ## RStudio {#sec-rstudio}
 
-Currently we are using RStudio to run R. Here, there are 4 quadrants/panes
+Currently we are using RStudio to run R.
+
+![Image of RStudio.](r-studio-image.png)
+
+Here, there are 4 quadrants/panes
 
 -   Source - top left
     -   This is where 99% of all of your code will be written.
