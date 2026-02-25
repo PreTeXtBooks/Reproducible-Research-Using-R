@@ -11,7 +11,7 @@ Whoever said a picture is worth 1,000 words severely understated how many words 
 After running summary statistics, always visualize your data!
 :::
 
-You may be thinking "how powerful can a visualization even be?" That is a great question, that Anscombe’s quartet will help answer.
+You may be thinking "how powerful can a visualization even be?" That is a great question, that Anscombe’s quartet will help answer (@quartets).
 
 Quick history lesson. In 1973 (before the invention of R), a statistician named Francis Anscombe created four unique datasets, which all had identical summary statistics.
 
@@ -76,7 +76,7 @@ With that being said, let's get right to it.
 
 ## Base R {#sec-viz-base-r}
 
-One of the strongest qualities in R is its ability to create visualizations, powered by `ggplot2`. However, it is possible to use base R to create plots as well. It is recommended to use ggplot2; however, you may encounter base R plots in older scripts or documentation, so an example is included for familiarity.
+One of the strongest qualities in R is its ability to create visualizations, powered by `ggplot2` (@ggplot2). However, it is possible to use base R to create plots as well. It is recommended to use ggplot2; however, you may encounter base R plots in older scripts or documentation, so an example is included for familiarity.
 
 ```{r}
 #| label: fig-baseR-plot

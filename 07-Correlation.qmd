@@ -148,7 +148,7 @@ pairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
 
 This creates a scatterplot for all of the columns we specify. It may take a while to get used to reading this, but the way to read these is where the names would intersect is the scatterplot that represents those two variables. For example, the exam vs studying scatterplot would be the top middle scatterplot.
 
-We can get even fancier and use the command `ggpairs` from the GGally function.
+We can get even fancier and use the command `ggpairs` from the `GGally` package (@GGally).
 
 ```{r}
 #| label: fig-ggally-correlation
@@ -287,11 +287,11 @@ Number three seems particularly strong. There may be more to investigate here.
 
 When we were looking at our R\^2 values, we saw a decent percentage of the variation in exam scores was due to both anxiety scores and studying time. We also saw that *half* of the variation in anxiety scores was due to studying time. So, maybe, there is some overlap between anxiety+studying time and exam scores.
 
-To account for this, we can utilize the ppcor library and run a partial correlation using the `pcor.test` command.
+To account for this, we can utilize the `ppcor` library (@ppcor) and run a partial correlation using the `pcor.test()` command.
 
 ::: {.callout-tip}
 ## Hint:
-When running a partial correlation using `pcor.test`, the last variable in the command is the one being controlled for.
+When running a partial correlation using `pcor.test()`, the last variable in the command is the one being controlled for.
 :::
 
 ```{r}

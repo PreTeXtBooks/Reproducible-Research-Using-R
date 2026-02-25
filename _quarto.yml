@@ -20,10 +20,14 @@ book:
     - 10-Reproducible-Reporting.qmd
   appendices:
     - 11-Appendix.qmd
-    - 12-Package-References.qmd
-    - 13-Reproducible-Reporting-R-Markdown.qmd
+    - 12-Reproducible-Reporting-R-Markdown.qmd
+    - 13-Package-References.qmd
+    - 14-References.qmd
 
-bibliography: references.bib
+
+bibliography: packages.bib
+csl: apa.csl
+link-citations: true
 number-sections: true
 
 format:

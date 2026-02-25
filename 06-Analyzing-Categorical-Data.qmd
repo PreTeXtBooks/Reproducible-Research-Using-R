@@ -8,8 +8,9 @@ In some situations, we do not have numerical data, and only categorical data. Wh
 
 In situations like these, when we **only** have categorical values, we undergo a *Categorical Analysis.* Today, we will be looking at three different treatment options aimed at inhibiting infections.
 
-::: {.callout-note}
+::: callout-note
 ## In this lesson, the question we are trying to answer is:
+
 *Does the type of treatment people get affect whether they get an infection?*
 :::
 
@@ -31,9 +32,9 @@ By the end of this chapter, you will be able to:
 
 ## Loading Our Data {#sec-cat-analysis-data}
 
-Similarly to how we loaded data in @sec-loading-data, we are going to load the `Infection Treatments.xlsx` dataset into R using the `readxl` package and the `read_xlsx()` function inside of it.
+Similarly to how we loaded data in @sec-loading-data, we are going to load the `Infection Treatments.xlsx` dataset into R using the `readxl` package (@readxl) and the `read_xlsx()` function inside of it.
 
-Instead of using the `summary()` or `str()` functions, we are going to experiment with the `skim()` function from the `skimr` package to investigate our data.
+Instead of using the `summary()` or `str()` functions, we are going to experiment with the `skim()` function from the `skimr` package (@skimr) to investigate our data.
 
 ```{r}
 #| label: tbl-loading-data
@@ -82,7 +83,7 @@ Now, we combine these two variables to see how infection status is distributed a
 # Create the table using the xtabs command
 contingency_table <- xtabs(~Treatment + Infection, data = infection)
 
-contingency_table
+kable(contingency_table, caption = "Contingency table displaying the frequency of infection status across treatment groups.")
 ```
 
 In R formulas, the variable before the + becomes the rows, and the variable after the + becomes the columns. If we reverse the formula, we transpose the table.
@@ -93,12 +94,14 @@ In R formulas, the variable before the + becomes the rows, and the variable afte
 # Reversing the formula to see the change in orientation
 reverse_table <- xtabs(~Infection + Treatment, data = infection)
 
-reverse_table
+kable(reverse_table, caption = "Contingency table displaying the same infection data with rows and columns reversed to illustrate how formula order affects table orientation.")
 ```
 
 Now through any of the ways (table or xtabs), we are able to see that *Cranberry* has the lowest number infected out of the three treatments. What if we want to understand this from a percentage standpoint?
 
 **Let's find out.**
+
+We will call on the help of the `janitor` package (@janitor), specifically the `tabyl()`, `adorn_totals()`, `adorn_percentages()`, `adorn_pct_formatting()`, and `adorn_ns()` functions.
 
 ```{r}
 #| label: tbl-percentages-CA
@@ -114,7 +117,7 @@ c_table <- infection %>%
   adorn_pct_formatting(digits = 1) %>%    # Makes it readable (adds % signs)
   adorn_ns()                              # Combines counts + percentages
 
-c_table
+kable(c_table, caption = "Distribution of infection status within each treatment group, reported as row percentages with counts (n).")
 ```
 
 From a percentage standpoint, we see that 84% of people who were given *cranberries* were not infected! That is much higher than either other treatment options, and the total percentage of people who were not infected as well.
@@ -124,6 +127,14 @@ It seems that **cranberry** is taking an early lead in terms of which treatment 
 ## Visualizations {#sec-cat-analysis-viz}
 
 With purely categorical data, the visualization most commonly recommended would be a *bar chart.* With a bar chart, a viewer can interpret differences between the variables. There are two main options, a **stacked** or **grouped** bar chart. The main difference from a coding perspective is what we enter inside the `geom_bar` command.
+
+::: callout-tip
+## Adding Flavor to Your Visualizations
+
+If you’d like to enhance the aesthetic of your plots, consider using the `ggthemes` package (@ggthemes). It provides a variety of alternative themes that can quickly change the look and feel of your graphics.
+
+The examples below use `theme_solarized()` and `theme_classic()`, but many additional options are available. Explore and experiment — just be sure your styling choices support clarity and suit your audience.
+:::
 
 ```{r}
 #| label: fig-ggplot-infection-treatment-stacked
@@ -166,6 +177,8 @@ grouped <- ggplot(infection, aes(x = Treatment, fill = Infection)) +
   theme_classic()
 ```
 
+Using the `patchwork` package (@patchwork), we can add two or more plots together using the `+` symbol.
+
 ```{r}
 #| label: fig-grouped-stacked-patchwork
 #| fig-cap: "Side-by-side comparison of stacked and grouped bar charts visualizing infection outcomes by treatment type. The stacked chart emphasizes proportional differences, while the grouped chart highlights raw counts. Together, these plots illustrate how different visual encodings can influence interpretation of categorical data."
@@ -175,12 +188,12 @@ library(patchwork)
 grouped + stacked + plot_annotation(title = "Visualizing Infection Outcomes by Treatment (Stacked Vs. Grouped")
 ```
 
-To make our graphs more interactive with our users, we can utilize the `ggplotly()` function from the `plotly` package.
+To make our graphs more interactive with our users, we can utilize the `ggplotly()` function from the `plotly` package (@plotly) (@webshot2).
+
 ```{r}
 #| include: false
 library(webshot2)
 ```
-
 
 ```{r}
 #| label: fig-plotly-graph
@@ -193,8 +206,9 @@ library(plotly)
 ggplotly(grouped)
 ```
 
-::: {.callout-note}
+::: callout-note
 ## When using ggplotly:
+
 Move your cursor over the bars to gather more insights about your graph/data.
 :::
 
@@ -251,8 +265,9 @@ chi_square_test$residuals
 chi_square_test$stdres
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## Rule of Thumb:
+
 Think of standardized residuals like z-scores: values greater than +2 or less than -2 are the 'statistically interesting' parts of your table that are driving your p-value.
 :::
 
@@ -300,7 +315,7 @@ We tie this information together to get a very strong case for **cranberry.** Th
 
 ## Cross Tables {#sec-cross-tables}
 
-In the `gmodels` package we are able to utilize the `CrossTable` command. Beware, this can at first be overwhelming, as a lot of information is thrown at you.
+In the `gmodels` package (@gmodels) we are able to utilize the `CrossTable()` command. *Beware*, this can at first be overwhelming, as a lot of information is thrown at you.
 
 ```{r}
 #| label: tbl-crosstables
@@ -326,8 +341,9 @@ CrossTable(infection$Treatment, infection$Infection,
 
 If we want to hone in on this more, we can take the contributions and turn them into percentages.
 
-::: {.callout-tip}
+::: callout-tip
 ## To find out more about the X\^2 value, it is important to answer the question:
+
 What percentage of the X\^2 value is each contribution responsible for?
 :::
 
@@ -340,8 +356,9 @@ contributions <- ((chi_square_test$observed-chi_square_test$expected)^2)/chi_squ
 contributions
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## The formula for calculating the chi-square statistic is:
+
 $$X^2= ((observed-expected)^2)/expected$$
 :::
 
@@ -355,7 +372,7 @@ percent_contributions
 
 Through this, we discovered that about **65%** of the X\^2 value is due to the **cranberry** treatment.
 
-You already know that visualizations really help paint the picture, and *chi-square contributions* are not exempt. For this, the `pheatmap` package comes in handy.
+You already know that visualizations really help paint the picture, and *chi-square contributions* are not exempt. For this, the `pheatmap` package (@pheatmap) comes in handy with the `pheatmap()` function..
 
 ```{r}
 #| label: fig-pheatmap
@@ -383,7 +400,7 @@ Now, how impactful is this overall? What is the **effect** of treatment overall 
 
 ## CramerV {#sec-cramer-v}
 
-Cramer’s V tells you the strength of the relationship between two categorical variables, similar to correlation coefficient It is important to note that this measures effect size. This is **not** a statistic. We can utilize the `cramerV` command from the `rcompanion` package.
+Cramer’s V tells you the strength of the relationship between two categorical variables, similar to correlation coefficient It is important to note that this measures effect size. This is **not** a statistic. We can utilize the `cramerV()` command from the `rcompanion` package (@cramerV).
 
 ```{r}
 #| label: cramerV
