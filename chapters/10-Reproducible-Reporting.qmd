@@ -383,7 +383,7 @@ What is inside the brackets is what the viewers see, and then what is inside the
 
 ### Pictures {#sec-quarto-pictures}
 
-In chapter 3, I showed you all a picture of an Adelie penguin. Below is the code I used to display the image:
+In @sec-tidyverse-filter, I showed you all a picture of an Adelie penguin. Below is the code I used to display the image:
 
 ```{text}
 ![A picture of an Adelie penguin.](Adelie-Screenshot.png)

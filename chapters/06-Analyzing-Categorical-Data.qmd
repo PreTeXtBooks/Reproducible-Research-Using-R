@@ -41,7 +41,7 @@ Instead of using the `summary()` or `str()` functions, we are going to experimen
 #| tbl-cap: The skim function from the skimr package provides with important information regarding our data.
 #| message: false
 #| warning: false
-library(readxl)
+library(data/rawreadxl)
 library(tidyverse)
 
 infection <- read_xlsx("Infection_Treatments.xlsx")

@@ -8,24 +8,24 @@ book:
   date: "2026-02-01"
   chapters:
     - index.qmd
-    - 01-Introduction-To-R.qmd
-    - 02-Introduction-To-tidyverse.qmd
-    - 03-Visualizations.qmd
-    - 04-Comparing-Two-Groups.qmd
-    - 05-Comparing-Multiple-Groups.qmd
-    - 06-Analyzing-Categorical-Data.qmd
-    - 07-Correlation.qmd
-    - 08-Linear-Regression.qmd
-    - 09-Logistic-Regression.qmd
-    - 10-Reproducible-Reporting.qmd
+    - chapters/01-Introduction-To-R.qmd
+    - chapters/02-Introduction-To-tidyverse.qmd
+    - chapters/03-Visualizations.qmd
+    - chapters/04-Comparing-Two-Groups.qmd
+    - chapters/05-Comparing-Multiple-Groups.qmd
+    - chapters/06-Analyzing-Categorical-Data.qmd
+    - chapters/07-Correlation.qmd
+    - chapters/08-Linear-Regression.qmd
+    - chapters/09-Logistic-Regression.qmd
+    - chapters/10-Reproducible-Reporting.qmd
   appendices:
-    - 11-Appendix.qmd
-    - 12-Reproducible-Reporting-R-Markdown.qmd
-    - 13-Package-References.qmd
-    - 14-References.qmd
+    - chapters/11-Appendix.qmd
+    - chapters/12-Reproducible-Reporting-R-Markdown.qmd
+    - chapters/13-Package-References.qmd
+    - chapters/14-References.qmd
 
 
-bibliography: packages.bib
+bibliography: bibliography/packages.bib
 link-citations: true
 number-sections: true
 

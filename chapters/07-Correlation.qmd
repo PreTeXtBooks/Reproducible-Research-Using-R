@@ -36,7 +36,7 @@ We start by importing the necessary packages, reading in our Excel file, and qui
 library(readxl)
 library(tidyverse)
 
-examData <- read_xlsx("Exam_Data.xlsx")
+examData <- read_xlsx("data/raw/Exam_Data.xlsx")
 
 library(skimr)
 
@@ -356,7 +356,7 @@ examData %>%
 
 Our results show that direction does not change within the groups, but the strength of the correlations does. For instance, in students that are a first generation college student, anxiety scores have a deeper impact on exam scores than students who *are not* a first generation college student.
 
-In chapter (\@R-sec-linear-reg), we’ll use what we learned here to build predictive models — moving from describing relationships to forecasting outcomes.
+In chapter (@sec-linear-reg), we’ll use what we learned here to build predictive models — moving from describing relationships to forecasting outcomes.
 
 ## Conclusion {#sec-cor-conclusion}
 
