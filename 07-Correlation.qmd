@@ -6,8 +6,9 @@ title: "Correlation"
 
 In everyday communication, the word **correlation** is thrown around a lot, but, what does it actually mean? In this lesson, we will explore how to use **correlations** to better understand how our variables interact with each other.
 
-::: {.callout-note}
+::: callout-note
 ## We'll be trying to answer the question:
+
 *How do anxiety scores and studying time influence exam scores?*
 :::
 
@@ -132,8 +133,9 @@ Intuitively, these graphs make sense (which is what we want to see). From a visu
 
 One of the main reasons why we visualize our data is to see if it is linear. We are only going to be talking about linear relationships in this chapter.
 
-:::{.callout-warning}
+:::::: callout-warning
 ## Be careful with your scatterplots:
+
 **If your scatterplot ever shows a curve, use a non-parametric alternative like Spearman’s rank correlation instead.**
 
 For today, we are focusing on studying time, anxiety scores, and exam scores. If we did not want to manually create 3 different scatterplots, we could utilize the `pairs` command.
@@ -183,7 +185,7 @@ We can use the following general guidelines for interpreting correlation strengt
 #| message: false
 #| warning: false
 
-library(kable)
+library(knitr)
 library(kableExtra)
 
 cor_table <- data.frame(
@@ -226,8 +228,9 @@ cor.test(examData$studying_hours, examData$anxiety_score)  # Study time vs anxie
 
 Turns out all three are statistically significant! There’s something just as important as the r value and p value: the method used to calculate it. By default cor and cor.test use Pearson's method. Going back to visualizing our data, we can only use Pearson's method if our data is linear.
 
-::: {.callout-tip}
+::: callout-tip
 ## Running one by one can take a lot of time.
+
 What if we do not want to run all the correlations one by one...
 :::
 
@@ -235,8 +238,9 @@ What if we do not want to run all the correlations one by one...
 
 Right now, we only have three variables we want to run correlations with. But, what if we had 50? Are we going to run 50 lines of code? No! We can, instead, run a correlation matrix, which conducts a correlation between *any and all* numeric values. The key here is that your data must *only* contain numeric values, so make sure you clean your data first. Again, as before, we can utilize the `cor` command.
 
-::: {.callout-tip}
+::: callout-tip
 ## Hint:
+
 Use = "pairwise.complete.obs" handles any missing values safely
 :::
 
@@ -291,8 +295,9 @@ When we were looking at our R\^2 values, we saw a decent percentage of the varia
 
 To account for this, we can utilize the `ppcor` library (@ppcor) and run a partial correlation using the `pcor.test()` command.
 
-::: {.callout-tip}
+::: callout-tip
 ## Hint:
+
 When running a partial correlation using `pcor.test()`, the last variable in the command is the one being controlled for.
 :::
 
@@ -363,7 +368,11 @@ In this chapter, we examined how studying time, exam anxiety, and exam performan
 
 However, these relationships did not exist in isolation. When we controlled for studying time using a partial correlation, the relationship between anxiety and exam performance weakened substantially, and the relationship between studying time and exam performance was no longer statistically significant after controlling for anxiety. This highlights an important statistical insight: relationships between variables often overlap, and failing to account for this overlap can lead to misleading interpretations.
 
-Throughout this chapter, we also reinforced a critical principle in data analysis: correlation does not imply causation. While studying, anxiety, and performance are clearly related, correlation alone cannot tell us whether studying causes better performance, whether anxiety reduces scores, or whether some third factor influences all three. Correlation helps us describe relationships — not explain them.
+Throughout this chapter, we also reinforced a critical principle in data analysis:
+
+> **Correlation does not imply causation.**
+
+While studying, anxiety, and performance are clearly related, correlation alone cannot tell us whether studying causes better performance, whether anxiety reduces scores, or whether some third factor influences all three. Correlation helps us describe relationships — not explain them.
 
 By visualizing relationships, computing correlation coefficients, interpreting r and r², and applying partial and point-biserial correlations, you now have a toolkit for understanding how variables move together and how those relationships change when additional factors are considered.
 
@@ -432,7 +441,7 @@ anx_p <- round(res_anx$p.value, 3)
 anx_r2 <- round(anx_r^2 * 100, 1)
 ```
 
-A Pearson correlation was conducted to examine the relationship between exam anxiety and exam performance. There was a statistically significant negative correlation between anxiety scores and exam scores, ***r* = `r anx_r`, *p* = `r anx_p`**, indicating that higher anxiety levels were associated with lower exam performance. Approximately **`r anx_r2`%** of the variance in exam scores was shared with anxiety levels.
+A Pearson correlation was conducted to examine the relationship between exam anxiety and exam performance. There was a statistically significant negative correlation between anxiety scores and exam scores, ***r*** **= `r anx_r`, *p* = `r anx_p`**, indicating that higher anxiety levels were associated with lower exam performance. Approximately **`r anx_r2`%** of the variance in exam scores was shared with anxiety levels.
 
 ### Positive Correlation {#sec-cor-apa-positive}
 
@@ -449,3 +458,4 @@ When interpreting correlations, statistical strength alone is not enough—resul
 With the right dataset, it is easy to find strong correlations between variables that have no meaningful connection (for example, volcanic eruptions and how often my grandma goes to the supermarket). While such relationships may be statistically strong, they are not scientifically meaningful.
 
 For correlations to be reproducible, the variables involved should have a plausible relationship grounded in theory, logic, or prior evidence. Always ask whether the correlation makes sense *before* interpreting or reporting it.
+::::::
