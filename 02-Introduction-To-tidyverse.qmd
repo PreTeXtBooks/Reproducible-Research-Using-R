@@ -3,6 +3,7 @@ title: "Introduction To tidyverse"
 ---
 
 ## Introduction {#sec-intro-tidyverse}
+
 Just like Spider-Man, we are going to enter a new universe in R: the `tidyverse`!
 
 This chapter introduces the `tidyverse`, a collection of R packages designed to make data analysis more readable, consistent, and reproducible. The tools introduced here will be used repeatedly throughout the remainder of this textbook, forming the backbone of nearly every analysis we perform.
@@ -32,7 +33,7 @@ We briefly spoke about packages in @sec-intro-packages, but now let's take a dee
 
 ### Installing Packages {#sec-installing-packages}
 
-In order to install packages, we can utilize the `install.packages()` command. Let's install our first official package, the `tidyverse` package (@tidyverse).
+In order to install packages, we can utilize the `install.packages()` command. Let's install our first official package, the `tidyverse` package (@R-tidyverse).
 
 ```{text}
 install.packages("tidyverse")
@@ -63,7 +64,7 @@ sessionInfo()$otherPkgs %>% names()
 
 We have successfully loaded all of the packages (and in turn all of their contents). That means that as long as we do not close this R session, we can utilize the packages.
 
-The `palmerpenguins` package (@palmerpenguins) we will be using in this chapter. Before then, I want to show you that R is fun and diverse. The package `fortunes` (@fortunes) provides you a random R quote with the function `fortune()` and the `say()` command from the `cowsay` package (@cowsay) provides a beautiful animal saying whatever you want it to say. Below the animal is "cow" but try some other ones (I suggest "dragon").
+The `palmerpenguins` package (@R-palmerpenguins) we will be using in this chapter. Before then, I want to show you that R is fun and diverse. The package `fortunes` (@R-fortunes) provides you a random R quote with the function `fortune()` and the `say()` command from the `cowsay` package (@R-cowsay) provides a beautiful animal saying whatever you want it to say. Below the animal is "cow" but try some other ones (I suggest "dragon").
 
 ```{r}
 #| label: fun-packages
@@ -75,7 +76,7 @@ cowsay::say("Welcome to tidyverse!", by = "cow")
 
 It isn't always necessary, nor will it be done a lot in this book, but you can use the `::` before the command to specifically mention what package the command is coming from. Most of the time this isn't necessary, but there are times when you will have packages loaded that have overlapping function names. This is when `::` should be called.
 
-To further illustrate the diversity of R packages, let’s introduce an example of working with live, real-world data using the `nycOpenData` package (@nycOpenData). This package connects directly to the NYC Open Data Portal and displays the most recent data happening in the city. By using the `nyc_311()` function, we can gather the five most recent 311 calls in New York City. The fun thing is that every time you open this chapter, this data will be different! This is an important aspect of working with live data and needs to be considered when creating reproducible research.
+To further illustrate the diversity of R packages, let’s introduce an example of working with live, real-world data using the `nycOpenData` package (@R-nycOpenData). This package connects directly to the NYC Open Data Portal and displays the most recent data happening in the city. By using the `nyc_311()` function, we can gather the five most recent 311 calls in New York City. The fun thing is that every time you open this chapter, this data will be different! This is an important aspect of working with live data and needs to be considered when creating reproducible research.
 
 First we install the package.
 
@@ -302,7 +303,6 @@ penguins %>% filter(body_mass_g >= 4000)
 penguins %>% filter(species %in% c("Adelie", "Gentoo"))
 ```
 
-
 #### Filtering NA values {#sec-tidyverse-filter-na}
 
 In any dataset, NA values can be a pain. Depending what to do with them is always situational, but it is important to learn **how** to work with them. We can utilize `is.na()` to filter for which are NA and the `drop_na()` to remove all rows that have **at least** one NA value.
@@ -335,6 +335,7 @@ orders the rows of a data frame.
 #| label: tbl-arrange
 penguins %>% arrange(body_mass_g)          # ascending order
 ```
+
 ```{r}
 #| label: tbl-arrange-desc
 penguins %>% arrange(desc(body_mass_g))    # descending order
@@ -466,6 +467,7 @@ Before, we utilized the `nrow()` function to find out how many rows there are ov
 #| label: tbl-tables
 table(penguins$species)
 ```
+
 ```{r}
 #| label: tbl-tables-count
 penguins %>% count(species, sort = TRUE)

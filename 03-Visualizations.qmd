@@ -6,12 +6,13 @@ title: "Visualizations"
 
 Whoever said a picture is worth 1,000 words severely understated how many words a picture is actually worth. When working with data, there is a strong argument to make that **nothing** is more important than visuals.
 
-::: {.callout-tip}
+::: callout-tip
 ## If there is one piece of advice to take from this textbook, it is this:
+
 After running summary statistics, always visualize your data!
 :::
 
-You may be thinking "how powerful can a visualization even be?" That is a great question, that Anscombe’s quartet will help answer (@quartets).
+You may be thinking "how powerful can a visualization even be?" That is a great question, that Anscombe’s quartet will help answer (@R-quartets).
 
 Quick history lesson. In 1973 (before the invention of R), a statistician named Francis Anscombe created four unique datasets, which all had identical summary statistics.
 
@@ -76,7 +77,7 @@ With that being said, let's get right to it.
 
 ## Base R {#sec-viz-base-r}
 
-One of the strongest qualities in R is its ability to create visualizations, powered by `ggplot2` (@ggplot2). However, it is possible to use base R to create plots as well. It is recommended to use ggplot2; however, you may encounter base R plots in older scripts or documentation, so an example is included for familiarity.
+One of the strongest qualities in R is its ability to create visualizations, powered by `ggplot2` (@R-ggplot2). However, it is possible to use base R to create plots as well. It is recommended to use ggplot2; however, you may encounter base R plots in older scripts or documentation, so an example is included for familiarity.
 
 ```{r}
 #| label: fig-baseR-plot
@@ -118,8 +119,9 @@ Additionally, `ggplot2` is part of the `tidyverse` package. So, you can either l
 
 When using `ggplot2`, there are unlimited possibilities on what you can manipulate/influence. This may be daunting, but always remember that all plots work on the same framework.
 
-::: {.callout-tip}
+::: callout-tip
 ## ggplot2 framework
+
 plot = data + aesthetics + geometry
 :::
 
@@ -149,8 +151,9 @@ This is our first ggplot (a scatterplot) we have created, so let's break this do
 
 With only two lines of code, a scatterplot was created! Since the framework has been established, it is time to build some visualizations!
 
-:::{.callout-note}
+::: callout-note
 ## How to move on from here:
+
 In this chapter, there will be basic examples of each visualization type, and advanced examples of each visualization type. This is done to display the scope of what can be done with this package (`ggplot2`). It is encouraged to experiment with the code, change numbers, remove things, and compare and contrast the differences between the experimented visuals.
 :::
 
@@ -300,8 +303,9 @@ ggplot(class_counts, aes(x = reorder(class, n), y = n, fill = class)) +
   theme(legend.position = "none")
 ```
 
-::: {.callout-note}
+::: callout-note
 ## Legends in a graph and redundancy.
+
 Sometimes having a legend in a graph can be redundant because of the x-axis containing the same information as a legend would. In this case, you can remove the legend not only to avoid the redundancy, but also save space.
 :::
 
@@ -363,9 +367,8 @@ ggplot(diamonds, aes(x = price)) +
 
 In the below example, the visualization is filtering within the data portion to only keep the cuts "Good", "Ideal" and "Premium." Since it is utilizing `color` inside the aesthetics, this will create a grouped density plot, showing three different lines for each of the three different cuts.
 
-:::{.callout-note}
-##Regarding the data portion of the graph below:
-If there was no filtering, this code would still separate into different lines.
+::: callout-note
+##Regarding the data portion of the graph below: If there was no filtering, this code would still separate into different lines.
 :::
 
 ```{r}
@@ -605,6 +608,6 @@ When creating a visualization, ask yourself:
 
 To help close the gap between these questions, use informative labels and captions, that will help *guide* users on what they're seeing.
 
-Within `ggplot2`, functions like `labs()` allow you to clearly label axes, titles, and legends so the intent of the plot is immediately clear. When working in R Markdown or bookdown (@sec-r-markdown-graphs), figure captions (using `fig-cap`) provide additional context that travels with the figure wherever it appears.
+Within `ggplot2`, functions like `labs()` allow you to clearly label axes, titles, and legends so the intent of the plot is immediately clear. When working in R Markdown or bookdown (@R-sec-r-markdown-graphs), figure captions (using `fig-cap`) provide additional context that travels with the figure wherever it appears.
 
 Visualizations that are well-labeled and properly captioned are easier to interpret, reuse, and reproduce—both by others and by your future self.

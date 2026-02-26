@@ -90,7 +90,7 @@ memory_summarized <- memory %>%
 memory_summarized
 ```
 
-Instead of writing all of the code manually, we can utilize the `favstats()` command from the `mosaic` package (@mosaic).
+Instead of writing all of the code manually, we can utilize the `favstats()` command from the `mosaic` package (@R-mosaic).
 
 ```{r}
 #| label: tbl-favstats
@@ -164,7 +164,7 @@ We have some idea, from both our visuals and descriptive statistics that the tes
 
 To do this, we can use the `aov` command which is very similar to `t.test`. The formula used is:
 
-dependent_variable ~ independent_variable, data = your_data
+dependent_variable \~ independent_variable, data = your_data
 
 To really bring it to the next level, we can also call the `supernova` command from the supernova package.
 
@@ -177,7 +177,7 @@ anova_model <- aov(score ~ method, data = memory)
 summary(anova_model)
 ```
 
-We can also utilize the `supernova()` function, from the `supernova` package (@supernova), for a cleaner output.
+We can also utilize the `supernova()` function, from the `supernova` package (@R-supernova), for a cleaner output.
 
 ```{r}
 #| label: tbl-anova-supernova
@@ -291,7 +291,7 @@ The results from the ANOVA are impactful, and since we now have two different AN
 
 ## Model Comparison With AIC {#sec-aic-anova}
 
-Using the `aictab()` function from the `AICcmodavg` package (@AICcmodavg), we can compare the one-way ANOVA model with the two-way ANOVA model to see what is the overall better model of understanding differences in memory scores.
+Using the `aictab()` function from the `AICcmodavg` package (@R-AICcmodavg), we can compare the one-way ANOVA model with the two-way ANOVA model to see what is the overall better model of understanding differences in memory scores.
 
 ```{r}
 #| label: tbl-model-comparison

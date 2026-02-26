@@ -32,9 +32,9 @@ By the end of this chapter, you will be able to:
 
 ## Loading Our Data {#sec-cat-analysis-data}
 
-Similarly to how we loaded data in @sec-loading-data, we are going to load the `Infection Treatments.xlsx` dataset into R using the `readxl` package (@readxl) and the `read_xlsx()` function inside of it.
+Similarly to how we loaded data in @sec-loading-data, we are going to load the `Infection Treatments.xlsx` dataset into R using the `readxl` package (@R-readxl) and the `read_xlsx()` function inside of it.
 
-Instead of using the `summary()` or `str()` functions, we are going to experiment with the `skim()` function from the `skimr` package (@skimr) to investigate our data.
+Instead of using the `summary()` or `str()` functions, we are going to experiment with the `skim()` function from the `skimr` package (@R-skimr) to investigate our data.
 
 ```{r}
 #| label: tbl-loading-data
@@ -104,7 +104,7 @@ Now through any of the ways (table or xtabs), we are able to see that *Cranberry
 
 **Let's find out.**
 
-We will call on the help of the `janitor` package (@janitor), specifically the `tabyl()`, `adorn_totals()`, `adorn_percentages()`, `adorn_pct_formatting()`, and `adorn_ns()` functions.
+We will call on the help of the `janitor` package (@R-janitor), specifically the `tabyl()`, `adorn_totals()`, `adorn_percentages()`, `adorn_pct_formatting()`, and `adorn_ns()` functions.
 
 ```{r}
 #| label: tbl-percentages-CA
@@ -134,7 +134,7 @@ With purely categorical data, the visualization most commonly recommended would 
 ::: callout-tip
 ## Adding Flavor to Your Visualizations
 
-If you’d like to enhance the aesthetic of your plots, consider using the `ggthemes` package (@ggthemes). It provides a variety of alternative themes that can quickly change the look and feel of your graphics.
+If you’d like to enhance the aesthetic of your plots, consider using the `ggthemes` package (@R-ggthemes). It provides a variety of alternative themes that can quickly change the look and feel of your graphics.
 
 The examples below use `theme_solarized()` and `theme_classic()`, but many additional options are available. Explore and experiment — just be sure your styling choices support clarity and suit your audience.
 :::
@@ -180,7 +180,7 @@ grouped <- ggplot(infection, aes(x = Treatment, fill = Infection)) +
   theme_classic()
 ```
 
-Using the `patchwork` package (@patchwork), we can add two or more plots together using the `+` symbol.
+Using the `patchwork` package (@R-patchwork), we can add two or more plots together using the `+` symbol.
 
 ```{r}
 #| label: fig-grouped-stacked-patchwork
@@ -191,7 +191,7 @@ library(patchwork)
 grouped + stacked + plot_annotation(title = "Visualizing Infection Outcomes by Treatment (Stacked Vs. Grouped")
 ```
 
-To make our graphs more interactive with our users, we can utilize the `ggplotly()` function from the `plotly` package (@plotly) (@webshot2).
+To make our graphs more interactive with our users, we can utilize the `ggplotly()` function from the `plotly` package (@R-plotly) (@R-webshot2).
 
 ```{r}
 #| include: false
@@ -318,7 +318,7 @@ We tie this information together to get a very strong case for **cranberry.** Th
 
 ## Cross Tables {#sec-cross-tables}
 
-In the `gmodels` package (@gmodels) we are able to utilize the `CrossTable()` command. *Beware*, this can at first be overwhelming, as a lot of information is thrown at you.
+In the `gmodels` package (@R-gmodels) we are able to utilize the `CrossTable()` command. *Beware*, this can at first be overwhelming, as a lot of information is thrown at you.
 
 ```{r}
 #| label: tbl-crosstables
@@ -375,7 +375,7 @@ percent_contributions
 
 Through this, we discovered that about **65%** of the X\^2 value is due to the **cranberry** treatment.
 
-You already know that visualizations really help paint the picture, and *chi-square contributions* are not exempt. For this, the `pheatmap` package (@pheatmap) comes in handy with the `pheatmap()` function..
+You already know that visualizations really help paint the picture, and *chi-square contributions* are not exempt. For this, the `pheatmap` package (@R-pheatmap) comes in handy with the `pheatmap()` function..
 
 ```{r}
 #| label: fig-pheatmap
@@ -403,7 +403,7 @@ Now, how impactful is this overall? What is the **effect** of treatment overall 
 
 ## CramerV {#sec-cramer-v}
 
-Cramer’s V tells you the strength of the relationship between two categorical variables, similar to correlation coefficient It is important to note that this measures effect size. This is **not** a statistic. We can utilize the `cramerV()` command from the `rcompanion` package (@cramerV).
+Cramer’s V tells you the strength of the relationship between two categorical variables, similar to correlation coefficient It is important to note that this measures effect size. This is **not** a statistic. We can utilize the `cramerV()` command from the `rcompanion` package (@R-cramerV).
 
 ```{r}
 #| label: cramerV

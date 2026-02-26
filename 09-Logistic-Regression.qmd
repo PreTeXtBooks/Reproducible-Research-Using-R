@@ -8,8 +8,9 @@ Two chapters ago, we did a great job of creating linear regression models, which
 
 However, that was when we had numeric data. What happens when we do not have any numeric data? From our last chapter, we know that is where a chi-square comes in, but what if we want to still do some predicting? This is exactly where **Logistic Regression** comes into play.
 
-::: {.callout-note}
+::: callout-note
 ## The question we are trying to answer is:
+
 Can we predict if someone will default on their credit cards based on other factors about them?
 :::
 
@@ -36,7 +37,7 @@ By the end of this chapter, you will be able to:
 
 ## Load and Preview Data {#sec-log-reg-data}
 
-First, we need to load the `ISLR2` (@ISLR2) package and then we will create our `cc_data` dataset using the `Default` dataset, which inside the package.
+First, we need to load the `ISLR2` (@R-ISLR2) package and then we will create our `cc_data` dataset using the `Default` dataset, which inside the package.
 
 ```{r}
 #| label: tbl-loading-data-ISLR2
@@ -60,8 +61,9 @@ Our data contains 10,000 rows of data, each relating to a particular person. Two
 3.  balance: The average balance that the customer has remaining on their credit card after making their monthly payment
 4.  income: Income of customer
 
-::: {.callout-note}
+::: callout-note
 ## Regarding the ISLR2 package:
+
 *The definitions of the columns come directly from the description found in the package*
 :::
 
@@ -211,7 +213,7 @@ Ideally, we want this model to be able to predict it for people in the future? W
 
 In scenarios like this, we can actually split our data into two sets: one for training (creating our model) and one for testing (see how well our model actually works). This is important because we get to test our model using **real** data. It is kind of like practicing a basketball move before you use it in a real game.
 
-Our goal: use a decent portion of our real data to test our model, and compare it to data not used in the model. To help with this, we will be using the `sample.split()` function from the `caTools` pakage (@caTools).
+Our goal: use a decent portion of our real data to test our model, and compare it to data not used in the model. To help with this, we will be using the `sample.split()` function from the `caTools` pakage (@R-caTools).
 
 ```{r}
 #| label: splitting-data
@@ -241,14 +243,15 @@ We have our training set, so let's get predicting!
 
 When building a logistic regression model, it is going to look very similar to the linear regression model we built starting in @sec-linear-reg-model. The major difference from a coding perspective between a linear regression and a logistic regression model is that instead of using `lm()`, you need to use `glm()`.
 
-Before we create our model, let's take a step back. Logistic regression, just like linear regression, is a tool to help us predict an outcome. Specifically, we are predicting the **probability** of an outcome. 
+Before we create our model, let's take a step back. Logistic regression, just like linear regression, is a tool to help us predict an outcome. Specifically, we are predicting the **probability** of an outcome.
 
-::: {.callout-note}
-## The formula for the logistic regression is as follows: 
+::: callout-note
+## The formula for the logistic regression is as follows:
+
 $$\log\left(\frac{p}{1 - p}\right) = \beta\_0 + \beta\_1 \cdot \text{balance} + \beta\_2 \cdot \text{income} + \beta\_3 \cdot \text{student}$$
 :::
 
-where (p) is the probability of default. The left-hand side is called the *logit*, or log-odds. Notice that the right-hand side looks just like a straight-line regression. 
+where (p) is the probability of default. The left-hand side is called the *logit*, or log-odds. Notice that the right-hand side looks just like a straight-line regression.
 
 In Linear Regression, your line goes on forever in both directions. But in probability, you can't be less than 0% or more than 100%. If you used a straight line to predict defaults, the math might eventually say someone has a -20% chance of defaulting, which is impossible.
 
@@ -327,7 +330,7 @@ Breaking this down using our model:
 
 ### McFadden's Pseudo-R² {#sec-mcfaddens-r-2}
 
-Unlike in linear regression, logistic regression does not have an R²: (for a review on R²: see @sec-linear-reg-model). However, we can use the `pR2()` function from the `pscl` library (@pscl) to calculate a pseudo R² value.
+Unlike in linear regression, logistic regression does not have an R²: (for a review on R²: see @sec-linear-reg-model). However, we can use the `pR2()` function from the `pscl` library (@R-pscl) to calculate a pseudo R² value.
 
 ```{r}
 #| label: McFadden-pseudo-R2
@@ -343,7 +346,7 @@ As of right now, this is a moderately strong model!
 
 ### Variable Importance {#sec-var-importance}
 
-With the `varImp()` function inside the `caret` package (@caret), we can also see which variables are the most important in our regression model.
+With the `varImp()` function inside the `caret` package (@R-caret), we can also see which variables are the most important in our regression model.
 
 ```{r}
 #| label: variable-importance
@@ -358,7 +361,7 @@ varImp(train_model) %>% arrange(desc(Overall))
 
 ### Multicollinearity check {#sec-multicollinearity-check}
 
-Just like in @sec-partial-cor, we want to check to see if there is any interactions between some of our variables that may be impacting our regression model. Using the `vif()` function from the `car` library (@car), we can see the interactions between our variables in our model.
+Just like in @sec-partial-cor, we want to check to see if there is any interactions between some of our variables that may be impacting our regression model. Using the `vif()` function from the `car` library (@R-car), we can see the interactions between our variables in our model.
 
 ```{r}
 #| label: multicollinearity

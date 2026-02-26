@@ -6,8 +6,9 @@ title: "Linear Regression"
 
 In this lesson, we will explore how to use **linear regression** to not only understand, but to also predict relationships between variables.
 
-::: {.callout-note}
+::: callout-note
 ## Everyone loves pizza (cowabunga!) and like many pizza establishments, we will be trying to answer the question:
+
 *Can we predict the amount of pizza sold based on its price?*
 :::
 
@@ -98,7 +99,7 @@ pizza_plot <- ggplot(pizza_sales, aes(x = price, y = volume)) +
 pizza_plot
 ```
 
-If we wanted to use another package instead of ggplot, we could also use the library `ggformula` (@ggformula), whihc has `gf_point()`.
+If we wanted to use another package instead of ggplot, we could also use the library `ggformula` (@-Rggformula), whihc has `gf_point()`.
 
 ```{r}
 #| label: fig-scatter-ggformula
@@ -157,8 +158,9 @@ We have identified that there is a significant negative correlation between the 
 
 With a linear regression model, we are trying to build the line of best fit and figure out the equation for the line.
 
-::: {.callout-note}
+::: callout-note
 ## The formula for a line is:
+
 y = mx + b
 :::
 
@@ -195,14 +197,15 @@ Congratulations! We have just run our first linear regression model! We have som
 -   p-value: There are three p-values here. The first two, on the intercept and price lines, indicate if the relationships are statistically significant, which they are. The bottom one is if the model itself is significant, which it is.
 -   F-statistic: This tells us how strong our model is. 116.6 is a high value.
 
-::: {.callout-note}
+::: callout-note
 ## Putting this all together, our line formula is:
+
 y = -111,669x + 385,442
 :::
 
 All of these insights together mean that this is a very good model to predict volume of pizza sold.
 
-In R, we always want to explore different packages. The `broom` package (@broom) in R is very helpful when making statistical objects into nicer tibbles, usig the `tidy()` function.
+In R, we always want to explore different packages. The `broom` package (@-Rbroom) in R is very helpful when making statistical objects into nicer tibbles, usig the `tidy()` function.
 
 ```{r}
 #| label: tbl-lm-with-broom-tidy
@@ -227,8 +230,9 @@ Our finalized equation is y (-111,669 \* price) + 385,442. All we need to do is 
 
 ## Checking the residuals {#sec-residual-checking}
 
-::: {.callout-tip}
+::: callout-tip
 ## To make sure that our data for the line looks good, it is important to answer the question:
+
 How close are our predicted values to our actual values?
 :::
 
@@ -282,8 +286,9 @@ ggplot(pizza_sales, aes(x = predicted, y = residuals)) +
 
 The red line in the graph above has a slight curve, showing that our model is less accurate at the extremes (low and high prices). Thankfully, this pattern isn’t very pronounced.
 
-::: {.callout-tip}
+::: callout-tip
 ## To accompany the visual, we want to statistically test for heteroscedasticity, meaning:
+
 Are the residuals roughly equal in variance across all predicted values?
 :::
 
@@ -292,7 +297,7 @@ We will either see:
 -   Homoscedasticity: residuals are equally spread (good)
 -   Heteroscedasticity: residuals get wider or narrower as predictions change (bad)
 
-The Breusch-Pagan test provides insights for this. To perform this in R, we will use the `bptest()` function from the `lmtest` package (@lmtest).
+The Breusch-Pagan test provides insights for this. To perform this in R, we will use the `bptest()` function from the `lmtest` package (@-Rlmtest).
 
 ```{r}
 #| label: tbl-bptest-using-lmtest
@@ -490,7 +495,7 @@ Linear regression models involve many analytic choices, including which variable
 
 Before fitting a model, visualize relationships and examine correlations to justify why predictors are included. After fitting the model, report diagnostics—such as residual plots and measures of fit—to demonstrate that assumptions were checked.
 
-::: {.callout-warning}
+::: callout-warning
 ## Remember:
 
 Adding more variables does not always lead to a better model.
