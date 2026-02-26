@@ -608,6 +608,6 @@ When creating a visualization, ask yourself:
 
 To help close the gap between these questions, use informative labels and captions, that will help *guide* users on what they're seeing.
 
-Within `ggplot2`, functions like `labs()` allow you to clearly label axes, titles, and legends so the intent of the plot is immediately clear. When working in R Markdown or bookdown (@R-sec-r-markdown-graphs), figure captions (using `fig-cap`) provide additional context that travels with the figure wherever it appears.
+Within `ggplot2`, functions like `labs()` allow you to clearly label axes, titles, and legends so the intent of the plot is immediately clear. When working in R Markdown or bookdown (@sec-r-markdown-graphs), figure captions (using `fig-cap`) provide additional context that travels with the figure wherever it appears.
 
 Visualizations that are well-labeled and properly captioned are easier to interpret, reuse, and reproduce—both by others and by your future self.
