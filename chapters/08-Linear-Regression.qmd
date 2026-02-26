@@ -64,10 +64,10 @@ library(janitor)
 pizza_sales<- clean_names(pizza_sales)
 
 # We just want to see the relationship between volume and price, so week does not matter
-pizza_sales<- pizza_sales %>% select(-1)
+pizza_sales<- pizza_sales |> select(-1)
 
 # Let's rename our column names to make things easier
-pizza_sales <- pizza_sales %>%
+pizza_sales <- pizza_sales |>
   rename(price = total_price, volume = total_volume)
 ```
 
@@ -109,7 +109,7 @@ If we wanted to use another package instead of ggplot, we could also use the lib
 #| warning: false
 #| 
 library(ggformula)
-pizza_plot_ggformula <- gf_point(volume ~ price, data = pizza_sales) %>% gf_lm(color ="purple")
+pizza_plot_ggformula <- gf_point(volume ~ price, data = pizza_sales) |> gf_lm(color ="purple")
 
 pizza_plot_ggformula
 ```
@@ -243,7 +243,7 @@ We can do this in R with the two commands below.
 
 ```{r}
 #| label: predicting-and-residuals
-pizza_sales <- pizza_sales %>%
+pizza_sales <- pizza_sales |>
   mutate(predicted = predict(pizza_lm),
          residuals = residuals(pizza_lm))
 ```
@@ -338,11 +338,11 @@ Let us create two new variables to add to our data: one where David Portnoy visi
 set.seed(42)
 
 # 1) Dave Portnoy visit.
-pizza_sales <- pizza_sales %>%
+pizza_sales <- pizza_sales |>
   mutate(portnoy_visit = rbinom(n(), size = 1, prob = 0.06))  # about 3–6% of weeks
 
 # 2) Ad spend
-pizza_sales <- pizza_sales %>%
+pizza_sales <- pizza_sales |>
   mutate(ad_spend = round(runif(n(), 800, 6000), 0))
 ```
 
@@ -370,7 +370,7 @@ Now, we can run the summary or glance command on each model individually, compar
 #| warning: false
 # How do we know which model is the best?
 
-AIC(m1, m2, m3, m4) %>% arrange(AIC)
+AIC(m1, m2, m3, m4) |> arrange(AIC)
 # This code provides us with an AIC (Akaike Information Criterion) value.
 # The smaller the AIC, the better the model’s trade-off between complexity and fit.
 ```
@@ -387,7 +387,7 @@ names(models) <- c("m1","m2","m3","m4")
 
 # In the code below, we are saying "Hey, run glance on every single item on the models list and create a data frame
 
-map_df(models, ~glance(.x), .id = "model") %>% select(model, r.squared,adj.r.squared,p.value,AIC)
+map_df(models, ~glance(.x), .id = "model") |> select(model, r.squared,adj.r.squared,p.value,AIC)
 ```
 
 With both of these, we now have:

@@ -108,7 +108,7 @@ cat("Odds of defaulting:", round(odds,4), "\n")
 cat("Equivalent odds ratio (1 in every", round(1/odds,0), ")\n")
 
 # Cross-tab between student status and default
-cc_data %>% count(default, student) %>% arrange(desc(n))
+cc_data |> count(default, student) |> arrange(desc(n))
 ```
 
 ```{r}
@@ -355,7 +355,7 @@ With the `varImp()` function inside the `caret` package (@R-caret), we can also 
 # Variable importance
 library(caret)
 
-varImp(train_model) %>% arrange(desc(Overall))
+varImp(train_model) |> arrange(desc(Overall))
 # balance seems to be the most impactful in our model
 ```
 
@@ -392,7 +392,7 @@ We are going to create two new columns in our test data:
 #| label: predicting
 test_data$pred_prob <- predict(train_model, newdata = test_data, type = "response")
 
-test_data$pred_class <- ifelse(test_data$pred_prob > 0.5, "Yes", "No") %>% as.factor()
+test_data$pred_class <- ifelse(test_data$pred_prob > 0.5, "Yes", "No") |> as.factor()
 ```
 
 In the above code, we used 0.5 as our cutoff for deciding if a person defaulted or not. 0.5 is a good measure since it is at the halfway point, but it is up to you to decide what the marker should be.

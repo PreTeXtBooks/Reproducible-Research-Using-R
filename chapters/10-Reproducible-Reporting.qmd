@@ -171,11 +171,11 @@ Take the code below. This, as well as *all* of the code in the book is written i
 library(tidyverse)
 library(palmerpenguins)
 
-penguins_new <- penguins %>% 
-  select(species, island, bill_length_mm, body_mass_g) %>%
-  filter(species == "Adelie") %>%
-  mutate(size_category = if_else(body_mass_g >= 3500, "Big","Small")) %>%
-  arrange(desc(body_mass_g)) %>% 
+penguins_new <- penguins |> 
+  select(species, island, bill_length_mm, body_mass_g) |>
+  filter(species == "Adelie") |>
+  mutate(size_category = if_else(body_mass_g >= 3500, "Big","Small")) |>
+  arrange(desc(body_mass_g)) |> 
   rename(penguin_types = species) 
 ```
 

@@ -24,13 +24,13 @@ library(tidyverse)
 library(quartets)
 library(knitr)
 
-anscombe_quartet %>%
-  group_by(dataset) %>%
+anscombe_quartet |>
+  group_by(dataset) |>
   summarise(mean_x = mean(x),
             variance_x = var(x),
             mean_y = mean(y),
             variance_y = var(y),
-            correlation = cor(x, y)) %>%
+            correlation = cor(x, y)) |>
   kable(digits = 2,caption = "A breakdown of summary statistics from the four individual datasets Anscombe created.")
 ```
 
@@ -271,7 +271,7 @@ Column charts work best when you have pre-summarized values, and not raw values.
 ```{r}
 #| label: tbl-pre-summarizing-values
 # USING PRE-SUMMARIZED VALUES - geom_col() requires explicit values
-class_counts <- mpg %>%
+class_counts <- mpg |>
   count(class)  # counts rows by class
 
 kable(class_counts, caption = "Pre-summarized values")
@@ -375,7 +375,7 @@ In the below example, the visualization is filtering within the data portion to 
 #| label: fig-grouped-densityplot
 #| fig-cap: "An example of a grouped density plot."
 # GROUPED
-ggplot(diamonds %>% filter(cut %in% c("Good", "Ideal", "Premium")),
+ggplot(diamonds |> filter(cut %in% c("Good", "Ideal", "Premium")),
        aes(price, color = cut)) +
   geom_density() +
   labs(title = "Price Density by Cut", x = "Price", y = "Density") +
@@ -466,7 +466,7 @@ No matter the type of plot, it may help the viewer understand your plot better i
 #| label: fig-basic-textplot
 #| fig-cap: "An example of adding text inside a plot."
 # BASIC: label extreme points
-mpg_extremes <- mpg %>% slice_max(order_by = hwy, n = 5)
+mpg_extremes <- mpg |> slice_max(order_by = hwy, n = 5)
 mpg_extremes
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
@@ -485,8 +485,8 @@ In times where you want error bars to be displayed, you first need to compute th
 #| label: tbl-computing-standard-error
 #| tbl-cap: "Creating a summarized table for mean and standard error, which will be utilized for the error bars."
 # Compute mean & standard error for hwy by class
-summ_hwy <- mpg %>%
-  group_by(class) %>%
+summ_hwy <- mpg |>
+  group_by(class) |>
   summarize(
     mean_hwy = mean(hwy, na.rm = TRUE),
     se_hwy   = sd(hwy, na.rm = TRUE) / sqrt(n()))

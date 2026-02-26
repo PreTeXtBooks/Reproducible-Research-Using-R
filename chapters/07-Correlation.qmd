@@ -195,7 +195,7 @@ cor_table <- data.frame(
   "Strength of relationship" = c("No relationship", "Weak relationship", "Moderate relationship", "Strong relationship"), check.names = FALSE)
 
 kable(cor_table, 
-      booktabs = TRUE) %>%
+      booktabs = TRUE) |>
   kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
 
 ```
@@ -252,7 +252,7 @@ Use = "pairwise.complete.obs" handles any missing values safely
 # Selecting numeric variables only (if dataset contains non-numeric columns)
 library(tidyverse)
 
-examData_numeric <- examData %>% dplyr::select(where(is.numeric))
+examData_numeric <- examData |> dplyr::select(where(is.numeric))
 
 corr_matrix <- cor(examData_numeric, use = "pairwise.complete.obs")
 
@@ -347,12 +347,12 @@ While being a first generation college student may not be a strong correlation, 
 ```{r}
 #| label: tbl-grouping-college
 #| tbl-cap: "Correlation Coefficients for Exam Performance by First-Generation Status."
-examData %>%
-  group_by(first_generation_college_student) %>%
+examData |>
+  group_by(first_generation_college_student) |>
   summarise(
     "Hours & Exam (r)" = cor(studying_hours, exam_score, use = "complete.obs"),
     "Anxiety & Exam (r)" = cor(anxiety_score, exam_score, use = "complete.obs")
-  ) %>%
+  ) |>
   kable(digits = 2)
 ```
 

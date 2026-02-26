@@ -39,6 +39,7 @@ ref_trying <- tribble(
   "base R", "`install.packages()`", "Installs packages from CRAN.", "[Introduction to R](@intro-key-functions)",
   "base R", "`library()`", "Loads an installed package into the current R session.", "[Introduction to R](@intro-key-functions)",
   "base R", "`?function_name`", "Accesses built-in help documentation for a function.", "[Introduction to R](@intro-key-functions)",
+  "base R", "`|>`", "Passes the result of one operation into the next.", "[Introduction to tidyverse](@tidyverse-keyfunctions)",
   "magrittr", "`%>%`", "Passes the result of one operation into the next.", "[Introduction to tidyverse](@tidyverse-keyfunctions)",
   "dplyr", "`select()`", "Chooses specific columns from a dataset.", "[Introduction to tidyverse](@tidyverse-keyfunctions)",
   "dplyr", "`filter()`", "Keeps rows that meet logical conditions.", "[Introduction to tidyverse](@tidyverse-keyfunctions)",
@@ -105,7 +106,7 @@ ref_trying <- tribble(
 
 library(stringr)
 
-ref_trying <- ref_trying %>%
+ref_trying <- ref_trying |>
   mutate(
     chapter_order = case_when(
       str_detect(`First introduced`, "@intro-key-functions") ~ 1,
@@ -120,8 +121,8 @@ ref_trying <- ref_trying %>%
       str_detect(`First introduced`, "@r-markdown-keyfunctions") ~ 10,
       TRUE ~ 999
     )
-  ) %>%
-  arrange(chapter_order, Package, Command) %>%
+  ) |>
+  arrange(chapter_order, Package, Command) |>
   select(-chapter_order)
 ```
 

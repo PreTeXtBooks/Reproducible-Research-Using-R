@@ -182,7 +182,7 @@ Using the `pivot_longer` function from the `tidyverse` package, we can turn our 
 ```{r}
 #| label: tbl-baseball-pivot-longer
 # Lets say we want to turn out data from wide format into long format, so we can run 
-baseball_data_long <- baseball_data %>% pivot_longer(cols = c(Yankees_Score, Mets_Score),
+baseball_data_long <- baseball_data |> pivot_longer(cols = c(Yankees_Score, Mets_Score),
                                                     names_to = "Team",
                                                     values_to = "Score")
 
@@ -198,7 +198,7 @@ Our original baseball_data (and baseball_data_sql) are in wide format already so
 ```{r}
 #| label: tbl-baseball-pivot-wide
 # Lets say we want to turn out data from wide format into long format, so we can run 
-baseball_data_wide <- baseball_data_long %>% pivot_wider(names_from = "Team",
+baseball_data_wide <- baseball_data_long |> pivot_wider(names_from = "Team",
                                                     values_from = "Score")
 nrow(baseball_data_wide)
 

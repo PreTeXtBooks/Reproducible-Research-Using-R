@@ -75,7 +75,7 @@ Using the `count()` function, we can perform essentially the same thing.
 #| label: tbl-infection-counts
 #| tbl-cap: "Total count of Infected vs. Non-Infected participants."
 # Showing there are more people that were not infected vs infected
-infection %>% count(Infection)
+infection |> count(Infection)
 ```
 
 Now, we combine these two variables to see how infection status is distributed across the different treatments. While `table()` works, we will use `xtabs()` for a cleaner, formula-based approach.
@@ -116,11 +116,11 @@ We will call on the help of the `janitor` package (@R-janitor), specifically the
 #| warning: false
 library(janitor)
 
-c_table <- infection %>%
-  tabyl(Treatment, Infection) %>%         # Makes a contingency table
-  adorn_totals("row") %>%                 # Adds totals for each treatment
-  adorn_percentages("row") %>%            # Adds row percentages
-  adorn_pct_formatting(digits = 1) %>%    # Makes it readable (adds % signs)
+c_table <- infection |>
+  tabyl(Treatment, Infection) |>         # Makes a contingency table
+  adorn_totals("row") |>                 # Adds totals for each treatment
+  adorn_percentages("row") |>            # Adds row percentages
+  adorn_pct_formatting(digits = 1) |>    # Makes it readable (adds % signs)
   adorn_ns()                              # Combines counts + percentages
 
 kable(c_table, caption = "Distribution of infection status within each treatment group, reported as row percentages with counts (n).")
@@ -292,7 +292,7 @@ obs_exp_data <- data.frame(
 )
 
 # 2. Pivot the data to a 'long' format for ggplot
-plot_data <- obs_exp_data %>%
+plot_data <- obs_exp_data |>
   pivot_longer(cols = c(Observed, Expected), 
                names_to = "Type", 
                values_to = "Counts")
@@ -434,7 +434,7 @@ cramerV_table <- data.frame(
 
 kable(cramerV_table, 
       booktabs = TRUE, 
-      caption = "Guidelines for interpreting the strength of association using Cramer’s *V*. These ranges provide general heuristics for describing effect size in categorical analyses and should be interpreted in context rather than as strict cutoffs.") %>%
+      caption = "Guidelines for interpreting the strength of association using Cramer’s *V*. These ranges provide general heuristics for describing effect size in categorical analyses and should be interpreted in context rather than as strict cutoffs.") |>
   kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
 ```
 

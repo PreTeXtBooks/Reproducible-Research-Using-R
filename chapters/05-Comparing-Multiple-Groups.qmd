@@ -79,8 +79,8 @@ Now that we have our data, let us do some digging to get some descriptive statis
 #| message: false
 #| warning: false
 # Creating a summarizing table
-memory_summarized <- memory %>%
-  group_by(method) %>%
+memory_summarized <- memory |>
+  group_by(method) |>
   summarize(
     mean_score = mean(score),
     sd_score = sd(score),
@@ -132,9 +132,9 @@ ggplot(memory, aes(x = method, y = score, fill = method)) +
 ```{r}
 #| label: fig-anova-means-plot
 #| fig-cap: "Average memory test scores by study technique. While differences in group means are apparent, statistical significance is assessed using a one-way ANOVA rather than visual inspection alone."
-memory %>%
-  group_by(method) %>%
-  summarize(mean_score = mean(score)) %>%
+memory |>
+  group_by(method) |>
+  summarize(mean_score = mean(score)) |>
   ggplot(aes(x = method, y = mean_score, fill = method)) +
   geom_col() +
   geom_text(aes(label = round(mean_score, 1)), vjust = -0.5) + # adds the means to bars
@@ -250,7 +250,7 @@ To test this out, let's first create the caffeine column using a similar techniq
 #| label: adding-caffeine
 # Let's say we also measured caffeine intake (low vs high)
 set.seed(42)
-memory2 <- memory %>%
+memory2 <- memory |>
   mutate(
     caffeine = rep(c("Low", "High"), times = 30))
 ```
