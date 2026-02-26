@@ -2,7 +2,7 @@
 title: "References"
 ---
 
-# References {.unnumbered}
+# References {#package-reference}
 
 ::: {#refs}
 :::
