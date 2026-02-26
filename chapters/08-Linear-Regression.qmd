@@ -42,7 +42,8 @@ We start by importing the necessary packages, reading in our Excel file, and qui
 library(tidyverse)
 library(readxl)
 
-pizza_sales<- read_xlsx("data/raw/Pizza_Prices.xlsx")
+pizza_sales<- read_xlsx(
+  here("data","raw", "Pizza_Prices.xlsx"))
 
 library(skimr)
 

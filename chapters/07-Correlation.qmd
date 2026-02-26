@@ -35,8 +35,10 @@ We start by importing the necessary packages, reading in our Excel file, and qui
 #| warning: false
 library(readxl)
 library(tidyverse)
+library(here)
 
-examData <- read_xlsx("data/raw/Exam_Data.xlsx")
+examData <- read_xlsx(
+  here("data", "raw", "Exam_Data.xlsx"))
 
 library(skimr)
 

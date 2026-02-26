@@ -36,6 +36,7 @@ Similarly to how we loaded data in @sec-loading-data, we are going to load the `
 
 Instead of using the `summary()` or `str()` functions, we are going to experiment with the `skim()` function from the `skimr` package (@R-skimr) to investigate our data.
 
+(@R-here)
 ```{r}
 #| label: tbl-loading-data
 #| tbl-cap: The skim function from the skimr package provides with important information regarding our data.
@@ -43,8 +44,10 @@ Instead of using the `summary()` or `str()` functions, we are going to experimen
 #| warning: false
 library(data/rawreadxl)
 library(tidyverse)
+library(here)
 
-infection <- read_xlsx("Infection_Treatments.xlsx")
+infection <- read_xlsx(
+  here("data","raw","infection_Treatments.xlsx"))
 
 library(skimr)
 
