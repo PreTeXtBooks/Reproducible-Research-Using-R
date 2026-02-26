@@ -403,7 +403,7 @@ Now, how impactful is this overall? What is the **effect** of treatment overall 
 
 ## CramerV {#sec-cramer-v}
 
-Cramer’s V tells you the strength of the relationship between two categorical variables, similar to correlation coefficient It is important to note that this measures effect size. This is **not** a statistic. We can utilize the `cramerV()` command from the `rcompanion` package (@R-cramerV).
+Cramer’s V tells you the strength of the relationship between two categorical variables, similar to correlation coefficient It is important to note that this measures effect size. This is **not** a statistic. We can utilize the `cramerV()` command from the `rcompanion` package (@R-rcompanion).
 
 ```{r}
 #| label: cramerV
