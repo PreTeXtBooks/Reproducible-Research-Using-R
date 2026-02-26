@@ -76,7 +76,6 @@ ref_trying <- tribble(
   "supernova", "`supernova()`", "Displays ANOVA results in structured tables.", "[Comparing Multiple Means](@anova-keyfunctions)",
   "stats", "`TukeyHSD()`", "Performs post-hoc pairwise comparisons.", "[Comparing Multiple Means](@anova-keyfunctions)",
   "base R", "`plot()`", "Visualizes post-hoc comparison results.", "[Comparing Multiple Means](@anova-keyfunctions)",
-  "AICcmodavg", "`aictab()`", "Compares models using AIC.", "[Comparing Multiple Means](@anova-keyfunctions)",
   "base R", "`xtabs()`", "Constructs contingency tables using a formula interface.", "[Analyzing Categorical Data](@cat-analysis-keyfunctions)",
   "janitor", "`tabyl()`", "Creates clean contingency tables.", "[Analyzing Categorical Data](@cat-analysis-keyfunctions)",
   "janitor", "`adorn_percentages()`", "Converts counts to percentages.", "[Analyzing Categorical Data](@cat-analysis-keyfunctions)",

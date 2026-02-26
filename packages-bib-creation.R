@@ -10,7 +10,6 @@ pkgs <- c(
   "ggplot2",
   "mosaic",
   "supernova",
-  "AICcmodavg",
   "readxl",
   "skimr",
   "janitor",
