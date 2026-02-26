@@ -1,10 +1,8 @@
 ---
-title: "Package References"
+title: "Functions References"
 ---
 
-# Packages & Functions Reference {@sec-packages-functions-reference}
-
-## Functions Reference
+# Functions Reference {@sec-packages-functions-reference}
 
 This table consolidates the packages and commands used throughout the book, what each command does, and where it is first introduced.
 
@@ -102,55 +100,32 @@ ref_trying <- tribble(
   "pROC", "`auc()`", "Computes area under the ROC curve (AUC).", "[Logistic Regression](@log-reg-keyfunctions)",
   "knitr", "`knitr::opts_chunk$set()`", "Sets global chunk options in R Markdown.", "[Reproducible Reporting](@r-markdown-keyfunctions)",
   "knitr", "`kable()`", "Creates formatted tables for reports.", "[Reproducible Reporting](@r-markdown-keyfunctions)",
-  "nycOpenData", "`nyc_311()`", "Downloads NYC 311 Service Request data from NYC Open Data.", "[Reproducible Reporting](@loading-packages)"
+  "nycOpenData", "`nyc_311()`", "Downloads NYC 311 Service Request data from NYC Open Data.", "[Introduction To tidyverse](@sec-loading-packages)"
 )
+
+library(stringr)
+
+ref_trying <- ref_trying %>%
+  mutate(
+    chapter_order = case_when(
+      str_detect(`First introduced`, "@intro-key-functions") ~ 1,
+      str_detect(`First introduced`, "@tidyverse-keyfunctions|@sec-loading-packages") ~ 2,
+      str_detect(`First introduced`, "@sec-ggplot") ~ 3,
+      str_detect(`First introduced`, "@means-keyfunctions") ~ 4,
+      str_detect(`First introduced`, "@anova-keyfunctions") ~ 5,
+      str_detect(`First introduced`, "@cat-analysis-keyfunctions") ~ 6,
+      str_detect(`First introduced`, "@cor-keyfunctions") ~ 7,
+      str_detect(`First introduced`, "@linear-reg-keyfunctions") ~ 8,
+      str_detect(`First introduced`, "@log-reg-keyfunctions") ~ 9,
+      str_detect(`First introduced`, "@r-markdown-keyfunctions") ~ 10,
+      TRUE ~ 999
+    )
+  ) %>%
+  arrange(chapter_order, Package, Command) %>%
+  select(-chapter_order)
 ```
 
 ```{r}
 #| echo: false
 kable(ref_trying)
-```
-
-## Package Citations
-
-```{r}
-#| echo: false
-citation("base")
-citation("tidyverse")
-citation("palmerpenguins")
-citation("fortunes")
-citation("cowsay")
-citation("nycOpenData")
-citation("quartets")
-citation("knitr")
-citation("ggplot2")
-citation("mosaic")
-citation("supernova")
-citation("AICcmodavg")
-citation("readxl")
-citation("skimr")
-citation("janitor")
-citation("ggthemes")
-citation("patchwork")
-citation("webshot2")
-citation("plotly")
-citation("gmodels")
-citation("pheatmap")
-citation("rcompanion")
-citation("kableExtra")
-citation("GGally")
-citation("ppcor")
-citation("ggformula")
-citation("lmtest")
-citation("caTools")
-citation("ISLR2")
-citation("pscl")
-citation("caret")
-citation("car")
-citation("pROC")
-citation("broom")
-citation("stats")
-citation("magrittr")
-citation("tibble")
-citation("dplyr")
 ```
