@@ -47,7 +47,7 @@ library(tidyverse)
 library(here)
 
 infection <- read_xlsx(
-  here("data","raw","infection_Treatments.xlsx"))
+  here("data","raw","Infection_Treatments.xlsx"))
 
 library(skimr)
 
