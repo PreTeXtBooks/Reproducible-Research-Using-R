@@ -37,7 +37,16 @@ First, it's important to understand RStudio and its layout.
 
 Currently we are using RStudio to run R.
 
-![Image of RStudio.](r-studio-image.png)
+```{r}
+#| label: fig--studio-image
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "A picture of the RStudio quadrants"
+#| fig-alt: "A picture of the RStudio quadrants"
+library(here)
+knitr::include_graphics(here("images", "r-studio-image.png"))
+```
 
 Here, there are 4 quadrants/panes
 

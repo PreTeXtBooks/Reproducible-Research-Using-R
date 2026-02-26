@@ -257,7 +257,17 @@ Changes which rows exist.
 
 Let's say that we want to filter for only the penguin species Adelie. If you do not know what they look like, here is a picture:
 
-![A picture of a Adelie penguin.](images/Adelie-Screenshot.png)
+```{r}
+#| label: fig-penguin-image
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "An image of an Adelie penguin."
+#| fig-alt: "An image of an Adelie penguin."
+library(knitr)
+library(here)
+knitr::include_graphics(here("images", "Adelie-Screenshot"))
+```
 
 We will filter for only rows that have the word Adelie inside the species column.
 

@@ -152,7 +152,18 @@ We previously used the `merge` command, however, R also allows for SQL code! Her
 -   anti_join: Keeps rows from the left dataset that do NOT appear in the right
 -   What's missing
 
-![A simple visual of the four main SQL joins](images/sql.png){#fig-sql}
+```{r}
+#| label: fig-sql-image
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "An image of the different sql joins and their outcomes."
+#| fig-alt: "An image of the different sql joins and their outcomes."
+library(knitr)
+library(here)
+knitr::include_graphics(here("images", "sql"))
+```
+
 
 In this case, we are going to use `inner_join`, since we know that both of our datasets have the same 20 games.
 
