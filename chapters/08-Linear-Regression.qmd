@@ -41,6 +41,7 @@ We start by importing the necessary packages, reading in our Excel file, and qui
 #| warning: false
 library(tidyverse)
 library(readxl)
+library(here)
 
 pizza_sales<- read_xlsx(
   here("data","raw", "Pizza_Prices.xlsx"))
