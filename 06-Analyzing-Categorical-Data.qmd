@@ -80,6 +80,9 @@ Now, we combine these two variables to see how infection status is distributed a
 ```{r}
 #| label: tbl-contingency-main
 #| tbl-cap: "Contingency Table: Infection Status by Treatment Group."
+
+library(knitr)
+
 # Create the table using the xtabs command
 contingency_table <- xtabs(~Treatment + Infection, data = infection)
 

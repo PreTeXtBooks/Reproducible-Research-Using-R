@@ -182,6 +182,8 @@ We can use the following general guidelines for interpreting correlation strengt
 #| echo: false
 #| message: false
 #| warning: false
+
+library(kable)
 library(kableExtra)
 
 cor_table <- data.frame(
