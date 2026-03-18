@@ -161,7 +161,7 @@ We previously used the `merge` command, however, R also allows for SQL code! Her
 #| fig-alt: "An image of the different sql joins and their outcomes."
 library(knitr)
 library(here)
-knitr::include_graphics(here("images", "sql"))
+knitr::include_graphics(here("images", "sql.png"))
 ```
 
 
