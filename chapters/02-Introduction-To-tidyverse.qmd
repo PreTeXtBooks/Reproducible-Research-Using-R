@@ -266,7 +266,7 @@ Let's say that we want to filter for only the penguin species Adelie. If you do 
 #| fig-alt: "An image of an Adelie penguin."
 library(knitr)
 library(here)
-knitr::include_graphics(here("images", "Adelie-Screenshot"))
+knitr::include_graphics(here("images", "Adelie-Screenshot.png"))
 ```
 
 We will filter for only rows that have the word Adelie inside the species column.
@@ -643,7 +643,7 @@ Whenever possible, keep related data-cleaning steps together in a single pipelin
 
 For example, consider the following code, which selects variables and filters rows using two separate commands:
 
-```{text tip-help}
+```{text}
 penguins_select <- penguins |> 
   select(species, island, bill_length_mm, body_mass_g)
 
@@ -653,7 +653,7 @@ penguins_new <- penguins_select |>
 
 This creates the intermediate `penguins_select`, which is used to create `penguins_new`. In this case, the same transformation can be expressed more clearly by chaining the steps together:
 
-```{text tip-final}
+```{text}
 penguins_new <- penguins |>
   select(species, island, bill_length_mm, body_mass_g) |>
   filter(species == "Adelie")
