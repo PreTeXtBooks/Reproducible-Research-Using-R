@@ -31,7 +31,10 @@ number-sections: true
 
 format:
   html:
-    theme: cosmo
+     theme:
+      - simplex
+      - brand
+    css: styles.css
     code-copy: true
     code-summary: "Show the code" # Optional: tucks code away nicely
   epub:

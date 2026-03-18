@@ -44,6 +44,7 @@ Currently we are using RStudio to run R.
 #| warning: false
 #| fig-cap: "A picture of the RStudio quadrants"
 #| fig-alt: "A picture of the RStudio quadrants"
+library(knitr)
 library(here)
 knitr::include_graphics(here("images", "r-studio-image.png"))
 ```
