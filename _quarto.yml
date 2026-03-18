@@ -24,18 +24,17 @@ book:
     - chapters/13-Package-References.qmd
     - chapters/14-References.qmd
 
-
 bibliography: bibliography/packages.bib
 link-citations: true
 number-sections: true
 
 format:
   html:
-     theme:
+    theme:
       - simplex
       - brand
     code-copy: true
-    code-summary: "Show the code" # Optional: tucks code away nicely
+    code-summary: "Show the code"
   epub:
     toc: true
     number-sections: true
