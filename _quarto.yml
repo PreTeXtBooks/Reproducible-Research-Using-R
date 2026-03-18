@@ -35,7 +35,6 @@ format:
       - brand
     code-copy: true
     code-summary: "Show the code"
-  epub:
     toc: true
     number-sections: true
 
