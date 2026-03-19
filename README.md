@@ -12,6 +12,12 @@ This project was recently migrated from **R Markdown** to **Quarto**. This move 
 
 The book covers a full curriculum of data science and statistics: - **Foundations:** Introduction to R and the `tidyverse`. - **Analysis:** Visualizations, Comparing Groups (T-tests/ANOVA), and Categorical Analysis. - **Modeling:** Linear and Logistic Regression. - **Reporting:** Advanced reproducible reporting workflows.
 
+## License
+
+This work is licensed under a Creative Commons Attribution 4.0 International License.
+
+https://creativecommons.org/licenses/by/4.0/
+
 ## 🛠 How to Render Locally
 
 To build this book on your own machine:

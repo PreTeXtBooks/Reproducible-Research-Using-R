@@ -110,3 +110,16 @@ The Gallery reflects what is possible when reproducibility, open data, and struc
 This book would not exist without the curiosity, questions, and persistence of students at Brooklyn College. Their willingness to wrestle with messy data and imperfect code shaped both the content and the tone of this text.
 
 Additional thanks go to the Open Educational Resources team at Brooklyn College and to the broader R community, whose commitment to open tools and shared knowledge makes projects like this possible.
+
+## License
+
+This work is licensed under a Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+You are free to:
+- Share — copy and redistribute the material
+- Adapt — remix, transform, and build upon the material
+
+Under the following terms:
+- Attribution — You must give appropriate credit.
+
+Full license: https://creativecommons.org/licenses/by/4.0/
