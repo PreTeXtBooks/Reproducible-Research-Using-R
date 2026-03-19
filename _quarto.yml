@@ -31,7 +31,7 @@ number-sections: true
 format:
   html:
     theme:
-      - simplex
+      - flatly
       - brand
     code-copy: true
     code-summary: "Show the code"
