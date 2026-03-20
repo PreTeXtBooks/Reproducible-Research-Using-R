@@ -125,3 +125,17 @@ Under the following terms:
 -   Attribution — You must give appropriate credit.
 
 [Full license](https://creativecommons.org/licenses/by/4.0/)
+
+## How to Cite
+
+If you use this textbook in your teaching, research, or projects, please cite it as:
+
+Martinez, C. (2026). *Reproducible Research Using R* (Version 1.0.0). Zenodo. https://doi.org/10.5281/zenodo.19136755
+
+### Version History
+
+#### v1.0.0 (2026)
+
+- Initial public release
+- Full textbook curriculum covering data analysis, visualization, and modeling in R
+- Used in Fall 2025 coursework at Brooklyn College (CUNY)
