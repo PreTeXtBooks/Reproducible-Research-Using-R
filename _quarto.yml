@@ -31,7 +31,7 @@ number-sections: true
 format:
   html:
     theme:
-      - minty
+      - cosmo
       - brand
     code-copy: true
     code-summary: "Show the code"
