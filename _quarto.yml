@@ -37,8 +37,6 @@ format:
     code-summary: "Show the code"
     toc: true
     number-sections: true
-    footer: |
-      © 2026 Christian Martinez. Licensed under CC BY 4.0.
 
 execute:
   freeze: auto

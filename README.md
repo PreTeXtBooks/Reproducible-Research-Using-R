@@ -1,6 +1,6 @@
 # Reproducible Research Using R
 
-![Quarto](https://img.shields.io/badge/Built%20with-Quarto-75AADB?logo=quarto) ![R](https://img.shields.io/badge/Language-R-276DC3?logo=r) [![Live Book](https://img.shields.io/badge/Live-Textbook-green?style=for-the-badge&logo=bookstack)](https://martinezc1-reproducible-research-using-r.share.connect.posit.cloud/)
+![Quarto](https://img.shields.io/badge/Built%20with-Quarto-75AADB?logo=quarto) ![R](https://img.shields.io/badge/Language-R-276DC3?logo=r) [![Live Book](https://img.shields.io/badge/Live-Textbook-green?style=for-the-badge&logo=bookstack)](https://martinezc1-reproducible-research-using-r.share.connect.posit.cloud/) [![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
 Welcome! This repository contains the source material for the open-source textbook **"Reproducible Research Using R"**. This project serves as a comprehensive guide to performing statistical analysis and creating transparent, reproducible reports.
 
@@ -13,8 +13,6 @@ This project was recently migrated from **R Markdown** to **Quarto**. This move 
 The book covers a full curriculum of data science and statistics: - **Foundations:** Introduction to R and the `tidyverse`. - **Analysis:** Visualizations, Comparing Groups (T-tests/ANOVA), and Categorical Analysis. - **Modeling:** Linear and Logistic Regression. - **Reporting:** Advanced reproducible reporting workflows.
 
 ## License
-
-[![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
 This work is licensed under a Creative Commons Attribution 4.0 International License.
 
