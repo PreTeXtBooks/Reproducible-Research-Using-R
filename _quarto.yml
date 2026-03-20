@@ -31,7 +31,7 @@ number-sections: true
 format:
   html:
     theme:
-      - flatly
+      - yeti
       - brand
     code-copy: true
     code-summary: "Show the code"
