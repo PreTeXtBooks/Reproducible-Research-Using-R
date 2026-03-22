@@ -9,7 +9,7 @@ url: "https://github.com/martinezc1/Reproducible-Research-Using-R"
 
 preferred-citation:
   type: book
-  title: "Teaching Reproducible Research Using R"
+  title: "Reproducible Research Using R"
   authors:
     - family-names: "Martinez"
       given-names: "Christian"
