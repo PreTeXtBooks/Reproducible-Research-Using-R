@@ -1,4 +1,4 @@
-# Reproducible Research Using R
+# Teaching Reproducible Research Using R
 
 ![Quarto](https://img.shields.io/badge/Built%20with-Quarto-75AADB?logo=quarto) ![R](https://img.shields.io/badge/Language-R-276DC3?logo=r) [![Live Book](https://img.shields.io/badge/Live-Textbook-green?style=for-the-badge&logo=bookstack)](https://martinezc1-reproducible-research-using-r.share.connect.posit.cloud/) [![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19136755.svg)](https://doi.org/10.5281/zenodo.19136755)
 

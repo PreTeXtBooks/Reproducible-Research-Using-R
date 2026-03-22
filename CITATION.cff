@@ -1,17 +1,20 @@
 cff-version: 1.2.0
-message: If you use this textbook, please cite it as follows.
-title: Reproducible Research Using R
-type: book
+message: "If you use this repository, please cite the book below."
+title: "Reproducible-Research-Using-R"
 authors:
-- family-names: Martinez
-  given-names: Christian
-  orcid: https://orcid.org/0009-0005-6026-6454
-license: CC-BY-4.0
-version: 1.0.0
-date-released: '2026-02-01'
-doi: 10.5281/zenodo.19136755
-url: https://github.com/martinezc1/Reproducible-Research-Using-R
-repository-code: https://github.com/martinezc1/Reproducible-Research-Using-R
-abstract: An open educational resource designed to teach students, researchers, and
-  practitioners how to conduct transparent and reproducible research in R, from data
-  import and visualization to statistical analysis and reporting.
+  - family-names: "Martinez"
+    given-names: "Christian"
+    orcid: "https://orcid.org/0009-0005-6026-6454"
+url: "https://github.com/martinezc1/Reproducible-Research-Using-R"
+
+preferred-citation:
+  type: book
+  title: "Teaching Reproducible Research Using R"
+  authors:
+    - family-names: "Martinez"
+      given-names: "Christian"
+      orcid: "https://orcid.org/0009-0005-6026-6454"
+  year: 2026
+  date-released: 2026-02-01
+  doi: "10.5281/zenodo.19136755"
+  url: "https://martinezc1-reproducible-research-using-r.share.connect.posit.cloud/"
