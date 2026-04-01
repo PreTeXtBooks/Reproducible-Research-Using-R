@@ -32,7 +32,7 @@ By the end of this chapter, you will be able to:
 
 ## Loading Our Data {#sec-linear-reg-data}
 
-We start by importing the necessary packages, reading in our Excel file, and quickly doing an overview of the data.
+We start by importing the necessary packages, reading in our data from the `reproresearchR` package (@R-reproresearchR), and quickly doing an overview of the data.
 
 ```{r}
 #| label: tbl-loading-data
@@ -40,11 +40,9 @@ We start by importing the necessary packages, reading in our Excel file, and qui
 #| message: false
 #| warning: false
 library(tidyverse)
-library(readxl)
-library(here)
+library(reproresearchR)
 
-pizza_sales<- read_xlsx(
-  here("data","raw", "Pizza_Prices.xlsx"))
+pizza_sales<- pizza_prices
 
 library(skimr)
 

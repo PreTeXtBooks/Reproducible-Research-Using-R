@@ -32,7 +32,7 @@ By the end of this chapter, you will be able to:
 
 ## Loading Our Data {#sec-cat-analysis-data}
 
-Similarly to how we loaded data in @sec-loading-data, we are going to load the `Infection Treatments.xlsx` dataset into R using the `readxl` package (@R-readxl) and the `read_xlsx()` function inside of it.
+This chapter uses the `infection_treatment` dataset from the companion R `reproresearchR` package (@R-reproresearchR). Refer back to @sec-reproresearchR-package to find out more about the `reproresearchR` package if needed.
 
 Instead of using the `summary()` or `str()` functions, we are going to experiment with the `skim()` function from the `skimr` package (@R-skimr) to investigate our data.
 
@@ -42,12 +42,10 @@ Instead of using the `summary()` or `str()` functions, we are going to experimen
 #| tbl-cap: The skim function from the skimr package provides with important information regarding our data.
 #| message: false
 #| warning: false
-library(readxl)
 library(tidyverse)
-library(here)
+library(reproresearchR)
 
-infection <- read_xlsx(
-  here("data","raw","Infection_Treatments.xlsx"))
+infection <- repropsydata::infection_treatment
 
 library(skimr)
 

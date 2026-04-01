@@ -26,19 +26,17 @@ By the end of this chapter, you will be able to:
 
 ## Loading Our Data {#sec-loading-data}
 
-We start by importing the necessary packages, reading in our Excel file, and quickly doing an overview of the data. For a quick review on loading data into R, refer back to @sec-intro-reading-data.
+We start by importing the necessary packages, loading our data from the `reproresearchR` package (@R-reproresearchR), and quickly doing an overview of the data. For a quick review on loading data into R, refer back to @sec-intro-reading-data.
 
 ```{r}
 #| label: tbl-loading-data
 #| tbl-cap: "The skim function provides us with value information for a first look at our data."
 #| message: false
 #| warning: false
-library(readxl)
 library(tidyverse)
-library(here)
+library(reproresearchR)
 
-examData <- read_xlsx(
-  here("data", "raw", "Exam_Data.xlsx"))
+examData <- exam_data
 
 library(skimr)
 

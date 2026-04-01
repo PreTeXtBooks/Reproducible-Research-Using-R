@@ -82,9 +82,9 @@ All code in this book is meant to be **run**, **modified**, and occasionally **b
 That's why they put erasers on pencils
 :::
 
-### The reproresearchR Package
+### The reproresearchR Package {#sec-reproresearchR-package}
 
-The datasets used throughout this book are provided in the companion R package `reproresearchR`, allowing readers to load data directly into R without manually downloading files. This ensures that all examples run the same way for everyone. All figures, tables, and analyses in this book are generated directly from code—never copied and pasted from external software—so that every result is fully reproducible.
+The datasets used throughout this book are provided in the companion R package `reproresearchR`, allowing readers to load data directly into R without manually downloading files. This ensures that all examples run the same way for everyone. All figures, tables, and analyses in this book are generated directly from code—never copied and pasted from external software—so that every result is fully reproducible. Chapters @sec-intro-cat-analysis, @sec-intro-cor, and @sec-linear-reg all use data from the pakage.
 
 The `reproresearchR` package also includes two versions of each chapter’s R script:
 
@@ -92,6 +92,15 @@ The `reproresearchR` package also includes two versions of each chapter’s R sc
 -   Helper Script: a partially completed script with key sections removed, allowing you to work along with the textbook by filling in the missing code.
 
 Once R and the `reproresearchR` package are installed (with RStudio recommended), readers have everything they need to follow along and successfully complete the analyses in this textbook.
+
+### R and RStudio
+
+If it isn't already evident, this textbook is about the programming language R. If you want to work with R on your computer, it is suggested that you have both:
+
+1.  [R](https://www.r-project.org/)
+2.  [RStudio](https://posit.co/downloads/)
+
+If you are not able to download both on your computer but still want to learn/use R, you can use the online version [here](https://posit.cloud/content/yours?sort=name_asc).
 
 ## The NYC Open Data Student Gallery {#sec-nyc-gallery}
 
@@ -136,6 +145,6 @@ Martinez, C. (2026). *Reproducible Research Using R* (Version 1.0.0). Zenodo. ht
 
 #### v1.0.0 (2026)
 
-- Initial public release
-- Full textbook curriculum covering data analysis, visualization, and modeling in R
-- Used in Fall 2025 coursework at Brooklyn College (CUNY)
+-   Initial public release
+-   Full textbook curriculum covering data analysis, visualization, and modeling in R
+-   Used in Fall 2025 coursework at Brooklyn College (CUNY)

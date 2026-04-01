@@ -3,7 +3,7 @@ pkgs <- c(
   "knitr","ggplot2","mosaic","supernova","readxl","skimr","janitor",
   "ggthemes","patchwork","webshot2","plotly","gmodels","pheatmap","rcompanion",
   "kableExtra","GGally","ppcor","ggformula","lmtest","caTools","ISLR2",
-  "pscl","caret","car","pROC","broom","stats","magrittr","tibble","dplyr","AICcmodavg","rcompanion","here"
+  "pscl","caret","car","pROC","broom","stats","magrittr","tibble","dplyr","AICcmodavg","rcompanion","here", "reproresearchR"
 )
 
 # This writes a valid BibTeX file with proper keys
