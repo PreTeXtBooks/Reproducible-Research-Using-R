@@ -45,7 +45,7 @@ Instead of using the `summary()` or `str()` functions, we are going to experimen
 library(tidyverse)
 library(reproresearchR)
 
-infection <- repropsydata::infection_treatment
+infection <- reproresearchR::infection_treatment
 
 library(skimr)
 

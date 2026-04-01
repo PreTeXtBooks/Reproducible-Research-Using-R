@@ -1663,7 +1663,7 @@
       "description": {
         "Package": "cpp11",
         "Title": "A C++11 Interface for R's C Interface",
-        "Version": "0.5.2",
+        "Version": "0.5.3",
         "Authors@R": "\n    c(\n      person(\"Davis\", \"Vaughan\", email = \"davis@posit.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0003-4777-038X\")),\n      person(\"Jim\",\"Hester\", role = \"aut\", comment = c(ORCID = \"0000-0002-2739-7082\")),\n      person(\"Romain\", \"François\", role = \"aut\", comment = c(ORCID = \"0000-0002-2444-4226\")),\n      person(\"Benjamin\", \"Kietzman\", role = \"ctb\"),\n      person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
         "Description": "Provides a header only, C++11 interface to R's C\n    interface.  Compared to other approaches 'cpp11' strives to be safe\n    against long jumps from the C API as well as C++ exceptions, conform\n    to normal R function semantics and supports interaction with 'ALTREP'\n    vectors.",
         "License": "MIT + file LICENSE",
@@ -1678,12 +1678,12 @@
         "Encoding": "UTF-8",
         "RoxygenNote": "7.3.2",
         "NeedsCompilation": "no",
-        "Packaged": "2025-03-03 22:24:28 UTC; davis",
-        "Author": "Davis Vaughan [aut, cre] (<https://orcid.org/0000-0003-4777-038X>),\n  Jim Hester [aut] (<https://orcid.org/0000-0002-2739-7082>),\n  Romain François [aut] (<https://orcid.org/0000-0002-2444-4226>),\n  Benjamin Kietzman [ctb],\n  Posit Software, PBC [cph, fnd]",
+        "Packaged": "2026-01-20 13:50:54 UTC; davis",
+        "Author": "Davis Vaughan [aut, cre] (ORCID:\n    <https://orcid.org/0000-0003-4777-038X>),\n  Jim Hester [aut] (ORCID: <https://orcid.org/0000-0002-2739-7082>),\n  Romain François [aut] (ORCID: <https://orcid.org/0000-0002-2444-4226>),\n  Benjamin Kietzman [ctb],\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Davis Vaughan <davis@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2025-03-03 23:20:02 UTC",
-        "Built": "R 4.5.0; ; 2025-03-31 21:45:30 UTC; unix"
+        "Date/Publication": "2026-01-20 15:20:02 UTC",
+        "Built": "R 4.5.2; ; 2026-01-20 19:50:22 UTC; unix"
       }
     },
     "crayon": {
@@ -1930,28 +1930,29 @@
         "Type": "Package",
         "Package": "dplyr",
         "Title": "A Grammar of Data Manipulation",
-        "Version": "1.1.4",
+        "Version": "1.2.0",
         "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Romain\", \"François\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-2444-4226\")),\n    person(\"Lionel\", \"Henry\", role = \"aut\"),\n    person(\"Kirill\", \"Müller\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-1416-3412\")),\n    person(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0003-4777-038X\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "A fast, consistent tool for working with data frame like\n    objects, both in memory and out of memory.",
         "License": "MIT + file LICENSE",
         "URL": "https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr",
         "BugReports": "https://github.com/tidyverse/dplyr/issues",
-        "Depends": "R (>= 3.5.0)",
-        "Imports": "cli (>= 3.4.0), generics, glue (>= 1.3.2), lifecycle (>=\n1.0.3), magrittr (>= 1.5), methods, pillar (>= 1.9.0), R6,\nrlang (>= 1.1.0), tibble (>= 3.2.0), tidyselect (>= 1.2.0),\nutils, vctrs (>= 0.6.4)",
-        "Suggests": "bench, broom, callr, covr, DBI, dbplyr (>= 2.2.1), ggplot2,\nknitr, Lahman, lobstr, microbenchmark, nycflights13, purrr,\nrmarkdown, RMySQL, RPostgreSQL, RSQLite, stringi (>= 1.7.6),\ntestthat (>= 3.1.5), tidyr (>= 1.3.0), withr",
+        "Depends": "R (>= 4.1.0)",
+        "Imports": "cli (>= 3.6.2), generics, glue (>= 1.3.2), lifecycle (>=\n1.0.5), magrittr (>= 1.5), methods, pillar (>= 1.9.0), R6,\nrlang (>= 1.1.7), tibble (>= 3.2.0), tidyselect (>= 1.2.0),\nutils, vctrs (>= 0.7.1)",
+        "Suggests": "broom, covr, DBI, dbplyr (>= 2.2.1), ggplot2, knitr, Lahman,\nlobstr, nycflights13, purrr, rmarkdown, RSQLite, stringi (>=\n1.7.6), testthat (>= 3.1.5), tidyr (>= 1.3.0), withr",
         "VignetteBuilder": "knitr",
-        "Config/Needs/website": "tidyverse, shiny, pkgdown, tidyverse/tidytemplate",
+        "Config/build/compilation-database": "true",
+        "Config/Needs/website": "tidyverse/tidytemplate",
         "Config/testthat/edition": "3",
         "Encoding": "UTF-8",
         "LazyData": "true",
-        "RoxygenNote": "7.2.3",
+        "RoxygenNote": "7.3.3",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-11-16 21:48:56 UTC; hadleywickham",
-        "Author": "Hadley Wickham [aut, cre] (<https://orcid.org/0000-0003-4757-117X>),\n  Romain François [aut] (<https://orcid.org/0000-0002-2444-4226>),\n  Lionel Henry [aut],\n  Kirill Müller [aut] (<https://orcid.org/0000-0002-1416-3412>),\n  Davis Vaughan [aut] (<https://orcid.org/0000-0003-4777-038X>),\n  Posit Software, PBC [cph, fnd]",
+        "Packaged": "2026-01-30 23:05:30 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre] (ORCID:\n    <https://orcid.org/0000-0003-4757-117X>),\n  Romain François [aut] (ORCID: <https://orcid.org/0000-0002-2444-4226>),\n  Lionel Henry [aut],\n  Kirill Müller [aut] (ORCID: <https://orcid.org/0000-0002-1416-3412>),\n  Davis Vaughan [aut] (ORCID: <https://orcid.org/0000-0003-4777-038X>),\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2023-11-17 16:50:02 UTC",
-        "Built": "R 4.5.0; aarch64-apple-darwin20; 2025-04-01 23:28:06 UTC; unix",
+        "Date/Publication": "2026-02-03 08:50:47 UTC",
+        "Built": "R 4.5.2; aarch64-apple-darwin20; 2026-02-03 12:35:08 UTC; unix",
         "Archs": "dplyr.so.dSYM"
       }
     },
@@ -3035,7 +3036,7 @@
         "Type": "Package",
         "Package": "htmltools",
         "Title": "Tools for HTML",
-        "Version": "0.5.8.1",
+        "Version": "0.5.9",
         "Authors@R": "c(\n    person(\"Joe\", \"Cheng\", , \"joe@posit.co\", role = \"aut\"),\n    person(\"Carson\", \"Sievert\", , \"carson@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-4958-2844\")),\n    person(\"Barret\", \"Schloerke\", , \"barret@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0001-9986-114X\")),\n    person(\"Winston\", \"Chang\", , \"winston@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-1576-2126\")),\n    person(\"Yihui\", \"Xie\", , \"yihui@posit.co\", role = \"aut\"),\n    person(\"Jeff\", \"Allen\", role = \"aut\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "Tools for HTML generation and output.",
         "License": "GPL (>= 2)",
@@ -3048,16 +3049,21 @@
         "Config/Needs/check": "knitr",
         "Config/Needs/website": "rstudio/quillt, bench",
         "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.1",
+        "RoxygenNote": "7.3.3",
         "Collate": "'colors.R' 'fill.R' 'html_dependency.R' 'html_escape.R'\n'html_print.R' 'htmltools-package.R' 'images.R' 'known_tags.R'\n'selector.R' 'staticimports.R' 'tag_query.R' 'utils.R' 'tags.R'\n'template.R'",
         "NeedsCompilation": "yes",
-        "Packaged": "2024-04-02 14:26:15 UTC; cpsievert",
-        "Author": "Joe Cheng [aut],\n  Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>),\n  Barret Schloerke [aut] (<https://orcid.org/0000-0001-9986-114X>),\n  Winston Chang [aut] (<https://orcid.org/0000-0002-1576-2126>),\n  Yihui Xie [aut],\n  Jeff Allen [aut],\n  Posit Software, PBC [cph, fnd]",
+        "Packaged": "2025-12-02 23:32:55 UTC; cpsievert",
+        "Author": "Joe Cheng [aut],\n  Carson Sievert [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-4958-2844>),\n  Barret Schloerke [aut] (ORCID: <https://orcid.org/0000-0001-9986-114X>),\n  Winston Chang [aut] (ORCID: <https://orcid.org/0000-0002-1576-2126>),\n  Yihui Xie [aut],\n  Jeff Allen [aut],\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Carson Sievert <carson@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2024-04-04 05:03:00 UTC",
-        "Built": "R 4.5.0; aarch64-apple-darwin20; 2025-04-01 06:32:11 UTC; unix",
-        "Archs": "htmltools.so.dSYM"
+        "Date/Publication": "2025-12-04 11:50:09 UTC",
+        "Built": "R 4.5.2; aarch64-apple-darwin20; 2025-12-04 12:12:04 UTC; unix",
+        "Archs": "htmltools.so.dSYM",
+        "RemoteType": "standard",
+        "RemotePkgRef": "htmltools",
+        "RemoteRef": "htmltools",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "0.5.9"
       }
     },
     "htmlwidgets": {
@@ -3762,15 +3768,15 @@
         "Type": "Package",
         "Package": "lubridate",
         "Title": "Make Dealing with Dates a Little Easier",
-        "Version": "1.9.4",
+        "Version": "1.9.5",
         "Authors@R": "c(\n    person(\"Vitalie\", \"Spinu\", , \"spinuvit@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Garrett\", \"Grolemund\", role = \"aut\"),\n    person(\"Hadley\", \"Wickham\", role = \"aut\"),\n    person(\"Davis\", \"Vaughan\", role = \"ctb\"),\n    person(\"Ian\", \"Lyttle\", role = \"ctb\"),\n    person(\"Imanuel\", \"Costigan\", role = \"ctb\"),\n    person(\"Jason\", \"Law\", role = \"ctb\"),\n    person(\"Doug\", \"Mitarotonda\", role = \"ctb\"),\n    person(\"Joseph\", \"Larmarange\", role = \"ctb\"),\n    person(\"Jonathan\", \"Boiser\", role = \"ctb\"),\n    person(\"Chel Hee\", \"Lee\", role = \"ctb\")\n  )",
         "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
         "Description": "Functions to work with date-times and time-spans: fast and\n    user friendly parsing of date-time data, extraction and updating of\n    components of a date-time (years, months, days, hours, minutes, and\n    seconds), algebraic manipulation on date-time and time-span objects.\n    The 'lubridate' package has a consistent and memorable syntax that\n    makes working with dates easy and fun.",
-        "License": "GPL (>= 2)",
+        "License": "MIT + file LICENSE",
         "URL": "https://lubridate.tidyverse.org,\nhttps://github.com/tidyverse/lubridate",
         "BugReports": "https://github.com/tidyverse/lubridate/issues",
         "Depends": "methods, R (>= 3.2)",
-        "Imports": "generics, timechange (>= 0.3.0)",
+        "Imports": "generics, timechange (>= 0.4.0)",
         "Suggests": "covr, knitr, rmarkdown, testthat (>= 2.1.0), vctrs (>= 0.6.5)",
         "Enhances": "chron, data.table, timeDate, tis, zoo",
         "VignetteBuilder": "knitr",
@@ -3778,15 +3784,15 @@
         "Config/testthat/edition": "3",
         "Encoding": "UTF-8",
         "LazyData": "true",
-        "RoxygenNote": "7.2.3",
-        "SystemRequirements": "C++11, A system with zoneinfo data (e.g.\n/usr/share/zoneinfo). On Windows the zoneinfo included with R\nis used.",
+        "RoxygenNote": "7.3.3",
+        "SystemRequirements": "A system with zoneinfo data (e.g.\n/usr/share/zoneinfo). On Windows the zoneinfo included with R\nis used.",
         "Collate": "'Dates.r' 'POSIXt.r' 'util.r' 'parse.r' 'timespans.r'\n'intervals.r' 'difftimes.r' 'durations.r' 'periods.r'\n'accessors-date.R' 'accessors-day.r' 'accessors-dst.r'\n'accessors-hour.r' 'accessors-minute.r' 'accessors-month.r'\n'accessors-quarter.r' 'accessors-second.r' 'accessors-tz.r'\n'accessors-week.r' 'accessors-year.r' 'am-pm.r' 'time-zones.r'\n'numeric.r' 'coercion.r' 'constants.r' 'cyclic_encoding.r'\n'data.r' 'decimal-dates.r' 'deprecated.r' 'format_ISO8601.r'\n'guess.r' 'hidden.r' 'instants.r' 'leap-years.r'\n'ops-addition.r' 'ops-compare.r' 'ops-division.r'\n'ops-integer-division.r' 'ops-m+.r' 'ops-modulo.r'\n'ops-multiplication.r' 'ops-subtraction.r' 'package.r'\n'pretty.r' 'round.r' 'stamp.r' 'tzdir.R' 'update.r' 'vctrs.R'\n'zzz.R'",
         "NeedsCompilation": "yes",
-        "Packaged": "2024-12-07 23:41:45 UTC; vitalie",
+        "Packaged": "2026-02-03 09:30:08 UTC; vitalie",
         "Author": "Vitalie Spinu [aut, cre],\n  Garrett Grolemund [aut],\n  Hadley Wickham [aut],\n  Davis Vaughan [ctb],\n  Ian Lyttle [ctb],\n  Imanuel Costigan [ctb],\n  Jason Law [ctb],\n  Doug Mitarotonda [ctb],\n  Joseph Larmarange [ctb],\n  Jonathan Boiser [ctb],\n  Chel Hee Lee [ctb]",
         "Repository": "CRAN",
-        "Date/Publication": "2024-12-08 12:10:02 UTC",
-        "Built": "R 4.5.0; aarch64-apple-darwin20; 2025-04-01 06:37:23 UTC; unix",
+        "Date/Publication": "2026-02-04 09:00:02 UTC",
+        "Built": "R 4.5.2; aarch64-apple-darwin20; 2026-02-07 09:09:08 UTC; unix",
         "Archs": "lubridate.so.dSYM"
       }
     },
@@ -4419,7 +4425,7 @@
         "Package": "openssl",
         "Type": "Package",
         "Title": "Toolkit for Encryption, Signatures and Certificates Based on\nOpenSSL",
-        "Version": "2.3.4",
+        "Version": "2.3.5",
         "Authors@R": "c(person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\",\n    comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Oliver\", \"Keyes\", role = \"ctb\"))",
         "Description": "Bindings to OpenSSL libssl and libcrypto, plus custom SSH key parsers.\n    Supports RSA, DSA and EC curves P-256, P-384, P-521, and curve25519. Cryptographic\n    signatures can either be created and verified manually or via x509 certificates. \n    AES can be used in cbc, ctr or gcm mode for symmetric encryption; RSA for asymmetric\n    (public key) encryption or EC for Diffie Hellman. High-level envelope functions \n    combine RSA and AES for encrypting arbitrary sized data. Other utilities include key\n    generators, hash functions (md5, sha1, sha256, etc), base64 encoder, a secure random\n    number generator, and 'bignum' math methods for manually performing crypto \n    calculations on large multibyte integers.",
         "License": "MIT + file LICENSE",
@@ -4432,12 +4438,12 @@
         "RoxygenNote": "7.3.2",
         "Encoding": "UTF-8",
         "NeedsCompilation": "yes",
-        "Packaged": "2025-09-30 09:14:32 UTC; jeroen",
+        "Packaged": "2026-02-26 12:59:14 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (ORCID: <https://orcid.org/0000-0002-4035-0289>),\n  Oliver Keyes [ctb]",
         "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
         "Repository": "CRAN",
-        "Date/Publication": "2025-09-30 09:50:02 UTC",
-        "Built": "R 4.5.0; aarch64-apple-darwin20; 2025-09-30 15:37:19 UTC; unix",
+        "Date/Publication": "2026-02-26 13:50:09 UTC",
+        "Built": "R 4.5.2; aarch64-apple-darwin20; 2026-02-26 15:33:15 UTC; unix",
         "Archs": "openssl.so.dSYM"
       }
     },
@@ -5049,7 +5055,7 @@
       "description": {
         "Package": "purrr",
         "Title": "Functional Programming Tools",
-        "Version": "1.2.0",
+        "Version": "1.2.1",
         "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Lionel\", \"Henry\", , \"lionel@posit.co\", role = \"aut\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"),\n           comment = c(ROR = \"https://ror.org/03wc8by49\"))\n  )",
         "Description": "A complete and consistent functional programming toolkit for\n    R.",
         "License": "MIT + file LICENSE",
@@ -5068,12 +5074,12 @@
         "Encoding": "UTF-8",
         "RoxygenNote": "7.3.3",
         "NeedsCompilation": "yes",
-        "Packaged": "2025-11-03 22:03:33 UTC; hadleywickham",
+        "Packaged": "2026-01-08 20:56:46 UTC; hadleywickham",
         "Author": "Hadley Wickham [aut, cre] (ORCID:\n    <https://orcid.org/0000-0003-4757-117X>),\n  Lionel Henry [aut],\n  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2025-11-04 13:20:02 UTC",
-        "Built": "R 4.5.0; aarch64-apple-darwin20; 2025-11-04 14:10:01 UTC; unix",
+        "Date/Publication": "2026-01-09 10:30:02 UTC",
+        "Built": "R 4.5.2; aarch64-apple-darwin20; 2026-01-09 12:00:11 UTC; unix",
         "Archs": "purrr.so.dSYM"
       }
     },
@@ -5509,6 +5515,38 @@
         "Repository": "CRAN",
         "Date/Publication": "2024-07-06 13:50:01 UTC",
         "Built": "R 4.5.0; ; 2025-04-01 20:40:28 UTC; unix"
+      }
+    },
+    "reproresearchR": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "description": {
+        "Package": "reproresearchR",
+        "Type": "Package",
+        "Title": "Companion Package for 'Reproducible Research Using R'",
+        "Version": "0.1.1",
+        "Authors@R": "\n    person(\"Christian\", \"Martinez\", \n           email = \"c.martinez0@outlook.com\", \n           role = c(\"aut\", \"cre\"))",
+        "Description": "Provides teaching datasets and helper functions to support the open\n    educational resource Martinez (2026) \"Reproducible Research Using R\"\n    <doi:10.5281/zenodo.19136755>. The package includes datasets used throughout\n    the book and utilities to list and copy chapter scripts shipped with the package.",
+        "License": "MIT + file LICENSE",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.3",
+        "LazyData": "true",
+        "Depends": "R (>= 3.5.0)",
+        "Suggests": "rstudioapi",
+        "URL": "https://martinezc1-reproducible-research-using-r.share.connect.posit.cloud/,\nhttps://github.com/martinezc1/reproresearchR",
+        "BugReports": "https://github.com/martinezc1/reproresearchR/issues",
+        "NeedsCompilation": "no",
+        "Packaged": "2026-03-20 23:09:45 UTC; christianmartinez",
+        "Author": "Christian Martinez [aut, cre]",
+        "Maintainer": "Christian Martinez <c.martinez0@outlook.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2026-03-25 20:50:06 UTC",
+        "Built": "R 4.5.2; ; 2026-03-26 12:17:04 UTC; unix",
+        "RemoteType": "standard",
+        "RemotePkgRef": "reproresearchR",
+        "RemoteRef": "reproresearchR",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "0.1.1"
       }
     },
     "reshape2": {
@@ -6304,29 +6342,30 @@
       "description": {
         "Package": "tidyr",
         "Title": "Tidy Messy Data",
-        "Version": "1.3.1",
+        "Version": "1.3.2",
         "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = \"aut\"),\n    person(\"Maximilian\", \"Girlich\", role = \"aut\"),\n    person(\"Kevin\", \"Ushey\", , \"kevin@posit.co\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
-        "Description": "Tools to help to create tidy data, where each column is a\n    variable, each row is an observation, and each cell contains a single\n    value.  'tidyr' contains tools for changing the shape (pivoting) and\n    hierarchy (nesting and 'unnesting') of a dataset, turning deeply\n    nested lists into rectangular data frames ('rectangling'), and\n    extracting values out of string columns. It also includes tools for\n    working with missing values (both implicit and explicit).",
+        "Description": "Tools to help to create tidy data, where each column is a\n    variable, each row is an observation, and each cell contains a single\n    value. 'tidyr' contains tools for changing the shape (pivoting) and\n    hierarchy (nesting and 'unnesting') of a dataset, turning deeply\n    nested lists into rectangular data frames ('rectangling'), and\n    extracting values out of string columns. It also includes tools for\n    working with missing values (both implicit and explicit).",
         "License": "MIT + file LICENSE",
         "URL": "https://tidyr.tidyverse.org, https://github.com/tidyverse/tidyr",
         "BugReports": "https://github.com/tidyverse/tidyr/issues",
-        "Depends": "R (>= 3.6)",
-        "Imports": "cli (>= 3.4.1), dplyr (>= 1.0.10), glue, lifecycle (>= 1.0.3),\nmagrittr, purrr (>= 1.0.1), rlang (>= 1.1.1), stringr (>=\n1.5.0), tibble (>= 2.1.1), tidyselect (>= 1.2.0), utils, vctrs\n(>= 0.5.2)",
+        "Depends": "R (>= 4.1.0)",
+        "Imports": "cli (>= 3.4.1), dplyr (>= 1.1.0), glue, lifecycle (>= 1.0.3),\nmagrittr, purrr (>= 1.0.1), rlang (>= 1.1.1), stringr (>=\n1.5.0), tibble (>= 2.1.1), tidyselect (>= 1.2.1), utils, vctrs\n(>= 0.5.2)",
         "Suggests": "covr, data.table, knitr, readr, repurrrsive (>= 1.1.0),\nrmarkdown, testthat (>= 3.0.0)",
         "LinkingTo": "cpp11 (>= 0.4.0)",
         "VignetteBuilder": "knitr",
+        "Config/build/compilation-database": "true",
         "Config/Needs/website": "tidyverse/tidytemplate",
         "Config/testthat/edition": "3",
         "Encoding": "UTF-8",
         "LazyData": "true",
-        "RoxygenNote": "7.3.0",
+        "RoxygenNote": "7.3.3",
         "NeedsCompilation": "yes",
-        "Packaged": "2024-01-23 14:27:23 UTC; hadleywickham",
+        "Packaged": "2025-12-17 23:35:11 UTC; hadleywickham",
         "Author": "Hadley Wickham [aut, cre],\n  Davis Vaughan [aut],\n  Maximilian Girlich [aut],\n  Kevin Ushey [ctb],\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2024-01-24 14:50:09 UTC",
-        "Built": "R 4.5.0; aarch64-apple-darwin20; 2025-04-02 08:22:50 UTC; unix",
+        "Date/Publication": "2025-12-19 09:20:02 UTC",
+        "Built": "R 4.5.2; aarch64-apple-darwin20; 2025-12-21 22:56:43 UTC; unix",
         "Archs": "tidyr.so.dSYM"
       }
     },
@@ -6425,7 +6464,7 @@
       "description": {
         "Package": "timechange",
         "Title": "Efficient Manipulation of Date-Times",
-        "Version": "0.3.0",
+        "Version": "0.4.0",
         "Authors@R": "c(person(\"Vitalie\", \"Spinu\", email = \"spinuvit@gmail.com\", role = c(\"aut\", \"cre\")),\n             person(\"Google Inc.\", role = c(\"ctb\", \"cph\")))",
         "Description": "Efficient routines for manipulation of date-time objects while\n   accounting for time-zones and daylight saving times. The package includes\n   utilities for updating of date-time components (year, month, day etc.),\n   modification of time-zones, rounding of date-times, period addition and\n   subtraction etc. Parts of the 'CCTZ' source code, released under the Apache\n   2.0 License, are included in this package. See\n   <https://github.com/google/cctz> for more details.",
         "Depends": "R (>= 3.3)",
@@ -6433,17 +6472,17 @@
         "Encoding": "UTF-8",
         "LinkingTo": "cpp11 (>= 0.2.7)",
         "Suggests": "testthat (>= 0.7.1.99), knitr",
-        "SystemRequirements": "A system with zoneinfo data (e.g.\n/usr/share/zoneinfo) as well as a recent-enough C++11 compiler\n(such as g++-4.8 or later). On Windows the zoneinfo included\nwith R is used.",
+        "SystemRequirements": "A system with zoneinfo data (e.g.\n/usr/share/zoneinfo). On Windows the zoneinfo included with R\nis used.",
         "BugReports": "https://github.com/vspinu/timechange/issues",
         "URL": "https://github.com/vspinu/timechange/",
         "RoxygenNote": "7.2.1",
         "NeedsCompilation": "yes",
-        "Packaged": "2024-01-18 08:57:24 UTC; vspinu",
+        "Packaged": "2026-01-29 08:59:34 UTC; vitalie",
         "Author": "Vitalie Spinu [aut, cre],\n  Google Inc. [ctb, cph]",
         "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
         "Repository": "CRAN",
-        "Date/Publication": "2024-01-18 09:20:02 UTC",
-        "Built": "R 4.5.0; aarch64-apple-darwin20; 2025-01-26 08:44:27 UTC; unix",
+        "Date/Publication": "2026-01-29 22:20:08 UTC",
+        "Built": "R 4.5.2; aarch64-apple-darwin20; 2026-01-29 23:29:04 UTC; unix",
         "Archs": "timechange.so.dSYM"
       }
     },
@@ -6602,7 +6641,7 @@
       "description": {
         "Package": "vctrs",
         "Title": "Vector Helpers",
-        "Version": "0.7.1",
+        "Version": "0.7.2",
         "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\"),\n    person(\"Lionel\", \"Henry\", , \"lionel@posit.co\", role = \"aut\"),\n    person(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"data.table team\", role = \"cph\",\n           comment = \"Radix sort based on data.table's forder() and their contribution to R's order()\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "Defines new notions of prototype and size that are used to\n    provide tools for consistent and well-founded type-coercion and\n    size-recycling, and are in turn connected to ideas of type- and\n    size-stability useful for analysing function interfaces.",
         "License": "MIT + file LICENSE",
@@ -6620,12 +6659,12 @@
         "Language": "en-GB",
         "RoxygenNote": "7.3.3",
         "NeedsCompilation": "yes",
-        "Packaged": "2026-01-22 13:56:47 UTC; davis",
+        "Packaged": "2026-03-20 19:53:17 UTC; davis",
         "Author": "Hadley Wickham [aut],\n  Lionel Henry [aut],\n  Davis Vaughan [aut, cre],\n  data.table team [cph] (Radix sort based on data.table's forder() and\n    their contribution to R's order()),\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Davis Vaughan <davis@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2026-01-23 18:50:02 UTC",
-        "Built": "R 4.5.2; aarch64-apple-darwin20; 2026-01-23 22:37:24 UTC; unix",
+        "Date/Publication": "2026-03-21 17:30:02 UTC",
+        "Built": "R 4.5.2; aarch64-apple-darwin20; 2026-03-22 21:00:33 UTC; unix",
         "Archs": "vctrs.so.dSYM"
       }
     },
@@ -6980,43 +7019,43 @@
       "checksum": "b6d177f8d6743ac37bc484bfb030bd58"
     },
     "_quarto.yml": {
-      "checksum": "72896da891a350b573dfeb8fcd93269d"
+      "checksum": "eea0aad18cff262ddfbf2d4fdab88008"
     },
     ".RData": {
-      "checksum": "74403555d7dcad37aacb8201ac7ba66c"
+      "checksum": "468bf3d47638d5d16542cf92577dcb6c"
     },
     "bibliography/packages.bib": {
       "checksum": "5af33feba77c880cb4ffded0dbab5070"
     },
     "chapters/01-Introduction-To-R.qmd": {
-      "checksum": "84e6533b902d3fb242f7f08244c39f12"
+      "checksum": "c36242221475c4f6c3b18b5306459b85"
     },
     "chapters/02-Introduction-To-tidyverse.qmd": {
-      "checksum": "0352f0ee4d54e6328a35fec9b80c44a7"
+      "checksum": "10ba66a3294b89115843d2e014f1122c"
     },
     "chapters/03-Visualizations.qmd": {
-      "checksum": "f87801f5f5bd06fa4a6f9afe58b07c1a"
+      "checksum": "732a28296fab114dfa2aad504c08285f"
     },
     "chapters/04-Comparing-Two-Groups.qmd": {
-      "checksum": "a10fa93deedc91a22e984aa1e5aa644b"
+      "checksum": "887778fe8302584391d5bad7b85752e5"
     },
     "chapters/05-Comparing-Multiple-Groups.qmd": {
-      "checksum": "c892477baaac8ec0b5e48641792adcb2"
+      "checksum": "f701375f5d65a08e1c10ded679e3791c"
     },
     "chapters/06-Analyzing-Categorical-Data.qmd": {
-      "checksum": "43444e5e2d96f76eac809861c73e332e"
+      "checksum": "898380ff81cc83255a0062a87daa1223"
     },
     "chapters/07-Correlation.qmd": {
-      "checksum": "6a256cefd2ab297596f9cbc1fb29ea31"
+      "checksum": "737ed9fcd386a98a069397299a3307f8"
     },
     "chapters/08-Linear-Regression.qmd": {
-      "checksum": "9c28fb22ac2ae24560d563068c61eb9e"
+      "checksum": "07dc0e8547e75d13bf518f8971e4fc15"
     },
     "chapters/09-Logistic-Regression.qmd": {
-      "checksum": "160bb3167c832208f3cfbf2f51a54e8d"
+      "checksum": "301252abfdc2a147bf2ccac0f02bee52"
     },
     "chapters/10-Reproducible-Reporting.qmd": {
-      "checksum": "53c0f19b739a1861edf7c5724b4d5c6e"
+      "checksum": "3bd7bbdb3c332c5790a8bc370ce45e10"
     },
     "chapters/11-Appendix.qmd": {
       "checksum": "5127e955d4c5464a2c787c18bf8ff9d9"
@@ -7025,7 +7064,7 @@
       "checksum": "af5a984033d79777ccd9775057269666"
     },
     "chapters/13-Package-References.qmd": {
-      "checksum": "0891f67d4bd8fc8e8a3e4488d778f702"
+      "checksum": "4899f17486aace60fe7e7e707a5dde0f"
     },
     "chapters/14-References.qmd": {
       "checksum": "6d2f6afcdb905c3e63857ee3c7881382"
@@ -7033,13 +7072,16 @@
     "chapters/Appendix.qmd": {
       "checksum": "ac84fd24d1aa2164ddb219d1a5b02ad5"
     },
-    "data/Exam_Data.xlsx": {
+    "CITATION.cff": {
+      "checksum": "4b71a87a6b9fd75c348dbfec6c44909b"
+    },
+    "data/raw/Exam_Data.xlsx": {
       "checksum": "7cb7d7dcd892538f1fdb20206cd3dae7"
     },
-    "data/Infection_Treatments.xlsx": {
+    "data/raw/Infection_Treatments.xlsx": {
       "checksum": "8c50e8d09ccc4ecf427c1e4c30f7ffe2"
     },
-    "data/Pizza_Prices.xlsx": {
+    "data/raw/Pizza_Prices.xlsx": {
       "checksum": "1660be59ad15b5cb38845c28ba72c5c2"
     },
     "images/Adelie-Screenshot.png": {
@@ -7055,16 +7097,22 @@
       "checksum": "558757eb7f182fd7b9ae5e5adba72aa6"
     },
     "index.qmd": {
-      "checksum": "3c6d58a6ab6da4a73087a59676f1e706"
+      "checksum": "edaed375696a85e128233695f686adac"
+    },
+    "LICENSE": {
+      "checksum": "30af09970c4a1aaf2fd2f967b212bf09"
     },
     "packages.bib": {
-      "checksum": "c1a6cf5c8fe2b2f740b609629869aa18"
+      "checksum": "f766bff5682c039c9a4c75913f9b7482"
     },
     "README.md": {
-      "checksum": "9a3a51319bfc66f548194fe357c93010"
+      "checksum": "dc87fc9c4d36ed78cad93fbaac9d0618"
+    },
+    "scripts/creating-citation.R": {
+      "checksum": "de83aeec639bc1db0ec3965baedaee3b"
     },
     "scripts/packages-bib-creation.R": {
-      "checksum": "0151220bc352add6398a398368b5b363"
+      "checksum": "e129cf29beda4f5c9a1c2a37439d6549"
     }
   },
   "users": null
