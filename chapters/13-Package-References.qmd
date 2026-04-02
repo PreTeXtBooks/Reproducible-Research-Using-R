@@ -101,7 +101,10 @@ ref_trying <- tribble(
   "pROC", "`auc()`", "Computes area under the ROC curve (AUC).", "[Logistic Regression](@log-reg-keyfunctions)",
   "knitr", "`knitr::opts_chunk$set()`", "Sets global chunk options in R Markdown.", "[Reproducible Reporting](@r-markdown-keyfunctions)",
   "knitr", "`kable()`", "Creates formatted tables for reports.", "[Reproducible Reporting](@r-markdown-keyfunctions)",
-  "nycOpenData", "`nyc_311()`", "Downloads NYC 311 Service Request data from NYC Open Data.", "[Introduction To tidyverse](@sec-loading-packages)"
+  "nycOpenData", "`nyc_311()`", "Downloads NYC 311 Service Request data from NYC Open Data.", "[Introduction To tidyverse](@sec-loading-packages)", 
+  "reproresearchR", "infection_treatments", "Infection treatments dataset.", "[Analyzing Categorical Data](@sec-intro-cat-analysis)",
+    "reproresearchR", "exam_data", "Exam data dataset.", "[Correlation](@sec-intro-cor)",
+  "reproresearchR", "pizza_prices", "Pizza prices dataset.", "[Linear Regression](@sec-linear-reg)"
 )
 
 library(stringr)

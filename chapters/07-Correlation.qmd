@@ -12,7 +12,7 @@ In everyday communication, the word **correlation** is thrown around a lot, but,
 *How do anxiety scores and studying time influence exam scores?*
 :::
 
-We’ll use a dataset called `Exam_Data.xlsx`, which includes students’ exam scores, anxiety levels just before the test, and total hours spent studying.
+We’ll use a dataset called `exam_data`, which includes students’ exam scores, anxiety levels just before the test, and total hours spent studying.
 
 ### Learning Objectives {#sec-cor-objectives}
 

@@ -12,7 +12,7 @@ In this lesson, we will explore how to use **linear regression** to not only und
 *Can we predict the amount of pizza sold based on its price?*
 :::
 
-We'll use a dataset called `Pizza_Prices.xlsx`, which contains weekly pizza sales and pricing data.
+We'll use a dataset called `pizza_prices`, which contains weekly pizza sales and pricing data.
 
 ## Learning Objectives {lin-reg-objectives}
 

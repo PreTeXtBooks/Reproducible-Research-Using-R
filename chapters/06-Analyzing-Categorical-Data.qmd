@@ -14,7 +14,7 @@ In situations like these, when we **only** have categorical values, we undergo a
 *Does the type of treatment people get affect whether they get an infection?*
 :::
 
-We'll use a dataset called `Infection_Treatments.xlsx`. Each row is a unique participant, indicating what treatment method they utilized, and if they became infected or not.
+We'll use a dataset called `infection_treatments`. Each row is a unique participant, indicating what treatment method they utilized, and if they became infected or not.
 
 ## Learning Objectives {#sec-cat-objectives}
 
@@ -36,7 +36,6 @@ This chapter uses the `infection_treatment` dataset from the companion R `repror
 
 Instead of using the `summary()` or `str()` functions, we are going to experiment with the `skim()` function from the `skimr` package (@R-skimr) to investigate our data.
 
-(@R-here)
 ```{r}
 #| label: tbl-loading-data
 #| tbl-cap: The skim function from the skimr package provides with important information regarding our data.
