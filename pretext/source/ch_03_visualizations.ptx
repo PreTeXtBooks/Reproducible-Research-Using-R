@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-visualizations" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Visualizations</title>
+
+  <introduction>
+    <p>
+      This chapter covers data visualization using <c>ggplot2</c>, one of the
+      most powerful and widely used tools for creating graphics in R. You will
+      learn to construct clear, informative visualizations that communicate your
+      data's story.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-viz">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</chapter>

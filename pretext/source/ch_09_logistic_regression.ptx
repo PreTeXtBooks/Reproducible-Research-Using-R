@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-logistic-regression" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Logistic Regression</title>
+
+  <introduction>
+    <p>
+      This chapter introduces logistic regression for modeling binary outcomes.
+      You will learn how to fit logistic regression models in R, interpret
+      odds ratios, evaluate model performance, and apply the technique to
+      real data.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-log-reg">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</chapter>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-correlation" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Correlation</title>
+
+  <introduction>
+    <p>
+      This chapter introduces correlation as a measure of the linear
+      relationship between two numeric variables. You will learn how to compute
+      and interpret correlation coefficients, visualize relationships with
+      scatter plots, and understand the distinction between correlation and
+      causation.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-cor">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</chapter>

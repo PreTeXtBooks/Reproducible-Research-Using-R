@@ -1,47 +1,39 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!-- This is the main file of the pretext template book provided -->
-<!-- by the <c>pretext new book</c> command.  The main.ptx here always-->
-<!-- starts with <pretext> tags.  In this example, the main file -->
-<!-- just imports other .ptx files which contain content. Open   -->
-<!-- those files to see more pretext features                    -->
+<!-- This is the main file of the PreTeXt version of                  -->
+<!-- "Reproducible Research Using R".  The main.ptx file starts with  -->
+<!-- <pretext> tags and imports other .ptx files which contain content.-->
 
 <pretext xml:lang="en-US" xmlns:xi="http://www.w3.org/2001/XInclude">
 
   <!-- we first include a file which contains the docinfo element: -->
   <xi:include href="./meta_docinfo.ptx" />
 
-  <!-- The <book> tags wrap all the content.  Change the @xml:id   -->
-  <!-- to some short (non-spaced) description of your book         -->
-  <book xml:id="book-id-here">
-    <!-- The book needs a title and can have a subtitle  -->
-    <title>Title</title>
-    <subtitle>Subtitle</subtitle>
+  <book xml:id="reproducible-research-using-r">
+    <title>Reproducible Research Using R</title>
+    <subtitle>An Open Educational Resource</subtitle>
 
-    <!-- Now we include files containing each main devision.       -->
-
-    <!-- First a frontmatter for prefaces and such. Maybe comment  -->
-    <!-- out for now and write this when the book is more complete -->
+    <!-- Frontmatter: preface, abstract, author info -->
     <xi:include href="./meta_frontmatter.ptx" />
 
-    <!-- Introduction chapter -->
-    <xi:include href="./ch_intro.ptx" />
+    <!-- Part I: Foundations -->
+    <xi:include href="./ch_01_intro_r.ptx" />
+    <xi:include href="./ch_02_tidyverse.ptx" />
+    <xi:include href="./ch_03_visualizations.ptx" />
 
-    <!-- Additional chapters will be added here as the book develops -->
+    <!-- Part II: Making Comparisons -->
+    <xi:include href="./ch_04_comparing_two_groups.ptx" />
+    <xi:include href="./ch_05_comparing_multiple_groups.ptx" />
+    <xi:include href="./ch_06_categorical_data.ptx" />
 
-    <!-- This chapter contains a wide variety of elements to  -->
-    <!-- illustrate what pretext can do, plus links to more help.  -->
-    <!-- We recommend keeping this handy, and commenting it out    -->
-    <!-- when you show off your own work.                          -->
-    <!-- <xi:include href="./ch_features.ptx" /> -->
-  
-    <!-- This chapter includes several features that require pregeneration   -->
-    <!-- of assets with <c>pretext generate</c> or similar. Some features require -->
-    <!-- internet access; others require local installs not automatically    -->
-    <!-- provided by the CLI. Uncomment to view this chapter, and comment    -->
-    <!-- features you don't wish to generate.                                -->
-    <!-- <xi:include href="./ch_generate.ptx" /> -->
+    <!-- Part III: Relationships and Modeling -->
+    <xi:include href="./ch_07_correlation.ptx" />
+    <xi:include href="./ch_08_linear_regression.ptx" />
+    <xi:include href="./ch_09_logistic_regression.ptx" />
 
-    <!-- Finaly we place the backmatter in its own file and inlcude-->
+    <!-- Part IV: Reproducible Communication -->
+    <xi:include href="./ch_10_reproducible_reporting.ptx" />
+
+    <!-- Backmatter: appendices, references, index -->
     <xi:include href="./meta_backmatter.ptx" />
   </book>
 </pretext>

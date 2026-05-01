@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-comparing-multiple-groups" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Comparing Multiple Groups</title>
+
+  <introduction>
+    <p>
+      This chapter extends group comparison to more than two groups using
+      Analysis of Variance (ANOVA). You will learn how to test whether
+      differences exist among multiple group means and how to follow up with
+      post-hoc comparisons.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-anova">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</chapter>

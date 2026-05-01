@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-linear-regression" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Linear Regression</title>
+
+  <introduction>
+    <p>
+      This chapter covers simple and multiple linear regression, one of the
+      most widely used statistical modeling techniques. You will learn how to
+      fit regression models in R, interpret coefficients, assess model fit, and
+      check assumptions.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-linear-reg">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</chapter>

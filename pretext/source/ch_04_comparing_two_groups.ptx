@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-comparing-two-groups" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Comparing Two Groups: Data Wrangling, Visualization, and t-Tests</title>
+
+  <introduction>
+    <p>
+      This chapter covers techniques for comparing two groups, including data
+      wrangling, visualization, and hypothesis testing with t-tests. You will
+      learn how to determine whether observed differences between groups are
+      statistically meaningful.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-two-means">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</chapter>

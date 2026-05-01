@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix xml:id="app-r-markdown" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Reproducible Reporting: R Markdown</title>
+
+  <introduction>
+    <p>
+      This appendix covers reproducible reporting using R Markdown, an
+      alternative to Quarto that is widely used in the R community. R Markdown
+      allows you to combine narrative text, R code, and output into a single
+      document that can be rendered to HTML, PDF, Word, and other formats.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-r-markdown">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</appendix>

@@ -2,18 +2,20 @@
 <frontmatter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="meta-front">
   <bibinfo>
     <author>
-      <personname>NAME</personname>
-      <website>
-      </website>
+      <personname>Christian Martinez</personname>
+      <institution>Brooklyn College, CUNY</institution>
     </author>
-    <author>
-      <personname>NAME</personname>
-      <website>
-      </website>
-    </author>
-    <date>
-      <today/>
-    </date>
+    <date>2026</date>
+    <copyright>
+      <year>2026</year>
+      <holder>Christian Martinez</holder>
+      <minilicense>CC BY 4.0</minilicense>
+      <shortlicense>
+        This work is licensed under a Creative Commons Attribution 4.0
+        International License (CC BY 4.0). You are free to share and adapt
+        this material provided appropriate credit is given.
+      </shortlicense>
+    </copyright>
   </bibinfo>
 
   <titlepage>
@@ -22,7 +24,82 @@
 
   <abstract>
     <p>
-      ABSTRACT
+      <em>Reproducible Research Using R</em> is an open educational resource
+      (OER) designed to help students, researchers, and practitioners build
+      confidence using R as a complete research tool—from data import and
+      visualization to statistical analysis and polished reporting. The goal of
+      this book is not just to teach <em>what</em> buttons to press or
+      <em>which</em> functions to call, but to teach a workflow that is
+      transparent, explainable, and most importantly, reproducible.
     </p>
   </abstract>
+
+  <preface xml:id="preface-about">
+    <title>About This Book</title>
+    <p>
+      This book was inspired by my students—particularly graduate students at
+      Brooklyn College who wanted to ask meaningful research questions but felt
+      held back by tools that were opaque, brittle, or difficult to reproduce.
+      Over time, it became clear that learning R was not just about writing
+      code; it was about learning how to think clearly, document decisions, and
+      produce work that others (and your future self) can understand and reuse.
+    </p>
+    <p>
+      This book was created in conjunction with the Open Educational Resources
+      initiative at Brooklyn College and is freely available for learning,
+      teaching, and adaptation.
+    </p>
+
+    <paragraphs>
+      <title>What You'll Learn</title>
+      <p>
+        By working through this book, you will learn how to:
+        <ul>
+          <li>Use R and RStudio as an integrated research environment</li>
+          <li>Import, clean, and explore data using modern R tools</li>
+          <li>Visualize data clearly and intentionally</li>
+          <li>Conduct common statistical analyses used in applied research</li>
+          <li>Interpret results in context—not just report numbers</li>
+          <li>Create fully reproducible reports using R Markdown and Quarto</li>
+        </ul>
+      </p>
+      <p>
+        Throughout the book, reproducibility is treated not as an
+        <q>extra</q> or an advanced topic, but as a default practice.
+      </p>
+    </paragraphs>
+
+    <paragraphs>
+      <title>What You Should Know First</title>
+      <p>
+        You do <em>not</em> need prior experience with R, programming, or
+        command-line tools. Basic familiarity with research methods and
+        statistics is helpful, but the focus of this book is on
+        <em>implementation and workflow</em>, not statistical theory.
+      </p>
+    </paragraphs>
+
+    <paragraphs>
+      <title>The reproresearchR Package</title>
+      <p>
+        The datasets used throughout this book are provided in the companion R
+        package <c>reproresearchR</c>, allowing readers to load data directly
+        into R without manually downloading files. This ensures that all
+        examples run the same way for everyone. All figures, tables, and
+        analyses in this book are generated directly from code so that every
+        result is fully reproducible.
+      </p>
+    </paragraphs>
+
+    <paragraphs>
+      <title>Acknowledgments</title>
+      <p>
+        This book would not exist without the curiosity, questions, and
+        persistence of students at Brooklyn College. Additional thanks go to
+        the Open Educational Resources team at Brooklyn College and to the
+        broader R community, whose commitment to open tools and shared
+        knowledge makes projects like this possible.
+      </p>
+    </paragraphs>
+  </preface>
 </frontmatter>

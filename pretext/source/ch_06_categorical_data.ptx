@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-categorical-data" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Analyzing Categorical Data</title>
+
+  <introduction>
+    <p>
+      This chapter focuses on analyzing categorical variables using chi-square
+      tests and related methods. You will learn how to test for associations
+      between categorical variables and how to visualize and interpret the
+      results.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-cat-analysis">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</chapter>

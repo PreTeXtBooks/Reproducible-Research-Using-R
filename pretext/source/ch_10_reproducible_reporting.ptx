@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-reproducible-reporting" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Reproducible Reporting</title>
+
+  <introduction>
+    <p>
+      This chapter brings together the skills developed throughout the book by
+      focusing on reproducible reporting with Quarto. You will learn how to
+      create dynamic documents that combine narrative text, code, and output
+      into polished, shareable reports.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-quarto">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</chapter>
