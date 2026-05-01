@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix xml:id="app-package-references" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Functions Reference</title>
+
+  <introduction>
+    <p>
+      This appendix provides a reference guide to the key R functions and
+      packages used throughout the book. Functions are organized by topic to
+      make it easy to look up syntax and usage as you work through analyses.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-packages-functions-reference">
+    <title>Functions by Topic</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</appendix>

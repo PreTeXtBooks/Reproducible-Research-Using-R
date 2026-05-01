@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <backmatter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="meta-back">
+
+  <!-- Appendix: Reproducibility Checklist -->
+  <xi:include href="./app_checklist.ptx" />
+
+  <!-- Appendix: Reproducible Reporting with R Markdown -->
+  <xi:include href="./app_r_markdown.ptx" />
+
+  <!-- Appendix: Functions Reference -->
+  <xi:include href="./app_package_references.ptx" />
+
+  <!-- References -->
+  <xi:include href="./app_references.ptx" />
+
   <index>
     <title>Index</title>
     <index-list/>

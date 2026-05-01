@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-intro-r" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Introduction To R</title>
+
+  <introduction>
+    <p>
+      Welcome to the programming language R! Whether you have never touched R
+      before or have some prior experience, this chapter is designed to provide
+      the groundwork for programming in R. Before you can do calculus, you need
+      to be able to do addition, subtraction, multiplication, and division.
+      <em>This chapter is exactly that.</em>
+    </p>
+    <p>
+      You do <em>not</em> need to memorize this chapter; think of it as a
+      reference you will return to throughout the book.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-r-objectives">
+    <title>Learning Objectives</title>
+    <p>
+      By the end of this chapter, you will be able to:
+      <ul>
+        <li>Navigate the RStudio interface and identify the purpose of each pane</li>
+        <li>Use R as a calculator to perform basic mathematical operations</li>
+        <li>Build and work with objects, vectors, and different data types</li>
+        <li>Create and explore simple data frames</li>
+        <li>Access and modify data frame columns using <c>$</c></li>
+        <li>Import data from external files such as CSVs and Excel spreadsheets</li>
+      </ul>
+    </p>
+  </section>
+
+  <!-- Content to be filled in -->
+
+</chapter>

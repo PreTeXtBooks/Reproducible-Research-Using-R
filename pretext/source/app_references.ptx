@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix xml:id="app-references" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>References</title>
+
+  <section xml:id="sec-references">
+    <title>Bibliography</title>
+    <p>
+      <!-- References will be populated here -->
+    </p>
+  </section>
+
+</appendix>

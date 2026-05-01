@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch-tidyverse" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Introduction To tidyverse</title>
+
+  <introduction>
+    <p>
+      This chapter introduces the <c>tidyverse</c>, a collection of R packages
+      designed for data science. You will learn how to import, tidy, transform,
+      and visualize data using a consistent and readable syntax.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-intro-tidyverse">
+    <title>Introduction</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+</chapter>

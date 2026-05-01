@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appendix xml:id="app-checklist" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Reproducibility Checklist for Data Analysis in R</title>
+
+  <introduction>
+    <p>
+      This appendix synthesizes the reproducibility principles and workflow
+      habits introduced throughout this book. Use this checklist before
+      submitting, sharing, or publishing an analysis to ensure your work is
+      transparent, interpretable, and reproducible.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-checklist-project">
+    <title>Project and Environment</title>
+    <p>
+      <ul>
+        <li>Am I working inside an <em>R Project</em> to keep files organized and paths consistent?</li>
+        <li>Can my analysis run from a <em>clean R session</em> without manual intervention?</li>
+        <li>Are all required packages explicitly loaded within the script or R Markdown document?</li>
+        <li>Have I avoided relying on objects created outside the current file?</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-checklist-data">
+    <title>Data Integrity and Structure</title>
+    <p>
+      <ul>
+        <li>Have I visually inspected my data using commands such as <c>head()</c>, <c>summary()</c>, or <c>View()</c>?</li>
+        <li>Have I verified variable types using <c>str()</c>?</li>
+        <li>Are categorical variables correctly stored as factors or characters (not numeric)?</li>
+        <li>Do numeric variables represent meaningful quantities (not IDs or codes)?</li>
+        <li>Have I addressed missing values or unexpected levels?</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-checklist-workflow">
+    <title>Data Transformation and Workflow</title>
+    <p>
+      <ul>
+        <li>Are related data-cleaning steps grouped into clear, readable pipelines?</li>
+        <li>Does each transformation perform <em>one clear task</em>?</li>
+        <li>Are intermediate objects created only when they serve a clear purpose?</li>
+        <li>Does the order of transformations make logical sense?</li>
+        <li>Can the entire workflow be re-run from top to bottom without errors?</li>
+      </ul>
+    </p>
+  </section>
+
+  <!-- Content to be filled in -->
+
+</appendix>
