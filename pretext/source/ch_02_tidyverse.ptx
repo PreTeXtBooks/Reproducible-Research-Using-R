@@ -886,13 +886,13 @@ penguins
       step building on the result of the previous step.</li>
       <li>Each <c>tidyverse</c> verb typically performs one clear transformation, making pipelines
       easier to understand and debug.</li>
-      <li><c>select()</c> changes which columns exist in a dataset, while filter() changes which
+      <li><c>select()</c> changes which columns exist in a dataset, while <c>filter()</c> changes which
       rows are kept.</li>
       <li><c>arrange()</c> reorders rows based on variable values but does not modify the data
       itself.</li>
       <li><c>mutate()</c> creates new variables or modifies existing ones, enabling feature
       engineering and transformation.</li>
-      <li>Logical operators (such as <c>==</c>, <c>!=</c>, <c>&gt;</c>, <c>&lt;</c>,<c>&amp;</c>,
+      <li>Logical operators (such as <c>==</c>, <c>!=</c>, <c>&gt;</c>, <c>&lt;</c>, <c>&amp;</c>,
       and <c>|</c>) allow precise control when filtering data.</li>
       <li>The order of functions in a pipeline matters, as each step depends on the output of the
       previous one.</li>
