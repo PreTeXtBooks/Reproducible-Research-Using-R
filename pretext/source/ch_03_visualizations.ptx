@@ -2,19 +2,962 @@
 <chapter xml:id="ch-visualizations" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Visualizations</title>
 
-  <introduction>
-    <p>
-      This chapter covers data visualization using <c>ggplot2</c>, one of the
-      most powerful and widely used tools for creating graphics in R. You will
-      learn to construct clear, informative visualizations that communicate your
-      data's story.
-    </p>
-  </introduction>
-
   <section xml:id="sec-intro-viz">
     <title>Introduction</title>
     <p>
-      <!-- Content to be filled in -->
+      Whoever said a picture is worth 1,000 words severely understated how many words
+      a picture is actually worth. When working with data, there is a strong argument
+      to make that <alert>nothing</alert> is more important than visuals.
+    </p>
+
+    <insight>
+      <title>If there is one piece of advice to take from this textbook, it is this:</title>
+      <p>
+        After running summary statistics, always visualize your data!
+      </p>
+    </insight>
+
+    <p>
+      You may be thinking <q>how powerful can a visualization even be?</q> That is a
+      great question, that Anscombe's quartet will help answer.
+    </p>
+    <p>
+      Quick history lesson. In 1973 (before the invention of R), a statistician named
+      Francis Anscombe created four unique datasets, which all had identical summary statistics.
+    </p>
+
+    <listing xml:id="lst-anscombe">
+      <caption>A breakdown of summary statistics from the four individual datasets Anscombe created.</caption>
+      <program language="r">
+        <input>
+library(tidyverse)
+library(quartets)
+library(knitr)
+
+anscombe_quartet |>
+  group_by(dataset) |>
+  summarise(mean_x = mean(x),
+            variance_x = var(x),
+            mean_y = mean(y),
+            variance_y = var(y),
+            correlation = cor(x, y)) |>
+  kable(digits = 2,caption = "A breakdown of summary statistics from the four individual datasets Anscombe created.")
+        </input>
+      </program>
+    </listing>
+
+    <p>
+      As <xref ref="lst-anscombe"/> shows, all four of the different datasets show the
+      same means, variances, and correlations (more on that in chapter 6). With
+      <em>just</em> these summary statistics, you'd likely think <q>eh, all the data is
+      the same, these datasets are basically identical.</q>
+    </p>
+    <p>
+      <alert>Wrong.</alert>
+    </p>
+    <p>
+      When we graph these four datasets, we see something totally different than what
+      the table shows.
+    </p>
+
+    <listing xml:id="lst-Anscombe-graph">
+      <caption>While the four datasets looked identical in the table, the visualized Anscombe datasets show an entirely different picture.</caption>
+      <program language="r">
+        <input>
+ggplot(anscombe_quartet, aes(x = x, y = y)) +
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  facet_wrap(~dataset)
+        </input>
+      </program>
+    </listing>
+
+    <p>
+      With our visualization, we are introduced to an entirely different way of seeing
+      our data. The table showed that the summary statistics were identical, but here
+      we can see:
+    </p>
+    <ol>
+      <li><p>Dataset One has a linear relationship between x and y.</p></li>
+      <li><p>Dataset Two has a nonlinear relationship between x and y.</p></li>
+      <li><p>Dataset Three, while still linear, has an outlier.</p></li>
+      <li><p>Dataset Four shows something totally different from the rest!</p></li>
+    </ol>
+    <p>
+      Visualizations provide insights into data that sometimes numbers can't show.
+    </p>
+    <p>
+      This chapter is meant less to be a lesson, and more to be a reference page to
+      come to when you need to make graphs. You do not need to remember every plotting
+      option shown here. This chapter is designed to be returned to whenever you need
+      a reminder or example.
+    </p>
+  </section>
+
+  <section xml:id="sec-viz-objectives">
+    <title>Learning Objectives</title>
+    <p>
+      By the end of this chapter, you will be able to:
+    </p>
+    <ul>
+      <li><p>Explain why visualizing data is a critical step alongside summary statistics</p></li>
+      <li><p>Describe the core grammar of graphics used by <c>ggplot2</c> (data, aesthetics, geometry)</p></li>
+      <li><p>Create common plot types using <c>ggplot2</c>, including scatterplots, bar charts, column charts, histograms, density plots, boxplots, and line graphs</p></li>
+      <li><p>Map and customize aesthetics such as color, shape, size, fill, and transparency</p></li>
+      <li><p>Enhance visual clarity using labels, themes, facets, coordinate transformations, and reference lines</p></li>
+      <li><p>Add contextual information to plots using trend lines, error bars, and text labels</p></li>
+      <li><p>Interpret visual patterns to identify relationships, distributions, outliers, and trends in data</p></li>
+      <li><p>Create visualizations that are interpretable and reproducible when viewed independently of accompanying text</p></li>
+    </ul>
+    <p>
+      With that being said, let's get right to it.
+    </p>
+  </section>
+
+  <section xml:id="sec-viz-base-r">
+    <title>Base R</title>
+    <p>
+      One of the strongest qualities in R is its ability to create visualizations,
+      powered by <c>ggplot2</c>. However, it is possible to use base R to create
+      plots as well. It is recommended to use ggplot2; however, you may encounter
+      base R plots in older scripts or documentation, so an example is included for
+      familiarity.
+    </p>
+
+    <listing xml:id="lst-baseR-plot">
+      <caption>An example of a bar chart created using base R.</caption>
+      <program language="r">
+        <input>
+values &lt;- c(100, 17, 45, 55, 44)
+
+barplot(values, xlab = "X-axis", ylab = "Y-axis", main ="Base R Bar Chart")
+        </input>
+      </program>
+    </listing>
+  </section>
+
+  <section xml:id="sec-ggplot">
+    <title>ggplot2</title>
+    <p>
+      Before we go into visualizing our data, we should probably see what data we
+      will be working with! Similar to how R comes preinstalled with datasets,
+      <c>ggplot2</c> also comes with prepacked data that can be utilized.
+    </p>
+
+    <listing xml:id="lst-mpg-kable">
+      <caption>A base R dataset: Fuel economy data from 1999 to 2008 for 38 popular models of cars.</caption>
+      <program language="r">
+        <input>
+kable(head(mpg), caption = "A base R dataset: Fuel economy data from 1999 to 2008 for 38 popular models of cars.")
+        </input>
+      </program>
+    </listing>
+
+    <listing xml:id="lst-economics-kable">
+      <caption>A base R dataset: US Economic Time Series.</caption>
+      <program language="r">
+        <input>
+kable(head(economics), caption = "A base R dataset: US Economic Time Series.")
+        </input>
+      </program>
+    </listing>
+
+    <listing xml:id="lst-diamonds-kable">
+      <caption>A base R dataset: Prices of over 50,000 round cut diamonds.</caption>
+      <program language="r">
+        <input>
+kable(head(diamonds), caption = "A base R dataset: Prices of over 50,000 round cut diamonds.")
+        </input>
+      </program>
+    </listing>
+
+    <listing xml:id="lst-mtcars-kable">
+      <caption>A base R dataset: Motor Trend Car Road Tests.</caption>
+      <program language="r">
+        <input>
+kable(head(mtcars), caption = "A base R dataset: Motor Trend Car Road Tests.")
+        </input>
+      </program>
+    </listing>
+
+    <p>
+      Additionally, <c>ggplot2</c> is part of the <c>tidyverse</c> package. So, you
+      can either load <c>ggplot2</c> or <c>tidyverse</c> if you want to visualize
+      using <c>ggplot2</c>. Because <c>ggplot2</c> is part of the <c>tidyverse</c>,
+      everything you learned in <xref ref="ch-tidyverse"/> about pipelines and data
+      manipulation carries directly into visualizations.
+    </p>
+
+    <subsection xml:id="sec-ggplot-basics">
+      <title>Basics</title>
+      <p>
+        When using <c>ggplot2</c>, there are unlimited possibilities on what you can
+        manipulate/influence. This may be daunting, but always remember that all plots
+        work on the same framework.
+      </p>
+
+      <insight>
+        <title>ggplot2 framework</title>
+        <p>
+          plot = data + aesthetics + geometry
+        </p>
+      </insight>
+
+      <p>
+        No matter what ggplot you are making, no matter how many characteristics you
+        influence, all ggplot2 needs are three things:
+      </p>
+      <ol>
+        <li><p>The data: the data being used to make the plot</p></li>
+        <li><p>The aesthetics: x/y/color/shape/etc. In <c>ggplot2</c> aesthetics is shortened to aes.</p></li>
+        <li><p>The geometry: plot type (e.g., scatterplot, boxplot, etc.)</p></li>
+      </ol>
+      <p>
+        With only those three things, you can make <alert>any</alert> type of
+        visualization you want or need. From there, you can build as far as your mind
+        can see. When you do want to add more levels to your plot, you do so by using
+        the + sign.
+      </p>
+      <p>
+        Here is an example of a basic graph made with ggplot:
+      </p>
+
+      <listing xml:id="lst-example-ggplot2">
+        <caption>An example of a visualization made using ggplot2.</caption>
+        <program language="r">
+          <input>
+ggplot(data = mpg, aes(x = cty, y = hwy)) +
+  geom_point()
+          </input>
+        </program>
+      </listing>
+
+      <p>
+        This is our first ggplot (a scatterplot) we have created, so let's break this down:
+      </p>
+      <ul>
+        <li><p>The data: we are using the mpg dataset.</p></li>
+        <li><p>The aesthetics: the x variable is cty and the y is hwy.</p></li>
+        <li>
+          <p>The geometry: <c>geom_point()</c>, which creates points on the graph.</p>
+          <ul>
+            <li><p>Importantly, to add geometry, you do need to add the + sign.</p></li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        With only two lines of code, a scatterplot was created! Since the framework
+        has been established, it is time to build some visualizations!
+      </p>
+
+      <note>
+        <title>How to move on from here:</title>
+        <p>
+          In this chapter, there will be basic examples of each visualization type,
+          and advanced examples of each visualization type. This is done to display
+          the scope of what can be done with this package (<c>ggplot2</c>). It is
+          encouraged to experiment with the code, change numbers, remove things, and
+          compare and contrast the differences between the experimented visuals.
+        </p>
+      </note>
+    </subsection>
+
+    <subsection xml:id="sec-ggplot-scatterplot">
+      <title>Scatterplot - geom_point()</title>
+      <p>
+        When data has two continuous (for example, numeric) variables, and you want
+        to visualize their relationship, a scatterplot is a fantastic choice. This is
+        the basis for relationship analysis that topics such as linear regression
+        (more about this in <xref ref="sec-linear-reg"/>) rely on.
+      </p>
+      <p>
+        The geometry that needs to be specified is <c>geom_point()</c>.
+      </p>
+
+      <listing xml:id="lst-basic-scatterplot">
+        <caption>A basic example of a scatterplot using ggplot2.</caption>
+        <program language="r">
+          <input>
+ggplot(data = mpg, aes(x = cty, y = hwy)) +
+  geom_point()
+          </input>
+        </program>
+      </listing>
+
+      <p>
+        Typically it is best practice to have a <q>line of best fit</q> when creating
+        scatterplots, similar to Anscombe's visualization. To do that, you can utilize
+        the <c>geom_smooth()</c> command.
+      </p>
+
+      <listing xml:id="lst-ggplot2-scatterplot-lm">
+        <caption>An example of a scatterplot with a line of best fit.</caption>
+        <program language="r">
+          <input>
+# Line of Best Fit
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point() +
+  geom_smooth(method = "lm") # lm stands for "linear model"
+          </input>
+        </program>
+      </listing>
+
+      <p>
+        Notice that to add <c>geom_smooth</c>, which is another layer of our
+        visualization, we needed to add another + sign. It is used quite literally
+        in <c>ggplot2</c>.
+      </p>
+      <p>
+        Let's add some more information to our scatterplot.
+      </p>
+
+      <listing xml:id="lst-scatterplot-advanced">
+        <caption>A scatterplot incorporating multiple aesthetics and faceting.</caption>
+        <program language="r">
+          <input>
+ggplot(data = mpg, aes(x = cty, y = hwy, color = class, shape = drv)) +
+  geom_point(alpha = 0.8, size = 2.5) + # opacity and size
+  labs(
+    title = "City vs Highway MPG",      # adds a title to the plot
+    x = "City MPG",                     # adds a x-axis label to the plot
+    y = "Highway MPG",                  # adds a y-axis label to the plot
+    color = "Vehicle Class",            # adds a color label to the plot
+    shape = "Drivetrain"                # adds a shape label to the plot
+  ) + 
+  facet_wrap(~ class) +                 # breaks the graph into individual graphs
+  geom_smooth(method = "lm", se = TRUE) # adds a line of best fit
+          </input>
+        </program>
+      </listing>
+    </subsection>
+
+    <subsection xml:id="sec-ggplot-bar-column">
+      <title>Bar Chart (counts) and Column Chart (values)</title>
+      <p>
+        Bar charts visualize counts of a discrete variable, while column charts
+        visualize pre-summarized numeric values.
+      </p>
+
+      <subsubsection xml:id="sec-ggplot-bar">
+        <title>Bar Chart - geom_bar()</title>
+        <p>
+          For a bar chart, the geometry used is <c>geom_bar()</c>.
+        </p>
+
+        <listing xml:id="lst-basic-barchart">
+          <caption>An example of a basic bar chart.</caption>
+          <program language="r">
+            <input>
+# BASIC (counts by class) - geom_bar() counts rows automatically
+ggplot(mpg, aes(x = class)) +
+  geom_bar()
+            </input>
+          </program>
+        </listing>
+
+        <p>
+          Depending on how long the variable names are, it may be best to switch the
+          x and y axis. They would still <alert>act</alert> the same, but they would
+          just flip on the coordinate plane. The x variable would still be the x
+          variable, and the y would still be the y variable, but flipped. To do this,
+          you can utilize the <c>coord_flip()</c> command.
+        </p>
+
+        <listing xml:id="lst-barplot-coordflip">
+          <caption>An example of a coordinate flipped bar chart.</caption>
+          <program language="r">
+            <input>
+ggplot(mpg, aes(x = manufacturer)) +
+  geom_bar(fill = "steelblue", color = "white") +
+  coord_flip() +
+  labs(title = "Counts by Manufacturer", x = "", y = "Count")
+            </input>
+          </program>
+        </listing>
+
+        <p>
+          Depending on the audience, a stacked bar chart may be the best way to
+          visualize the data. To do that, you can add <c>position = "stack"</c> and
+          <c>ggplot</c> does the rest.
+        </p>
+
+        <listing xml:id="lst-stacked-barchart-example">
+          <caption>An example of a stacked bar chart.</caption>
+          <program language="r">
+            <input>
+# What if we want a stacked bar chart (default with fill)?
+ggplot(mpg, aes(x = manufacturer, fill = drv)) +
+  geom_bar(position = "stack", color = "white") +
+  coord_flip() +
+  labs(
+    title = "Counts by Manufacturer and Drivetrain",
+    x = "",
+    y = "Count",
+    fill = "Drivetrain"
+  ) +
+  theme_minimal()
+            </input>
+          </program>
+        </listing>
+
+        <p>
+          If you need to create a grouped bar chart instead, you can add
+          <c>position = "dodge"</c> to create your visual.
+        </p>
+
+        <listing xml:id="lst-grouped-barchart">
+          <caption>An example of a grouped bar chart.</caption>
+          <program language="r">
+            <input>
+#What if we want a grouped bar chart
+ggplot(mpg, aes(x = manufacturer, fill = drv)) +
+  geom_bar(position = "dodge", color = "white") +
+  coord_flip() +
+  labs(
+    title = "Counts by Manufacturer and Drivetrain",
+    x = "",
+    y = "Count",
+    fill = "Drivetrain"
+  ) +
+  theme_minimal()
+            </input>
+          </program>
+        </listing>
+      </subsubsection>
+
+      <subsubsection xml:id="sec-ggplot-column">
+        <title>Column Chart - geom_col()</title>
+        <p>
+          Column charts work best when you have pre-summarized values, and not raw values.
+        </p>
+
+        <listing xml:id="lst-pre-summarizing-values">
+          <caption>Pre-summarized values</caption>
+          <program language="r">
+            <input>
+# USING PRE-SUMMARIZED VALUES - geom_col() requires explicit values
+class_counts &lt;- mpg |>
+  count(class)  # counts rows by class
+
+kable(class_counts, caption = "Pre-summarized values")
+            </input>
+          </program>
+        </listing>
+
+        <p>
+          Once the values have been summarized explicitly, you use <c>geom_col()</c>
+          to create a column chart.
+        </p>
+
+        <listing xml:id="lst-basic-columnchart">
+          <caption>An example of a basic column chart.</caption>
+          <program language="r">
+            <input>
+ggplot(class_counts, aes(x = class, y = n)) +
+  geom_col()
+            </input>
+          </program>
+        </listing>
+
+        <p>
+          There are a few things you can do to a column chart to add some flavor.
+          For example:
+        </p>
+        <ul>
+          <li><p>Use the <c>reorder</c> command to reorder the columns into ascending or descending order based on their n values.</p></li>
+          <li><p>Inside of <c>geom_col</c> change the <c>width</c> of the columns.</p></li>
+          <li><p>Depending on the bars, you can change the <c>legend.position</c> to a particular spot (or remove it entirely) from the visualization.</p></li>
+        </ul>
+
+        <listing xml:id="lst-columnchart-aesthetics">
+          <caption>An example of a column chart with polished aesthetics.</caption>
+          <program language="r">
+            <input>
+# PLUS AESTHETICS (polished)
+ggplot(class_counts, aes(x = reorder(class, n), y = n, fill = class)) +
+  geom_col(width = 0.7, color = "white") +   # width = bar thickness, color = border
+  coord_flip() +                             # flip for readability
+  labs(title = "Counts by Vehicle Class", x = "", y = "Count") +
+  theme(legend.position = "none")
+            </input>
+          </program>
+        </listing>
+
+        <note>
+          <title>Legends in a graph and redundancy.</title>
+          <p>
+            Sometimes having a legend in a graph can be redundant because of the
+            x-axis containing the same information as a legend would. In this case,
+            you can remove the legend not only to avoid the redundancy, but also
+            save space.
+          </p>
+        </note>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="sec-ggplot-histogram-density">
+      <title>Histograms and Density Plots (distribution)</title>
+      <p>
+        Histograms are perfect for when you are looking to display
+        <alert>distribution</alert>.
+      </p>
+
+      <subsubsection xml:id="sec-ggplot-histogram">
+        <title>Histograms - geom_histogram()</title>
+        <p>
+          For the geometry of a histogram, you use <c>geom_histogram()</c>.
+        </p>
+
+        <listing xml:id="lst-basic-histogram">
+          <caption>An example of a basic histogram.</caption>
+          <program language="r">
+            <input>
+# BASIC
+ggplot(mpg, aes(x = hwy)) +
+  geom_histogram(binwidth = 3)
+            </input>
+          </program>
+        </listing>
+
+        <p>
+          R automatically assigns bins when creating a histogram unless otherwise
+          instructed. There are several things that can be influenced:
+        </p>
+        <ul>
+          <li><p>bin width: use <c>binwidth</c> to change the width of the bins</p></li>
+          <li><p>boundary: use <c>boundary</c> to set the separation between the bins</p></li>
+        </ul>
+
+        <listing xml:id="lst-styled-histogram">
+          <caption>An example of a styled histogram.</caption>
+          <program language="r">
+            <input>
+# STYLED (bin edges + colors)
+ggplot(mpg, aes(hwy)) +
+  geom_histogram(binwidth = 5, boundary = 0,
+                 fill = "red", color = "orange") +
+  labs(title = "Highway MPG Distribution", x = "Highway MPG", y = "Frequency")
+            </input>
+          </program>
+        </listing>
+
+        <p>
+          In the case that you need a stacked histogram, below is code to create that.
+          The secret here is using the <c>fill</c> command.
+        </p>
+
+        <listing xml:id="lst-filled-histogram">
+          <caption>An example of a filled histogram.</caption>
+          <program language="r">
+            <input>
+# MAPPED FILL (stacked by class)
+ggplot(mpg, aes(hwy, fill = class)) +
+  geom_histogram(binwidth = 10, color = "white") +
+  labs(title = "Highway MPG Distribution by Vehicle Class",
+       x = "Highway MPG", y = "Count", fill = "Vehicle Class") +
+  theme(legend.position = "bottom")
+            </input>
+          </program>
+        </listing>
+      </subsubsection>
+
+      <subsubsection xml:id="sec-ggplot-density">
+        <title>Density - geom_density()</title>
+        <p>
+          Density plots still show the distribution of data, but instead of doing it
+          in bins like a histogram, accomplish this through an <alert>outline</alert>.
+          The geometry for a density plot is <c>geom_density()</c>.
+        </p>
+
+        <listing xml:id="lst-basic-densityplot">
+          <caption>An example of a basic density plot.</caption>
+          <program language="r">
+            <input>
+# BASIC
+ggplot(diamonds, aes(x = price)) +
+  geom_density()
+            </input>
+          </program>
+        </listing>
+
+        <p>
+          In the below example, the visualization is filtering within the data portion
+          to only keep the cuts <q>Good</q>, <q>Ideal</q> and <q>Premium.</q> Since it
+          is utilizing <c>color</c> inside the aesthetics, this will create a grouped
+          density plot, showing three different lines for each of the three different cuts.
+        </p>
+
+        <note>
+          <title>Regarding the data portion of the graph below:</title>
+          <p>If there was no filtering, this code would still separate into different lines.</p>
+        </note>
+
+        <listing xml:id="lst-grouped-densityplot">
+          <caption>An example of a grouped density plot.</caption>
+          <program language="r">
+            <input>
+# GROUPED
+ggplot(diamonds |> filter(cut %in% c("Good", "Ideal", "Premium")),
+       aes(price, color = cut)) +
+  geom_density() +
+  labs(title = "Price Density by Cut", x = "Price", y = "Density") +
+  theme(legend.position = "bottom")
+            </input>
+          </program>
+        </listing>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="sec-ggplot-boxplot">
+      <title>Boxplot - geom_boxplot()</title>
+      <p>
+        Commonly known as a box and whisker plot, boxplots are fantastic for providing
+        numerical insights between categorical variables. There are a few different
+        pieces of a boxplot:
+      </p>
+      <ul>
+        <li>
+          <p>Whiskers: there are two whiskers on each boxplot</p>
+          <ul>
+            <li><p>Lower Whisker: shows the lower 25% of the data. The bottom is the lowest value in the dataset</p></li>
+            <li><p>Upper Whisker: shows the upper 25% of the data. The top is the highest value in the dataset</p></li>
+          </ul>
+        </li>
+        <li>
+          <p>Box: the box itself shows the middle 50% of the data. This includes:</p>
+          <ul>
+            <li><p>Interquartile Range (IQR): the lowest line in the bar is the 25th percentile and the top is the 75th percentile</p></li>
+            <li><p>Median: the darker line inside of the box</p></li>
+          </ul>
+        </li>
+        <li><p>Outliers: any data point that is above or below the upper and lower whisker, respectively.</p></li>
+      </ul>
+      <p>
+        The geometry for a boxplot is <c>geom_boxplot()</c>.
+      </p>
+
+      <listing xml:id="lst-basic-boxplot">
+        <caption>An example of a basic boxplot.</caption>
+        <program language="r">
+          <input>
+# BASIC
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot() +
+  labs(title = "Highway MPG by Vehicle Class", x = "Vehicle Class", y = "Highway MPG")
+          </input>
+        </program>
+      </listing>
+
+      <p>
+        Sometimes the points on a boxplot (or any plot) can be indistinguishable due
+        to them being so close together. In that case, utilize the <c>geom_jitter()</c>
+        command.
+      </p>
+
+      <listing xml:id="lst-jittered-boxplot">
+        <caption>An example of a boxplot with jittered points.</caption>
+        <program language="r">
+          <input>
+# WITH JITTERED POINTS OVERLAID
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width = 0.15, alpha = 0.4, size = 1.5) +
+  coord_flip() +
+  labs(title = "Highway MPG by Vehicle Class (with Points)",
+       x = "", y = "Highway MPG")
+          </input>
+        </program>
+      </listing>
+    </subsection>
+
+    <subsection xml:id="sec-ggplot-line">
+      <title>Lines (time series) - geom_line()</title>
+      <p>
+        Time and time again, when working with time-series data, a line graph is
+        created. The geometry for a line graph is <c>geom_line()</c>.
+      </p>
+
+      <listing xml:id="lst-basic-linegraph">
+        <caption>An example of a basic line graph.</caption>
+        <program language="r">
+          <input>
+# BASIC: unemployment over time
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line() +
+  labs(title = "US Unemployment Over Time",
+       x = "Date", y = "Number Unemployed (thousands)")
+          </input>
+        </program>
+      </listing>
+
+      <p>
+        Like in the scatterplot, you can add a line of best fit.
+      </p>
+
+      <listing xml:id="lst-lm-linegraph">
+        <caption>An example of line graph with a LM line of best fit.</caption>
+        <program language="r">
+          <input>
+# PLUS: LM vs LOESS contrast
+ggplot(economics, aes(date, unemploy)) +
+  geom_line(linewidth = 1.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "US Unemployment with Linear Trend",
+       x = "Date", y = "Number Unemployed (thousands)")
+          </input>
+        </program>
+      </listing>
+
+      <p>
+        Instead of using <q>lm</q> for our method, let's try <q>loess</q> and see
+        our results.
+      </p>
+
+      <listing xml:id="lst-loess-linegraph">
+        <caption>An example of line graph with a LM line of best fit.</caption>
+        <program language="r">
+          <input>
+ggplot(economics, aes(date, unemploy)) +
+  geom_line(linewidth = 0.6) +
+  geom_smooth(method = "loess", se = TRUE) +  # loess = flexible smoothing; se = confidence band
+  labs(title = "US Unemployment with LOESS Smooth",
+       x = "Date", y = "Number Unemployed (thousands)")
+          </input>
+        </program>
+      </listing>
+    </subsection>
+
+    <subsection xml:id="sec-ggplot-text">
+      <title>Put text on the plot - geom_text()</title>
+      <p>
+        No matter the type of plot, it may help the viewer understand your plot better
+        if you add labels to some of your data points, for example, the most extreme.
+        To do this, utilize the <c>geom_text()</c> command.
+      </p>
+
+      <listing xml:id="lst-basic-textplot">
+        <caption>An example of adding text inside a plot.</caption>
+        <program language="r">
+          <input>
+# BASIC: label extreme points
+mpg_extremes &lt;- mpg |> slice_max(order_by = hwy, n = 5)
+mpg_extremes
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_text(data = mpg_extremes, aes(label = model), nudge_y = 1, size = 3) +
+  labs(title = "Top Highway MPG Models Labeled",
+       x = "Engine Displacement (L)", y = "Highway MPG")
+          </input>
+        </program>
+      </listing>
+
+      <p>
+        The code above first identifies the top three hwy values using
+        <c>slice_max()</c>, pairs that with <c>geom_text()</c> and labels only the
+        extreme data points. Now, viewers can read from the plot which model of cars
+        have the best highway miles per gallon.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-ggplot-errorbar">
+      <title>Error bars (requires summary stats) - geom_errorbar()</title>
+      <p>
+        In times where you want error bars to be displayed, you first need to compute
+        the mean and standard error for your values.
+      </p>
+
+      <listing xml:id="lst-computing-standard-error">
+        <caption>Creating a summarized table for mean and standard error, which will be utilized for the error bars.</caption>
+        <program language="r">
+          <input>
+# Compute mean &amp; standard error for hwy by class
+summ_hwy &lt;- mpg |>
+  group_by(class) |>
+  summarize(
+    mean_hwy = mean(hwy, na.rm = TRUE),
+    se_hwy   = sd(hwy, na.rm = TRUE) / sqrt(n()))
+
+summ_hwy
+          </input>
+        </program>
+      </listing>
+
+      <p>
+        Once completed, you can utilize the <c>geom_errorbar()</c> command to add
+        error bars to your plot.
+      </p>
+
+      <listing xml:id="lst-basic-error-plot">
+        <caption>An example of a plot with error bars.</caption>
+        <program language="r">
+          <input>
+# Points + error bars (plot error bars first so points sit on top)
+ggplot(summ_hwy, aes(class, mean_hwy)) +
+  geom_errorbar(aes(ymin = mean_hwy - se_hwy, ymax = mean_hwy + se_hwy), width = 0.2) +
+  geom_point(size = 2) +
+  coord_flip() +
+  labs(title = "Mean Highway MPG (± SE) by Class", x = "", y = "Mean Highway MPG")
+          </input>
+        </program>
+      </listing>
+    </subsection>
+
+    <subsection xml:id="sec-ggplot-ref-lines">
+      <title>Reference lines</title>
+      <p>
+        Let's say there is a scenario where you are looking for data above and below a
+        particular threshold. In this case, reference lines can become an essential
+        tool for yourself and your viewers. Once the threshold is established (mean,
+        median, really any number of significance to you), you can utilize the
+        <c>geom_hline()</c> or the <c>geom_vline()</c> commands to create horizontal
+        or vertical reference lines, respectively.
+      </p>
+
+      <listing xml:id="lst-horizontal-referencelines">
+        <caption>An example of plot with a horizontal reference line.</caption>
+        <program language="r">
+          <input>
+# Horizontal line at overall mean
+overall_mean &lt;- mean(mpg$hwy, na.rm = TRUE)
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(alpha = 0.6) +
+  geom_hline(yintercept = overall_mean, linetype = "dashed") +
+  labs(title = "Reference Line at Overall Mean Highway MPG",
+       x = "Engine Displacement (L)", y = "Highway MPG")
+          </input>
+        </program>
+      </listing>
+
+      <listing xml:id="lst-vertical-referencelines">
+        <caption>An example of plot with a vertical reference line.</caption>
+        <program language="r">
+          <input>
+# Vertical line at displ = 3
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(alpha = 0.6) +
+  geom_vline(xintercept = 3, linetype = "dotted") +
+  labs(title = "Reference Line at Engine Displacement = 3L",
+       x = "Engine Displacement (L)", y = "Highway MPG")
+          </input>
+        </program>
+      </listing>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-ggplot-takeaways">
+    <title>Key Takeaways</title>
+    <ul>
+      <li><p><alert>Always visualize your data</alert>! Summary statistics can hide patterns (and problems) in your data.</p></li>
+      <li><p><c>ggplot2</c> follows a consistent grammar: data + aesthetics + geometry.</p></li>
+      <li><p><c>geom_bar()</c> counts rows automatically; <c>geom_col()</c> plots pre-summarized values.</p></li>
+      <li><p>Use <c>labs()</c>, <c>theme()</c>, and <c>coord_flip()</c> to improve clarity and readability.</p></li>
+      <li><p><c>facet_wrap()</c> helps compare groups by creating small multiples.</p></li>
+      <li><p>Trend lines (<c>geom_smooth()</c>), error bars (<c>geom_errorbar()</c>), labels (<c>geom_text()</c>), and reference lines (<c>geom_hline()</c>, <c>geom_vline()</c>) help communicate the story in your data.</p></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-ggplot-checklist">
+    <title>Checklist</title>
+    <p>
+      <alert>When creating a visualization, have you:</alert>
+    </p>
+    <ul>
+      <li><p>Started by visualizing your data (not relying only on summary statistics)?</p></li>
+      <li><p>Chosen a plot type that matches your goal?</p></li>
+      <li><p>Confirmed whether your data are raw counts (<c>geom_bar()</c>) or pre-summarized values (<c>geom_col()</c>)?</p></li>
+      <li><p>Clearly defined aesthetics (<c>x</c>, <c>y</c>, <c>color</c>, <c>shape</c>, <c>fill</c>) and mapped them intentionally?</p></li>
+      <li><p>Added informative labels using <c>labs()</c> (title, axes, legend)?</p></li>
+      <li><p>Adjusted the layout for readability (e.g., <c>coord_flip()</c>, <c>facet_wrap()</c>)?</p></li>
+      <li><p>Considered whether trend lines, error bars, labels, or reference lines would help communicate the story?</p></li>
+      <li><p>Checked that the visualization is interpretable <em>without</em> additional explanation?</p></li>
+      <li><p>Asked: <em>What question does this plot help answer?</em></p></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-ggplot-keyfunctions">
+    <title>ggplot2 Visualization Reference</title>
+    <p>
+      Unlike other chapters, visualization relies on combining multiple components
+      rather than calling single functions. This section serves as a reference for
+      common geometries, aesthetics, and commands used throughout the book.
+    </p>
+
+    <subsection xml:id="sec-ggplot-geometries">
+      <title>Summary of ggplot Geometries</title>
+      <p>
+        Below is a list of plot types, their purpose, and the geom command used:
+      </p>
+      <ul>
+        <li><p><em>Scatterplot</em> - <alert>Relationships</alert> - <c>geom_point()</c></p></li>
+        <li><p><em>Bar Chart</em> - <alert>Counts</alert> - <c>geom_bar()</c></p></li>
+        <li><p><em>Column Chart</em> - <alert>Pre-summarized values</alert> - <c>geom_col()</c></p></li>
+        <li><p><em>Histogram</em> - <alert>Distribution</alert> - <c>geom_histogram()</c></p></li>
+        <li><p><em>Density Plot</em> - <alert>Distribution</alert> - <c>geom_density()</c></p></li>
+        <li><p><em>Boxplot</em> - <alert>Group comparison</alert> - <c>geom_boxplot()</c></p></li>
+        <li><p><em>Line Graph</em> - <alert>Time</alert> - <c>geom_line()</c></p></li>
+      </ul>
+    </subsection>
+
+    <subsection xml:id="sec-ggplot-commands">
+      <title>Summary of other ggplot commands</title>
+      <p>
+        Below is a list of other commands used to alter plots:
+      </p>
+      <ul>
+        <li>
+          <p>Aesthetics:</p>
+          <ul>
+            <li><p><c>color</c>: Changes the color of the points.</p></li>
+            <li><p><c>shape</c>: Changes the shape of the points.</p></li>
+            <li><p><c>alpha</c>: Changes the opacity of the point.</p></li>
+            <li><p><c>size</c>: Changes the size of the point.</p></li>
+            <li><p><c>fill</c>: Controls the interior color of shapes</p></li>
+          </ul>
+        </li>
+        <li><p><c>labs()</c>: Creates labels, including title, x-axis, and y-axis.</p></li>
+        <li><p><c>facet_wrap()</c>: Creates individual plots and puts it into one graphic.</p></li>
+        <li><p><c>coord_flip()</c>: Flips the axes without changing the underlying variables.</p></li>
+        <li><p><c>theme()</c>: Controls the overall appearance of the plot</p></li>
+        <li><p><c>theme_minimal()</c>: Makes the most basic looking plot.</p></li>
+        <li><p><c>theme(legend.position = "...")</c>: Dictates where (if at all) the legend appears on the plot.</p></li>
+        <li><p><c>geom_text()</c>: Adds text to the data points within the plot.</p></li>
+        <li><p><c>geom_hline()</c>: Adds a horizontal reference line.</p></li>
+        <li><p><c>geom_vline()</c>: Adds a vertical reference line.</p></li>
+        <li><p><c>geom_smooth()</c>: Adds trend lines.</p></li>
+        <li><p><c>reorder()</c>: Reorders categorical variables based on the values of another variable.</p></li>
+      </ul>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-viz-tip">
+    <title>💡 Reproducibility Tip:</title>
+    <p>
+      With visualizations (especially in R) there are nearly limitless possibilities.
+      To support reproducibility, aim to create figures that clearly communicate their
+      purpose <em>even when viewed on their own</em>.
+    </p>
+    <p>
+      When creating a visualization, ask yourself:
+    </p>
+    <ol>
+      <li><p>What question is this visualization answering?</p></li>
+      <li><p>What do I want my audience to understand from it?</p></li>
+      <li><p>What would someone understand if they saw this figure without any surrounding text?</p></li>
+    </ol>
+    <p>
+      To help close the gap between these questions, use informative labels and captions,
+      that will help <em>guide</em> users on what they're seeing.
+    </p>
+    <p>
+      Within <c>ggplot2</c>, functions like <c>labs()</c> allow you to clearly label
+      axes, titles, and legends so the intent of the plot is immediately clear. When
+      working in R Markdown or bookdown, figure captions (using <c>fig-cap</c>) provide
+      additional context that travels with the figure wherever it appears.
+    </p>
+    <p>
+      Visualizations that are well-labeled and properly captioned are easier to
+      interpret, reuse, and reproduce—both by others and by your future self.
     </p>
   </section>
 
