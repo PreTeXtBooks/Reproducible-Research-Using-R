@@ -56,7 +56,7 @@
     <p>
       This chapter uses the <c>infection_treatment</c> dataset from the companion R
       <c>reproresearchR</c> package (<cite key="R-reproresearchR"/>). Refer back to
-      <xref ref="sec-reproresearchR-package"/> to find out more about the <c>reproresearchR</c>
+      <xref ref="sec-loading-packages"/> to find out more about the <c>reproresearchR</c>
       package if needed.
     </p>
     <p>
