@@ -5,8 +5,10 @@
   <section xml:id="sec-references">
     <title>Bibliography</title>
     <p>
-      <!-- References will be populated here -->
+      The following references include the R packages, books, and resources cited throughout
+      this book.
     </p>
+    <references/>
   </section>
 
 </appendix>

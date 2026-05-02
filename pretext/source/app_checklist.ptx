@@ -49,6 +49,94 @@
     </p>
   </section>
 
-  <!-- Content to be filled in -->
+
+  <section xml:id="sec-checklist-merging">
+    <title>Merging &amp; Reshaping Data</title>
+    <p>
+      <ul>
+        <li>[ ] Have I verified row counts <alert>before and after</alert> joins using <c>nrow()</c>?</li>
+        <li>[ ] Do my joins reflect the intended relationship (one-to-one, one-to-many)?</li>
+        <li>[ ] Have I checked for unintended "data explosions" after merges?</li>
+        <li>[ ] Are reshaped datasets structured as expected after pivoting?</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-checklist-visualization">
+    <title>Visualization &amp; Communication</title>
+    <p>
+      <ul>
+        <li>[ ] Does each figure answer a clear, identifiable question?</li>
+        <li>[ ] Are axes, legends, and titles clearly labeled using <c>labs()</c>?</li>
+        <li>[ ] Would the figure make sense if viewed <alert>without surrounding text</alert>?</li>
+        <li>[ ] Have I used informative captions for figures (<c>fig.cap</c>) and tables (<c>kable()</c>)?</li>
+        <li>[ ] Are visual choices (scales, colors, facets) intentional and interpretable?</li>
+        <li>[ ] Are color palettes accessible (e.g., colorblind-friendly)?</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-checklist-stats">
+    <title>Statistical Reasoning</title>
+    <p>
+      <ul>
+        <li>[ ] Do the variables used in analyses make <alert>theoretical and real-world sense</alert> together?</li>
+        <li>[ ] Have I visualized relationships before relying on statistical tests?</li>
+        <li>[ ] Are statistical assumptions appropriate for the methods used?</li>
+        <li>[ ] Have I avoided interpreting statistically strong but implausible relationships?</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-checklist-modeling">
+    <title>Modeling &amp; Inference</title>
+    <p>
+      <ul>
+        <li>[ ] Have I justified why each model was fit?</li>
+        <li>[ ] Did I examine correlations before fitting regression models?</li>
+        <li>[ ] Have I checked diagnostics (residuals, fit measures, assumptions)?</li>
+        <li>[ ] Have I favored <alert>parsimony</alert> over unnecessary complexity?</li>
+        <li>[ ] Are modeling decisions clearly documented and defensible?</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-checklist-randomness">
+    <title>Randomness &amp; Evaluation</title>
+    <p>
+      <ul>
+        <li>[ ] Have I set a seed using <c>set.seed()</c> whenever randomness is involved?</li>
+        <li>[ ] Are train/test splits reproducible and documented?</li>
+        <li>[ ] Have I clearly stated evaluation choices (split ratio, thresholds)?</li>
+        <li>[ ] Would someone re-running my code obtain the same results?</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-checklist-reporting">
+    <title>Reporting &amp; Execution</title>
+    <p>
+      <ul>
+        <li>[ ] Does my Quarto document render successfully from top to bottom?</li>
+        <li>[ ] Are all outputs readable, relevant, and appropriately formatted?</li>
+        <li>[ ] Is unnecessary output suppressed or removed?</li>
+        <li>[ ] Could someone unfamiliar with this project understand the results by reading the document alone?</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-checklist-final">
+    <title>Final Check</title>
+    <p>
+      <ul>
+        <li>[ ] Can this analysis be re-run, understood, and trusted by someone else?</li>
+        <li>[ ] Could <em>future me</em> reproduce this work without guesswork?</li>
+      </ul>
+    </p>
+    <p>
+      Reproducibility is not a single step—it is the accumulation of small, intentional habits
+      practiced consistently throughout an analysis.
+    </p>
+  </section>
 
 </appendix>
