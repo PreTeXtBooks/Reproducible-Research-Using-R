@@ -116,12 +116,14 @@
 
   <section xml:id="sec-r-calculator">
     <title>R as a Calculator</title>
+    <introduction>
+
     <p>
       One of the most amazing parts of R is that it can do math for you, and replace
       that scientific calculator you're always carrying around. R's math range is
       absolutely incredible, but for right now, we will start with the basics.
     </p>
-
+    </introduction>
     <subsection xml:id="sec-intro-calculator-basic">
       <title>Basic Math</title>
       <p>
@@ -129,7 +131,7 @@
       </p>
 
       <program language="r">
-        <input>
+        <code>
 2 + 2
 
 10 / 3
@@ -139,7 +141,7 @@
 (3 + 7) * 2
 
 5 * 5 * 5 / 37 + 42
-        </input>
+        </code>
       </program>
 
       <p>
@@ -160,7 +162,7 @@
       </p>
 
       <program language="r">
-        <input>
+        <code>
 # Built-in functions
 sqrt(25) # square root
 
@@ -171,7 +173,7 @@ log10(1000) # base-10 log
 round(3.14159, digits = 3) # round the output to only have 3 digits
 
 round(5*5/37, 4) # rounding the output of an equation
-        </input>
+        </code>
       </program>
 
       <p>
@@ -244,7 +246,7 @@ round(5*5/37, 4) # rounding the output of an equation
     </note>
 
     <program language="r">
-      <input>
+      <code>
 # Assigning to objects (variables)
 sqrt(25) # the answer is 5
 
@@ -268,7 +270,7 @@ best_number &lt;- 42
 
 # Inspecting objects
 class(x) # x is numeric, as we already knew!
-      </input>
+      </code>
     </program>
 
     <insight>
@@ -288,6 +290,8 @@ class(x) # x is numeric, as we already knew!
 
   <section xml:id="sec-intro-vectors">
     <title>Vectors</title>
+    <introduction>
+
     <p>
       Now that objects have been created, it is time to use those same principles to
       create <alert>vectors.</alert> Like objects, vectors contain information, just
@@ -315,18 +319,18 @@ class(x) # x is numeric, as we already knew!
     </p>
 
     <program language="text">
-      <input>
+      <code>
 wont_work &lt;- a, b, c # no parenthesis
 
 also_wont_work &lt;- (a, b, c) # no c before the parenthesis
-      </input>
+      </code>
     </program>
 
     <p>
       Since we have vector examples that <em>don't</em> work, let's get into examples
       that <em>do</em> work.
     </p>
-
+    </introduction>
     <subsection xml:id="sec-intro-vectors-numeric">
       <title>Numeric Vectors</title>
       <p>
@@ -334,7 +338,7 @@ also_wont_work &lt;- (a, b, c) # no c before the parenthesis
       </p>
 
       <program language="r">
-        <input>
+        <code>
 # Numeric vector
 number_vector &lt;- c(1, 2, 3, 4, 5) # c stands for combine/concatenate
 
@@ -355,7 +359,7 @@ number_vector + numeric_vector_2
 
 # Vectorized math
 number_vector * 10
-        </input>
+        </code>
       </program>
     </subsection>
 
@@ -377,7 +381,7 @@ number_vector * 10
       </warning>
 
       <program language="r">
-        <input>
+        <code>
 # Quotation marks around each of the fruits
 fruits &lt;- c("apple", "banana", "cherry")
 
@@ -387,7 +391,7 @@ fruits
 Fruits &lt;- c("apple, banana, cherry")
 
 Fruits
-        </input>
+        </code>
       </program>
 
       <p>
@@ -426,7 +430,7 @@ Fruits
       </insight>
 
       <program language="r">
-        <input>
+        <code>
 # Using full word capitalized
 some_truths &lt;- c(TRUE, FALSE, TRUE)
 
@@ -445,7 +449,7 @@ class(some_lies)
 truth_logic &lt;- c("TRUE","FALSE","TRUE")
 
 class(truth_logic)
-        </input>
+        </code>
       </program>
 
       <p>
@@ -480,7 +484,7 @@ class(truth_logic)
       </insight>
 
       <program language="r">
-        <input>
+        <code>
 # Creating the colors vector as factors
 colors &lt;- factor(c("red", "blue", "red", "green")) # 4 values
 
@@ -489,7 +493,7 @@ colors
 class(colors)
 
 levels(colors) # Checking to see how many levels there are (3)
-        </input>
+        </code>
       </program>
 
       <p>
@@ -512,12 +516,12 @@ levels(colors) # Checking to see how many levels there are (3)
       </p>
 
       <program language="r">
-        <input>
+        <code>
 # fruits &lt;- c("apple", "banana", "cherry")
 fruits[1] # first element
 
 fruits[2:3] # slice
-        </input>
+        </code>
       </program>
 
       <p>
@@ -535,14 +539,14 @@ fruits[2:3] # slice
       </p>
 
       <program language="r">
-        <input>
+        <code>
 # Putting two numeric and one character into a vector.
 mix &lt;- c(1, 2, "three")
 
 mix # becomes character
 
 class(mix)
-        </input>
+        </code>
       </program>
 
       <p>
@@ -565,6 +569,8 @@ class(mix)
 
   <section xml:id="sec-intro-dataframes">
     <title>Data Frames</title>
+    <introduction>
+
     <p>
       Vectors are an essential way to store information, but specifically,
       <alert>one</alert> type of information. When we tried to mix different types of
@@ -576,7 +582,7 @@ class(mix)
       This is exactly where data frames come into play. Data frames are the most common
       way to view data, with maybe the most prominent examples being Microsoft Excel.
     </p>
-
+    </introduction>
     <subsection xml:id="sec-intro-dataframes-creating">
       <title>Creating Your Own Data Frame</title>
       <p>
@@ -587,7 +593,7 @@ class(mix)
       </p>
 
       <program language="r">
-        <input>
+        <code>
 # Build a tiny class roster data frame
 names_vec &lt;- c("John", "Bob", "Carmen", "Sarah")
 
@@ -604,7 +610,7 @@ roster &lt;- data.frame(
 roster
 
 class(roster) # Class is now data.frame
-        </input>
+        </code>
       </program>
 
       <p>
@@ -636,7 +642,7 @@ class(roster) # Class is now data.frame
       </p>
 
       <program language="r">
-        <input>
+        <code>
 # iris
 head(iris) # By default returns 6 rows
 
@@ -647,7 +653,7 @@ str(iris) # Provides the structure of each column
 summary(iris) # Provides statistics for each column
 
 colnames(iris) # Provides the column names of your data
-        </input>
+        </code>
       </program>
 
       <p>
@@ -674,9 +680,9 @@ colnames(iris) # Provides the column names of your data
       </p>
 
       <program language="r">
-        <input>
+        <code>
 median(roster$age)
-        </input>
+        </code>
       </program>
 
       <p>
@@ -690,7 +696,7 @@ median(roster$age)
       </p>
 
       <program language="r">
-        <input>
+        <code>
 # Having one value for each row of data
 roster$year &lt;- 2025
 
@@ -698,7 +704,7 @@ roster$year &lt;- 2025
 roster$minor &lt;- c("Chemistry", "Biology", "History", "Art")
 
 roster
-        </input>
+        </code>
       </program>
     </subsection>
   </section>
@@ -725,7 +731,7 @@ roster
     </p>
 
     <program language="r">
-      <input>
+      <code>
 # read.csv example (commented because path varies by machine)
 # my_df &lt;- read.csv("/path/to/your/file.csv")
 
@@ -733,7 +739,7 @@ roster
 # getwd()
 # setwd("/path/where/you/want") # &lt;- avoid hard-coding in projects; we'll cover R Projects later
 #setwd("~/Documents/Work/Brooklyn College/Fall 2025")
-      </input>
+      </code>
     </program>
   </section>
 
@@ -763,11 +769,11 @@ roster
     </p>
 
     <program language="r">
-      <input>
+      <code>
 # install.packages("tidyverse")
 # library(readxl)
 # library(tidyverse)
-      </input>
+      </code>
     </program>
 
     <p>
@@ -806,9 +812,9 @@ roster
     </p>
 
     <program language="r">
-      <input>
+      <code>
 ?str
-      </input>
+      </code>
     </program>
 
     <p>

@@ -18,4 +18,18 @@
     </p>
   </section>
 
+  <section xml:id="sec-linear-reg-model">
+    <title>Linear Regression Model</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+  <section xml:id="sec-more-variables">
+    <title>Adding More Variables</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
 </chapter>

@@ -67,7 +67,7 @@
     <listing xml:id="lst-loading-data-ISLR2">
       <caption>The skim function provides us with insights into our data that are helpful when first looking at the data.</caption>
       <program language="r">
-        <input>
+        <code>
 library(ISLR2)
 library(tidyverse)
 
@@ -76,7 +76,7 @@ cc_data &lt;- Default # this data comes from the ISLR2 package
 library(skimr)
 
 skim(cc_data)
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -126,16 +126,16 @@ skim(cc_data)
     <listing xml:id="lst-proportion-odds">
       <caption>Counting the number of defaults in the dataset.</caption>
       <program language="r">
-        <input>
+        <code>
 table(cc_data$default)
-        </input>
+        </code>
       </program>
     </listing>
 
     <listing xml:id="lst-proportion-odds-cat">
       <caption>Calculating the proportion, percentage, and odds of defaulting.</caption>
       <program language="r">
-        <input>
+        <code>
 # Proportion of people who default
 p &lt;- mean(cc_data$default == "Yes")
 p*100
@@ -153,28 +153,28 @@ cat("Equivalent odds ratio (1 in every", round(1/odds,0), ")\n")
 
 # Cross-tab between student status and default
 cc_data |> count(default, student) |> arrange(desc(n))
-        </input>
+        </code>
       </program>
     </listing>
 
     <listing xml:id="lst-favstats-income-default">
       <caption>A summarized table uncovering insights into the relationship between income and default.</caption>
       <program language="r">
-        <input>
+        <code>
 # Quick descriptive stats
 library(mosaic)
 
 favstats(income ~ default, data = cc_data)
-        </input>
+        </code>
       </program>
     </listing>
 
     <listing xml:id="lst-favstats-balance-default">
       <caption>A summarized table uncovering insights into the relationship between balance and default.</caption>
       <program language="r">
-        <input>
+        <code>
 favstats(balance ~ default, data = cc_data)
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -220,7 +220,7 @@ favstats(balance ~ default, data = cc_data)
     <listing xml:id="lst-default-bargraph">
       <caption>Most customers do not default on their credit cards, with defaulters representing only about 3% of the dataset.</caption>
       <program language="r">
-        <input>
+        <code>
 library(ggthemes)
 
 # Default distribution
@@ -228,7 +228,7 @@ ggplot(cc_data, aes(x = default, fill = default)) +
   geom_bar() +
   labs(title = "Count of Defaulters vs Non-Defaulters", y = "Count", x = "Default?") +
   theme_economist()
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -239,21 +239,21 @@ ggplot(cc_data, aes(x = default, fill = default)) +
     <listing xml:id="lst-default-histogram">
       <caption>While most customers do not default on their credit cards, it seems that people that do have higher balances.</caption>
       <program language="r">
-        <input>
+        <code>
 # Balance by default
 ggplot(cc_data, aes(x = balance, fill = default)) +
   geom_histogram(position = "identity", alpha = 0.6, bins = 30) +
   labs(title = "Higher Balances Increase Likelihood of Default",
        x = "Average Credit Card Balance ($)", y = "Count") +
   theme_economist_white()
-        </input>
+        </code>
       </program>
     </listing>
 
     <listing xml:id="lst-default-scatter">
       <caption>Regardless of if you default or not, there is a negative relationship between Annual Income and Average Credit Card Balance.</caption>
       <program language="r">
-        <input>
+        <code>
 # Balance vs. Income
 ggplot(cc_data, aes(x = balance, y = income, color = default)) +
   geom_point(alpha = 0.6) +
@@ -265,7 +265,7 @@ ggplot(cc_data, aes(x = balance, y = income, color = default)) +
        color = "Default") +
   theme_minimal(base_size = 13) +
   theme(plot.title = element_text(face = "bold"))
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -311,7 +311,7 @@ ggplot(cc_data, aes(x = balance, y = income, color = default)) +
     <listing xml:id="lst-splitting-data">
       <caption>Splitting the dataset into training (70%) and testing (30%) sets for model validation.</caption>
       <program language="r">
-        <input>
+        <code>
 # set.seed allows us to get the same split of the data each time we run this code
 set.seed(42)
 
@@ -326,7 +326,7 @@ training_data &lt;- subset(cc_data, sample == TRUE)
 # This creates our test data, what we will measure our model against
 
 test_data &lt;- subset(cc_data, sample == FALSE)
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -343,6 +343,8 @@ test_data &lt;- subset(cc_data, sample == FALSE)
 
   <section xml:id="sec-log-reg-model">
     <title>Build Logistic Regression Model</title>
+    <introduction>
+
     <p>
       When building a logistic regression model, it is going to look very similar to
       the linear regression model we built starting in <xref ref="sec-linear-reg-model"/>.
@@ -382,12 +384,12 @@ test_data &lt;- subset(cc_data, sample == FALSE)
     <listing xml:id="lst-s-curve">
       <caption>When plotting the balance and the default, the scatterplot creates a line that is not linear, but in fact an S shape.</caption>
       <program language="r">
-        <input>
+        <code>
 ggplot(cc_data, aes(x = balance, y = as.numeric(default) - 1)) +
   geom_point(alpha = 0.2) +
   geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, color = "red") +
   labs(y = "Probability of Default", x = "Balance")
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -404,14 +406,14 @@ ggplot(cc_data, aes(x = balance, y = as.numeric(default) - 1)) +
     <listing xml:id="lst-creating-model">
       <caption>Logistic Regression Model Predicting the Probability of Credit Default based on Student Status, Account Balance, and Income.</caption>
       <program language="r">
-        <input>
+        <code>
 # We are using binomial as family since default is yes/no
 
 train_model &lt;- glm(default ~ student + balance + income,
                    family = "binomial", data = training_data) 
 
 summary(train_model)
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -463,12 +465,12 @@ summary(train_model)
     <listing xml:id="lst-convert-log-odds">
       <caption>Converting log-odds coefficients to odds ratios using exp().</caption>
       <program language="r">
-        <input>
+        <code>
 # Convert log-odds → odds ratios
 exp(coef(train_model))
 
 # Example: students have 0.43× the odds (≈57% lower odds) of defaulting
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -490,7 +492,7 @@ exp(coef(train_model))
       <li><p>For every dollar your balance increases, the odds of you defaulting increase by 0.58%. This seems small per dollar, but compounds rapidly across real-life balance amounts. For example, increasing the balance by $100 multiplies the odds of default by about 1.78, which is a 78% increase in odds.</p></li>
       <li><p>The odds ratio for income is so small (OR = 1.000003), that a $1 increase in income has basically no influence on your default odds.</p></li>
     </ol>
-
+    </introduction>
     <subsection xml:id="sec-mcfaddens-r-2">
       <title>McFadden's Pseudo-R²</title>
       <p>
@@ -503,12 +505,12 @@ exp(coef(train_model))
       <listing xml:id="lst-McFadden-pseudo-R2">
         <caption>Calculating McFadden's pseudo-R² to assess model fit.</caption>
         <program language="r">
-          <input>
+          <code>
 # McFadden's pseudo-R2
 library(pscl)
 
 pR2(train_model)["McFadden"]
-          </input>
+          </code>
         </program>
       </listing>
 
@@ -527,13 +529,13 @@ pR2(train_model)["McFadden"]
       <listing xml:id="lst-variable-importance">
         <caption>Assessing the relative importance of predictors using varImp().</caption>
         <program language="r">
-          <input>
+          <code>
 # Variable importance
 library(caret)
 
 varImp(train_model) |> arrange(desc(Overall))
 # balance seems to be the most impactful in our model
-          </input>
+          </code>
         </program>
       </listing>
     </subsection>
@@ -550,14 +552,14 @@ varImp(train_model) |> arrange(desc(Overall))
       <listing xml:id="lst-multicollinearity">
         <caption>Checking for multicollinearity using Variance Inflation Factors (VIF).</caption>
         <program language="r">
-          <input>
+          <code>
 # Multicollinearity check
 library(car)
 
 vif(train_model)
 # does not seem to be any multicollinearity
 # anything less than 5 means no multicollinearity
-          </input>
+          </code>
         </program>
       </listing>
 
@@ -591,11 +593,11 @@ vif(train_model)
     <listing xml:id="lst-predicting">
       <caption>Generating predicted probabilities and class labels for the test set.</caption>
       <program language="r">
-        <input>
+        <code>
 test_data$pred_prob &lt;- predict(train_model, newdata = test_data, type = "response")
 
 test_data$pred_class &lt;- ifelse(test_data$pred_prob > 0.5, "Yes", "No") |> as.factor()
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -626,11 +628,11 @@ test_data$pred_class &lt;- ifelse(test_data$pred_prob > 0.5, "Yes", "No") |> as.
     <listing xml:id="lst-confusion-matrix">
       <caption>Confusion Matrix Evaluating Model Predictions Against Actual Default Status on the Test Dataset.</caption>
       <program language="r">
-        <input>
+        <code>
 conf_matrix &lt;- confusionMatrix(test_data$pred_class, test_data$default, positive = "Yes")
 
 conf_matrix
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -681,22 +683,22 @@ conf_matrix
     <listing xml:id="lst-pROC-plot">
       <caption>Receiver Operating Characteristic (ROC) curve for the logistic regression model predicting credit card default. The curve plots sensitivity against 1 − specificity across all possible classification thresholds. Curves closer to the top-left corner indicate better classification performance. The area under the curve (AUC) summarizes the model's ability to distinguish between defaulters and non-defaulters.</caption>
       <program language="r">
-        <input>
+        <code>
 library(pROC)
 
 roc_obj &lt;- roc(test_data$default, test_data$pred_prob, levels = c("No", "Yes"))
 plot(roc_obj, col = "darkblue", lwd = 2,
      main = "ROC Curve – Logistic Regression")
-        </input>
+        </code>
       </program>
     </listing>
 
     <listing xml:id="lst-auc">
       <caption>Calculating the Area Under the ROC Curve (AUC).</caption>
       <program language="r">
-        <input>
+        <code>
 auc(roc_obj)
-        </input>
+        </code>
       </program>
     </listing>
 
