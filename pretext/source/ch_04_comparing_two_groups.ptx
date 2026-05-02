@@ -90,22 +90,22 @@
       introduced in <xref ref="sec-intro-dataframes-creating"/>.
     </p>
     <program language="r">
-      <input>
+      <code>
 mets &lt;- data.frame(
   Game = c(1,2,3,4,5,6,7,8,9,10),
   Mets_Score = c(4,20,12,5,3,9,9,10,4,2)) # This is where we manually put our numbers in
 
 head(mets) # This calls the first 6 rows of the data
-      </input>
+      </code>
     </program>
     <program language="r">
-      <input>
+      <code>
 yankees &lt;- data.frame(
   Game = c(1:10), # The colon tells R "any number between 1 and 10."
   Yankees_Score = c(3,8,2,3,2,6,5,3,2,7))
 
 tail(yankees) # This calls the last 6 rows of the data
-      </input>
+      </code>
     </program>
     <p>
       Perfect! We created two different data frames, <em>mets</em> and <em>yankees</em> with each
@@ -116,7 +116,7 @@ tail(yankees) # This calls the last 6 rows of the data
       of the 2025 season.
     </p>
     <program language="r">
-      <input>
+      <code>
 mets_second_ten &lt;- data.frame(
   Game = c(11:20),
   Mets_Score = c(10,0,7,1,8,5,3,3,4,1))
@@ -124,7 +124,7 @@ mets_second_ten &lt;- data.frame(
 yankees_second_ten &lt;- data.frame(
   Game = c(11:20),
   Yankees_Score = c(0,4,1,8,4,4,4,4,6,1))
-      </input>
+      </code>
     </program>
     <p>
       Now, we successfully have datasets for the first 10 and first 20 games of the 2025 MLB
@@ -160,7 +160,7 @@ yankees_second_ten &lt;- data.frame(
         means that there is an issue.
       </p>
       <program language="r">
-        <input>
+        <code>
 # Mets
 nrow(mets) # Seeing how many rows are in mets
 
@@ -176,7 +176,7 @@ nrow(yankees)
 nrow(yankees_second_ten)
 
 yankees_all &lt;- rbind(yankees, yankees_second_ten)
-        </input>
+        </code>
       </program>
       <p>
         Success! Both of our datasets have 20 rows.
@@ -196,11 +196,11 @@ yankees_all &lt;- rbind(yankees, yankees_second_ten)
         sure there are 20 rows and 3 columns: Game, Mets_Score, and Yankees_Score.
       </p>
       <program language="r">
-        <input>
+        <code>
 baseball_data &lt;- merge(yankees_all, mets_all, by = "Game")
 
 baseball_data
-        </input>
+        </code>
       </program>
       <p>
         Fantastic! We now have one complete dataset with the scores of the Mets and Yankees in the
@@ -248,7 +248,7 @@ baseball_data
           datasets have the same 20 games.
         </p>
         <program language="r">
-          <input>
+          <code>
 library(tidyverse)
 
 baseball_data_sql &lt;- inner_join(yankees_all, mets_all, by = "Game")
@@ -258,7 +258,7 @@ nrow(baseball_data_sql) # Checks the number of rows
 ncol(baseball_data_sql) # Checks the number of columns
 
 baseball_data_sql
-          </input>
+          </code>
         </program>
         <p>
           One of the beautiful things in R is that you can get the same results using different
@@ -283,7 +283,7 @@ baseball_data_sql
         data from wide to long.
       </p>
       <program language="r">
-        <input>
+        <code>
 # Lets say we want to turn out data from wide format into long format, so we can run
 baseball_data_long &lt;- baseball_data |> pivot_longer(cols = c(Yankees_Score, Mets_Score),
                                                     names_to = "Team",
@@ -292,7 +292,7 @@ baseball_data_long &lt;- baseball_data |> pivot_longer(cols = c(Yankees_Score, M
 nrow(baseball_data_long)
 
 baseball_data_long
-        </input>
+        </code>
       </program>
     </subsection>
 
@@ -305,14 +305,14 @@ baseball_data_long
         format.
       </p>
       <program language="r">
-        <input>
+        <code>
 # Lets say we want to turn out data from wide format into long format, so we can run
 baseball_data_wide &lt;- baseball_data_long |> pivot_wider(names_from = "Team",
                                                     values_from = "Score")
 nrow(baseball_data_wide)
 
 baseball_data_wide
-        </input>
+        </code>
       </program>
     </subsection>
   </section>
@@ -331,7 +331,7 @@ baseball_data_wide
         that mean and average mean (pun intended) the same thing and are interchangeable words.
       </p>
       <program language="r">
-        <input>
+        <code>
 # Calculating the individual means of the teams scores, we can use our wide format
 yankees_average_score &lt;- mean(baseball_data$Yankees_Score)
 
@@ -347,7 +347,7 @@ mets_average_score
 overall_average &lt;- mean(baseball_data_long$Score)
 
 overall_average
-        </input>
+        </code>
       </program>
       <p>
         Here is a breakdown of the means:
@@ -372,7 +372,7 @@ overall_average
         <xref ref="sec-ggplot-boxplot"/>.
       </p>
       <program language="r">
-        <input>
+        <code>
 library(ggplot2)
 ggplot(baseball_data_long, aes(Team, Score)) +
   geom_boxplot(outlier.shape = NA) +
@@ -384,7 +384,7 @@ ggplot(baseball_data_long, aes(Team, Score)) +
   y = "Runs Scored"
   ) +
   theme_classic()
-        </input>
+        </code>
       </program>
       <p>
         There has already been a lot of work done with our data, and through both visualizations
@@ -429,13 +429,13 @@ ggplot(baseball_data_long, aes(Team, Score)) +
         For our data, we need to conduct an unpaired t.test.
       </p>
       <program language="r">
-        <input>
+        <code>
 # Unpaired t.test
 baseball_t_test &lt;- t.test(baseball_data$Yankees_Score, baseball_data$Mets_Score, paired = F)
 # From a structural standpoint, if we needed to run a paired t.test, all we would need to do is change "paired = F" to "paired = T"
 
 baseball_t_test
-        </input>
+        </code>
       </program>
       <insight>
         <title>If you are working with long data, you cal use the formula:</title>

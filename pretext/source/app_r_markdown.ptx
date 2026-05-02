@@ -150,18 +150,18 @@
           (whether a single letter, word, sentence, paragraph, etc.).
         </p>
         <program language="text">
-          <input>
+          <code>
 *It will look like this.*
-          </input>
+          </code>
         </program>
         <p>
           <alert>Bold</alert>: to do this, add <c>**</c> to the beginning and end of your text
           (whether a single letter, word, sentence, paragraph, etc.).
         </p>
         <program language="text">
-          <input>
+          <code>
 **It will look like this.**
-          </input>
+          </code>
         </program>
         <p>
           These are the two basic ways to edit text. What if we need to indent in order to create
@@ -178,13 +178,13 @@
           then a space before your text. Below are examples of both.
         </p>
         <program language="text">
-          <input>
+          <code>
 - Text
 - More text
 
 1. Text
 2. More text
-          </input>
+          </code>
         </program>
         <p>
           We have seen both of these ample times throughout this textbook, and also in this
@@ -216,9 +216,9 @@
         this:
       </p>
       <program language="text">
-        <input>
+        <code>
 {r name-of-chunk}
-        </input>
+        </code>
       </program>
       <p>
         It is best practice to either use one long word or use a <c>-</c> in between your words.
@@ -253,7 +253,7 @@
           <xref ref="sec-tidyverse-together"/> of the book.
         </p>
         <program language="r">
-          <input>
+          <code>
 library(tidyverse)
 library(palmerpenguins)
 
@@ -263,7 +263,7 @@ penguins_new &lt;- penguins %>%
   mutate(size_category = if_else(body_mass_g >= 3500, "Big","Small")) %>%
   arrange(desc(body_mass_g)) %>%
   rename(penguin_types = species)
-          </input>
+          </code>
         </program>
         <p>
           This code works just as it did in the third chapter. In the R Markdown document, all of
@@ -276,9 +276,9 @@ penguins_new &lt;- penguins %>%
           of 25:
         </p>
         <program language="r">
-          <input>
+          <code>
 sqrt(25)
-          </input>
+          </code>
         </program>
         <p>
           With the above R code, our R Markdown file shows both the <c>sqrt(25)</c> code as well
@@ -297,9 +297,9 @@ sqrt(25)
             we call the output.
           </p>
           <program language="r">
-            <input>
+            <code>
 penguins_new
-            </input>
+            </code>
           </program>
           <p>
             By calling <c>penguins_new</c>, the R Markdown document now displays the output,
@@ -311,10 +311,10 @@ penguins_new
             function, which is purposely dedicated to displaying tabular data in R Markdown.
           </p>
           <program language="r">
-            <input>
+            <code>
 library(knitr)
 kable(head(penguins_new), caption = "This is an example of displaying a table using the kable command. On top of the data looking nicer then just a regular output, we can add a caption (and manipulate other aesthetic pieces.")
-            </input>
+            </code>
           </program>
           <p>
             If we compare and contrast the output from just <c>penguins_new</c> vs the output
@@ -351,11 +351,11 @@ kable(head(penguins_new), caption = "This is an example of displaying a table us
             <c>fig.cap</c> goes in the top <c>{}</c> of the R chunk.
           </p>
           <program language="r">
-            <input>
+            <code>
 # {r example-ggplot2, fig.cap="An example of a visualization made using ggplot2."}
 ggplot(data = mpg, aes(x = cty, y = hwy)) +
   geom_point()
-            </input>
+            </code>
           </program>
           <p>
             This visualization, which we originally built in Section
@@ -385,11 +385,11 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
         R Markdown utilizes the <c>#</c> symbol to set up sections. Here is an example:
       </p>
       <program language="text">
-        <input>
+        <code>
 # Section 1
 # Section 2
 ## Section 2.1
-        </input>
+        </code>
       </program>
       <p>
         Notice that a hierarchy is determined through the <alert>number</alert> of <c>#</c> in
@@ -468,9 +468,9 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
         This is what the code looks like:
       </p>
       <program language="text">
-        <input>
+        <code>
 [here](https://r-packages.io/packages).
-        </input>
+        </code>
       </program>
       <p>
         What is inside the brackets is what the viewers see, and then what is inside the
@@ -485,9 +485,9 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
         to display the image:
       </p>
       <program language="text">
-        <input>
+        <code>
 ![A picture of a Adelie penguin.](Adelie-Screenshot.png)
-        </input>
+        </code>
       </program>
       <p>
         The formula for this goes:
@@ -517,9 +517,9 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
         To create a checklist, is it quite similar to how to create lists. Below is an example:
       </p>
       <program language="text">
-        <input>
+        <code>
 - [ ] Identified both variables as **categorical** (not numeric)?
-        </input>
+        </code>
       </program>
       <p>
         There is still a <c>-</c>, followed by a space. However, after the space is <c>[]</c>
@@ -541,9 +541,9 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
         To do this, all you need is the <c>&gt;</c> on its own line. The code looks like this:
       </p>
       <program language="text">
-        <input>
+        <code>
 > R puts the r in Artist.
-        </input>
+        </code>
       </program>
       <p>
         Simple as that! This can be a vital addition when used correctly.
