@@ -2,19 +2,713 @@
 <chapter xml:id="ch-linear-regression" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Linear Regression</title>
 
-  <introduction>
-    <p>
-      This chapter covers simple and multiple linear regression, one of the
-      most widely used statistical modeling techniques. You will learn how to
-      fit regression models in R, interpret coefficients, assess model fit, and
-      check assumptions.
-    </p>
-  </introduction>
-
   <section xml:id="sec-linear-reg">
     <title>Introduction</title>
     <p>
-      <!-- Content to be filled in -->
+      In this lesson, we will explore how to use <alert>linear regression</alert> to not only
+      understand, but to also predict relationships between variables.
+    </p>
+    <note>
+      <title>Everyone loves pizza (cowabunga!) and like many pizza establishments, we will be trying to answer the question:</title>
+      <p>
+        <em>Can we predict the amount of pizza sold based on its price?</em>
+      </p>
+    </note>
+    <p>
+      We'll use a dataset called <c>pizza_prices</c>, which contains weekly pizza sales and
+      pricing data.
+    </p>
+  </section>
+
+  <section xml:id="lin-reg-objectives">
+    <title>Learning Objectives</title>
+    <p>
+      By the end of this chapter, you will be able to:
+      <ul>
+        <li>Explain the purpose of linear regression as a tool for modeling and prediction</li>
+        <li>Visualize and assess linear relationships between numeric variables using
+        scatterplots</li>
+        <li>Use correlation to evaluate whether variables are appropriate for regression
+        modeling</li>
+        <li>Fit a simple linear regression model using <c>lm()</c> and interpret the slope and
+        intercept</li>
+        <li>Interpret key model outputs including coefficients, p-values, R², adjusted R², and
+        the F-statistic</li>
+        <li>Generate predicted values and calculate residuals from a fitted regression model</li>
+        <li>Diagnose model assumptions by visually and statistically evaluating residuals</li>
+        <li>Test for heteroscedasticity using the Breusch–Pagan test</li>
+        <li>Extend simple regression to multiple regression by adding additional predictors</li>
+        <li>Compare competing regression models using adjusted R² and AIC</li>
+        <li>Select a parsimonious model that balances explanatory power and complexity</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-linear-reg-data">
+    <title>Loading Our Data</title>
+    <p>
+      We start by importing the necessary packages, reading in our data from the
+      <c>reproresearchR</c> package (<cite key="R-reproresearchR"/>), and quickly doing an
+      overview of the data.
+    </p>
+    <program language="r">
+      <input>
+library(tidyverse)
+library(reproresearchR)
+
+pizza_sales&lt;- pizza_prices
+
+library(skimr)
+
+skim(pizza_sales)
+      </input>
+    </program>
+  </section>
+
+  <section xml:id="sec-linear-reg-cleaning-data">
+    <title>Cleaning Our Data</title>
+    <p>
+      In <xref ref="sec-cleaning-data-correlation"/> we had to clean our data because of the
+      spaces in the column headers. Our current data has the same issue, as "Total Volume" and
+      "Total Price" both have a space in them. Looks like the <c>clean_names()</c> command will
+      come in handy again like in <xref ref="sec-cleaning-data-correlation"/>. Let's also do some
+      other cleaning while we are at it.
+    </p>
+    <program language="r">
+      <input>
+library(janitor)
+
+# Let's get rid of any spaces in the column names
+pizza_sales&lt;- clean_names(pizza_sales)
+
+# We just want to see the relationship between volume and price, so week does not matter
+pizza_sales&lt;- pizza_sales |> select(-1)
+
+# Let's rename our column names to make things easier
+pizza_sales &lt;- pizza_sales |>
+  rename(price = total_price, volume = total_volume)
+      </input>
+    </program>
+    <p>
+      We now have a cleaner dataset we can use!
+    </p>
+  </section>
+
+  <section xml:id="sec-linear-reg-viz">
+    <title>Visualizing Relationships</title>
+    <p>
+      As emphasized in every chapter, it is <alert>imperative</alert> that we first graph our
+      data to see what it looks like before we run any statistical analyses. Visuals really help
+      us understand our data. Is our data linear? Can we see any patterns? <em>Let's find
+      out!</em>
+    </p>
+    <p>
+      For regression models, we use scatterplots. For a scatterplot, all we need are two
+      numerical variables.
+    </p>
+    <program language="r">
+      <input>
+# Now, let us graph our data using ggplot
+# As always with ggplot, we have our data, our aesthetics, and our geometry.
+
+pizza_plot &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
+  geom_point(size = 3)  +
+  geom_smooth(method = "lm", se = FALSE) + # this adds a "line of best fit"
+  theme_minimal() +
+  labs(
+    title = "Analysis of Pizza Sales",
+    subtitle = "You know the rule, one bite...",
+    x = "Price ($)", y = "Volume"
+  )
+
+pizza_plot
+      </input>
+    </program>
+    <p>
+      If we wanted to use another package instead of ggplot, we could also use the library
+      <c>ggformula</c>, which has <c>gf_point()</c>.
+    </p>
+    <program language="r">
+      <input>
+library(ggformula)
+pizza_plot_ggformula &lt;- gf_point(volume ~ price, data = pizza_sales) |> gf_lm(color ="purple")
+
+pizza_plot_ggformula
+      </input>
+    </program>
+    <p>
+      Here is a side by side comparison of what they look like. Very similar indeed.
+    </p>
+    <program language="r">
+      <input>
+library(patchwork)
+
+pizza_plot + pizza_plot_ggformula
+      </input>
+    </program>
+    <p>
+      Our data is already telling us a lot. From both of our graphics, we can see that as price
+      is going up, volume is going down, indicating a negative correlation. Our line also seems
+      pretty straight, indicating what seems to be a moderately strong correlation.
+    </p>
+  </section>
+
+  <section xml:id="sec-cor-linear-reg">
+    <title>Understanding Correlation</title>
+    <p>
+      Before we get to a linear regression, it is best to first understand how (if at all) our
+      variables are correlated with each other. For a review on correlation, go back to
+      <xref ref="sec-intro-cor"/> of the textbook.
+    </p>
+    <p>
+      We are first trying to figure out what variables, if any, should be included in our linear
+      regression model, and this is exactly where correlation comes into play.
+    </p>
+    <program language="r">
+      <input>
+cor.test(pizza_sales$volume,pizza_sales$price)
+      </input>
+    </program>
+    <p>
+      When we run a correlation, we are looking for three things:
+    </p>
+    <ol>
+      <li>The direction: is a positive or negative interaction?</li>
+      <li>The strength: how close is it to -1, 0, 1?</li>
+      <li>The p-value: Is it statistically significant?</li>
+    </ol>
+    <p>
+      The code above answers all three questions:
+    </p>
+    <ol>
+      <li>The direction: is negative.</li>
+      <li>The strength: about −0.66, indicating a moderately strong negative correlation.</li>
+      <li>The p-value: &lt; 0.05 indicates that the relationship between price and volume is
+      unlikely due to chance.</li>
+    </ol>
+    <p>
+      With a correlation coefficient of -0.66, we have a moderately strong negative correlation
+      between price and volume. As price goes up, volume goes down - just what we saw in our
+      graphs!
+    </p>
+  </section>
+
+  <section xml:id="sec-linear-reg-model">
+    <title>Linear Regression Model</title>
+    <p>
+      We have identified that there is a significant negative correlation between the two
+      variables. Since we want to be able to predict the amount (volume) of pizza sold using
+      price, our next step is to run a linear regression model.
+    </p>
+    <p>
+      With a linear regression model, we are trying to build the line of best fit and figure out
+      the equation for the line.
+    </p>
+    <note>
+      <title>The formula for a line is:</title>
+      <p>
+        y = mx + b
+      </p>
+    </note>
+    <p>
+      Where:
+      <ul>
+        <li>y is the predicted value (in this case, volume)</li>
+        <li>m is the slope</li>
+        <li>x is the given value (in this case, price)</li>
+        <li>b is the y intercept (the y value when x is 0)</li>
+      </ul>
+    </p>
+    <p>
+      When we are able to get the slope and the intercept, we can then begin to predict values.
+    </p>
+    <p>
+      To run a linear regression model, we can use the lm command. It follows the structure:
+      <ul>
+        <li>lm(y ~ x, data = dataset)</li>
+        <li>lm(what we want to predict ~ the predictor, data = our dataset)</li>
+      </ul>
+    </p>
+    <program language="r">
+      <input>
+pizza_lm &lt;- lm(volume ~ price, data = pizza_sales)
+# The code above is saving our linear regression model as pizza_lm
+
+summary(pizza_lm)
+# When we call summary on our model, we can find out our key insights
+      </input>
+    </program>
+    <p>
+      Congratulations! We have just run our first linear regression model! We have some key
+      insights, including:
+      <ul>
+        <li>Intercept: <em>385,442.</em> This is our <alert>b value</alert> on our line equation.
+        This means that when the price of pizza is 0 (free pizza would be nice, but really just a
+        dream), the y value would be 385442.</li>
+        <li>price: <em>-111,669.</em> This is our slope, or our <alert>m</alert> value on our
+        line equation. This tells us that for every one-unit increase in price, sales volume
+        decreased by approximately 111,669 units. This makes sense, since we have a negative
+        correlation.</li>
+        <li>Multiple R-squared: As we have seen before, this tells us how much of the variability
+        our model explains. For our example, about 43% of the variance in pizza sales volume is
+        explained by price alone. <alert>Warning:</alert> Multiple R-squared in linear regression
+        models always increases with each new predictor added to a model, regardless of how potent
+        it is.</li>
+        <li>Adjusted R-squared: This is almost identical to the Multiple R-squared value, except
+        that it takes into account each new predictor added, and does not go up just because a new
+        predictor was added to the model.</li>
+        <li>p-value: There are three p-values here. The first two, on the intercept and price
+        lines, indicate if the relationships are statistically significant, which they are. The
+        bottom one is if the model itself is significant, which it is.</li>
+        <li>F-statistic: This tells us how strong our model is. 116.6 is a high value.</li>
+      </ul>
+    </p>
+    <note>
+      <title>Putting this all together, our line formula is:</title>
+      <p>
+        y = -111,669x + 385,442
+      </p>
+    </note>
+    <p>
+      All of these insights together mean that this is a very good model to predict volume of
+      pizza sold.
+    </p>
+    <p>
+      In R, we always want to explore different packages. The <c>broom</c> package in R is very
+      helpful when making statistical objects into nicer tibbles, using the <c>tidy()</c>
+      function.
+    </p>
+    <program language="r">
+      <input>
+# If we want to get the same information from our lm model using a different package
+
+library(broom)
+tidy(pizza_lm)
+      </input>
+    </program>
+    <program language="r">
+      <input>
+glance(pizza_lm)
+      </input>
+    </program>
+    <p>
+      Our finalized equation is y (-111,669 * price) + 385,442. All we need to do is plug in any
+      price value, and we can predict the volume of pizza sold.
+    </p>
+  </section>
+
+  <section xml:id="sec-residual-checking">
+    <title>Checking the residuals</title>
+    <insight>
+      <title>To make sure that our data for the line looks good, it is important to answer the question:</title>
+      <p>
+        How close are our predicted values to our actual values?
+      </p>
+    </insight>
+    <p>
+      To answer this question, we need to figure out the predicted values and then their
+      <em>residuals</em> (the difference between the actual vs the predicted value).
+    </p>
+    <p>
+      We can do this in R with the two commands below.
+    </p>
+    <program language="r">
+      <input>
+pizza_sales &lt;- pizza_sales |>
+  mutate(predicted = predict(pizza_lm),
+         residuals = residuals(pizza_lm))
+      </input>
+    </program>
+    <p>
+      To visually see the difference between the actual values and the predicted values, we can
+      create a similar scatterplot as before, but add lines connecting our line of best fit and
+      our points.
+    </p>
+    <program language="r">
+      <input>
+# What if we want to see actual vs predicted on our plot?
+pizza_plot_residuals &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
+  geom_point(size = 3)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_segment(aes(xend = price, yend = predicted), color = "gray", linewidth = 0.7) +
+  theme_minimal() +
+  labs(
+    title = "Analysis of Pizza Sales",
+    subtitle = "Gray lines show residuals (differences between actual and model predictions)",
+    x = "Price ($)", y = "Volume"
+  )
+
+pizza_plot_residuals
+      </input>
+    </program>
+    <p>
+      With our residuals, we want them to be random. Visually, that means that the residual
+      values should be scattered on an x-y plane without a pattern. To see this, we can graph the
+      residuals themselves.
+    </p>
+    <program language="r">
+      <input>
+# Let us graph our residuals to make sure they are random
+ggplot(pizza_sales, aes(x = predicted, y = residuals)) +
+  geom_point(color = "blue") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_smooth(se = FALSE, color = "red", linetype = "dotted")+
+  labs(
+    title = "Residuals Plot",
+    x = "Predicted Volume",
+    y = "Residuals"
+  )
+      </input>
+    </program>
+    <p>
+      The red line in the graph above has a slight curve, showing that our model is less accurate
+      at the extremes (low and high prices). Thankfully, this pattern isn't very pronounced.
+    </p>
+    <insight>
+      <title>To accompany the visual, we want to statistically test for heteroscedasticity, meaning:</title>
+      <p>
+        Are the residuals roughly equal in variance across all predicted values?
+      </p>
+    </insight>
+    <p>
+      We will either see:
+      <ul>
+        <li>Homoscedasticity: residuals are equally spread (good)</li>
+        <li>Heteroscedasticity: residuals get wider or narrower as predictions change (bad)</li>
+      </ul>
+    </p>
+    <p>
+      The Breusch-Pagan test provides insights for this. To perform this in R, we will use the
+      <c>bptest()</c> function from the <c>lmtest</c> package.
+    </p>
+    <program language="r">
+      <input>
+library(lmtest)
+
+bptest(pizza_lm)
+      </input>
+    </program>
+    <p>
+      The main focus point here is the p-value:
+      <ul>
+        <li>&gt; 0.05 Fail to reject H₀ → residuals are homoscedastic (good)</li>
+        <li>&lt; 0.05 Reject H₀ → residuals are heteroscedastic (not ideal)</li>
+      </ul>
+    </p>
+    <p>
+      Since our p-value is less than .05, our residuals are heteroscedastic.
+    </p>
+    <p>
+      This <alert>does not</alert> invalidate our model, and for right now, we do not need to
+      change it. It is just showing us that it is not <em>perfect</em>, and not all prices predict
+      equally well. In reality, this might happen if higher-priced pizzas are sold less
+      frequently, giving us fewer data points and more variability.
+    </p>
+    <p>
+      <alert>Congratulations, we have just completed our first linear regression model!</alert>
+    </p>
+  </section>
+
+  <section xml:id="sec-more-variables">
+    <title>Adding more variables</title>
+    <p>
+      Throughout this chapter, we have only looked at 2 variables: <em>price</em> and
+      <em>volume</em> to see if the former can predict the latter. But, what if we have more
+      variables? Can we also utilize them in our regression model?
+    </p>
+    <p>
+      Let's find out!
+    </p>
+    <p>
+      Let us create two new variables to add to our data: one where David Portnoy visited the
+      pizza shop and another on how much was spent on advertising.
+    </p>
+    <program language="r">
+      <input>
+# Now, let's add some other variables to our data
+set.seed(42)
+
+# 1) Dave Portnoy visit.
+pizza_sales &lt;- pizza_sales |>
+  mutate(portnoy_visit = rbinom(n(), size = 1, prob = 0.06))  # about 3-6% of weeks
+
+# 2) Ad spend
+pizza_sales &lt;- pizza_sales |>
+  mutate(ad_spend = round(runif(n(), 800, 6000), 0))
+      </input>
+    </program>
+    <p>
+      Now, since we have multiple variables, we can run what's called multivariate regression
+      model. To add more predictors, we simply use the + sign in our lm command after our first
+      predictor.
+    </p>
+    <program language="r">
+      <input>
+m1 &lt;- lm(volume ~ price, data = pizza_sales)                      # baseline
+
+m2 &lt;- lm(volume ~ price + portnoy_visit, data = pizza_sales)      # add portnoy visit
+
+m3 &lt;- lm(volume ~ price + ad_spend, data = pizza_sales)           # add ad spending
+
+m4 &lt;- lm(volume ~ price + ad_spend + portnoy_visit, data = pizza_sales)  # both
+      </input>
+    </program>
+    <p>
+      Boom! In the code above, we have now run 4 regression models, with every combination
+      included.
+    </p>
+    <p>
+      Now, we can run the summary or glance command on each model individually, compare the
+      models manually, but that would require a lot of working memory power on our end.
+      <em>Or</em> we could utilize some commands in R to make our lives much easier.
+    </p>
+    <program language="r">
+      <input>
+# How do we know which model is the best?
+
+AIC(m1, m2, m3, m4) |> arrange(AIC)
+# This code provides us with an AIC (Akaike Information Criterion) value.
+# The smaller the AIC, the better the model's trade-off between complexity and fit.
+      </input>
+    </program>
+    <program language="r">
+      <input>
+# Let's say we want to use the broom function again to do a model comparison
+models &lt;- list(m1, m2, m3, m4)
+# In the code above, we are taking all of our models and putting them into a "list" of models
+
+names(models) &lt;- c("m1","m2","m3","m4")
+# In the code above, we are just giving each item in the list a name
+
+# In the code below, we are saying "Hey, run glance on every single item on the models list and create a data frame
+
+map_df(models, ~glance(.x), .id = "model") |> select(model, r.squared,adj.r.squared,p.value,AIC)
+      </input>
+    </program>
+    <p>
+      With both of these, we now have:
+    </p>
+    <ol>
+      <li>R²: A higher R squared means the model is a better predictor. <em>Remember, R^2 always
+      goes up with each added predictor, no matter how salient they actually are.</em></li>
+      <li>Adjusted R²: A higher adjusted R squared means the model is a better predictor.
+      <em>Adjusted R² always takes into account the number of predictors and does not inherently
+      increase with more predictors.</em></li>
+      <li>p-value: If these models are statistically significant.</li>
+      <li>AIC: tells us how good our models are. A lower number means a better model.</li>
+    </ol>
+    <p>
+      Overall, the goal is to create the most <alert>parsimonious</alert> regression model as
+      possible. That is, the model with the fewest necessary predictors. As such, the model that
+      is most parsimonious is m1, the model with just price. Yes, other models have higher
+      adjusted R^2 values and lower AIC numbers, but only <em>slightly.</em> In this case, m1 is
+      the model to go with.
+    </p>
+
+    <subsection xml:id="sec-linear-reg-bonus-code">
+      <title>Bonus code</title>
+      <p>
+        If you are looking to compare multiple regression models in a faster way, you could also
+        utilize the code below.
+      </p>
+      <program language="r">
+        <input>
+full_model &lt;- lm(volume ~ price + ad_spend + portnoy_visit, data = pizza_sales)
+
+step_model &lt;- step(full_model, direction = "both")
+        </input>
+      </program>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-linear-reg-conclusion">
+    <title>Conclusion</title>
+    <p>
+      Congratulations! You have successfully run correlations (to help see what variables we want
+      to build our regression model with), regression models, multiple regression models, compared
+      models, and even analyzed the differences between our actual values and our predicted
+      values.
+    </p>
+    <p>
+      Don't underestimate how powerful regression models can be. With a line equation, you can
+      help predict any variable!
+    </p>
+  </section>
+
+  <section xml:id="sec-linear-reg-takeaways">
+    <title>Key Takeaways</title>
+    <ul>
+      <li>Linear regression helps us predict one variable (Y) from another (X) using a line of
+      best fit.</li>
+      <li>
+        <p>The equation of the line is y = mx + b, where:</p>
+        <ul>
+          <li>m = slope (how much Y changes for every 1-unit change in X)</li>
+          <li>b = intercept (the value of Y when X = 0)</li>
+        </ul>
+      </li>
+      <li>The slope tells us both the direction and strength of the relationship.</li>
+      <li>Residuals = actual - predicted values; smaller residuals = better model fit.</li>
+      <li>A good model has random, evenly scattered residuals (homoscedasticity).</li>
+      <li>R² tells us how much variance in Y is explained by X.</li>
+      <li>Adjusted R² penalizes unnecessary predictors in multiple regression models.</li>
+      <li>AIC helps compare models: lower AIC = better balance between fit and simplicity.</li>
+      <li>Parsimonious models (simpler ones that still explain the data well) are
+      preferred.</li>
+      <li>Stepwise regression automatically selects the most parsimonious model using
+      AIC.</li>
+      <li>Correlation shows association; regression goes further by predicting and quantifying
+      impact.</li>
+      <li>Always visualize both your model fit and your residuals before interpreting
+      results!</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-linear-reg-checklist">
+    <title>Checklist</title>
+    <p>
+      <em>When running linear regressions, have you:</em>
+    </p>
+    <ul>
+      <li>[ ] Loaded and inspected your data (skim, summary, str)</li>
+      <li>[ ] Cleaned and renamed your variables as needed</li>
+      <li>[ ] Graphed your variables with scatterplots and trend lines</li>
+      <li>[ ] Checked that the relationship looks linear</li>
+      <li>[ ] Calculated correlations before fitting your model</li>
+      <li>[ ] Built your model using lm(y ~ x)</li>
+      <li>[ ] Examined coefficients (intercept and slope) and their significance</li>
+      <li>[ ] Computed predicted values and residuals</li>
+      <li>[ ] Graphed residuals to ensure randomness (no U-shape or funnel)</li>
+      <li>[ ] Tested for homoscedasticity using bptest() (Breusch–Pagan test)</li>
+      <li>[ ] (Optional) Checked residual normality with a histogram or QQ plot</li>
+      <li>[ ] Interpreted R² and Adjusted R² to describe model performance</li>
+      <li>[ ] Added additional predictors for multiple regression if needed</li>
+      <li>[ ] Compared models using AIC or stepwise regression</li>
+      <li>[ ] Selected the most parsimonious model (best fit with the least complexity)</li>
+      <li>[ ] Clearly interpreted what the slope and intercept mean in real-world terms</li>
+      <li>[ ] Reported results visually (scatterplot, line of best fit, residual plot)</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-linear-reg-keyfunctions">
+    <title>Key Functions &amp; Commands</title>
+    <p>
+      The following functions and commands are introduced or reinforced in this chapter to support
+      linear regression modeling, diagnostics, and model selection.
+    </p>
+    <ul>
+      <li>
+        <p><c>lm()</c> <em>(stats)</em></p>
+        <ul>
+          <li>Fits linear and multiple linear regression models using a formula interface.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>summary()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Summarizes regression model results, including coefficients, R², F-statistic, and
+          p-values.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>cor.test()</c> <em>(stats)</em></p>
+        <ul>
+          <li>Computes and tests correlations to assess whether predictors are suitable for
+          regression.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>predict()</c> <em>(stats)</em></p>
+        <ul>
+          <li>Generates predicted values from a fitted regression model.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>residuals()</c> <em>(stats)</em></p>
+        <ul>
+          <li>Extracts residuals (actual − predicted values) from a regression model.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>tidy()</c> <em>(broom)</em></p>
+        <ul>
+          <li>Converts regression coefficients into a clean, tidy data frame.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>glance()</c> <em>(broom)</em></p>
+        <ul>
+          <li>Extracts model-level statistics (e.g., R², adjusted R², AIC) into a single-row
+          summary.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>bptest()</c> <em>(lmtest)</em></p>
+        <ul>
+          <li>Performs the Breusch–Pagan test to assess heteroscedasticity of residuals.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>AIC()</c> <em>(stats)</em></p>
+        <ul>
+          <li>Compares regression models using Akaike Information Criterion to balance fit and
+          complexity.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>step()</c> <em>(stats)</em></p>
+        <ul>
+          <li>Performs stepwise model selection to identify a parsimonious regression
+          model.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-linear-reg-apa">
+    <title>Example APA-style Write-up</title>
+    <p>
+      The following example demonstrates one acceptable way to report the results of a simple
+      linear regression in APA style.
+    </p>
+    <p>
+      <alert>Simple Linear Regression</alert>
+    </p>
+    <p>
+      A simple linear regression was conducted to examine whether pizza price predicted weekly
+      pizza sales volume. The overall regression model was statistically significant,
+      <m>F(1, 148) = 116.60, p &lt; .001</m>, and explained approximately 43% of the variance in
+      pizza sales volume (<m>R^2 = .43</m>).
+    </p>
+    <p>
+      Pizza price was a significant negative predictor of sales volume, <m>b = -111,669</m>,
+      <m>SE = 10,347</m>, <m>t = -10.80</m>, <m>p &lt; .001</m>, indicating that higher pizza
+      prices were associated with lower weekly sales volume. Specifically, for each one-unit
+      increase in pizza price, weekly pizza sales decreased by approximately 111,669 units.
+    </p>
+  </section>
+
+  <section xml:id="sec-linear-reg-tip">
+    <title>💡 <em>Reproducibility Tip:</em></title>
+    <p>
+      Linear regression models involve many analytic choices, including which variables to
+      include, how to assess relationships, and how to evaluate model fit. To support
+      reproducibility, make each of these decisions explicit and evidence-based.
+    </p>
+    <p>
+      Before fitting a model, visualize relationships and examine correlations to justify why
+      predictors are included. After fitting the model, report diagnostics—such as residual plots
+      and measures of fit—to demonstrate that assumptions were checked.
+    </p>
+    <warning>
+      <title>Remember:</title>
+      <p>
+        Adding more variables does not always lead to a better model.
+      </p>
+    </warning>
+    <p>
+      Regression results are only reproducible when both the code <em>and the reasoning behind
+      the model</em> are transparent.
     </p>
   </section>
 

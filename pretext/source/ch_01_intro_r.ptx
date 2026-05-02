@@ -31,6 +31,62 @@
     </p>
   </section>
 
-  <!-- Content to be filled in -->
+  <section xml:id="sec-rstudio">
+    <title>RStudio</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
+
+  <section xml:id="sec-r-calculator">
+    <title>R as a Calculator</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+    <subsection xml:id="sec-intro-calculator-basic">
+      <title>Basic Math</title>
+      <p>
+        <!-- Content to be filled in -->
+      </p>
+    </subsection>
+    <subsection xml:id="sec-intro-calculator-functions">
+      <title>Built-in Mathematical Functions</title>
+      <p>
+        <!-- Content to be filled in -->
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-intro-dataframes">
+    <title>Data Frames</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+    <subsection xml:id="sec-intro-dataframes-creating">
+      <title>Creating Your Own Data Frame</title>
+      <p>
+        <!-- Content to be filled in -->
+      </p>
+    </subsection>
+    <subsection xml:id="sec-intro-dataframes-exploring">
+      <title>Functions to Explore Datasets</title>
+      <p>
+        <!-- Content to be filled in -->
+      </p>
+    </subsection>
+    <subsection xml:id="sec-intro-dataframes-columns">
+      <title>Working With Columns Within Data Frames</title>
+      <p>
+        <!-- Content to be filled in -->
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-intro-packages">
+    <title>Packages</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+  </section>
 
 </chapter>

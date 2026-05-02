@@ -2,18 +2,1103 @@
 <chapter xml:id="ch-tidyverse" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Introduction To tidyverse</title>
 
-  <introduction>
-    <p>
-      This chapter introduces the <c>tidyverse</c>, a collection of R packages
-      designed for data science. You will learn how to import, tidy, transform,
-      and visualize data using a consistent and readable syntax.
-    </p>
-  </introduction>
-
   <section xml:id="sec-intro-tidyverse">
     <title>Introduction</title>
     <p>
-      <!-- Content to be filled in -->
+      Just like Spider-Man, we are going to enter a new universe in R: the <c>tidyverse</c>!
+    </p>
+    <p>
+      This chapter introduces the <c>tidyverse</c>, a collection of R packages designed to make
+      data analysis more readable, consistent, and reproducible. The tools introduced here will
+      be used repeatedly throughout the remainder of this textbook, forming the backbone of nearly
+      every analysis we perform.
+    </p>
+    <p>
+      As discussed in the last chapter, R comes with prebuilt functions, but what makes R so dynamic
+      and powerful is the ability to install and use different libraries. Few have been as impactful
+      or as widely used as the <c>tidyverse</c> package. Now, of course, you can use R however you
+      would like, as your programming style is totally up to you. The <c>tidyverse</c>, however, has
+      been unofficially accepted as the major dialect of R.
+    </p>
+  </section>
+
+  <section xml:id="sec-tidyverse-objectives">
+    <title>Learning Objectives</title>
+    <p>
+      By the end of this chapter, you will be able to:
+      <ul>
+        <li>Install and load R packages from CRAN</li>
+        <li>Explain what the tidyverse is and why it is commonly used</li>
+        <li>Use the pipe operator (<c>|&gt;</c>) to build readable data workflows</li>
+        <li>Select, filter, arrange, and rename variables in a data frame</li>
+        <li>Create new variables using <c>mutate()</c></li>
+        <li>Apply conditional logic with <c>if_else()</c> and <c>case_when()</c></li>
+        <li>Summarize grouped data using <c>group_by()</c> and <c>summarize()</c></li>
+        <li>Combine multiple tidyverse verbs into a single reproducible pipeline</li>
+      </ul>
+    </p>
+    <p>
+      Before we get started, we have to first install <c>tidyverse</c>.
+    </p>
+  </section>
+
+  <section xml:id="sec-using-packages">
+    <title>Using Packages</title>
+    <p>
+      <alert>The Comprehensive R Archive Network</alert> (CRAN) is where all of the packages are
+      hosted in R, and when installing packages, this is where they will be installed from.
+    </p>
+    <p>
+      We briefly spoke about packages in <xref ref="sec-intro-packages"/>, but now let's take a
+      deeper dive.
+    </p>
+
+    <subsection xml:id="sec-installing-packages">
+      <title>Installing Packages</title>
+      <p>
+        In order to install packages, we can utilize the <c>install.packages()</c> command. Let's
+        install our first official package, the <c>tidyverse</c> package (<cite key="R-tidyverse"/>).
+      </p>
+      <program language="text">
+        <input>
+install.packages("tidyverse")
+        </input>
+      </program>
+      <p>
+        Awesome! It may take a second or two for the code to run, but tidyverse has now been
+        installed in R. Importantly, once a package is installed on your local computer, you
+        <em>don't</em> need to install it again. To get a little more practice, let's install
+        some more packages that we will be using.
+      </p>
+      <program language="text">
+        <input>
+install.packages("palmerpenguins")
+install.packages("fortunes")
+install.packages("cowsay")
+        </input>
+      </program>
+    </subsection>
+
+    <subsection xml:id="sec-loading-packages">
+      <title>Loading Packages</title>
+      <p>
+        As stated before, once a package has been installed, it does not need to be reinstalled
+        every time you utilize R. <alert>However</alert>, each time you want to use a package in
+        an R session, <alert>you do</alert> need to load it. This can be done using the command
+        <c>library()</c>.
+      </p>
+      <program language="r">
+        <input>
+library(tidyverse)
+library(palmerpenguins)
+library(fortunes)
+library(cowsay)
+
+# Quick sanity check that packages are loaded
+sessionInfo()$otherPkgs |> names()
+        </input>
+      </program>
+      <p>
+        We have successfully loaded all of the packages (and in turn all of their contents). That
+        means that as long as we do not close this R session, we can utilize the packages.
+      </p>
+      <p>
+        The <c>palmerpenguins</c> package (<cite key="R-palmerpenguins"/>) we will be using in this
+        chapter. Before then, I want to show you that R is fun and diverse. The package
+        <c>fortunes</c> (<cite key="R-fortunes"/>) provides you a random R quote with the function
+        <c>fortune()</c> and the <c>say()</c> command from the <c>cowsay</c> package
+        (<cite key="R-cowsay"/>) provides a beautiful animal saying whatever you want it to say.
+        Below the animal is <q>cow</q> but try some other ones (I suggest <q>dragon</q>).
+      </p>
+      <program language="r">
+        <input>
+# Fun packages
+fortunes::fortune()   # random quote about R
+
+cowsay::say("Welcome to tidyverse!", by = "cow")
+        </input>
+      </program>
+      <p>
+        It isn't always necessary, nor will it be done a lot in this book, but you can use the
+        <c>::</c> before the command to specifically mention what package the command is coming
+        from. Most of the time this isn't necessary, but there are times when you will have packages
+        loaded that have overlapping function names. This is when <c>::</c> should be called.
+      </p>
+      <p>
+        To further illustrate the diversity of R packages, let's introduce an example of working
+        with live, real-world data using the <c>nycOpenData</c> package (<cite key="R-nycOpenData"/>).
+        This package connects directly to the NYC Open Data Portal and displays the most recent data
+        happening in the city. By using the <c>nyc_311()</c> function, we can gather the five most
+        recent 311 calls in New York City. The fun thing is that every time you open this chapter,
+        this data will be different! This is an important aspect of working with live data and needs
+        to be considered when creating reproducible research.
+      </p>
+      <p>
+        First we install the package.
+      </p>
+      <program language="text">
+        <input>
+install.packages("nycOpenData")
+        </input>
+      </program>
+      <p>
+        Now we load it and call the function.
+      </p>
+      <program language="r">
+        <input>
+library(nycOpenData)
+head(nyc_311())
+        </input>
+      </program>
+      <p>
+        With some examples under our belt, let's move to the tidyverse!
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-tidyverse-welcome">
+    <title>Meet the tidyverse</title>
+    <p>
+      Last chapter, R was introduced. In this chapter, we will be building on the basic language
+      and syntax we learned and build upon it with <c>tidyverse</c>.
+    </p>
+
+    <subsection xml:id="sec-tidyverse-pipe">
+      <title>The Pipe</title>
+      <p>
+        One of the best things that the <c>tidyverse</c> has to offer is called <em>piping</em>.
+        It technically comes from the <c>magrittr</c> package. What makes the <c>tidyverse</c>
+        package so ubiquitous with R is that <c>tidyverse</c> is actually a <alert>collection</alert>
+        of R packages in one package. By installing and loading the tidyverse package, you are
+        actually installing and loading a bevy of packages and significantly powering up your R
+        session. Here are the packages included in <c>tidyverse</c>:
+      </p>
+      <ul>
+        <li>
+          <p><c>dplyr</c></p>
+          <ul>
+            <li>Tools for data manipulation, including <c>select()</c>, <c>filter()</c>,
+            <c>mutate()</c>, <c>arrange()</c>, and <c>summarize()</c>.</li>
+          </ul>
+        </li>
+        <li>
+          <p><c>ggplot2</c></p>
+          <ul>
+            <li>A powerful system for creating data visualizations using the grammar of graphics.</li>
+          </ul>
+        </li>
+        <li>
+          <p><c>tidyr</c></p>
+          <ul>
+            <li>Tools for reshaping and cleaning data, such as <c>pivot_longer()</c> and
+            <c>pivot_wider()</c>.</li>
+          </ul>
+        </li>
+        <li>
+          <p><c>readr</c></p>
+          <ul>
+            <li>Functions for reading data into R (e.g., CSV files) quickly and consistently.</li>
+          </ul>
+        </li>
+        <li>
+          <p><c>tibble</c></p>
+          <ul>
+            <li>A modern reimagining of data frames with improved printing and behavior.</li>
+          </ul>
+        </li>
+        <li>
+          <p><c>stringr</c></p>
+          <ul>
+            <li>Tools for working with text data, such as <c>str_trim()</c> and
+            <c>str_to_upper()</c>.</li>
+          </ul>
+        </li>
+        <li>
+          <p><c>forcats</c></p>
+          <ul>
+            <li>Tools for working with categorical (factor) variables.</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        Piping is telling R the sequence you want things to be done in code, and uses <c>|&gt;</c>.
+        Below is an example of how you would write something.
+      </p>
+      <program language="r">
+        <input>
+# In base R, to find the square root of a number, we would use this:
+sqrt(42)
+
+# With piping, we could rewrite it like this:
+42 |> sqrt()
+        </input>
+      </program>
+      <note>
+        <title>The Native Pipe <c>|&gt;</c> vs. <c>%&gt;%</c></title>
+        <p>
+          The native pipe <c>|&gt;</c> is built into R and is the modern standard. However, you
+          will often see older code using <c>%&gt;%</c>. That version requires the
+          <alert>magrittr</alert> or <alert>tidyverse</alert> package to be loaded to work.
+        </p>
+      </note>
+      <p>
+        In base R, code is written inside out. What I mean by that is that base R code is often
+        evaluated from the inside out. You take the 42 (inside the square root) and then square
+        root it. With piping, it is read left to right. First this, then this, etc.
+      </p>
+      <p>
+        Let's use a more potent example. You're starting this book and have been thinking,
+        <q> i love r! </q>. It is all lowercase and has whitespace before and after the words.
+        However, you love R so much you want it to be in all caps, and you don't want whitespace
+        ruining your exclamation. Below is the way to do this in base R and then using piping.
+      </p>
+      <p>
+        For reference, the <c>str_to_upper()</c> command capitalizes everything in a string, and
+        the <c>str_trim()</c> removes leading and trailing whitespace in a string. Both are a part
+        of the <c>stringr</c> package in the <c>tidyverse</c>.
+      </p>
+      <program language="r">
+        <input>
+str_to_upper(str_trim(" i love r! "))
+
+" i love r! " |> str_trim() |> str_to_upper()
+
+# You can also move down instead if you like
+# " Adelie " |>
+#   str_trim() |>
+#  str_to_upper()
+        </input>
+      </program>
+      <p>
+        Those two pieces of code do the same thing, but they look <alert>very</alert> different:
+      </p>
+      <ol>
+        <li>The first reads right to left, or middle to outer. It starts with the string inside
+        the <c>str_trim()</c>, then you have to move outward to the <c>str_to_upper()</c>, moving
+        right to left moving from parenthesis to parenthesis.</li>
+        <li>The second reads left to right. It goes string |&gt; function |&gt; function. It takes
+        the string, trims the whitespace, then turns it to uppercase.</li>
+      </ol>
+      <p>
+        <alert>The first starts with a function, the second starts with what we want the
+        function(s) to be applied to.</alert>
+      </p>
+      <insight>
+        <title>When piping, the rule of thumb is:</title>
+        <p>
+          Each line in a pipeline should perform one clear transformation.
+        </p>
+      </insight>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-tidyverse-manipulation">
+    <title>Manipulating Data in tidyverse</title>
+    <p>
+      We will now be utilizing another one of our packages that we installed and loaded, the
+      <c>palmerpenguins</c> package. It has the dataset <c>penguins</c> that we are going to use.
+      If you use the helper function and write <c>?palmerpenguins</c> or <c>?penguins</c> you will
+      find a description of the data (hint: it's data related to penguins).
+    </p>
+    <p>
+      Each of the subsections touches on a different aspect. Let's start by finding out more about
+      our data.
+    </p>
+
+    <subsection xml:id="sec-tidyverse-distinct">
+      <title>Distinct</title>
+      <p>
+        We have a dataset that we don't quite know too much about. Let's first find out some
+        information about it using what we learned from base R in the last chapter.
+      </p>
+      <program language="r">
+        <input>
+ncol(penguins)      # Finding out the number of columns
+
+nrow(penguins)      # Finding out the number of rows
+
+colnames(penguins)  # Finding out the names of the columns
+        </input>
+      </program>
+      <p>
+        Great, we now know that there are 344 rows of data, 8 columns, and all the column names.
+        We know that there are different types of penguins, and that the species is a column in
+        this dataset. We could scroll through every single row and try to eyeball the distinct
+        types of penguin species in this dataset. <alert>Or</alert> we could use the
+        <c>distinct()</c> function to get this information.
+      </p>
+      <insight>
+        <title><c>distinct()</c></title>
+        <p>
+          Keep only distinct rows from a data frame.
+        </p>
+      </insight>
+      <program language="r">
+        <input>
+penguins |> distinct(species)
+        </input>
+      </program>
+      <p>
+        That one line of code filtered through all 344 rows and figured out that there are only
+        three different species of penguins in the <c>penguins</c> dataset. But it doesn't stop
+        there - you can also use the <c>distinct()</c> command to see distinct combinations of
+        data too. For example:
+      </p>
+      <program language="r">
+        <input>
+penguins |> distinct(species, island)
+        </input>
+      </program>
+      <p>
+        Very interesting! We can see that the <q>Adelie</q> species is found on three different
+        islands, whereas the other two species are only found on one island each (and different
+        islands). With just a comma, you can find the distinct combinations between data in any
+        of your columns.
+      </p>
+      <p>
+        Now, what if we don't need all of our columns?
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-select">
+      <title>Select</title>
+      <p>
+        For now, let's pretend like we only want to work with the columns species, island,
+        bill_length_mm, and body_mass_g. How do we select for only those? We can use the
+        <c>select()</c> command!
+      </p>
+      <insight>
+        <title><c>select()</c></title>
+        <p>
+          Changes which columns exist.
+        </p>
+      </insight>
+      <program language="r">
+        <input>
+penguins |> select(species, island, bill_length_mm, body_mass_g)
+        </input>
+      </program>
+      <p>
+        Instead of using the actual column names, we can use the column indices - which number
+        (in order). Below is an example using the column indexes (hint: it uses a comma and a
+        colon.)
+      </p>
+      <program language="r">
+        <input>
+# This is saying let's take the first column, and then every column from 3 to 5
+penguins |> select(1,3:5)
+        </input>
+      </program>
+      <p>
+        Note that no matter if we specifically named the columns or used their index numbers, we
+        get the same result. <alert>However</alert> using column numbers works, but can break if
+        the dataset changes.
+      </p>
+      <p>
+        Now that we can select what columns we want to see, it is time to filter what rows we
+        want. Below are some of the operators we are going to use to filter our data.
+      </p>
+      <ul>
+        <li><c>==</c>: Equal to</li>
+        <li><c>!=</c>: Not equal to</li>
+        <li><c>&gt;=</c>: Greater than or equal to</li>
+        <li><c>&lt;=</c>: Less than or equal to</li>
+        <li><c>&gt;</c>: Greater than</li>
+        <li><c>&lt;</c>: Less than</li>
+        <li><c>&amp;</c>: And</li>
+        <li><c>|</c>: Or</li>
+        <li><c>%in%</c>: Within</li>
+      </ul>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-filter">
+      <title>Filter</title>
+      <p>
+        When we want to select for specific columns in a dataset, we use the <c>select()</c>
+        command. But, when we want to filter the data inside a dataset, we utilize the
+        <c>filter()</c> command.
+      </p>
+      <insight>
+        <title><c>filter()</c></title>
+        <p>
+          Changes which rows exist.
+        </p>
+      </insight>
+      <p>
+        Let's say that we want to filter for only the penguin species Adelie. If you do not know
+        what they look like, here is a picture:
+      </p>
+      <figure xml:id="fig-penguin-image">
+        <caption>An image of an Adelie penguin.</caption>
+        <image source="images/Adelie-Screenshot.png" width="80%">
+          <description>An image of an Adelie penguin.</description>
+        </image>
+      </figure>
+      <p>
+        We will filter for only rows that have the word Adelie inside the species column.
+      </p>
+      <program language="r">
+        <input>
+penguins |>
+  filter(species == "Adelie")
+        </input>
+      </program>
+      <p>
+        With that piece of code, the output only returned rows where Adelie is the species.
+      </p>
+      <p>
+        Thankfully, we do not have to keep to only one filter condition at a time.
+      </p>
+
+      <subsubsection xml:id="sec-tidyverse-filter-and-or">
+        <title>Filtering with AND/OR</title>
+        <p>
+          Inside the same <c>filter()</c> command, we can have as many conditions as possible.
+          One incredibly important decision is whether to use and/or.
+        </p>
+        <p>
+          In the case we only want to return rows where species is <q>Adelie</q>
+          <alert>and</alert> the island is <q>Torgersen</q>, we will use the <c>&amp;</c> symbol.
+        </p>
+        <p>
+          Important: rows that return have to meet <alert>both</alert> criteria. If in that row
+          either none, or even one, of the criteria are met, then that row will not return.
+        </p>
+        <program language="r">
+          <input>
+penguins |>
+  filter(species == "Adelie" &amp; island == "Torgersen")
+          </input>
+        </program>
+        <p>
+          That returned exactly what we wanted. But, what if we changed our mind. We want to
+          return rows that <alert>either</alert> have <q>Adelie</q> as their species
+          <alert>or</alert> the island is <q>Torgersen</q>. Instead of using the <c>&amp;</c>
+          symbol, we need to use the <c>|</c> symbol.
+        </p>
+        <program language="r">
+          <input>
+penguins |>
+  filter(species == "Adelie" | island == "Torgersen")
+          </input>
+        </program>
+        <p>
+          Now, instead of returning rows that have both <q>Adelie</q> and <q>Torgersen</q>, the
+          code returns rows where either species is equal to <q>Adelie</q> or island is equal to
+          <q>Torgersen</q>.
+        </p>
+      </subsubsection>
+
+      <subsubsection xml:id="sec-tidyverse-filter-logical">
+        <title>Logical Filters</title>
+        <p>
+          We do not have to just use <c>==</c>, as we have other options. Below are two options:
+          the first filters for any body mass over 4,000 grams, and the second filters for species
+          that are either <c>Adelie</c> or <c>Gentoo</c>.
+        </p>
+        <program language="r">
+          <input>
+penguins |> filter(body_mass_g &gt;= 4000)
+          </input>
+        </program>
+        <program language="r">
+          <input>
+penguins |> filter(species %in% c("Adelie", "Gentoo"))
+          </input>
+        </program>
+      </subsubsection>
+
+      <subsubsection xml:id="sec-tidyverse-filter-na">
+        <title>Filtering NA values</title>
+        <p>
+          In any dataset, NA values can be a pain. Depending what to do with them is always
+          situational, but it is important to learn <alert>how</alert> to work with them. We can
+          utilize <c>is.na()</c> to filter for which are NA and the <c>drop_na()</c> to remove
+          all rows that have <alert>at least</alert> one NA value.
+        </p>
+        <program language="r">
+          <input>
+penguins |> filter(is.na(body_mass_g))    # Filter for rows that have missing data
+          </input>
+        </program>
+        <program language="r">
+          <input>
+penguins |> drop_na(body_mass_g)          # Filters for rows that don't have missing data
+          </input>
+        </program>
+        <p>
+          As a cautionary tale, always be careful with how you handle NA values, as different
+          situations really do require different handling of NA values.
+        </p>
+        <p>
+          Now, we will move on to how we want our data to be organized.
+        </p>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-arrange">
+      <title>Arrange</title>
+      <p>
+        Organization of data is just as important as anything else. Most likely, data is not
+        prearranged in any particular order. Luckily, the <c>arrange()</c> command allows us to
+        organize our data very nicely. There are only two options: ascending or descending order.
+        By default, <c>arrange()</c> orders the data in ascending order.
+      </p>
+      <insight>
+        <title><c>arrange()</c></title>
+        <p>
+          orders the rows of a data frame.
+        </p>
+      </insight>
+      <program language="r">
+        <input>
+penguins |> arrange(body_mass_g)          # ascending order
+        </input>
+      </program>
+      <program language="r">
+        <input>
+penguins |> arrange(desc(body_mass_g))    # descending order
+        </input>
+      </program>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-mutate">
+      <title>Mutate</title>
+      <p>
+        Last chapter, we learned that in order to create a new column, we could do so using the
+        <c>$</c> symbol. In <c>tidyverse</c>, we can also create new columns, but instead of
+        using the <c>$</c>, we can use the <c>mutate()</c> command.
+      </p>
+      <insight>
+        <title><c>mutate()</c></title>
+        <p>
+          Changes or creates columns.
+        </p>
+      </insight>
+      <program language="r">
+        <input>
+# Base R
+penguins$bill_ratio &lt;- penguins$bill_length_mm / penguins$bill_depth_mm
+
+penguins &lt;- penguins |>
+  mutate(bill_ratio = bill_length_mm / bill_depth_mm)
+        </input>
+      </program>
+      <p>
+        Both of these examples are the same in the sense that a new column, bill_ratio, is
+        created.
+      </p>
+      <p>
+        If we want to get a little more complicated and add some criteria, we can use either the
+        <c>if_else()</c> or <c>case_when()</c> command.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-if-else">
+      <title>If Else</title>
+      <p>
+        In the scenario where we wanted to create a new column called size_category. If the body
+        mass of the penguin is greater than 3,500 grams, then we want it to be considered
+        <q>Big</q>; otherwise, it should be considered <q>Small</q>. To do this, we can use the
+        <c>if_else()</c> where we first add the criteria we want to build a column using, the
+        value if it fits the criteria, and the value if it does not fit the criteria.
+      </p>
+      <program language="r">
+        <input>
+penguins |>
+  mutate(size_category = if_else(body_mass_g &gt;= 3500, "Big","Small"))
+        </input>
+      </program>
+      <p>
+        That code creates the size_category, with the code saying:
+      </p>
+      <ul>
+        <li>if body_mass_g &gt;= 3500 then make the value in size_category <q>Big</q></li>
+        <li>if body_mass_g <alert>is not</alert> &gt;= 3500 then make the value in size_category
+        <q>Small</q></li>
+      </ul>
+      <p>
+        But what if there are multiple criteria we want and not binary like big and small?
+      </p>
+
+      <subsubsection xml:id="sec-tidyverse-case-when">
+        <title>Case When</title>
+        <p>
+          When there are only two different criteria, then we can use <c>if_else()</c>. But, when
+          there are three or more criteria, we can use the <c>case_when()</c> command. Instead of
+          having just <q>Big</q> and <q>Small</q>, let's add the category <q>Gigantic</q>.
+        </p>
+        <program language="r">
+          <input>
+penguins |>
+  mutate(size_category = case_when(
+    body_mass_g &lt;= 3500 ~ "Small",
+    body_mass_g > 3500 &amp; body_mass_g &lt;= 4000 ~ "Big",
+    body_mass_g > 4000 ~ "Gigantic",
+    TRUE ~ "Unknown"   # catch-all for NAs or anything else
+  ))
+          </input>
+        </program>
+        <p>
+          Now, still using the body_mass_g column, we still create the size_category column, just
+          with three different values inside instead of two.
+        </p>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-rename">
+      <title>Renaming Columns</title>
+      <p>
+        Sometimes, for whatever reason, the column names that are originally in your data are not
+        the ones that you want. That could be for aesthetic purposes or more practical reasons.
+        Either way, to change the name of a column, you can use the <c>rename()</c> command.
+      </p>
+      <insight>
+        <title>The formula to use when renaming columns using the <c>rename()</c> command is:</title>
+        <p>
+          <m>New Name = OldName</m>
+        </p>
+      </insight>
+      <p>
+        As an example, let's change the name of the species column to penguin_types.
+      </p>
+      <program language="r">
+        <input>
+penguins |> rename(penguin_types = species)
+        </input>
+      </program>
+      <p>
+        With all we can do, it is time to put <c>tidyverse</c> to the test and perform our
+        functions together!
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-together">
+      <title>Putting them all together</title>
+      <p>
+        What is fantastic about R is that we can put all these different functions together. We
+        don't <alert>just</alert> have to filter, or <alert>just</alert> have to select. As long
+        as it makes sense, we can do as many functions together as we would like.
+      </p>
+      <p>
+        Let's do exactly that and create a new data frame that selects, filters, mutates, and
+        arranges data.
+      </p>
+      <program language="r">
+        <input>
+penguins_new &lt;- penguins |>
+  select(species, island, bill_length_mm, body_mass_g) |>
+  filter(species == "Adelie") |>
+  mutate(size_category = if_else(body_mass_g &gt;= 3500, "Big","Small")) |>
+  arrange(desc(body_mass_g)) |>
+  rename(penguin_types = species)
+        </input>
+      </program>
+      <p>
+        Here is the step by step breakdown of what exactly the code above does:
+      </p>
+      <ol>
+        <li><c>penguins_new</c> is the name of the new dataset.</li>
+        <li>It is created using the <c>&lt;-</c> command</li>
+        <li>We are telling R that the source of our data is <c>penguins</c></li>
+        <li>We are selecting for only the species, island, bill_length_mm, and body_mass_g columns</li>
+        <li>We are then filtering for only species that are <q>Adelie</q></li>
+        <li>We are then creating a new column called size_category using the body_mass_g column.</li>
+        <li>We are then arranging the data in descending order of body_mass_g.</li>
+      </ol>
+      <p>
+        All of this code looks familiar, as it is all taken from previous example! Mind you, we
+        could have taken any of the code from above and mixed and matched. In R, you are able to
+        build whatever you can imagine.
+      </p>
+      <p>
+        Note: Order is incredibly important here. Imagine a case where you did not select for
+        species and then went to rename the column to penguin_types. That code above would not
+        work because in that code, species wouldn't have been selected for.
+      </p>
+      <warning>
+        <title>Important:</title>
+        <p>
+          In tidyverse pipelines, the order of functions matters. Each step depends on the output
+          of the previous step.
+        </p>
+      </warning>
+      <p>
+        Now that we've put it all together, let's check out some more things we can do in
+        <c>tidyverse</c>.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-tidyverse-insights">
+    <title>Insights Into Our Data</title>
+    <p>
+      We have done a fantastic job of manipulating our data. But, what if we want a different set
+      of insights? What if, for example, we want to uncover summarized data relating to the three
+      different species in our <c>penguins</c> dataset?
+    </p>
+
+    <subsection xml:id="sec-tidyverse-insights-count">
+      <title>Count</title>
+      <p>
+        Before, we utilized the <c>nrow()</c> function to find out how many rows there are overall
+        in the <c>penguins</c> dataset. We also utilized the <c>distinct()</c> command to find out
+        how many different species there are in the <c>penguins</c> dataset. But, as of right now,
+        we currently do not know <alert>how</alert> many rows <alert>each</alert> species has.
+        Using base R, we can use the <c>table()</c> command, and in the <c>tidyverse</c>, we can
+        use the <c>count()</c> command.
+      </p>
+      <program language="r">
+        <input>
+table(penguins$species)
+        </input>
+      </program>
+      <program language="r">
+        <input>
+penguins |> count(species, sort = TRUE)
+        </input>
+      </program>
+      <p>
+        We now have exactly what we wanted - the number of rows in the dataset for each species.
+        This is great for finding counts, but there may be cases where we need more summarized
+        data than just counts.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-insights-summarize-grouping">
+      <title>Summarizing and Grouping</title>
+      <p>
+        In cases like this (similar to a pivot table in Excel), we can utilize both the
+        <c>group_by()</c> and the <c>summarize()</c> commands in R. The first tells R which column
+        you want to group by, and the second tells it what data you want summarized.
+      </p>
+      <p>
+        Below, we will be finding out the total number of rows in the dataset per species and the
+        mean body mass of each species.
+      </p>
+      <program language="r">
+        <input>
+penguins |>
+  group_by(species) |>
+  summarize(
+    n         = n(),
+    mean_mass = mean(body_mass_g, na.rm = TRUE))
+        </input>
+      </program>
+      <p>
+        Voilà! This table has summarized data per each of the three species of penguins. Notice
+        that here we used the <c>n()</c> command instead of <c>count()</c> as it works better
+        with <c>summarize()</c>, but gets the same results.
+      </p>
+      <p>
+        In later chapters, these same <c>tidyverse</c> tools will be used to prepare data for
+        visualization, statistical modeling, and interpretation.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-tidyverse-fixes">
+    <title>Common Gotchas &amp; Quick Fixes</title>
+    <p>
+      Below are some common mistakes made in the <c>tidyverse</c> and ways to fix them. As always
+      in R (and probably in life) if some code ever gets too frustrating, step away from your
+      computer for a few minutes.
+    </p>
+
+    <subsection xml:id="sec-tidyverse-fixes-equals">
+      <title>= vs ==</title>
+      <p>
+        In math, we use one equal sign. In <c>tidyverse</c>, we use two equal signs.
+      </p>
+      <program language="text">
+        <input>
+filter(species = "Adelie")  # WRONG
+
+filter(species == "Adelie") # RIGHT
+        </input>
+      </program>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-fixes-na">
+      <title>NA-aware math</title>
+      <p>
+        When doing math (inside or outside of <c>tidyverse</c>) NA values can mess up everything.
+        Below is an example of this. We can utilize <c>na.rm =</c> command, which by default is
+        set to <q>FALSE</q>.
+      </p>
+      <program language="r">
+        <input>
+mean(penguins$body_mass_g)                 # Returns NA if any missing
+
+mean(penguins$body_mass_g, na.rm = TRUE)   # CORRECT
+        </input>
+      </program>
+      <p>
+        As you can see, the addition of <c>na.rm = "TRUE"</c> removes the NA value and calculates
+        the average.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-fixes-pipe">
+      <title>Pipe position</title>
+      <p>
+        Piping is something that most R programmers use in some way or another. If you decide to
+        use it, it is imperative that the pipe is placed on the line that you're going to connect.
+        Below is an example of a good and a bad (won't work) piping.
+      </p>
+      <program language="text">
+        <input>
+penguins |>
+  select(species)     # Good
+
+penguins
+|> select(species)   # Bad
+        </input>
+      </program>
+    </subsection>
+
+    <subsection xml:id="sec-tidyverse-fixes-function-names">
+      <title>Conflicting function names</title>
+      <p>
+        As mentioned before, there may be times where there are packages being loaded that have
+        conflicting function names. For instance <c>dplyr::filter</c> vs <c>stats::filter</c>.
+      </p>
+      <insight>
+        <title>In the case when you need to specifically call the package with the command, make
+        sure to use the formula:</title>
+        <p>
+          <m>package::function()</m>
+        </p>
+      </insight>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-tidyverse-takeaways">
+    <title>Key Takeaways</title>
+    <p>
+      The tidyverse is a collection of R packages designed to make data analysis more readable,
+      consistent, and reproducible.
+    </p>
+    <ul>
+      <li>Loading the tidyverse with library(tidyverse) attaches multiple core packages (such as
+      <c>dplyr</c>, <c>ggplot2</c>, and <c>tidyr</c>) that share a common design philosophy.</li>
+      <li>The pipe operator (<c>|&gt;</c>) allows code to be read from left to right, with each
+      step building on the result of the previous step.</li>
+      <li>Each <c>tidyverse</c> verb typically performs one clear transformation, making pipelines
+      easier to understand and debug.</li>
+      <li><c>select()</c> changes which columns exist in a dataset, while <c>filter()</c> changes which
+      rows are kept.</li>
+      <li><c>arrange()</c> reorders rows based on variable values but does not modify the data
+      itself.</li>
+      <li><c>mutate()</c> creates new variables or modifies existing ones, enabling feature
+      engineering and transformation.</li>
+      <li>Logical operators (such as <c>==</c>, <c>!=</c>, <c>&gt;</c>, <c>&lt;</c>, <c>&amp;</c>,
+      and <c>|</c>) allow precise control when filtering data.</li>
+      <li>The order of functions in a pipeline matters, as each step depends on the output of the
+      previous one.</li>
+      <li>Understanding <c>tidyverse</c> workflows early is essential, as these tools will be used
+      throughout later chapters for visualization, modeling, and statistical analysis.</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-tidyverse-checklist">
+    <title>Checklist</title>
+    <p>
+      <alert>When working with tidyverse, have you:</alert>
+    </p>
+    <ul>
+      <li>[ ] Installed the package using <c>install.packages()</c> <em>(only needed once)</em>?</li>
+      <li>[ ] Loaded the package for the current R session using <c>library()</c>?</li>
+      <li>[ ] Started your pipeline with the correct data source?</li>
+      <li>[ ] Used the pipe operator (<c>|&gt;</c>) to make your code readable from
+      <alert>left to right</alert>?</li>
+      <li>[ ] Ensured each step in your pipeline performs <alert>one clear transformation</alert>?</li>
+      <li>[ ] Used <c>select()</c> to control <alert>which columns</alert> are included?</li>
+      <li>[ ] Used <c>filter()</c> with proper logical operators (<c>==</c>, <c>&amp;</c>,
+      <c>|</c>, <c>%in%</c>) to control <alert>which rows</alert> are kept?</li>
+      <li>[ ] Verified that <c>==</c> (comparison) is used instead of <c>=</c> (assignment) inside
+      <c>filter()</c>?</li>
+      <li>[ ] Considered how missing values (<c>NA</c>) affect filtering and calculations?</li>
+      <li>[ ] Used <c>mutate()</c> to create or modify variables without unintentionally
+      overwriting existing data?</li>
+      <li>[ ] Checked that the <alert>order of functions</alert> in your pipeline makes sense?</li>
+      <li>[ ] Inspected your data after major transformations (e.g., filtering, mutating,
+      grouping)?</li>
+      <li>[ ] Applied <c>group_by()</c> <em>before</em> <c>summarize()</c> when computing grouped
+      summaries?</li>
+      <li>[ ] Re-run your entire pipeline from top to bottom to ensure it is fully reproducible?</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-tidyverse-keyfunctions">
+    <title>Key Functions &amp; Commands</title>
+    <p>
+      The following functions and commands are introduced or reinforced in this chapter.
+    </p>
+    <ul>
+      <li>
+        <p><c>install.packages()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Installs packages from CRAN onto your local machine. This only needs to be done once
+          per package.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>library()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Loads an installed package into the current R session so its functions can be
+          used.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>|&gt;</c> <em>(magrittr / tidyverse)</em></p>
+        <ul>
+          <li>Passes the result of one operation directly into the next, allowing code to be read
+          from left to right.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>select()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Chooses specific columns from a dataset.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>filter()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Keeps rows that meet logical conditions.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>arrange()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Orders rows based on the values of one or more columns.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>mutate()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Creates new columns or modifies existing ones.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>rename()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Changes column names using the format <c>new_name = old_name</c>.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>distinct()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Returns unique values or unique combinations of values from one or more
+          columns.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>if_else()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Creates values based on a binary condition, ensuring consistent data types.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>case_when()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Handles multiple conditional rules when creating or transforming variables.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>is.na()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Identifies missing (<c>NA</c>) values.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>drop_na()</c> <em>(tidyr)</em></p>
+        <ul>
+          <li>Removes rows containing missing values in specified columns.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>count()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Counts the number of observations for each group in a dataset.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>group_by()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Groups data so that summary statistics can be calculated separately for each
+          group.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>summarise()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Computes summary statistics (e.g., means, counts) for grouped data.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>n()</c> <em>(dplyr)</em></p>
+        <ul>
+          <li>Returns the number of observations within each group when used inside
+          <c>summarise()</c>.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>sessionInfo()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Displays information about the current R session, including loaded packages.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>table()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Creates frequency tables for categorical data.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-tidyverse-tip">
+    <title>💡 <em>Reproducibility Tip:</em></title>
+    <p>
+      The <c>tidyverse</c> provides many ways to work with data, which is both powerful and
+      flexible. To support reproducibility, aim to write code that clearly shows the sequence of
+      transformations applied to your data.
+    </p>
+    <p>
+      Whenever possible, keep related data-cleaning steps together in a single pipeline rather
+      than creating multiple intermediate objects that are used only once.
+    </p>
+    <p>
+      For example, consider the following code, which selects variables and filters rows using
+      two separate commands:
+    </p>
+    <program language="text">
+      <input>
+penguins_select &lt;- penguins |>
+  select(species, island, bill_length_mm, body_mass_g)
+
+penguins_new &lt;- penguins_select |>
+  filter(species == "Adelie")
+      </input>
+    </program>
+    <p>
+      This creates the intermediate <c>penguins_select</c>, which is used to create
+      <c>penguins_new</c>. In this case, the same transformation can be expressed more clearly by
+      chaining the steps together:
+    </p>
+    <program language="text">
+      <input>
+penguins_new &lt;- penguins |>
+  select(species, island, bill_length_mm, body_mass_g) |>
+  filter(species == "Adelie")
+      </input>
+    </program>
+    <p>
+      Both approaches produce the same result. Keeping related steps together makes it easier to
+      understand how the data were transformed and reduces the number of objects to
+      track—an important habit for writing clear, reproducible analyses.
     </p>
   </section>
 
