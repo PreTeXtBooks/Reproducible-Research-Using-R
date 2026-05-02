@@ -2,19 +2,737 @@
 <appendix xml:id="app-r-markdown" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Reproducible Reporting: R Markdown</title>
 
-  <introduction>
-    <p>
-      This appendix covers reproducible reporting using R Markdown, an
-      alternative to Quarto that is widely used in the R community. R Markdown
-      allows you to combine narrative text, R code, and output into a single
-      document that can be rendered to HTML, PDF, Word, and other formats.
-    </p>
-  </introduction>
-
   <section xml:id="sec-intro-r-markdown">
     <title>Introduction</title>
     <p>
-      <!-- Content to be filled in -->
+      Throughout this book, we have been writing R code in separate R scripts. This is great
+      when we are writing code for ourselves. However, this entire book has been centered around
+      reproducibility. An R script can be reproducible, but is limited in how well it
+      communicates results, narrative, and output together in a single place. Sure, you can add
+      comments to help explain what the code is doing, but it does not allow for much text. It
+      also doesn't show outputs, whether that's visuals or numbers.
+    </p>
+    <p>
+      This is exactly where R Markdown comes into play. With R Markdown, you are able to:
+      <ul>
+        <li>Write code just as you would in an R script</li>
+        <li>Have dedicated spaces for text</li>
+        <li>Show outputs for numbers and visuals</li>
+        <li>Share with people outside of the R environment</li>
+      </ul>
+    </p>
+    <p>
+      In fact, this entire book was written using R Markdown! Each chapter is a different R
+      Markdown file all put together.
+    </p>
+    <p>
+      In this chapter, we are going to go through the benefits of R Markdown and how to properly
+      utilize it.
+    </p>
+  </section>
+
+  <section xml:id="sec-r-markdown-objectives">
+    <title>Learning Objectives</title>
+    <p>
+      By the end of this chapter, you will be able to:
+      <ul>
+        <li>Explain the purpose of R Markdown and how it supports reproducible research</li>
+        <li>Describe the limitations of standalone R scripts for communicating analysis</li>
+        <li>Create a new R Markdown document and select an appropriate output format</li>
+        <li>Identify and modify the core components of an R Markdown file, including the YAML,
+        text, and R code chunks</li>
+        <li>Write and format narrative text using Markdown syntax</li>
+        <li>Create, name, and manage R code chunks to control how code and output are
+        displayed</li>
+        <li>Display numerical output, tables, and visualizations within an R Markdown
+        document</li>
+        <li>Improve table and figure presentation using captions and formatting tools</li>
+        <li>Organize analyses using sections and subsections to create a clear document
+        structure</li>
+        <li>Knit an R Markdown document and troubleshoot common knitting errors</li>
+        <li>Publish and share R Markdown output outside of the R environment</li>
+        <li>Apply best practices to ensure an R Markdown document is reproducible and
+        understandable on its own</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-r-markdown-creation">
+    <title>Creating an R Markdown File</title>
+    <p>
+      When opening a new document, instead of clicking the button for R script, you are going to
+      click the R Markdown button. Once you name it, you have three options to pick from as an
+      output:
+    </p>
+    <ol>
+      <li>HTML: Turns your R Markdown file into a website</li>
+      <li>PDF: Turns your R Markdown file into a PDF</li>
+      <li>Word: Turns your R Markdown file into a Microsoft Word document</li>
+    </ol>
+    <p>
+      In this chapter, we will use HTML as our output because it supports interactivity, easy
+      sharing, and web-based reproducibility.
+    </p>
+    <p>
+      Once you click okay, a brand new R Markdown document has been created! If this is your
+      first time looking at an R Markdown file, you're probably thinking, "This looks sort of
+      familiar, but there are some things that are different." Let's break down the specific
+      parts of an R Markdown file.
+    </p>
+  </section>
+
+  <section xml:id="sec-r-markdown-parts">
+    <title>Parts of an R Markdown File</title>
+    <p>
+      R Markdown is very similar to a traditional R script, but it has more rules and sections.
+      Here, we will be breaking down the different sections.
+    </p>
+
+    <subsection xml:id="sec-yaml-rmd">
+      <title>The YAML</title>
+      <p>
+        At the top of the document you will find what is called the YAML, which contains the
+        metadata for the document. It has four default components:
+        <ul>
+          <li>title: What the title of your R Markdown is.</li>
+          <li>author: Who the author is (you).</li>
+          <li>date: The date of the R Markdown (defaults to the date of your computer).</li>
+          <li>
+            <p>output: The output you designated the document to be created into</p>
+            <ul>
+              <li>There are some cool things you can add here, like change the overall theme or
+              add TOC (table of contents). Like anything in R, take some time to explore and
+              experiment with this.</li>
+            </ul>
+          </li>
+        </ul>
+      </p>
+      <p>
+        You'll also notice that the YAML is contained within <c>---</c>. Besides being at the
+        top of the document, this is R's way of knowing that this <em>specific</em> part of the
+        document is the YAML.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-text-rmd">
+      <title>Text</title>
+      <p>
+        In an R script, every line is dedicated to writing code, with you having to specifically
+        use a <c>#</c> to denote otherwise (as a reminder, in R code, a <c>#</c> comments out
+        whatever is on that line, whether code or text). That is different in R Markdown.
+      </p>
+      <p>
+        Instead of the default being R code, anything you write in a document is treated as text.
+        This is incredibly useful when you want to:
+        <ul>
+          <li>narrate or tell a story</li>
+          <li>describe your code</li>
+          <li>describe the output of your code</li>
+        </ul>
+      </p>
+      <p>
+        For instance, what you're reading right now is text inside an R Markdown file. There is
+        no special way of telling R in an R Markdown file that this is text, because it by
+        default <alert>knows</alert> that this is text.
+      </p>
+      <p>
+        There are, though, ways to tell R we want to edit text.
+      </p>
+
+      <subsubsection xml:id="sec-text-styles-rmd">
+        <title>Styling Text</title>
+        <p>
+          Just like in any document, sometimes we want to make particular pieces of text look
+          different. The two most common ways are, and how to accomplish this in R Markdown, are:
+        </p>
+        <p>
+          <em>Italic</em>: to do this, add <c>*</c> to the beginning and end of your text
+          (whether a single letter, word, sentence, paragraph, etc.).
+        </p>
+        <program language="text">
+          <input>
+*It will look like this.*
+          </input>
+        </program>
+        <p>
+          <alert>Bold</alert>: to do this, add <c>**</c> to the beginning and end of your text
+          (whether a single letter, word, sentence, paragraph, etc.).
+        </p>
+        <program language="text">
+          <input>
+**It will look like this.**
+          </input>
+        </program>
+        <p>
+          These are the two basic ways to edit text. What if we need to indent in order to create
+          a list?
+        </p>
+      </subsubsection>
+
+      <subsubsection xml:id="sec-lists-rmd">
+        <title>Adding Lists</title>
+        <p>
+          As with traditional documents, R Markdown is able to create lists, whether that is
+          numbered or bulleted. In order to create a bulleted list, a <c>-</c> and then a space
+          between the text is needed. For a numbered list, you need the number, then a period,
+          then a space before your text. Below are examples of both.
+        </p>
+        <program language="text">
+          <input>
+- Text
+- More text
+
+1. Text
+2. More text
+          </input>
+        </program>
+        <p>
+          We have seen both of these ample times throughout this textbook, and also in this
+          chapter!
+        </p>
+        <p>
+          Now that we have talked more about the text portions of an R Markdown, let's now talk
+          about the code portions.
+        </p>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="sec-r-chunks-rmd">
+      <title>R Chunks</title>
+      <p>
+        Similar to how the YAML used the <c>---</c> to enclose whatever was inside, for R
+        chunks, R Markdown uses "<c>```</c>". Whatever is inside an R chunk is treated as R
+        code.
+      </p>
+      <p>
+        Additionally, each R chunk has <c>{}</c>, and inside of that bracket is the letter "r".
+        This is telling R that inside this chunk is going to be some code in the coding language
+        R.
+      </p>
+      <p>
+        It is typically best practice to also name your R chunks. Each one should be a unique
+        name, not only for a way for you to distinguish them from each other, but for R to
+        distinguish them as well. To name your R chunk, you write right next to the "r", like
+        this:
+      </p>
+      <program language="text">
+        <input>
+{r name-of-chunk}
+        </input>
+      </program>
+      <p>
+        It is best practice to either use one long word or use a <c>-</c> in between your words.
+        In each R Markdown document, there are two major types of R chunks.
+      </p>
+
+      <subsubsection xml:id="sec-setup-chunk">
+        <title>Setup Chunk</title>
+        <p>
+          In a brand new R Markdown document, you will see what is called the "Setup" R chunk.
+          Besides its position just below the YAML, the word "setup" is written, with some code
+          from the <c>knitr</c> package. The setup chunk is used to define global options that
+          apply to all code chunks in the document, such as whether code is shown or hidden.
+        </p>
+        <p>
+          Most of the time you do not have to do anything to this code, so we will leave it. Now,
+          it is time to actually write some R code.
+        </p>
+      </subsubsection>
+
+      <subsubsection xml:id="sec-code-chunks-rmd">
+        <title>Chunks for R Code</title>
+        <p>
+          It has already been established that in order to write R code, you need to create an R
+          chunk. Inside an R chunk, you are able to code as normally as you would in an R script.
+          The same rules (even adding comments) apply inside an R chunk. Think of each R chunk as
+          a mini R script.
+        </p>
+        <p>
+          Take the code below. This, as well as <em>all</em> of the code in the book is written
+          inside R chunks. Below is some code that is from all the way back from section
+          <xref ref="sec-tidyverse-together"/> of the book.
+        </p>
+        <program language="r">
+          <input>
+library(tidyverse)
+library(palmerpenguins)
+
+penguins_new &lt;- penguins %>%
+  select(species, island, bill_length_mm, body_mass_g) %>%
+  filter(species == "Adelie") %>%
+  mutate(size_category = if_else(body_mass_g >= 3500, "Big","Small")) %>%
+  arrange(desc(body_mass_g)) %>%
+  rename(penguin_types = species)
+          </input>
+        </program>
+        <p>
+          This code works just as it did in the third chapter. In the R Markdown document, all of
+          the code shows. This is an example of how now, for anyone looking, they are able to
+          <em>see</em> your code.
+        </p>
+        <p>
+          What if we want them to see not only the code, but the output? All we have to do is
+          call what we want to be displayed! For instance, if we want to display the square root
+          of 25:
+        </p>
+        <program language="r">
+          <input>
+sqrt(25)
+          </input>
+        </program>
+        <p>
+          With the above R code, our R Markdown file shows both the <c>sqrt(25)</c> code as well
+          as the answer (5).
+        </p>
+        <p>
+          This is the same no matter if its square root, ANOVAs, linear regressions, and anything
+          else in this chapter. The only difference is how tables and graphs are displayed.
+        </p>
+
+        <paragraphs xml:id="sec-r-markdown-tables">
+          <title>Tables</title>
+          <p>
+            Let's go back to that <c>penguins_new</c> dataset. Before in section
+            <xref ref="sec-code-chunks-rmd"/>, we "created" it. Now, let's see what happens when
+            we call the output.
+          </p>
+          <program language="r">
+            <input>
+penguins_new
+            </input>
+          </program>
+          <p>
+            By calling <c>penguins_new</c>, the R Markdown document now displays the output,
+            which in this case is <c>penguins_new</c>.
+          </p>
+          <p>
+            Now, that works, but in R Markdown, there is an even better way to display tables.
+            Using the <c>knitr</c> package, we can display tables with the <c>kable()</c>
+            function, which is purposely dedicated to displaying tabular data in R Markdown.
+          </p>
+          <program language="r">
+            <input>
+library(knitr)
+kable(head(penguins_new), caption = "This is an example of displaying a table using the kable command. On top of the data looking nicer then just a regular output, we can add a caption (and manipulate other aesthetic pieces.")
+            </input>
+          </program>
+          <p>
+            If we compare and contrast the output from just <c>penguins_new</c> vs the output
+            from the <c>kable()</c> function, there is a stark difference. One of the most
+            important differences is that you can add a caption that can illuminate the table
+            more than just a simple output.
+          </p>
+          <p>
+            In the code above, we could have just called <c>penguins_new</c> and not just the
+            <c>head()</c> of <c>penguins_new</c>, so why did we do this?
+          </p>
+          <p>
+            If we did not call <c>head()</c> then <c>kable()</c> would have produced a table
+            displaying <em>all</em> rows from <c>penguins_new</c>, which would have the user
+            scrolling for a long time. It is always your call as the creator of the document, but
+            keep this in mind:
+          </p>
+          <blockquote>
+            <p>You don't always have to show <em>all</em> your data.</p>
+          </blockquote>
+          <p>
+            By calling <c>head()</c>, your audience still gets a good picture of what your data
+            looks like.
+          </p>
+        </paragraphs>
+
+        <paragraphs xml:id="sec-r-markdown-graphs">
+          <title>Graphs</title>
+          <p>
+            In R Markdown, just how we can display tables, we can also display graphs. Similar to
+            the <c>kable()</c> function for tables, we can utilize <c>fig.cap</c> to both index
+            and provide a caption for graphs. The major difference between <c>kable()</c> and
+            <c>fig.cap</c> is that <c>kable()</c> goes into the actual R chunk, while
+            <c>fig.cap</c> goes in the top <c>{}</c> of the R chunk.
+          </p>
+          <program language="r">
+            <input>
+# {r example-ggplot2, fig.cap="An example of a visualization made using ggplot2."}
+ggplot(data = mpg, aes(x = cty, y = hwy)) +
+  geom_point()
+            </input>
+          </program>
+          <p>
+            This visualization, which we originally built in Section
+            <xref ref="sec-ggplot-scatterplot"/>, not only displays the data, but provides a
+            caption to explain the visualization, all thanks to <c>fig.cap</c>.
+          </p>
+          <p>
+            Yes, a picture is worth 1,000 words, but sometimes it can be helpful to add some
+            words to help <em>guide</em> viewers.
+          </p>
+        </paragraphs>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="sec-r-markdown-sections">
+      <title>Sections</title>
+      <p>
+        One of the most important and powerful parts of an R Markdown document is it's ability to
+        organize elements into <em>Sections</em>.
+      </p>
+      <p>
+        Do you see how this chapter, and each chapter of the textbook, are broken down into
+        sections like 10.1, 3.7, etc? <alert>Each number represents a different section of the
+        document.</alert>
+      </p>
+      <p>
+        R Markdown utilizes the <c>#</c> symbol to set up sections. Here is an example:
+      </p>
+      <program language="text">
+        <input>
+# Section 1
+# Section 2
+## Section 2.1
+        </input>
+      </program>
+      <p>
+        Notice that a hierarchy is determined through the <alert>number</alert> of <c>#</c> in
+        the header. Each additional <c>#</c> means one level <alert>lower.</alert>
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-knitting">
+    <title>Knitting an R Markdown File</title>
+    <p>
+      So far, we have created our R Markdown file, filled it with text, code, and we now have
+      something tangible. So, how do we actually see it as an output?
+    </p>
+    <p>
+      At the top of your screen, you will see a new button that we have not seen before: "Knit".
+      Knitting in real life typically means intertwining yarn or thread into one cohesive piece
+      (usually clothes). In our case, knit does the same thing, but instead of yarn or thread, it
+      intertwines all of the pieces of our R Markdown document. When we press the knit button, we
+      get to see what the finished output looks like. After pressing knit, a popup will appear
+      with the outputted version.
+    </p>
+    <p>
+      If it <alert>does not</alert> knit, you will get an error, which will indicate why it
+      failed and what to fix, just like any other error in R.
+    </p>
+    <p>
+      When your document successfully knits, you are now ready to proudly share it with your
+      friends, family, colleagues, and the world!
+    </p>
+  </section>
+
+  <section xml:id="sec-publishing-rmd">
+    <title>Publishing an R Markdown file</title>
+    <p>
+      When our document is ready, or "refrigerator-worthy" as I'd call it, we can move a little
+      to the right of the knit button to the "Publish" button. A popup will appear with options
+      on where to publish, and I recommend using "Posit Connect". This is a free hosting website
+      dedicated to sharing R documents (like this). In my family we have a saying:
+    </p>
+    <blockquote>
+      <p>"If it's for free, it's for me!"</p>
+    </blockquote>
+    <p>
+      Assuming you do not already have an account, you will sign up for one, input your
+      credentials when prompted, and boom! You will now have your R Markdown file on Posit
+      Connect under your account, with a link that you can share with whomever you'd like. With
+      the link, you are now a R Markdown author!
+    </p>
+  </section>
+
+  <section xml:id="sec-r-markdown-extras">
+    <title>Extras</title>
+    <p>
+      As stated many times in this book, there are a bevy of different things that are possible
+      in R, and R Markdown is no different. Here are a couple of additions you can add to your R
+      Markdown document to spice it up.
+    </p>
+    <p>
+      Mind you, there are more additions you can add to your R Markdown document even relating to
+      the sections below. This is just meant to be an introduction.
+    </p>
+
+    <subsection xml:id="sec-r-markdown-links">
+      <title>Links</title>
+      <p>
+        Like most documents, in R Markdown, you are able to add links for your views to be
+        directed to. This was actually done in the introduction to R chapter with the link to all
+        of the CRAN packages. The formula for adding a link is this
+      </p>
+      <ol>
+        <li><c>[]</c>: What you want the link you click on to be displayed as.</li>
+        <li><c>()</c>: The link you want viewers to be directed to.</li>
+      </ol>
+      <p>
+        This is what the code looks like:
+      </p>
+      <program language="text">
+        <input>
+[here](https://r-packages.io/packages).
+        </input>
+      </program>
+      <p>
+        What is inside the brackets is what the viewers see, and then what is inside the
+        parenthesis' is the link they'll be directed to if they click on the link.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-r-markdown-pictures">
+      <title>Pictures</title>
+      <p>
+        In chapter 3, I showed you all a picture of a Adelie penguin. Below is the code I used
+        to display the image:
+      </p>
+      <program language="text">
+        <input>
+![A picture of a Adelie penguin.](Adelie-Screenshot.png)
+        </input>
+      </program>
+      <p>
+        The formula for this goes:
+        <ul>
+          <li><c>!</c>: Letting R know that you're about to add a picture.</li>
+          <li><c>[]</c>: Providing a description for the picture for people unable to see the
+          picture.</li>
+          <li>
+            <p><c>()</c>: The link to the picture.</p>
+            <ul>
+              <li>The image needs to live in the same part of your computer that your R Markdown
+              file lives.</li>
+            </ul>
+          </li>
+        </ul>
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-r-markdown-checklist-creation">
+      <title>Checklists</title>
+      <p>
+        In most of the chapters in the textbook, a checklist at the end is provided. This is to
+        help you along your analyzes to make sure you're hitting all of the major components of
+        the analysis.
+      </p>
+      <p>
+        To create a checklist, is it quite similar to how to create lists. Below is an example:
+      </p>
+      <program language="text">
+        <input>
+- [ ] Identified both variables as **categorical** (not numeric)?
+        </input>
+      </program>
+      <p>
+        There is still a <c>-</c>, followed by a space. However, after the space is <c>[]</c>
+        with a space separating the two brackets. This space is so you can click inside the
+        checkbox.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-r-markdown-standouts">
+      <title>Standout sections</title>
+      <p>
+        Many times in this book, specific questions/texts have been singled out. My favorite one,
+        stemming all the way from chapter 1, is:
+      </p>
+      <blockquote>
+        <p>R puts the r in Artist.</p>
+      </blockquote>
+      <p>
+        To do this, all you need is the <c>&gt;</c> on its own line. The code looks like this:
+      </p>
+      <program language="text">
+        <input>
+> R puts the r in Artist.
+        </input>
+      </program>
+      <p>
+        Simple as that! This can be a vital addition when used correctly.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-r-markdown-settings">
+      <title>Changing Setting of Specific R Chunks</title>
+      <p>
+        To the right of each R chunk there is a circular gear icon. Here is where you can change
+        some of the setting of each R chunk. There are a three things you see:
+      </p>
+      <ol>
+        <li>Chunk Name: This is where you can also name your chunk</li>
+        <li>Output: This is where you can control the output of the specific R chunk. It is by
+        default set to the document default, but this can be altered for individual R
+        chunks.</li>
+        <li>Slider options: You can further customize the output of an individual R chunk this
+        these four options. You'll mostly be interested in the first two, as they're typically
+        the most powerful. For instance, when you first load <c>tidyverse</c> a big message
+        appears, which you can stop by switching "Show messages" to the left.</li>
+      </ol>
+      <p>
+        Each R chunk is unique and requires different settings based upon what is inside and what
+        you want the viewer to see from it.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-r-markdown-takeaways">
+    <title>Key Takeaways</title>
+    <ul>
+      <li>R Markdown allows you to combine code, narrative text, and output in a single
+      document, making analyses easier to understand, share, and reproduce.</li>
+      <li>While an R script can be reproducible, R Markdown improves reproducibility by clearly
+      linking analysis decisions, results, and interpretation in one place.</li>
+      <li>Every R Markdown document is structured around three core components: YAML metadata,
+      text, and R code chunks.</li>
+      <li>The YAML section controls important document-level information such as the title,
+      author, date, and output format.</li>
+      <li>Text in R Markdown is written using Markdown syntax, allowing you to format headings,
+      lists, emphasis, links, images, and quotes without writing code.</li>
+      <li>All R code must be written inside R chunks, which behave like a mini R script and are
+      executed from top to bottom when the document is knitted.</li>
+      <li>Naming R chunks helps organize your analysis and prevents errors during
+      knitting.</li>
+      <li>Calling objects, functions, or plots inside a chunk automatically displays their
+      output in the final document.</li>
+      <li>Functions like <c>kable()</c> allow you to present tables in a cleaner, more readable
+      format than raw console output.</li>
+      <li>Knitting an R Markdown file runs the entire document in a clean environment, which
+      helps identify missing objects, forgotten packages, and reproducibility issues.</li>
+      <li>Publishing an R Markdown document allows you to share your work beyond R, turning
+      analyses into polished, shareable artifacts.</li>
+      <li>This chapter brings together everything from earlier chapters, showing how data
+      manipulation, visualization, and analysis can be communicated clearly and reproducibly in
+      a final report.</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-r-markdown-checklist">
+    <title>Checklist</title>
+    <p>
+      <alert>When creating an R Markdown document, have you:</alert>
+    </p>
+    <ul>
+      <li>[ ] Chosen the appropriate output format (HTML, PDF, or Word) based on how the
+      document will be shared?</li>
+      <li>[ ] Clearly defined the YAML metadata (title, author, date, output)?</li>
+      <li>[ ] Written narrative text that explains <em>why</em> the analysis is being done, not
+      just <em>what</em> the code does?</li>
+      <li>[ ] Organized the document into logical sections using headers (<c>#</c>, <c>##</c>,
+      <c>###</c>)?</li>
+      <li>[ ] Named your R chunks clearly so their purpose is easy to understand?</li>
+      <li>[ ] Loaded all required packages within the document to ensure reproducibility?</li>
+      <li>[ ] Verified that the document knits successfully from top to bottom without
+      errors?</li>
+      <li>[ ] Checked that all tables and figures are readable and appropriately
+      formatted?</li>
+      <li>[ ] Added captions to tables (<c>kable()</c>) and figures (<c>fig.cap</c>) where
+      explanation is helpful?</li>
+      <li>[ ] Avoided printing unnecessary output (e.g., overly large tables or intermediate
+      objects)?</li>
+      <li>[ ] Used text formatting (bold, italics, lists, quotes) intentionally to guide the
+      reader?</li>
+      <li>[ ] Asked: <em>Could someone unfamiliar with this analysis understand the results by
+      reading this document alone?</em></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-r-markdown-keyfunctions">
+    <title>Key Functions &amp; Commands</title>
+    <p>
+      The following functions and commands are introduced or reinforced in this chapter to support
+      reproducible reporting and polished output in R Markdown documents.
+    </p>
+    <ul>
+      <li>
+        <p><c>knitr::opts_chunk$set()</c> <em>(knitr)</em></p>
+        <ul>
+          <li>Sets global options for all R code chunks in an R Markdown document.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>kable()</c> <em>(knitr)</em></p>
+        <ul>
+          <li>Creates clean, well-formatted tables from data frames for display in R Markdown
+          output.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-r-markdown-syntax-summary">
+    <title>Summary of Common R Markdown Syntax</title>
+    <p>
+      In addition to R functions, R Markdown relies on a small set of Markdown syntax rules to
+      format text and structure documents. These elements are not functions, but they are
+      essential for writing clear, readable, and professional reports.
+    </p>
+    <ul>
+      <li>
+        <p>Text emphasis:</p>
+        <ul>
+          <li><c>*text*</c>: Italicizes text.</li>
+          <li><c>**text**</c>: Bolds text.</li>
+          <li><c>***text***</c>: Bold and italic text.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Headings:</p>
+        <ul>
+          <li><c>#</c>: Primary heading (chapter-level).</li>
+          <li><c>##</c>: Section heading.</li>
+          <li><c>###</c>: Subsection heading.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Lists:</p>
+        <ul>
+          <li><c>-</c>: Creates a bulleted list.</li>
+          <li><c>1.</c>: Creates a numbered list.</li>
+          <li><c>[ ]</c>: Creates a checklist.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Links:</p>
+        <ul>
+          <li><c>[text](url)</c>: Creates a clickable hyperlink.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Images:</p>
+        <ul>
+          <li><c>![alt text](path)</c>: Inserts an image into the document, with alternative
+          text for accessibility.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Block quotes:</p>
+        <ul>
+          <li><c>&gt;</c>: Highlights a block of text, often used for emphasis or
+          reflection.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-rmd-tip">
+    <title>💡 <em>Reproducibility Tip:</em></title>
+    <p>
+      A reproducible R Markdown document should knit successfully from top to bottom in a clean R
+      session without manual fixes.
+    </p>
+    <p>
+      Because knitting re-runs every chunk in order, it helps expose missing packages, undefined
+      objects, and hidden dependencies that can make analyses difficult to reproduce. To support
+      this, always load required packages within the document and avoid relying on objects created
+      outside the file.
+    </p>
+    <blockquote>
+      <p>
+        You can check whether these criteria are met by shutting down your R session completely,
+        opening your R Markdown file in a brand new R session, and pressing <em>Knit</em>.
+      </p>
+    </blockquote>
+    <p>
+      An analysis is only reproducible if it can be re-run and understood as a complete,
+      self-contained document.
     </p>
   </section>
 

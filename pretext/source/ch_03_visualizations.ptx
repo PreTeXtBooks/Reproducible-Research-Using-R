@@ -969,4 +969,29 @@ ggplot(mpg, aes(displ, hwy)) +
     </p>
   </section>
 
+  <section xml:id="sec-ggplot">
+    <title>ggplot2</title>
+    <p>
+      <!-- Content to be filled in -->
+    </p>
+    <subsection xml:id="sec-ggplot-basics">
+      <title>Basics</title>
+      <p>
+        <!-- Content to be filled in -->
+      </p>
+    </subsection>
+    <subsection xml:id="sec-ggplot-scatterplot">
+      <title>Scatterplot</title>
+      <p>
+        <!-- Content to be filled in -->
+      </p>
+    </subsection>
+    <subsection xml:id="sec-ggplot-boxplot">
+      <title>Boxplot</title>
+      <p>
+        <!-- Content to be filled in -->
+      </p>
+    </subsection>
+  </section>
+
 </chapter>

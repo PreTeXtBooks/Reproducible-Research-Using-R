@@ -2,19 +2,1049 @@
 <chapter xml:id="ch-reproducible-reporting" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Reproducible Reporting</title>
 
-  <introduction>
-    <p>
-      This chapter brings together the skills developed throughout the book by
-      focusing on reproducible reporting with Quarto. You will learn how to
-      create dynamic documents that combine narrative text, code, and output
-      into polished, shareable reports.
-    </p>
-  </introduction>
-
   <section xml:id="sec-intro-quarto">
     <title>Introduction</title>
     <p>
-      <!-- Content to be filled in -->
+      Throughout this book, we have been writing R code in separate R scripts. This is great
+      when we are writing code for ourselves. However, this entire book has been centered around
+      reproducibility. An R script can be reproducible, but is limited in how well it
+      communicates results, narrative, and output together in a single place. Sure, you can add
+      comments to help explain what the code is doing, but it does not allow for much text. It
+      also doesn't show outputs, whether that's visuals or numbers.
+    </p>
+    <p>
+      This is exactly where Quarto comes into play. With Quarto, you are able to:
+      <ul>
+        <li>Write code just as you would in an R script</li>
+        <li>Have dedicated spaces for text</li>
+        <li>Show outputs for numbers and visuals</li>
+        <li>Share with people outside of the R environment</li>
+      </ul>
+    </p>
+    <p>
+      In fact, this entire book was written using Quarto! Each chapter is a different Quarto
+      document all put together. What is fantastic about Quarto is that it is built for the
+      future. It can incorporate code other than R (such as Python), provide you with a better
+      visual preview of your code (see <xref ref="sec-source-visual"/>), and is a true upgrade
+      from traditional R Markdown.
+    </p>
+    <p>
+      In this chapter, we are going to go through the benefits of Quarto and how to properly
+      utilize it.
+    </p>
+    <note>
+      <title>Deeper dive into Quarto</title>
+      <p>
+        To learn even more about Quarto than this chapter provides, please go to their website:
+        <url href="https://quarto.org/">Quarto</url>.
+      </p>
+    </note>
+  </section>
+
+  <section xml:id="sec-quarto-objectives">
+    <title>Learning Objectives</title>
+    <p>
+      By the end of this chapter, you will be able to:
+      <ul>
+        <li>Explain the purpose of Quarto and how it supports reproducible research</li>
+        <li>Describe the limitations of standalone R scripts for communicating analysis</li>
+        <li>Create a new Quarto document and select an appropriate output format</li>
+        <li>Identify and modify the core components of a Quarto document, including the YAML,
+        text, and R code chunks</li>
+        <li>Write and format narrative text using Markdown syntax</li>
+        <li>Create, name, and manage R code chunks to control how code and output are
+        displayed</li>
+        <li>Display numerical output, tables, and visualizations within a Quarto document</li>
+        <li>Improve table and figure presentation using captions and formatting tools</li>
+        <li>Organize analyses using sections and subsections to create a clear document
+        structure</li>
+        <li>Render a Quarto document and troubleshoot common rendering errors</li>
+        <li>Publish and share Quarto output outside of the R environment</li>
+        <li>Apply best practices to ensure a Quarto document is reproducible and understandable
+        on its own</li>
+      </ul>
+    </p>
+  </section>
+
+  <section xml:id="sec-quarto-creation">
+    <title>Creating a Quarto document</title>
+    <p>
+      When opening a new document, instead of clicking the button for R script, you are going to
+      click the Quarto Document button.
+    </p>
+    <blockquote>
+      <p>In RStudio: File → New File → Quarto Document.</p>
+    </blockquote>
+    <p>
+      Once you name it, you have three options to pick from as an output:
+    </p>
+    <ol>
+      <li>HTML: Turns your Quarto document into a website</li>
+      <li>PDF: Turns your Quarto document into a PDF</li>
+      <li>Word: Turns your Quarto document into a Microsoft Word document</li>
+    </ol>
+    <p>
+      In this chapter, we will use HTML as our output because it supports interactivity, easy
+      sharing, and web-based reproducibility.
+    </p>
+    <p>
+      Once you click OK, a brand new Quarto document has been created! If this is your first time
+      looking at a Quarto document, you're probably thinking, "This looks sort of familiar, but
+      there are some things that are different." Let's break down the specific parts of a Quarto
+      document.
+    </p>
+  </section>
+
+  <section xml:id="sec-quarto-parts">
+    <title>Parts of a Quarto document</title>
+    <p>
+      Quarto documents are similar to R scripts, but they have more rules and structure. Here, we
+      will be breaking down the different sections.
+    </p>
+
+    <subsection xml:id="sec-yaml">
+      <title>The YAML</title>
+      <p>
+        At the top of the document you will find what is called the YAML, which contains the
+        metadata for the document. When you first open a new Quarto Document, it looks like this:
+      </p>
+      <program language="text">
+        <input>
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+        </input>
+      </program>
+      <p>
+        It has four default components:
+        <ul>
+          <li>title: What the title of your Quarto is.</li>
+          <li>
+            <p>format: The output you designated the document to be created into</p>
+            <ul>
+              <li>There are some cool things you can add here, like change the overall theme or
+              add TOC (table of contents). Like anything in R, take some time to explore and
+              experiment with this.</li>
+            </ul>
+          </li>
+          <li>editor: tells Quarto (and RStudio) to open the document in the Visual Editor by
+          default, instead of the Source Editor (more about this in
+          <xref ref="sec-source-visual"/>).</li>
+        </ul>
+      </p>
+      <p>
+        You'll also notice that the YAML is contained within <c>---</c>. Besides being at the
+        top of the document, this is Quarto's way of knowing that this <em>specific</em> part of
+        the document is the YAML.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-source-visual">
+      <title>Source and Visual Panes</title>
+      <p>
+        In a traditional R script, all of your code is written (for the most part) in the source
+        quadrant (see <xref ref="sec-rstudio"/>). If you look towards the top left of the Quarto
+        document, you can see that there are two options adjacent to each other: Source and
+        Visual. Amazingly, Quarto allows you to view what your document looks like in a published
+        format using the Visual pane.
+      </p>
+      <p>
+        For the most part, anything you can do in one view can be done in the other. Source looks
+        more like an R script, while Visual looks more like a traditional document. I highly
+        suggest playing around and experimenting in both to see the interactivity and
+        capabilities.
+      </p>
+      <p>
+        <alert>There are no wrong answers!</alert>
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-text">
+      <title>Text</title>
+      <p>
+        In an R script, every line is dedicated to writing code, with you having to specifically
+        use a <c>#</c> to denote otherwise (as a reminder, in R code, a <c>#</c> comments out
+        whatever is on that line, whether code or text). That is different in Quarto.
+      </p>
+      <p>
+        Instead of the default being R code, anything you write in a document is treated as text.
+        This is incredibly useful when you want to:
+        <ul>
+          <li>narrate or tell a story</li>
+          <li>describe your code</li>
+          <li>describe the output of your code</li>
+        </ul>
+      </p>
+      <p>
+        For instance, what you're reading right now is text inside a Quarto document. There is no
+        special way of telling Quarto that this content is text, because text is the default.
+      </p>
+      <p>
+        There are, though, ways to tell Quarto how to format text.
+      </p>
+
+      <subsubsection xml:id="sec-text-styles">
+        <title>Styling Text</title>
+        <p>
+          Just like in any document, sometimes we want to make particular pieces of text look
+          different. The two most common ways to style text in Quarto are:
+        </p>
+        <p>
+          <em>Italic</em>: to do this, add <c>*</c> to the beginning and end of your text
+          (whether a single letter, word, sentence, paragraph, etc.).
+        </p>
+        <program language="text">
+          <input>
+*It will look like this.*
+          </input>
+        </program>
+        <p>
+          <alert>Bold</alert>: to do this, add <c>**</c> to the beginning and end of your text
+          (whether a single letter, word, sentence, paragraph, etc.).
+        </p>
+        <program language="text">
+          <input>
+**It will look like this.**
+          </input>
+        </program>
+        <p>
+          These are the two basic ways to edit text. What if we need to indent in order to create
+          a list?
+        </p>
+      </subsubsection>
+
+      <subsubsection xml:id="sec-lists">
+        <title>Adding Lists</title>
+        <p>
+          As with traditional documents, Quarto is able to create lists, whether that is numbered
+          or bulleted. In order to create a bulleted list, a <c>-</c> and then a space between
+          the text is needed. For a numbered list, you need the number, then a period, then a
+          space before your text. Below are examples of both.
+        </p>
+        <program language="text">
+          <input>
+- Text
+- More text
+
+1. Text
+2. More text
+          </input>
+        </program>
+        <p>
+          We have seen both of these ample times throughout this textbook, and also in this
+          chapter!
+        </p>
+        <p>
+          Now that we have talked more about the text portions of a Quarto, let's now talk about
+          the code portions.
+        </p>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="sec-r-chunks">
+      <title>R chunks</title>
+      <p>
+        Similar to how the YAML used the <c>---</c> to enclose whatever was inside, for R
+        chunks, Quarto uses "<c>```</c>". Whatever is inside an R chunk is treated as R code.
+      </p>
+      <p>
+        Additionally, each R chunk has <c>{}</c>, and inside of that bracket is the letter "r".
+        This tells Quarto to run the chunk as R code.
+      </p>
+      <p>
+        It is typically best practice to also name your R chunks. Each one should be a unique
+        name, not only for a way for you to distinguish them from each other, but for R to
+        distinguish them as well. To name your R chunk, you will use the <c>#|</c> (called the
+        hash-pipe) and then the <c>label:</c>.
+      </p>
+      <insight>
+        <title>What is the <c>#|</c> anyway?</title>
+        <p>
+          In Quarto, that is used to give information regarding the R chunk, and tells Quarto
+          that anything on this line <em>is not</em> R code to run.
+        </p>
+      </insight>
+      <p>
+        For example, the below code would name an R chunk "r-is-awesome."
+      </p>
+      <program language="text">
+        <input>
+#| label: r-is-awesome
+        </input>
+      </program>
+      <p>
+        It is best practice to either use one long word or use a <c>-</c> in between your words.
+        In each Quarto document, there are two major types of R chunks.
+      </p>
+
+      <subsubsection xml:id="sec-code-chunks">
+        <title>Chunks for R Code</title>
+        <p>
+          It has already been established that in order to write R code, you need to create an R
+          chunk. Inside an R chunk, you are able to code as normally as you would in an R script.
+          The same rules (even adding comments) apply inside an R chunk. Think of each R chunk as
+          a mini R script.
+        </p>
+        <p>
+          Take the code below. This, as well as <em>all</em> of the code in the book is written
+          inside R chunks. Below is some code that is from all the way back from section
+          <xref ref="sec-tidyverse-together"/> of the book.
+        </p>
+        <program language="r">
+          <input>
+library(tidyverse)
+library(palmerpenguins)
+
+penguins_new &lt;- penguins |>
+  select(species, island, bill_length_mm, body_mass_g) |>
+  filter(species == "Adelie") |>
+  mutate(size_category = if_else(body_mass_g >= 3500, "Big","Small")) |>
+  arrange(desc(body_mass_g)) |>
+  rename(penguin_types = species)
+          </input>
+        </program>
+        <p>
+          This code works just as it did in the third chapter. In the Quarto document, all of the
+          code shows. This is an example of how now, for anyone looking, they are able to
+          <em>see</em> your code.
+        </p>
+        <p>
+          What if we want them to see not only the code, but the output? All we have to do is
+          call what we want to be displayed! For instance, if we want to display the square root
+          of 25 (like in <xref ref="sec-intro-calculator-functions"/>):
+        </p>
+        <program language="r">
+          <input>
+sqrt(25)
+          </input>
+        </program>
+        <p>
+          With the above R code, our Quarto document shows both the <c>sqrt(25)</c> code as well
+          as the answer (5).
+        </p>
+        <p>
+          This is the same no matter if it is square root, ANOVAs, linear regressions, and
+          anything else in this chapter.
+        </p>
+        <insight>
+          <title>Naming your R chunks:</title>
+          <p>
+            Part of making your document reproducible is making sure people can follow along, and
+            part of that is naming your R chunks. To do this, you can use the following:
+            <c>#| label:</c>. The <c>#|</c> lets R know that the information is related to the
+            chunk itself and is not R code, while <c>label:</c> allows you to name the R chunk.
+            You can name it whatever you want, for example:
+          </p>
+          <p>
+            <c>#| label: first-R-chunk</c>
+          </p>
+          <p>
+            If your R chunk has a table or graph that will be <em>displayed</em>, you need to
+            tell R that by providing prefixes to your label names. They are as follows:
+            <ul>
+              <li>tables: <c>tbl-</c></li>
+              <li>figures: <c>fig-</c></li>
+            </ul>
+          </p>
+        </insight>
+        <p>
+          Now let's move on to displaying tables and graphs.
+        </p>
+
+        <paragraphs xml:id="sec-quarto-tables">
+          <title>Tables</title>
+          <p>
+            Let's go back to that <c>penguins_new</c> dataset. Before in section
+            <xref ref="sec-code-chunks"/>, we "created" it. Now, let's see what happens when we
+            call the output.
+          </p>
+          <program language="r">
+            <input>
+penguins_new
+            </input>
+          </program>
+          <p>
+            By calling <c>penguins_new</c>, the Quarto document now displays the output, which
+            in this case is <c>penguins_new</c>.
+          </p>
+          <insight>
+            <title>Naming Table Chunks:</title>
+            <p>
+              To let Quarto know that there is a table in your R chunk that you are going to
+              display, make sure its name starts with <c>tbl-</c>.
+            </p>
+          </insight>
+          <program language="r">
+            <input>
+#| label: tbl-penguins_new_display
+#| tbl-cap: "Showing what a plain table looks like in a Quarto document."
+penguins_new
+            </input>
+          </program>
+          <p>
+            Now, that works, but in Quarto, there is an even better way to display tables. Using
+            the <c>knitr</c> package (<cite key="R-knitr"/>), we can display tables with the
+            <c>kable()</c> function, which is purposely dedicated to displaying tabular data in
+            Quarto.
+          </p>
+          <insight>
+            <title>Displaying Tables with <c>kable()</c></title>
+            <p>
+              Throughout this book, we often use the <c>kable()</c> function to format tables for
+              display in Quarto. This improves readability and ensures tables render cleanly in
+              the final document.
+            </p>
+            <p>
+              However, <c>kable()</c> is not required when working interactively in R. The
+              underlying objects (data frames, matrices, model summaries) can always be printed
+              directly. We use <c>kable()</c> here purely for presentation purposes.
+            </p>
+            <p>
+              If you want to get even fancier, you can always use some functions within the
+              <c>kableExtra</c> package.
+            </p>
+          </insight>
+          <program language="r">
+            <input>
+#| label: tbl-penguins_new_display_kable
+library(knitr)
+kable(head(penguins_new), caption = "This is an example of displaying a table using the kable command. On top of the data looking nicer than just a regular output, we can add a caption (and manipulate other aesthetic pieces.")
+            </input>
+          </program>
+          <p>
+            If we compare and contrast the output from just <c>penguins_new</c> vs the output
+            from the <c>kable()</c> function, there is a stark difference. One of the most
+            important differences is that you can add a caption that can illuminate the table
+            more than just a simple output.
+          </p>
+          <insight>
+            <title>Captions with tables:</title>
+            <p>
+              You could create a caption for your table using <c>#| tbl-cap:</c> if you were not
+              using <c>kable()</c>. However, it is best practice to use <c>kable()</c>.
+            </p>
+          </insight>
+          <p>
+            In the code above, we could have just called <c>penguins_new</c> and not just the
+            <c>head()</c> of <c>penguins_new</c>, so why did we do this?
+          </p>
+          <p>
+            If we did not call <c>head()</c> then <c>kable()</c> would have produced a table
+            displaying <em>all</em> rows from <c>penguins_new</c>, which would have the user
+            scrolling for a long time. It is always your call as the creator of the document, but
+            keep this in mind:
+          </p>
+          <insight>
+            <title>Remember:</title>
+            <p>
+              You don't always have to show <em>all</em> your data.
+            </p>
+          </insight>
+          <p>
+            By calling <c>head()</c>, your audience still gets a good picture of what your data
+            looks like.
+          </p>
+        </paragraphs>
+
+        <paragraphs xml:id="sec-quarto-graphs">
+          <title>Graphs</title>
+          <p>
+            In Quarto, just how we can display tables, we can also display graphs.
+          </p>
+          <insight>
+            <title>Naming Graph Chunks:</title>
+            <p>
+              To let Quarto know that there is a graph in your R chunk that you are going to
+              display, make sure its name starts with <c>fig-</c>.
+            </p>
+          </insight>
+          <p>
+            Similar to working with tables, when working with graphs and you want to add a
+            caption, you can use <c>fig-cap:</c> on a line with the <c>#|</c>.
+          </p>
+          <program language="r">
+            <input>
+#| label: fig-example-ggplot2
+#| fig-cap: "An example of a visualization made using ggplot2."
+library(ggplot2)
+ggplot(data = mpg, aes(x = cty, y = hwy)) +
+  geom_point()
+            </input>
+          </program>
+          <p>
+            This visualization, which we originally built in Section
+            <xref ref="sec-ggplot-scatterplot"/>, not only displays the data, but provides a
+            caption to explain the visualization, all thanks to <c>fig-cap:</c>.
+          </p>
+          <p>
+            Yes, a picture is worth 1,000 words, but sometimes it can be helpful to add some
+            words to help <em>guide</em> viewers.
+          </p>
+        </paragraphs>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="sec-quarto-sections">
+      <title>Sections</title>
+      <p>
+        One of the most important and powerful parts of a Quarto document is its ability to
+        organize elements into <em>Sections</em>.
+      </p>
+      <p>
+        Do you see how this chapter, and each chapter of the textbook, are broken down into
+        sections like 10.1, 3.7, etc? <alert>Each number represents a different section of the
+        document.</alert>
+      </p>
+      <p>
+        Quarto utilizes the <c>#</c> symbol to set up sections. Here is an example:
+      </p>
+      <program language="text">
+        <input>
+# Section 1
+# Section 2
+## Section 2.1
+        </input>
+      </program>
+      <p>
+        Notice that a hierarchy is determined through the <alert>number</alert> of <c>#</c> in
+        the header. Each additional <c>#</c> means one level <alert>lower.</alert>
+      </p>
+      <p>
+        Headers, just like R chunks, also need labeling. To do that, inside <c>{}</c> on the
+        same line as the header, add a <c>#</c> within the <c>{}</c> followed up whatever name
+        you want. Just how tables and graphs have specific prefixes, so do section headers, which
+        is <c>sec-</c>. An example of a section name is as follows:
+      </p>
+      <p>
+        <c>{#sec-creating-sections}</c>
+      </p>
+      <warning>
+        <title>Label Correctly!</title>
+        <p>
+          Use proper naming convention when naming anything inside your Quarto document.
+        </p>
+      </warning>
+      <p>
+        Lets see why naming is so important in a practical sense.
+      </p>
+    </subsection>
+
+    <subsection xml:id="cross-referencing">
+      <title>Cross-Referencing Syntax</title>
+      <p>
+        I have been emphasizing how important it is to properly name things—whether it is
+        headings, tables, or figures. Naming is vital for organization and reproducibility, but
+        it is also the "secret sauce" for cross-referencing within Quarto documents.
+      </p>
+      <p>
+        For instance, back in <xref ref="sec-quarto-graphs"/>, we created the example ggplot2
+        figure.
+      </p>
+      <p>
+        That right there is a cross-reference. By typing <c>@fig-example-ggplot2</c> in my text,
+        Quarto automatically turned it into a clickable link, with the <c>@</c> symbol being the
+        driving factor. It even indexes the figures based on the order they're created. If I were
+        to add another graph earlier in the chapter, Quarto would automatically update the
+        numbering so this one becomes "Figure 2" without me having to change a thing.
+      </p>
+      <warning>
+        <title>Labeling is Key!</title>
+        <p>
+          This can only be done with proper naming convention, so make sure to properly label
+          your tables and graphs!
+        </p>
+      </warning>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-rendering">
+    <title>Render a Quarto Document</title>
+    <p>
+      So far, we have created our Quarto document, filled it with text, code, and we now have
+      something tangible. So, how do we actually see it as an output?
+    </p>
+    <p>
+      At the top of your screen, you will see a new button that we have not seen before:
+      "Render". When we press the Render button, we get to see what the finished output looks
+      like. After pressing Render, a pop-up will appear with the outputted version.
+    </p>
+    <warning>
+      <title>Issues with Rendering:</title>
+      <p>
+        If it <alert>does not</alert> Render, you will get an error, which will indicate why it
+        failed and what to fix, just like any other error in R.
+      </p>
+    </warning>
+    <p>
+      When your document successfully Renders, you are now ready to proudly share it with your
+      friends, family, colleagues, and the world!
+    </p>
+  </section>
+
+  <section xml:id="sec-publishing">
+    <title>Publishing a Quarto document</title>
+    <p>
+      When our document is ready, or "refrigerator-worthy" as I'd call it, we can move a little
+      to the right of the Render button to the "Publish" button. A pop-up will appear with
+      options on where to publish, and Quarto provides their own publishing service
+      <url href="https://quarto.org/docs/publishing/quarto-pub.html">Quarto Pub</url>. This is
+      a free hosting website dedicated to sharing R documents (like this).
+    </p>
+    <insight>
+      <title>Using Quarto Pub:</title>
+      <p>
+        In my family we have a saying:
+      </p>
+      <p>
+        "If it's for free, it's for me!" Quarto Pub is free, and it's a great place to host your
+        work.
+      </p>
+    </insight>
+    <p>
+      Assuming you do not already have an account, you will sign up for one, input your
+      credentials when prompted, and boom! You will now have your Quarto document online, with a
+      link that you can share with whomever you'd like. With the link, you are now a Quarto
+      author!
+    </p>
+  </section>
+
+  <section xml:id="sec-quarto-extras">
+    <title>Extras</title>
+    <p>
+      As stated many times in this book, there are a bevy of things possible in R—and Quarto is
+      no different. Here are a couple of additions you can add to your Quarto document to spice
+      it up.
+    </p>
+    <p>
+      Mind you, there are more additions you can add to your Quarto document even relating to the
+      sections below. This is just meant to be an introduction.
+    </p>
+
+    <subsection xml:id="sec-quarto-links">
+      <title>Links</title>
+      <p>
+        Like most documents, in Quarto, you are able to add links for your viewers to be directed
+        to. This was actually done in the introduction to R chapter with the link to all of the
+        CRAN packages. The formula for adding a link is this
+      </p>
+      <ol>
+        <li><c>[]</c>: What you want the link you click on to be displayed as.</li>
+        <li><c>()</c>: The link you want viewers to be directed to.</li>
+      </ol>
+      <p>
+        This is what the code looks like:
+      </p>
+      <program language="text">
+        <input>
+[here](https://r-packages.io/packages).
+        </input>
+      </program>
+      <p>
+        What is inside the brackets is what the viewers see, and then what is inside the
+        parentheses is the link they'll be directed to if they click on the link.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-quarto-pictures">
+      <title>Pictures</title>
+      <p>
+        In <xref ref="sec-tidyverse-filter"/>, I showed you all a picture of an Adelie penguin.
+        Below is the code I used to display the image:
+      </p>
+      <program language="text">
+        <input>
+![A picture of an Adelie penguin.](Adelie-Screenshot.png)
+        </input>
+      </program>
+      <p>
+        The formula for this goes:
+        <ul>
+          <li><c>!</c>: Letting R know that you're about to add a picture.</li>
+          <li><c>[]</c>: Providing a description for the picture for people unable to see the
+          picture.</li>
+          <li>
+            <p><c>()</c>: The link to the picture.</p>
+            <ul>
+              <li>The image needs to live in the same part of your computer that your Quarto
+              document lives.</li>
+            </ul>
+          </li>
+        </ul>
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-quarto-checklist-creation">
+      <title>Checklists</title>
+      <p>
+        In most of the chapters in the textbook, a checklist at the end is provided. This is to
+        help you along your analyses to make sure you're hitting all of the major components of
+        the analysis.
+      </p>
+      <p>
+        To create a checklist, is it quite similar to how to create lists. Below is an example:
+      </p>
+      <program language="text">
+        <input>
+- [ ] Identified both variables as **categorical** (not numeric)?
+        </input>
+      </program>
+      <p>
+        There is still a <c>-</c>, followed by a space. However, after the space is <c>[]</c>
+        with a space separating the two brackets. This space is so you can click inside the
+        checkbox.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-quarto-standouts">
+      <title>Standout Sections</title>
+      <p>
+        There are times where you may want specific text to stand out. In this book, an example
+        (and my favorite), stemming all the way from chapter 1, is:
+      </p>
+      <blockquote>
+        <p>R puts the r in Artist.</p>
+      </blockquote>
+      <p>
+        To do this, all you need is the <c>&gt;</c> on its own line. The code looks like this:
+      </p>
+      <program language="text">
+        <input>
+> R puts the r in Artist.
+        </input>
+      </program>
+      <p>
+        Simple as that! This can be a vital addition when used correctly.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-quarto-callouts">
+      <title>Callout Boxes</title>
+      <p>
+        Throughout this book, there have been many callout boxes. These typically have been with
+        tips, notes, and sometimes even warnings. Here is an example of the first ever one found
+        back in chapter 1:
+      </p>
+      <insight>
+        <title>Data is art, and as you will read many times in this book:</title>
+        <p>
+          R puts the <alert>r</alert> in Artist.
+        </p>
+      </insight>
+      <p>
+        Below is the code on how to create them. It starts with <c>:::</c> and ends with
+        <c>:::</c>,
+      </p>
+      <program language="text">
+        <input>
+::: {.callout-tip}
+## Data is art, and as you will read many times in this book:
+R puts the **r** in Artist.
+:::
+        </input>
+      </program>
+      <p>
+        There are a few things to notice:
+        <ul>
+          <li>The callout boxes start and end with <c>:::</c>.</li>
+          <li>
+            <p><c>{callout-}</c>: This tells R that it is all callout box, and whatever is after
+            the <c>-</c> tell it <em>which</em> type of callout box it is. The choices are:</p>
+            <ul>
+              <li>tip</li>
+              <li>note</li>
+              <li>warning</li>
+              <li>important</li>
+              <li>caution</li>
+            </ul>
+          </li>
+          <li>Anything after the <c>{callout-}</c> is text inside the box.</li>
+        </ul>
+      </p>
+      <p>
+        These can be a fantastic tool to help guide your readers through whatever analytical,
+        reproducible story you're trying to tell in your Quarto documents.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-quarto-settings">
+      <title>Changing Settings for Specific R Chunks</title>
+      <p>
+        To the right of each R chunk there is a circular gear icon. Here is where you can change
+        some of the settings of each R chunk. There are three things you'll see:
+      </p>
+      <ol>
+        <li>Chunk Name: This is where you can also name your chunk.</li>
+        <li>Output: This is where you can control the output of the specific R chunk. It is by
+        default set to the document default, but this can be altered for individual R
+        chunks.</li>
+        <li>Slider options: You can further customize the output of an individual R chunk with
+        these four options. You'll mostly be interested in the first two, as they're typically
+        the most powerful. For instance, when you first load <c>tidyverse</c> a big message
+        appears, which you can stop by switching "Show messages" to the left.</li>
+      </ol>
+      <warning>
+        <title>The gear icon and the <c>#|</c></title>
+        <p>
+          You will notice that each of these manipulations add a line to the beginning of the R
+          chunk, each starting the <c>#|</c>.
+        </p>
+      </warning>
+      <p>
+        Each R chunk is unique and requires different settings based on what is inside and what
+        you want the viewer to see from it.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-quarto-takeaways">
+    <title>Key Takeaways</title>
+    <ul>
+      <li>Quarto allows you to combine <alert>code, narrative text, and output</alert> in a
+      single document, making analyses easier to understand, evaluate, share, and
+      reproduce.</li>
+      <li>While a standalone R script can be reproducible, Quarto strengthens reproducibility
+      by <alert>explicitly linking analytical decisions, results, and interpretation</alert> in
+      one place.</li>
+      <li>Every Quarto document is built around three core components: <alert>YAML
+      metadata</alert>, <alert>Markdown text</alert>, and <alert>R code chunks</alert>.</li>
+      <li>The YAML section controls document-level settings such as the title, author, date,
+      output format, and optional features like themes and tables of contents.</li>
+      <li>Narrative text in Quarto is written using Markdown syntax, allowing you to structure
+      and format reports without writing additional code.</li>
+      <li>All R code must be written inside R chunks, which are executed <alert>from top to
+      bottom</alert> each time the document is rendered.</li>
+      <li>Naming R chunks clearly helps organize analyses, improves readability, and prevents
+      rendering errors.</li>
+      <li>Any object, function, table, or plot that is called inside a chunk will automatically
+      appear in the final output.</li>
+      <li>Tables and figures can be enhanced with captions and formatting to make results easier
+      to interpret and reference.</li>
+      <li>Cross-referencing automates the connection between your narrative and your results; by
+      using the <c>@</c> symbol with proper prefixes (fig-, tbl-, or sec-), Quarto handles all
+      numbering and hyperlinking for you, ensuring your document remains organized even as you
+      add or move content.</li>
+      <li>Rendering a Quarto document runs the entire analysis in a <alert>clean
+      session</alert>, helping expose missing packages, undefined objects, and hidden
+      dependencies.</li>
+      <li>Publishing a Quarto document transforms an analysis into a <alert>polished, shareable
+      artifact</alert> that can be viewed outside of R.</li>
+      <li>This chapter demonstrates how all earlier analytical skills—data wrangling,
+      visualization, and modeling—come together in a clear, reproducible final report.</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-quarto-checklist">
+    <title>Checklist</title>
+    <p>
+      <alert>When creating a Quarto document, have you:</alert>
+    </p>
+    <ul>
+      <li>[ ] Selected an appropriate output format (HTML, PDF, or Word) based on how the
+      document will be shared?</li>
+      <li>[ ] Clearly defined document metadata in the YAML (title, author, date, output)?</li>
+      <li>[ ] Written narrative text that explains <em>why</em> analytical decisions were made,
+      not just <em>what</em> the code does?</li>
+      <li>[ ] Organized the document into logical sections using headers (<c>#</c>, <c>##</c>,
+      <c>###</c>)?</li>
+      <li>[ ] Named your R chunks clearly so their purpose is easy to understand?</li>
+      <li>[ ] Loaded all required packages within the document to ensure reproducibility?</li>
+      <li>[ ] Confirmed that the document renders successfully from top to bottom without
+      errors?</li>
+      <li>[ ] Checked that all tables and figures are readable and appropriately
+      formatted?</li>
+      <li>[ ] Added informative captions to tables (<c>tbl-cap</c>) and figures
+      (<c>fig-cap</c>) where explanation is helpful?</li>
+      <li>[ ] Utilized cross-references (@) for sections, tables, and figures to help the
+      reader navigate the document?</li>
+      <li>[ ] Avoided displaying unnecessary or distracting output (e.g., very large tables or
+      intermediate objects)?</li>
+      <li>[ ] Used text formatting (bold, italics, lists, quotes) intentionally to guide the
+      reader?</li>
+      <li>[ ] Asked yourself: <em>Could someone unfamiliar with this project understand the
+      analysis by reading this document alone?</em></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-quarto-keyfunctions">
+    <title>Key Functions &amp; Commands</title>
+    <p>
+      The following functions and commands are introduced or reinforced in this chapter to support
+      reproducible reporting and polished output in Quarto documents.
+    </p>
+    <ul>
+      <li>
+        <p><alert>R code chunks</alert></p>
+        <ul>
+          <li>Encapsulate all executable R code and ensure analyses run in a controlled,
+          reproducible order.</li>
+        </ul>
+      </li>
+      <li>
+        <p><alert>Chunk metadata (<c>#|</c>)</alert></p>
+        <ul>
+          <li>Used to label chunks, control output behavior, and add captions for tables and
+          figures.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>kable()</c> <em>(knitr)</em></p>
+        <ul>
+          <li>A convenient tool for displaying clean, readable tables in rendered Quarto
+          output.</li>
+        </ul>
+      </li>
+      <li>
+        <p><alert>Rendering</alert></p>
+        <ul>
+          <li>Executes the entire document in a fresh session, producing a complete, reproducible
+          report.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-quarto-syntax-summary">
+    <title>Summary of Common Quarto Syntax</title>
+    <p>
+      In addition to R functions, Quarto relies on a small set of Markdown syntax rules to format
+      text and structure documents. These elements are not functions, but they are essential for
+      writing clear, readable, and professional reports.
+    </p>
+    <ul>
+      <li>
+        <p>Text emphasis:</p>
+        <ul>
+          <li><c>*text*</c>: Italicizes text.</li>
+          <li><c>**text**</c>: Bolds text.</li>
+          <li><c>***text***</c>: Bold and italic text.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Headings:</p>
+        <ul>
+          <li><c>#</c>: Primary heading (chapter-level).</li>
+          <li><c>##</c>: Section heading.</li>
+          <li><c>###</c>: Subsection heading.</li>
+          <li><c>{#sec-name}</c>: Added after a header to create a label for
+          cross-referencing.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Lists:</p>
+        <ul>
+          <li><c>-</c>: Creates a bulleted list.</li>
+          <li><c>1.</c>: Creates a numbered list.</li>
+          <li><c>[ ]</c>: Creates a checklist.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Links:</p>
+        <ul>
+          <li><c>[text](url)</c>: Creates a clickable hyperlink.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Images:</p>
+        <ul>
+          <li><c>![alt text](path)</c>: Inserts an image into the document, with alternative
+          text for accessibility.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Block quotes:</p>
+        <ul>
+          <li><c>&gt;</c>: Highlights a block of text, often used for emphasis or
+          reflection.</li>
+        </ul>
+      </li>
+      <li>
+        <p><alert>Callout boxes</alert></p>
+        <ul>
+          <li><c>::: {.callout-tip}</c>: Highlights helpful tips or best practices.</li>
+          <li><c>::: {.callout-note}</c>: Provides additional context or clarification.</li>
+          <li><c>::: {.callout-warning}</c>: Draws attention to potential problems or common
+          mistakes.</li>
+          <li><c>::: {.callout-important}</c>: Emphasizes critical information that should not
+          be overlooked.</li>
+          <li><c>::: {.callout-caution}</c>: Signals situations that require extra care.</li>
+          <li><c>:::</c>: Ends a callout box.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Cross-Referencing</p>
+        <ul>
+          <li><c>@</c>: The symbol used to trigger a link to a label (e.g., <c>@sec-name</c>,
+          <c>@fig-name</c>, or <c>@tbl-name</c>).</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-quarto-render-errors">
+    <title>Common Rendering Errors and How to Fix Them</title>
+    <ul>
+      <li>
+        <p>Object not found: An object is used before it is created.</p>
+        <ul>
+          <li><em>Fix</em>: Make sure all objects are defined earlier in the document and not
+          only in the R environment.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Missing package: A required package is not loaded or installed.</p>
+        <ul>
+          <li><em>Fix</em>: Load all necessary packages inside the Quarto document using
+          library().</li>
+        </ul>
+      </li>
+      <li>
+        <p>Duplicate chunk labels: Two R chunks share the same name.</p>
+        <ul>
+          <li><em>Fix</em>: Ensure every R chunk has a unique <c>#| label:</c>.</li>
+        </ul>
+      </li>
+      <li>
+        <p>File not found: An image or data file cannot be located.</p>
+        <ul>
+          <li><em>Fix</em>: Check file names, capitalization, and that files are stored in the
+          correct directory.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Code runs in console but not when rendering: The document relies on objects outside
+        the file.</p>
+        <ul>
+          <li>Fix: Restart R and render the document to confirm it runs in a clean
+          session.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-quarto-tip">
+    <title>💡 <em>Reproducibility Tip:</em></title>
+    <p>
+      A reproducible Quarto document should render successfully from top to bottom in a clean R
+      session without manual fixes.
+    </p>
+    <p>
+      Because rendering re-runs every chunk in order, it helps expose missing packages, undefined
+      objects, and hidden dependencies that can make analyses difficult to reproduce. To support
+      this, always load required packages within the document and avoid relying on objects created
+      outside the document.
+    </p>
+    <insight>
+      <title>Making sure your Quarto document runs in any R Session:</title>
+      <p>
+        You can check whether these criteria are met by shutting down your R session completely,
+        opening your Quarto document in a brand new R session, and pressing <em>Render</em>.
+      </p>
+    </insight>
+    <p>
+      An analysis is only reproducible if it can be re-run and understood as a complete,
+      self-contained document.
     </p>
   </section>
 

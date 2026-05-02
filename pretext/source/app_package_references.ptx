@@ -5,16 +5,583 @@
   <introduction>
     <p>
       This appendix provides a reference guide to the key R functions and
-      packages used throughout the book. Functions are organized by topic to
-      make it easy to look up syntax and usage as you work through analyses.
+      packages used throughout the book. Functions are organized by the chapter
+      in which they are first introduced to make it easy to look up syntax and
+      usage as you work through analyses.
     </p>
   </introduction>
 
   <section xml:id="sec-packages-functions-reference">
     <title>Functions by Topic</title>
     <p>
-      <!-- Content to be filled in -->
+      This table consolidates the packages and commands used throughout the book,
+      what each command does, and where it is first introduced.
     </p>
+    <table xml:id="tbl-functions-reference">
+      <title>Key Functions and Commands by Chapter</title>
+      <tabular halign="left" top="medium">
+        <col width="15%"/>
+        <col width="20%"/>
+        <col width="40%"/>
+        <col width="25%"/>
+        <row header="yes" bottom="medium">
+          <cell>Package</cell>
+          <cell>Command</cell>
+          <cell>What it does</cell>
+          <cell>First introduced</cell>
+        </row>
+        <!-- Introduction to R -->
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>&lt;-</c></cell>
+          <cell>Assigns values to objects for later use.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>c()</c></cell>
+          <cell>Combines multiple values into a single vector.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>:</c></cell>
+          <cell>Creates integer sequences (e.g., <c>1:10</c>).</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>[]</c></cell>
+          <cell>Indexes and subsets elements from vectors or data frames.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>$</c></cell>
+          <cell>Accesses or creates columns within a data frame.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>sqrt()</c></cell>
+          <cell>Computes square roots.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>log()</c> / <c>log10()</c></cell>
+          <cell>Computes natural and base-10 logarithms.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>round()</c></cell>
+          <cell>Rounds numeric values to a specified number of digits.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>class()</c></cell>
+          <cell>Identifies the data type (class) of an object.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>length()</c></cell>
+          <cell>Returns the number of elements in a vector.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>factor()</c></cell>
+          <cell>Converts character data into categorical (factor) variables.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>levels()</c></cell>
+          <cell>Displays the levels associated with a factor.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>data.frame()</c></cell>
+          <cell>Combines vectors into a tabular data structure.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>head()</c> / <c>tail()</c></cell>
+          <cell>Displays the first or last rows of a dataset.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>str()</c></cell>
+          <cell>Displays the internal structure and data types of a dataset.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>summary()</c></cell>
+          <cell>Produces descriptive summaries of variables or model results.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>table()</c></cell>
+          <cell>Creates frequency tables for categorical data.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>nrow()</c> / <c>ncol()</c></cell>
+          <cell>Returns the number of rows or columns in a dataset.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>colnames()</c></cell>
+          <cell>Displays or modifies column names of a data frame.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>read.csv()</c></cell>
+          <cell>Imports CSV files into R as data frames.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>getwd()</c> / <c>setwd()</c></cell>
+          <cell>Gets or sets the current working directory.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>install.packages()</c></cell>
+          <cell>Installs packages from CRAN.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>library()</c></cell>
+          <cell>Loads an installed package into the current R session.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <row bottom="medium">
+          <cell>base R</cell>
+          <cell><c>?function_name</c></cell>
+          <cell>Accesses built-in help documentation for a function.</cell>
+          <cell>Introduction to R</cell>
+        </row>
+        <!-- Introduction to tidyverse -->
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>|&gt;</c></cell>
+          <cell>Passes the result of one operation into the next.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>magrittr</cell>
+          <cell><c>%&gt;%</c></cell>
+          <cell>Passes the result of one operation into the next.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>select()</c></cell>
+          <cell>Chooses specific columns from a dataset.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>filter()</c></cell>
+          <cell>Keeps rows that meet logical conditions.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>arrange()</c></cell>
+          <cell>Orders rows based on column values.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>mutate()</c></cell>
+          <cell>Creates or modifies columns.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>rename()</c></cell>
+          <cell>Renames columns using <c>new_name = old_name</c>.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>distinct()</c></cell>
+          <cell>Returns unique rows or value combinations.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>if_else()</c></cell>
+          <cell>Creates values based on a binary condition.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>case_when()</c></cell>
+          <cell>Applies multiple conditional rules.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>is.na()</c></cell>
+          <cell>Identifies missing (<c>NA</c>) values.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>tidyr</cell>
+          <cell><c>drop_na()</c></cell>
+          <cell>Removes rows containing missing values.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>count()</c></cell>
+          <cell>Counts observations by group.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>group_by()</c></cell>
+          <cell>Groups data for grouped operations.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>summarise()</c></cell>
+          <cell>Computes summary statistics for groups.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>n()</c></cell>
+          <cell>Returns group size within <c>summarise()</c>.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="minor">
+          <cell>nycOpenData</cell>
+          <cell><c>nyc_311()</c></cell>
+          <cell>Downloads NYC 311 Service Request data from NYC Open Data.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <row bottom="medium">
+          <cell>base R</cell>
+          <cell><c>sessionInfo()</c></cell>
+          <cell>Displays information about the current R session, including loaded packages.</cell>
+          <cell>Introduction to tidyverse</cell>
+        </row>
+        <!-- Comparing Two Groups -->
+        <row bottom="minor">
+          <cell>dplyr</cell>
+          <cell><c>inner_join()</c></cell>
+          <cell>Performs a SQL-style inner join, keeping only rows that match in both datasets.</cell>
+          <cell>Comparing Two Groups</cell>
+        </row>
+        <row bottom="minor">
+          <cell>tidyr</cell>
+          <cell><c>pivot_longer()</c></cell>
+          <cell>Converts data from wide format to long format.</cell>
+          <cell>Comparing Two Groups</cell>
+        </row>
+        <row bottom="minor">
+          <cell>tidyr</cell>
+          <cell><c>pivot_wider()</c></cell>
+          <cell>Converts data from long format back to wide format.</cell>
+          <cell>Comparing Two Groups</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>rbind()</c></cell>
+          <cell>Combines multiple data frames by binding rows together.</cell>
+          <cell>Comparing Two Groups</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>merge()</c></cell>
+          <cell>Joins two data frames together based on a shared key variable.</cell>
+          <cell>Comparing Two Groups</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>mean()</c></cell>
+          <cell>Calculates the average of numeric values.</cell>
+          <cell>Comparing Two Groups</cell>
+        </row>
+        <row bottom="medium">
+          <cell>stats</cell>
+          <cell><c>t.test()</c></cell>
+          <cell>Tests whether two group means differ significantly.</cell>
+          <cell>Comparing Two Groups</cell>
+        </row>
+        <!-- Comparing Multiple Means -->
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>set.seed()</c></cell>
+          <cell>Ensures reproducibility when generating random data.</cell>
+          <cell>Comparing Multiple Means</cell>
+        </row>
+        <row bottom="minor">
+          <cell>stats</cell>
+          <cell><c>rnorm()</c></cell>
+          <cell>Generates random values from a normal distribution.</cell>
+          <cell>Comparing Multiple Means</cell>
+        </row>
+        <row bottom="minor">
+          <cell>stats</cell>
+          <cell><c>aov()</c></cell>
+          <cell>Fits ANOVA models.</cell>
+          <cell>Comparing Multiple Means</cell>
+        </row>
+        <row bottom="minor">
+          <cell>supernova</cell>
+          <cell><c>supernova()</c></cell>
+          <cell>Displays ANOVA results in structured tables.</cell>
+          <cell>Comparing Multiple Means</cell>
+        </row>
+        <row bottom="minor">
+          <cell>stats</cell>
+          <cell><c>TukeyHSD()</c></cell>
+          <cell>Performs post-hoc pairwise comparisons.</cell>
+          <cell>Comparing Multiple Means</cell>
+        </row>
+        <row bottom="medium">
+          <cell>base R</cell>
+          <cell><c>plot()</c></cell>
+          <cell>Visualizes post-hoc comparison results.</cell>
+          <cell>Comparing Multiple Means</cell>
+        </row>
+        <!-- Analyzing Categorical Data -->
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>xtabs()</c></cell>
+          <cell>Constructs contingency tables using a formula interface.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <row bottom="minor">
+          <cell>janitor</cell>
+          <cell><c>tabyl()</c></cell>
+          <cell>Creates clean contingency tables.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <row bottom="minor">
+          <cell>janitor</cell>
+          <cell><c>adorn_percentages()</c></cell>
+          <cell>Converts counts to percentages.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <row bottom="minor">
+          <cell>janitor</cell>
+          <cell><c>adorn_ns()</c></cell>
+          <cell>Displays counts and percentages together.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <row bottom="minor">
+          <cell>janitor</cell>
+          <cell><c>clean_names()</c></cell>
+          <cell>Cleans names of an object.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <row bottom="minor">
+          <cell>stats</cell>
+          <cell><c>chisq.test()</c></cell>
+          <cell>Performs Chi-Square tests of independence.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <row bottom="minor">
+          <cell>gmodels</cell>
+          <cell><c>CrossTable()</c></cell>
+          <cell>Detailed cross-tabulations.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <row bottom="minor">
+          <cell>pheatmap</cell>
+          <cell><c>pheatmap()</c></cell>
+          <cell>Heatmap visualization of residuals or contributions.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <row bottom="medium">
+          <cell>rcompanion</cell>
+          <cell><c>cramerV()</c></cell>
+          <cell>Measures association strength between categorical variables.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <!-- Correlation Analysis -->
+        <row bottom="minor">
+          <cell>stats</cell>
+          <cell><c>cor()</c></cell>
+          <cell>Computes Pearson correlation coefficients.</cell>
+          <cell>Correlation Analysis</cell>
+        </row>
+        <row bottom="minor">
+          <cell>stats</cell>
+          <cell><c>cor.test()</c></cell>
+          <cell>Computes and tests correlations.</cell>
+          <cell>Correlation Analysis</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>pairs()</c></cell>
+          <cell>Creates a scatterplot matrix.</cell>
+          <cell>Correlation Analysis</cell>
+        </row>
+        <row bottom="minor">
+          <cell>GGally</cell>
+          <cell><c>ggpairs()</c></cell>
+          <cell>Enhanced scatterplot matrix with correlations.</cell>
+          <cell>Correlation Analysis</cell>
+        </row>
+        <row bottom="minor">
+          <cell>ppcor</cell>
+          <cell><c>pcor.test()</c></cell>
+          <cell>Computes partial correlations.</cell>
+          <cell>Correlation Analysis</cell>
+        </row>
+        <row bottom="medium">
+          <cell>base R</cell>
+          <cell><c>ifelse()</c></cell>
+          <cell>Recodes variables conditionally.</cell>
+          <cell>Correlation Analysis</cell>
+        </row>
+        <!-- Linear Regression -->
+        <row bottom="minor">
+          <cell>stats</cell>
+          <cell><c>lm()</c></cell>
+          <cell>Fits linear regression models.</cell>
+          <cell>Linear Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>broom</cell>
+          <cell><c>tidy()</c></cell>
+          <cell>Tidies model coefficients.</cell>
+          <cell>Linear Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>broom</cell>
+          <cell><c>glance()</c></cell>
+          <cell>Extracts model-level statistics.</cell>
+          <cell>Linear Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>lmtest</cell>
+          <cell><c>bptest()</c></cell>
+          <cell>Tests heteroscedasticity.</cell>
+          <cell>Linear Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>stats</cell>
+          <cell><c>AIC()</c></cell>
+          <cell>Compares regression models.</cell>
+          <cell>Linear Regression</cell>
+        </row>
+        <row bottom="medium">
+          <cell>stats</cell>
+          <cell><c>step()</c></cell>
+          <cell>Performs stepwise model selection.</cell>
+          <cell>Linear Regression</cell>
+        </row>
+        <!-- Logistic Regression -->
+        <row bottom="minor">
+          <cell>stats</cell>
+          <cell><c>glm()</c></cell>
+          <cell>Fits generalized linear models, including logistic regression (binomial family).</cell>
+          <cell>Logistic Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>base R</cell>
+          <cell><c>exp()</c></cell>
+          <cell>Converts log-odds to odds ratios.</cell>
+          <cell>Logistic Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>caTools</cell>
+          <cell><c>sample.split()</c></cell>
+          <cell>Splits data into training/testing sets.</cell>
+          <cell>Logistic Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>caret</cell>
+          <cell><c>confusionMatrix()</c></cell>
+          <cell>Evaluates classification performance.</cell>
+          <cell>Logistic Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>pscl</cell>
+          <cell><c>pR2()</c></cell>
+          <cell>Computes pseudo R² values.</cell>
+          <cell>Logistic Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>caret</cell>
+          <cell><c>varImp()</c></cell>
+          <cell>Assesses predictor importance.</cell>
+          <cell>Logistic Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>car</cell>
+          <cell><c>vif()</c></cell>
+          <cell>Detects multicollinearity.</cell>
+          <cell>Logistic Regression</cell>
+        </row>
+        <row bottom="minor">
+          <cell>pROC</cell>
+          <cell><c>roc()</c></cell>
+          <cell>Builds ROC curves.</cell>
+          <cell>Logistic Regression</cell>
+        </row>
+        <row bottom="medium">
+          <cell>pROC</cell>
+          <cell><c>auc()</c></cell>
+          <cell>Computes area under the ROC curve (AUC).</cell>
+          <cell>Logistic Regression</cell>
+        </row>
+        <!-- Reproducible Reporting -->
+        <row bottom="minor">
+          <cell>knitr</cell>
+          <cell><c>knitr::opts_chunk$set()</c></cell>
+          <cell>Sets global chunk options in R Markdown.</cell>
+          <cell>Reproducible Reporting</cell>
+        </row>
+        <row bottom="medium">
+          <cell>knitr</cell>
+          <cell><c>kable()</c></cell>
+          <cell>Creates formatted tables for reports.</cell>
+          <cell>Reproducible Reporting</cell>
+        </row>
+        <!-- Package datasets -->
+        <row bottom="minor">
+          <cell>reproresearchR</cell>
+          <cell><c>infection_treatments</c></cell>
+          <cell>Infection treatments dataset.</cell>
+          <cell>Analyzing Categorical Data</cell>
+        </row>
+        <row bottom="minor">
+          <cell>reproresearchR</cell>
+          <cell><c>exam_data</c></cell>
+          <cell>Exam data dataset.</cell>
+          <cell>Correlation Analysis</cell>
+        </row>
+        <row bottom="medium">
+          <cell>reproresearchR</cell>
+          <cell><c>pizza_prices</c></cell>
+          <cell>Pizza prices dataset.</cell>
+          <cell>Linear Regression</cell>
+        </row>
+      </tabular>
+    </table>
   </section>
 
 </appendix>
