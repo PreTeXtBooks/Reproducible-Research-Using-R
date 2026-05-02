@@ -2,9 +2,300 @@
 <chapter xml:id="ch-intro" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Introduction</title>
 
-  <p>
-    This book is a PreTeXt version. This is the skeleton to be filled in.
-  </p>
-  
+  <introduction>
+    <p>
+      This book was inspired by my students—particularly graduate students at
+      Brooklyn College who wanted to ask meaningful research questions but felt
+      held back by tools that were opaque, brittle, or difficult to reproduce.
+      Over time, it became clear that learning <em>R</em> was not just about
+      writing code; it was about learning how to think clearly, document
+      decisions, and produce work that others (and your future self) can
+      understand and reuse.
+    </p>
+    <p>
+      <alert>Reproducible Research in R</alert> is an open educational resource
+      (OER) designed to help students, researchers, and practitioners build
+      confidence using R as a complete research tool—from data import and
+      visualization to statistical analysis and polished reporting. The goal of
+      this book is not just to teach <em>what</em> buttons to press or
+      <em>which</em> functions to call, but to teach a <alert>workflow</alert>
+      that is transparent, explainable, and most importantly, reproducible.
+    </p>
+    <p>
+      This book was created in conjunction with the Open Educational Resources
+      initiative at Brooklyn College and is freely available for learning,
+      teaching, and adaptation.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-what-learn">
+    <title>What You'll Learn</title>
+    <p>
+      By working through this book, you will learn how to:
+    </p>
+    <ul>
+      <li><p>Use R and RStudio as an integrated research environment</p></li>
+      <li><p>Import, clean, and explore data using modern R tools</p></li>
+      <li><p>Visualize data clearly and intentionally</p></li>
+      <li><p>Conduct common statistical analyses used in applied research</p></li>
+      <li><p>Interpret results in context—not just report numbers</p></li>
+      <li><p>Create fully reproducible reports using R Markdown and Bookdown</p></li>
+    </ul>
+    <p>
+      Throughout the book, reproducibility is treated not as an <q>extra</q>
+      or an advanced topic, but as a <alert>default practice</alert>.
+    </p>
+  </section>
+
+  <section xml:id="sec-what-to-know">
+    <title>What You Should Know First</title>
+    <p>
+      You do <em>not</em> need prior experience with:
+    </p>
+    <ul>
+      <li><p>R</p></li>
+      <li><p>Programming</p></li>
+      <li><p>Command-line tools</p></li>
+    </ul>
+    <p>
+      Basic familiarity with research methods and statistics is helpful, but
+      the focus of this book is on <alert>implementation and workflow</alert>,
+      not statistical theory.
+    </p>
+  </section>
+
+  <section xml:id="sec-what-it-covers">
+    <title>What This Book Does Not Cover</title>
+    <p>
+      This book is not intended to be:
+    </p>
+    <ul>
+      <li><p>A comprehensive statistics theory textbook</p></li>
+      <li><p>A software engineering or computer science text</p></li>
+      <li><p>An advanced machine learning or big-data resource</p></li>
+    </ul>
+    <p>
+      Instead, it focuses on the tools and practices most commonly needed to
+      conduct and present reproducible research in applied settings.
+    </p>
+  </section>
+
+  <section xml:id="sec-how-use">
+    <title>How to Use This Book</title>
+    <p>
+      This book is designed to be flexible. You can read it cover-to-cover,
+      jump directly to specific chapters, or use it as a reference alongside
+      your own projects.
+    </p>
+
+    <subsection xml:id="sec-chapter-anatomy">
+      <title>Chapter Anatomy</title>
+      <p>
+        The breakdown of the book is as follows:
+      </p>
+      <ul>
+        <li>
+          <p>Part I: Foundations</p>
+          <ul>
+            <li><p>Getting Started with R</p></li>
+            <li><p>Working with Data Using the tidyverse</p></li>
+            <li><p>Data Visualization with ggplot2</p></li>
+          </ul>
+        </li>
+        <li>
+          <p>Part II: Making Comparisons</p>
+          <ul>
+            <li><p>Comparing Two Groups: Data Wrangling, Visualization, and t-Tests</p></li>
+            <li><p>Comparing Multiple Means</p></li>
+            <li><p>Analyzing Categorical Data</p></li>
+          </ul>
+        </li>
+        <li>
+          <p>Part III: Relationships and Modeling</p>
+          <ul>
+            <li><p>Correlation</p></li>
+            <li><p>Linear Regression</p></li>
+            <li><p>Logistic Regression</p></li>
+          </ul>
+        </li>
+        <li>
+          <p>Part IV: Reproducible Communication</p>
+          <ul>
+            <li><p>Reproducible Reporting with R Markdown</p></li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        Most chapters follow a consistent structure:
+      </p>
+      <ul>
+        <li><p>Conceptual explanation of <em>why</em> a tool or method is useful</p></li>
+        <li><p>Step-by-step code examples</p></li>
+        <li><p>Visualizations and outputs</p></li>
+        <li><p>Interpretation and best practices</p></li>
+        <li><p>A checklist to reinforce reproducible habits</p></li>
+      </ul>
+      <p>
+        This repetition is intentional. Consistency helps build intuition.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-code-etc">
+      <title>Code, Data, and Reproducibility</title>
+      <p>
+        All code in this book is meant to be <alert>run</alert>,
+        <alert>modified</alert>, and occasionally <alert>broken</alert>.
+        Learning happens when you experiment.
+      </p>
+
+      <insight>
+        <title>As my father always says:</title>
+        <p>
+          That's why they put erasers on pencils
+        </p>
+      </insight>
+
+      <subsubsection xml:id="sec-reproresearchR-package">
+        <title>The reproresearchR Package</title>
+        <p>
+          The datasets used throughout this book are provided in the companion
+          R package <c>reproresearchR</c>, allowing readers to load data
+          directly into R without manually downloading files. This ensures that
+          all examples run the same way for everyone. All figures, tables, and
+          analyses in this book are generated directly from code—never copied
+          and pasted from external software—so that every result is fully
+          reproducible. Chapters on Categorical Data Analysis, Correlation, and
+          Linear Regression all use data from the package.
+        </p>
+        <p>
+          The <c>reproresearchR</c> package also includes two versions of each
+          chapter's R script:
+        </p>
+        <ul>
+          <li><p>Full Script: the complete code used to generate all analyses and figures in the chapter.</p></li>
+          <li><p>Helper Script: a partially completed script with key sections removed, allowing you to work along with the textbook by filling in the missing code.</p></li>
+        </ul>
+        <p>
+          Once R and the <c>reproresearchR</c> package are installed (with
+          RStudio recommended), readers have everything they need to follow
+          along and successfully complete the analyses in this textbook.
+        </p>
+      </subsubsection>
+
+      <subsubsection xml:id="sec-r-and-rstudio">
+        <title>R and RStudio</title>
+        <p>
+          If it isn't already evident, this textbook is about the programming
+          language R. If you want to work with R on your computer, it is
+          suggested that you have both:
+        </p>
+        <ol>
+          <li><p><url href="https://www.r-project.org/">R</url></p></li>
+          <li><p><url href="https://posit.co/downloads/">RStudio</url></p></li>
+        </ol>
+        <p>
+          If you are not able to download both on your computer but still want
+          to learn/use R, you can use the online version at
+          <url href="https://posit.cloud/content/yours?sort=name_asc">Posit Cloud</url>.
+        </p>
+      </subsubsection>
+    </subsection>
+
+    <subsection xml:id="sec-nyc-gallery">
+      <title>The NYC Open Data Student Gallery</title>
+      <p>
+        This textbook is part of a broader reproducible research initiative
+        built around real civic data. Students at Brooklyn College used the
+        workflow outlined in this book to conduct original research projects
+        using datasets from <url href="https://opendata.cityofnewyork.us/">New
+        York City's Open Data portal</url>.
+      </p>
+      <p>
+        Each student developed a fully reproducible analysis in R, compiled
+        their work into a structured report, and produced a final research
+        project grounded in real public data. These projects were then assembled
+        into a collective publication: the NYC Open Data Student Gallery.
+      </p>
+      <p>
+        The Gallery showcases student research on topics ranging from public
+        health and environmental conditions to social infrastructure and urban
+        policy—demonstrating that reproducibility is not just a technical skill,
+        but a tool for meaningful civic inquiry.
+      </p>
+      <p>
+        You can explore the full collection of student projects here:
+        <url href="https://martinezc1-nyc-open-data-student-gallery.share.connect.posit.cloud/">NYC
+        Open Data Student Gallery</url>.
+      </p>
+      <p>
+        The Gallery reflects what is possible when reproducibility, open data,
+        and structured workflows are integrated into the classroom from day one.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-acknowledgments">
+    <title>Acknowledgments</title>
+    <p>
+      This book would not exist without the curiosity, questions, and
+      persistence of students at Brooklyn College. Their willingness to wrestle
+      with messy data and imperfect code shaped both the content and the tone
+      of this text.
+    </p>
+    <p>
+      Additional thanks go to the Open Educational Resources team at Brooklyn
+      College and to the broader R community, whose commitment to open tools
+      and shared knowledge makes projects like this possible.
+    </p>
+  </section>
+
+  <section xml:id="sec-license">
+    <title>License</title>
+    <p>
+      This work is licensed under a Creative Commons Attribution 4.0
+      International License (CC BY 4.0).
+    </p>
+    <p>
+      You are free to:
+    </p>
+    <ul>
+      <li><p>Share — copy and redistribute the material</p></li>
+      <li><p>Adapt — remix, transform, and build upon the material</p></li>
+    </ul>
+    <p>
+      Under the following terms:
+    </p>
+    <ul>
+      <li><p>Attribution — You must give appropriate credit.</p></li>
+    </ul>
+    <p>
+      <url href="https://creativecommons.org/licenses/by/4.0/">Full license</url>
+    </p>
+  </section>
+
+  <section xml:id="sec-how-to-cite">
+    <title>How to Cite</title>
+    <p>
+      If you use this textbook in your teaching, research, or projects, please
+      cite it as:
+    </p>
+    <p>
+      Martinez, C. (2026). <em>Reproducible Research Using R</em> (Version
+      1.0.0). Zenodo. https://doi.org/10.5281/zenodo.19136755
+    </p>
+
+    <subsection xml:id="sec-version-history">
+      <title>Version History</title>
+
+      <subsubsection xml:id="sec-v1-0-0">
+        <title>v1.0.0 (2026)</title>
+        <ul>
+          <li><p>Initial public release</p></li>
+          <li><p>Full textbook curriculum covering data analysis, visualization, and modeling in R</p></li>
+          <li><p>Used in Fall 2025 coursework at Brooklyn College (CUNY)</p></li>
+        </ul>
+      </subsubsection>
+    </subsection>
+  </section>
+
 </chapter>
-  
