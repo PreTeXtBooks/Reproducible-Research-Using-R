@@ -164,8 +164,9 @@
           all examples run the same way for everyone. All figures, tables, and
           analyses in this book are generated directly from code—never copied
           and pasted from external software—so that every result is fully
-          reproducible. Chapters on Categorical Data Analysis, Correlation, and
-          Linear Regression all use data from the package.
+          reproducible. Chapters <xref ref="sec-intro-cat-analysis"/>,
+          <xref ref="sec-intro-cor"/>, and <xref ref="sec-linear-reg"/> all use
+          data from the package.
         </p>
         <p>
           The <c>reproresearchR</c> package also includes two versions of each
@@ -281,7 +282,7 @@
     </p>
     <p>
       Martinez, C. (2026). <em>Reproducible Research Using R</em> (Version
-      1.0.0). Zenodo. https://doi.org/10.5281/zenodo.19136755
+      1.0.0). Zenodo. <url href="https://doi.org/10.5281/zenodo.19136755">https://doi.org/10.5281/zenodo.19136755</url>
     </p>
 
     <subsection xml:id="sec-version-history">

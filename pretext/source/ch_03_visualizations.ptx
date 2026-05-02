@@ -186,7 +186,7 @@ kable(head(mtcars), caption = "A base R dataset: Motor Trend Car Road Tests.")
       Additionally, <c>ggplot2</c> is part of the <c>tidyverse</c> package. So, you
       can either load <c>ggplot2</c> or <c>tidyverse</c> if you want to visualize
       using <c>ggplot2</c>. Because <c>ggplot2</c> is part of the <c>tidyverse</c>,
-      everything you learned in <xref ref="ch-tidyverse"/> about pipelines and data
+      everything you learned in <xref ref="sec-intro-tidyverse"/> about pipelines and data
       manipulation carries directly into visualizations.
     </p>
     </introduction>
@@ -960,7 +960,7 @@ ggplot(mpg, aes(displ, hwy)) +
     <p>
       Within <c>ggplot2</c>, functions like <c>labs()</c> allow you to clearly label
       axes, titles, and legends so the intent of the plot is immediately clear. When
-      working in R Markdown or bookdown, figure captions (using <c>fig-cap</c>) provide
+      working in R Markdown or bookdown (<xref ref="sec-r-markdown-graphs"/>), figure captions (using <c>fig-cap</c>) provide
       additional context that travels with the figure wherever it appears.
     </p>
     <p>
