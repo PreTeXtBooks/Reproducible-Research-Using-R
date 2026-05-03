@@ -371,7 +371,7 @@ Fruits
         </input>
       </program>
       <p>
-        Take note how in <c>fruits</c> each fruit was it's own value, but in <c>Fruits</c>,
+        Take note how in <c>fruits</c> each fruit was its own value, but in <c>Fruits</c>,
         they were together.
       </p>
     </subsection>
@@ -583,7 +583,7 @@ class(roster) # Class is now data.frame
         <li><c>head()</c>: Returns the first part of data.</li>
         <li><c>tail()</c>: Returns the last part of data.</li>
         <li><c>str()</c>: Displays the structure of the data.</li>
-        <li><c>summary()</c>: Provides a summary of summary of your data.</li>
+        <li><c>summary()</c>: Provides a summary of your data.</li>
         <li><c>View()</c>: Opens your dataset as a new window in R.</li>
         <li><c>colnames()</c>: Returns the names of all of your columns.</li>
         <li><c>table()</c>: Returns a frequency table.</li>
@@ -763,7 +763,7 @@ roster
     <p>
       Sometimes, you may encounter an issue that is really just giving you problems. In this
       case, my best advice is to step away from your computer for 5 minutes and take a deep
-      breath. Just like learning a instrument or learning a new language, things take time.
+      breath. Just like learning an instrument or learning a new language, things take time.
     </p>
   </section>
 
