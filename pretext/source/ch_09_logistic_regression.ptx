@@ -59,7 +59,7 @@
       create our <c>cc_data</c> dataset using the <c>Default</c> dataset, which inside the package.
     </p>
     <figure xml:id="tbl-loading-data-ISLR2">
-      <caption>The skim function provides us with insightsinto our data that are helpful when first looking at the data.</caption>
+      <caption>The skim function provides us with insights into our data that are helpful when first looking at the data.</caption>
       <program language="r">
         <input>
 library(ISLR2)
