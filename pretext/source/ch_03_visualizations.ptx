@@ -960,38 +960,13 @@ ggplot(mpg, aes(displ, hwy)) +
     <p>
       Within <c>ggplot2</c>, functions like <c>labs()</c> allow you to clearly label
       axes, titles, and legends so the intent of the plot is immediately clear. When
-      working in R Markdown or bookdown (<xref ref="sec-r-markdown-graphs"/>), figure captions (using <c>fig-cap</c>) provide
+      working in R Markdown or bookdown (<xref ref="sec-r-markdown-graphs" text="title"/>), figure captions (using <c>fig-cap</c>) provide
       additional context that travels with the figure wherever it appears.
     </p>
     <p>
       Visualizations that are well-labeled and properly captioned are easier to
       interpret, reuse, and reproduce—both by others and by your future self.
     </p>
-  </section>
-
-  <section xml:id="sec-ggplot">
-    <title>ggplot2</title>
-    <p>
-      <!-- Content to be filled in -->
-    </p>
-    <subsection xml:id="sec-ggplot-basics">
-      <title>Basics</title>
-      <p>
-        <!-- Content to be filled in -->
-      </p>
-    </subsection>
-    <subsection xml:id="sec-ggplot-scatterplot">
-      <title>Scatterplot</title>
-      <p>
-        <!-- Content to be filled in -->
-      </p>
-    </subsection>
-    <subsection xml:id="sec-ggplot-boxplot">
-      <title>Boxplot</title>
-      <p>
-        <!-- Content to be filled in -->
-      </p>
-    </subsection>
   </section>
 
 </chapter>

@@ -771,11 +771,4 @@ anx_r2 &lt;- round(anx_r^2 * 100, 1)
     </p>
   </section>
 
-  <section xml:id="sec-cleaning-data-correlation">
-    <title>Cleaning Our Data</title>
-    <p>
-      <!-- Content to be filled in -->
-    </p>
-  </section>
-
 </chapter>

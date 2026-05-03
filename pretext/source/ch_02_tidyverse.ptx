@@ -1102,11 +1102,4 @@ penguins_new &lt;- penguins |>
     </p>
   </section>
 
-  <section xml:id="sec-tidyverse-rename">
-    <title>Renaming Columns</title>
-    <p>
-      <!-- Content to be filled in -->
-    </p>
-  </section>
-
 </chapter>

@@ -380,11 +380,12 @@ ggplot(plot_data, aes(x = Treatment, y = Counts, fill = Type)) +
         <li>Expected: all of the values were different from what we the actual observations were.
         If there was no relationship between the two variables, it was expected that each treatment
         would have about 35 people not infected, and 15 people infected</li>
-        <li>Residuals/stdres: this is where we really start to tie everything together. With the
-        residuals, we are looking for if it is positive/negative, and then strength in relation to
-        the other. <alert>Cranberry</alert> if the only one of the three where there are less
-        people infected than anticipated, almost 2 standard deviations less than expected. Both
-        other treatments have more people infected than expected.
+        <li>
+          <p>Residuals/stdres: this is where we really start to tie everything together. With the
+          residuals, we are looking for if it is positive/negative, and then strength in relation to
+          the other. <alert>Cranberry</alert> if the only one of the three where there are less
+          people infected than anticipated, almost 2 standard deviations less than expected. Both
+          other treatments have more people infected than expected.</p>
           <ul>
             <li>Note: Standardized residuals behave like z-scores — values beyond ±2 suggest cells
             contributing most strongly to the overall χ² statistic.</li>

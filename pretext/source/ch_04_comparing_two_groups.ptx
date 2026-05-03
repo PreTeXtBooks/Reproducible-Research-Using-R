@@ -400,15 +400,17 @@ ggplot(baseball_data_long, aes(Team, Score)) +
         the data. Depending on your data, you will either be running a <alert>Paired</alert> or
         <alert>Unpaired</alert> t.test:
         <ul>
-          <li>Paired t-test: use when measurements come in matched pairs (same participant twice,
-          same game for both teams).
+          <li>
+            <p>Paired t-test: use when measurements come in matched pairs (same participant twice,
+            same game for both teams).</p>
             <ul>
               <li>Example: Ten people first run a race just drinking water. Then, those same ten
               people run the same race but drinking coffee.</li>
             </ul>
           </li>
-          <li>Unpaired t-test: use when the two groups are independent (different participants,
-          no pairing).
+          <li>
+            <p>Unpaired t-test: use when the two groups are independent (different participants,
+            no pairing).</p>
             <ul>
               <li>Example: Ten people drink water, then ten different people drink coffee, and all
               of them run a race at the same time.</li>
@@ -628,13 +630,6 @@ baseball_t_test
       Your analysis cannot be reproducible if its underlying data are incorrect. Developing the
       habit of validating merges is especially important here, as this is the first chapter where
       data merging is introduced.
-    </p>
-  </section>
-
-  <section xml:id="sec-t-tests">
-    <title>t.test</title>
-    <p>
-      <!-- Content to be filled in -->
     </p>
   </section>
 

@@ -539,7 +539,7 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
         it is also the "secret sauce" for cross-referencing within Quarto documents.
       </p>
       <p>
-        For instance, back in <xref ref="sec-quarto-graphs"/>, we created the example ggplot2
+        For instance, back in <xref ref="sec-quarto-graphs" text="title"/>, we created the example ggplot2
         figure.
       </p>
       <p>
