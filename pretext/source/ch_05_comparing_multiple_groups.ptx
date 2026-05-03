@@ -2,19 +2,606 @@
 <chapter xml:id="ch-comparing-multiple-groups" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Comparing Multiple Groups</title>
 
-  <introduction>
-    <p>
-      This chapter extends group comparison to more than two groups using
-      Analysis of Variance (ANOVA). You will learn how to test whether
-      differences exist among multiple group means and how to follow up with
-      post-hoc comparisons.
-    </p>
-  </introduction>
-
   <section xml:id="sec-intro-anova">
     <title>Introduction</title>
     <p>
-      <!-- Content to be filled in -->
+      In Chapter <xref ref="sec-intro-two-means"/> we learned what to do when we have two groups
+      and want to compare their means. However, not every situation only has two groups.
+    </p>
+    <p>
+      Picture this: You just ran an experiment and had three groups. You want to see if they
+      performed differently, but do not know how. You learned in the last chapter that if we had
+      two groups, we could run a t.test, but now you have one more. This sounds like the perfect
+      opportunity to run an <alert>Analysis of Variance</alert> (ANOVA). An <alert>ANOVA</alert>
+      tests whether the means of three or more groups are significantly different from one another.
+      It does this by comparing the variance between groups to the variance within groups.
+    </p>
+    <note>
+      <title>In this lesson, we will explore how to use <alert>ANOVAs</alert> to answer the question:</title>
+      <p>
+        <em>How do studying methods influence memory scores?</em>
+      </p>
+    </note>
+    <p>
+      We will create a dataset called <c>memory</c>, which includes students' method of studying
+      and their memory scores.
+    </p>
+  </section>
+
+  <section xml:id="sec-anova-objectives">
+    <title>Learning Objectives</title>
+    <p>
+      By the end of this chapter, you will be able to:
+      <ul>
+        <li>Create a reproducible dataset in R.</li>
+        <li>Conduct one-way and two-way ANOVAs.</li>
+        <li>Interpret ANOVA output (F, p, SS, MS).</li>
+        <li>Run post-hoc comparisons with Tukey's HSD.</li>
+        <li>Compare models using AIC.</li>
+      </ul>
+    </p>
+    <p>
+      Although the statistical method used here is called ANOVA, the goal of this chapter is to
+      understand how group comparisons scale beyond two groups.
+    </p>
+  </section>
+
+  <section xml:id="sec-creating-data-anova">
+    <title>Creating Our Data</title>
+    <p>
+      In this chapter, we are not going to be loading any previously captured data. Instead, we
+      will be utilizing R to help create our own data. Our data is going to contain two variables:
+    </p>
+    <ol>
+      <li>method: identified their studying methods, either flashcards, rereading the material, or
+      taking practice tests</li>
+      <li>score: how well they scored on a memory test after studying.</li>
+    </ol>
+    <p>
+      With our focus being reproducibility, how can we manage to make sure that the data we create
+      here is the same data you will create? In R, we do this by using the <c>set.seed</c> command.
+      What this does is makes sure the "random" data creation is the same no matter who is creating
+      the data.
+    </p>
+    <p>
+      Imagine we had a deck of cards. We need to shuffle them before we deal them to our players.
+      <c>set.seed()</c> is the equivalent to that deck of cards being shuffled in a specific order,
+      that way, if it is shuffled that way every single time, each player is going to be dealt the
+      same cards.
+    </p>
+    <warning>
+      <title>With regards to set.seed()</title>
+      <p>
+        As long as we put the same number in <c>set.seed()</c> then the same data will be created.
+      </p>
+    </warning>
+    <p>
+      Next, we can use the <c>rnorm()</c> command to dictate quantity, mean, and standard deviation
+      of each.
+    </p>
+    <program language="r">
+      <input>
+library(tidyverse)
+
+set.seed(123)  # ensures reproducibility
+
+memory &lt;- tibble(
+  method = rep(c("Flashcards", "Rereading", "Testing"), each = 20),
+  score = c(
+    rnorm(20, mean = 75, sd = 8),  # Flashcards group
+    rnorm(20, mean = 70, sd = 9),  # Rereading group
+    rnorm(20, mean = 85, sd = 7)   # Testing group
+  )
+)
+
+glimpse(memory)
+      </input>
+    </program>
+    <p>
+      We have successfully created our first dataset!
+    </p>
+  </section>
+
+  <section xml:id="sec-anova-descriptive-stats">
+    <title>Descriptive Statistics</title>
+    <p>
+      Now that we have our data, let us do some digging to get some descriptive statistics
+      regarding central tendency. As done before, we can create a summarized table.
+    </p>
+    <figure xml:id="tbl-summary_table">
+      <caption>A summarized table grouped by the method, with average, standard deviation, and the number of rows.</caption>
+      <program language="r">
+        <input>
+# Creating a summarizing table
+memory_summarized &lt;- memory |>
+  group_by(method) |>
+  summarize(
+    mean_score = mean(score),
+    sd_score = sd(score),
+    n = n()
+  )
+
+memory_summarized
+        </input>
+      </program>
+    </figure>
+    <p>
+      Instead of writing all of the code manually, we can utilize the <c>favstats()</c> command
+      from the <c>mosaic</c> package (<cite key="R-mosaic"/>).
+    </p>
+    <figure xml:id="tbl-favstats">
+      <caption>A summarized table using the function favstats() instead of summarize().</caption>
+      <program language="r">
+        <input>
+library(mosaic)
+
+favstats(score ~ method, data = memory)
+        </input>
+      </program>
+    </figure>
+    <p>
+      Some things we now see:
+      <ol>
+        <li>Testing has the highest minimum and maximum values in comparison to the other two methods</li>
+        <li>Testing has the highest median</li>
+        <li>Testing has the highest mean.</li>
+        <li>Testing has the lowest standard deviation</li>
+        <li>There are no missing values</li>
+      </ol>
+    </p>
+    <p>
+      These are early indications that testing is the best studying method if we want the highest
+      memory scores.
+    </p>
+  </section>
+
+  <section xml:id="sec-anova-viz">
+    <title>Visualizing Relationships</title>
+    <p>
+      When we have categorical and numeric data, there are two visualizations that are extremely
+      relevant when visualizing our data: boxplots and bar charts (see
+      <xref ref="sec-ggplot-bar"/> for a quick review on bar charts).
+    </p>
+    <figure xml:id="fig-plots-anova">
+      <caption>Boxplots showing the distribution of memory test scores for each study technique, highlighting differences in central tendency and variability across groups.</caption>
+      <image>
+        <description>Boxplots showing the distribution of memory test scores for each study technique, highlighting differences in central tendency and variability across groups.</description>
+        <sageplot>
+ggplot(memory, aes(x = method, y = score, fill = method)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(
+    title = "Memory Test Scores by Study Technique",
+    x = "Study Technique",
+    y = "Memory Test Score"
+  ) +
+  theme_minimal()
+        </sageplot>
+      </image>
+    </figure>
+    <figure xml:id="fig-anova-means-plot">
+      <caption>Average memory test scores by study technique. While differences in group means are apparent, statistical significance is assessed using a one-way ANOVA rather than visual inspection alone.</caption>
+      <image>
+        <description>Average memory test scores by study technique. While differences in group means are apparent, statistical significance is assessed using a one-way ANOVA rather than visual inspection alone.</description>
+        <sageplot>
+memory |>
+  group_by(method) |>
+  summarize(mean_score = mean(score)) |>
+  ggplot(aes(x = method, y = mean_score, fill = method)) +
+  geom_col() +
+  geom_text(aes(label = round(mean_score, 1)), vjust = -0.5) +
+  labs(
+    title = "Average Memory Score by Study Technique (ANOVA Means)",
+    x = "Study Technique",
+    y = "Average Score"
+  ) +
+  theme_minimal()
+        </sageplot>
+      </image>
+    </figure>
+  </section>
+
+  <section xml:id="sec-anova-t-test">
+    <title>Running a T.Test</title>
+    <p>
+      In <xref ref="sec-t-tests"/>, we learned how to run a t.test to better understand the
+      difference in means between two groups. If we try to run a t.test on our data now...
+    </p>
+    <program language="r">
+      <input>
+# Last chapter we learned how to run a t.test. Let's try it out now.
+try(t.test(score ~ method, data = memory))
+      </input>
+    </program>
+    <p>
+      It does not work! The reason being is that while t.test compare means, they are only able
+      to calculate the difference between <alert>two</alert> means. When there are more than two,
+      t.tests fail. We must instead conduct an <em>ANOVA.</em>
+    </p>
+  </section>
+
+  <section xml:id="sec-one-way-anova">
+    <title>One-Way ANOVA</title>
+    <p>
+      We have some idea, from both our visuals and descriptive statistics that the testing studying
+      technique is better than the other two. However, while we do know that the means are
+      different, we do not know if the difference between the means of the three techniques is
+      statistically significant or not. We can not use t.tests because there are more than two
+      groups. In order to uncover whether the difference between the studying technique means is
+      statistically significant or not, we now conduct an ANOVA.
+    </p>
+    <p>
+      To do this, we can use the <c>aov</c> command which is very similar to <c>t.test</c>. The
+      formula used is:
+    </p>
+    <p>
+      dependent_variable ~ independent_variable, data = your_data
+    </p>
+    <p>
+      To really bring it to the next level, we can also call the <c>supernova</c> command from
+      the supernova package.
+    </p>
+    <figure xml:id="tbl-anova">
+      <caption>One-way ANOVA Summary Table: Studying Method and Memory Scores</caption>
+      <program language="r">
+        <input>
+# running an anova
+anova_model &lt;- aov(score ~ method, data = memory)
+
+summary(anova_model)
+        </input>
+      </program>
+    </figure>
+    <p>
+      We can also utilize the <c>supernova()</c> function, from the <c>supernova</c> package
+      (<cite key="R-supernova"/>), for a cleaner output.
+    </p>
+    <figure xml:id="tbl-anova-supernova">
+      <caption>One-way ANOVA Supernova Table: Studying Method and Memory Scores</caption>
+      <program language="r">
+        <input>
+library(supernova)
+supernova(anova_model)  # clearer ANOVA table
+        </input>
+      </program>
+    </figure>
+    <p>
+      Just as the <c>aov</c> command should look similar, the output of running the anova should
+      look familiar. Reviewing the data we get:
+      <ul>
+        <li>
+          <p>Sum of Squares (SS): the total amount of variation explained by each source</p>
+          <ul>
+            <li>Method SS - the amount of variation explained by the studying method - 2657</li>
+            <li>Residual SS - the amount of variation explained by everything other than method - 3063</li>
+            <li>The total is 5720, which means that <alert>about 46% of all variation in scores is due to studying method.</alert></li>
+          </ul>
+        </li>
+        <li>
+          <p>Df: degrees of freedom</p>
+          <ul>
+            <li>There are 2 degrees of freedom (3-1), since there are 3 studying methods</li>
+          </ul>
+        </li>
+        <li>
+          <p>Mean square: SS ÷ Df.</p>
+          <ul>
+            <li>provides us with the average variability per degree of freedom.</li>
+            <li>Mean Method SS = 2657 / 2 = 1328.5</li>
+            <li>Mean Residuals SS = 3064 / 57 = 53.8</li>
+            <li>There is more variation explained per degree of freedom by studying method vs everything else.</li>
+          </ul>
+        </li>
+        <li>F value: how much larger the variation between groups is compared to the variation within groups</li>
+        <li>24.72: there is more variation between the studying method groups than within each group.</li>
+        <li>
+          <p>pr(&gt;F): the p-value</p>
+          <ul>
+            <li>It is lower than 0.05, meaning there is a statistically significant difference in memory scores based on studying technique.</li>
+            <li>Hint: The number of * by the p-value indicates if it is significant or not. *** is statistically significant.</li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+    <p>
+      With all of that, we can now conclude that there is a statistically significant difference in
+      memory scores due to studying technique. While this tells us that the difference is
+      significant, it does not tell us <alert>what the difference between the techniques is.</alert>
+      Through visualizations and descriptive statistics, we think testing is the best method, but
+      it is important to make sure.
+    </p>
+  </section>
+
+  <section xml:id="sec-post-hoc-anova">
+    <title>Post-hoc Tests</title>
+    <p>
+      To add to our ANOVA and descriptive statistics, we can run what is called <em>Post-hoc
+      Tests.</em> These are meant to dive deeper into the ANOVA model. While an ANOVA model tells
+      us <alert>if</alert> there is a statistically significant difference, Post-hoc Tests tell us
+      <alert>where</alert> the difference is. The <c>TukeyHSD</c> command provides the insight.
+    </p>
+    <figure xml:id="tbl-post-hoc">
+      <caption>Tukey's Honest Significant Difference (HSD) Post-hoc Comparisons: Pairwise Mean Differences Between Study Techniques</caption>
+      <program language="r">
+        <input>
+TukeyHSD(anova_model)
+        </input>
+      </program>
+    </figure>
+    <p>
+      We have three different rows, with each studying technique compared to each other. The 'diff'
+      column shows the mean difference between groups (Group 2 − Group 1).
+      <ul>
+        <li>Positive = first group has a higher mean.</li>
+        <li>Negative = first group has a lower mean.</li>
+      </ul>
+    </p>
+    <p>
+      Looking here, we can see that testing has a higher mean than both flashcards and rereading
+      when compared against the two. We also look at the p adj, which is just the p-value. All
+      three are statistically significant, specifically the two related to testing.
+    </p>
+    <p>
+      We can visualize this difference in mean comparisons using the <c>plot</c> command in base R.
+    </p>
+    <figure xml:id="fig-post-hoc-plot">
+      <caption>Tukey's HSD post-hoc comparison plot showing confidence intervals for pairwise mean differences between study techniques. Each horizontal line represents a comparison between two groups; intervals that do not cross zero indicate statistically significant differences following a significant ANOVA.</caption>
+      <image>
+        <description>Tukey's HSD post-hoc comparison plot showing confidence intervals for pairwise mean differences between study techniques. Each horizontal line represents a comparison between two groups; intervals that do not cross zero indicate statistically significant differences following a significant ANOVA.</description>
+        <sageplot>
+plot(TukeyHSD(anova_model))
+        </sageplot>
+      </image>
+    </figure>
+    <p>
+      Taking all this into consideration:
+      <ol>
+        <li>Descriptive statistics show that the mean of Testing is higher than the other techniques.</li>
+        <li>The ANOVA results show that there is a statistically significant difference between the means of the different techniques.</li>
+        <li>The Post-hoc test results show that testing has higher means than Flashcards and Rereading, and that those differences are statistically significant.</li>
+      </ol>
+    </p>
+    <p>
+      All of this brings us to the conclusion: <alert>The Testing studying technique provides the
+      highest memory exam scores.</alert>
+    </p>
+  </section>
+
+  <section xml:id="sec-anova-second-factor">
+    <title>Adding a Second Factor (Two-Way ANOVA)</title>
+    <p>
+      We have done a fantastic job of identifying the best studying technique out of the three in
+      order to get the highest memory exam scores. In life, there are typically more than just two
+      variables. What if there was another variable in this study? For instance, what if each
+      person's caffeine level while studying for the memory exam was also taken into consideration.
+      Maybe caffeine level had an influence on how well they studied, and in turn impacts their
+      memory score. And if that is taken into account, is that a better model for explaining
+      differences in memory scores?
+    </p>
+    <p>
+      To test this out, let's first create the caffeine column using a similar technique to how we
+      created our data in the beginning.
+    </p>
+    <program language="r">
+      <input>
+# Let's say we also measured caffeine intake (low vs high)
+set.seed(42)
+memory2 &lt;- memory |>
+  mutate(
+    caffeine = rep(c("Low", "High"), times = 30))
+      </input>
+    </program>
+    <p>
+      Now that we've established that study method affects memory, let's ask a new question: does
+      caffeine level also play a role? This moves us from a one-way ANOVA (one independent
+      variable) to a two-way ANOVA (two independent variables, or factors)
+    </p>
+    <figure xml:id="tbl-interaction">
+      <caption>Two-way ANOVA Supernova Table: Studying Method, Memory Scores, and Caffeine</caption>
+      <program language="r">
+        <input>
+# To see the interaction between method and caffeine levels, we add a *
+anova_2 &lt;- aov(score ~ method * caffeine, data = memory2)
+
+supernova(anova_2)
+        </input>
+      </program>
+    </figure>
+    <p>
+      Interestingly, when we go to the p-values, we see that neither caffeine nor the interaction
+      (how caffeine influences method) are statistically significant. This is a huge indication
+      that caffeine does not have any impact on memory scores whatsoever. We can visualize this
+    </p>
+    <figure xml:id="fig-interaction-plot">
+      <caption>Interaction plot between Study Method and Caffeine Level. The near-parallel lines indicate that caffeine does not significantly alter the effectiveness of different study methods.</caption>
+      <image>
+        <description>Interaction plot between Study Method and Caffeine Level. The near-parallel lines indicate that caffeine does not significantly alter the effectiveness of different study methods.</description>
+        <sageplot>
+ggplot(memory2, aes(x = method, y = score, color = caffeine, group = caffeine)) +
+  stat_summary(fun = mean, geom = "point") +
+  stat_summary(fun = mean, geom = "line") +
+  labs(title = "Interaction of Study Method and Caffeine",
+       x = "Study Method",
+       y = "Mean Memory Score") +
+  theme_minimal()
+        </sageplot>
+      </image>
+    </figure>
+    <insight>
+      <title>What the p-value is actually telling you:</title>
+      <p>
+        In the graph above, we see that the lines for both high and low are nearly parallel. This
+        gives you an indication that caffeine does not have a significant impact on study method
+      </p>
+    </insight>
+    <p>
+      The results from the ANOVA are impactful, and since we now have two different ANOVA models,
+      we can compare the models.
+    </p>
+  </section>
+
+  <section xml:id="sec-aic-anova">
+    <title>Model Comparison With AIC</title>
+    <p>
+      Using the <c>aictab()</c> function from the <c>AICcmodavg</c> package
+      (<cite key="R-AICcmodavg"/>), we can compare the one-way ANOVA model with the two-way ANOVA
+      model to see what is the overall better model of understanding differences in memory scores.
+    </p>
+    <figure xml:id="tbl-model-comparison">
+      <caption>Model Comparison using AIC: Evaluating One-Way vs. Two-Way ANOVA for Memory Performance</caption>
+      <program language="r">
+        <input>
+# Compare one-way vs. two-way models
+library(AICcmodavg)
+model.set &lt;- list(
+  aov(score ~ method, data = memory2),
+  aov(score ~ method * caffeine, data = memory2))
+
+model.names &lt;- c("One-way", "Two-way")
+
+aictab(model.set, modnames = model.names)
+        </input>
+      </program>
+    </figure>
+    <p>
+      We will review model comparisons in more detail in <xref ref="sec-more-variables"/>. For
+      right now, we can just look at the AICc values. AIC values don't test significance — they
+      measure relative model quality. The general rule of thumb is that the lower the value, the
+      better the model. In this case, the one-way ANOVA is the better model, confirming what the
+      ANOVA results themselves also described.
+    </p>
+  </section>
+
+  <section xml:id="sec-anova-takeaways">
+    <title>Key Takeaways</title>
+    <ul>
+      <li>ANOVA (Analysis of Variance) is used to compare <alert>means across more than two groups</alert>.</li>
+      <li>A <alert>significant F-statistic</alert> indicates that at least one group mean is different.</li>
+      <li><alert>Post-hoc tests</alert> (like Tukey's HSD) reveal <alert>which</alert> groups differ from each other.</li>
+      <li>The <alert>Sum of Squares (SS)</alert> separates total variation into between-group and within-group sources.</li>
+      <li>The <alert>Mean Square (MS)</alert> is the average variation per degree of freedom (SS ÷ df).</li>
+      <li>The <alert>F value</alert> is a ratio comparing between-group to within-group variability.</li>
+      <li><alert>Two-way ANOVA</alert> adds an additional factor (e.g., caffeine level) to test main effects and interactions.</li>
+      <li><alert>AIC</alert> (Akaike Information Criterion) helps compare models — <em>lower values indicate better fit</em>.</li>
+      <li>Always visualize your data before and after running ANOVA to confirm patterns in group means.</li>
+      <li>Reproducibility matters — use <c>set.seed()</c> whenever you simulate or randomize data.</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-anova-checklist">
+    <title>Checklist</title>
+    <p>
+      <alert>When running an ANOVA, have you:</alert>
+    </p>
+    <ul>
+      <li>[ ] Verified that your <alert>dependent variable is numeric</alert> and your <alert>independent variable(s) are categorical</alert>?</li>
+      <li>[ ] Created or imported your dataset reproducibly (used <c>set.seed()</c> if simulated)?</li>
+      <li>[ ] Summarized descriptive statistics for each group?</li>
+      <li>[ ] Visualized group means and distributions using boxplots or bar charts?</li>
+      <li>[ ] Fit your model using <c>aov()</c> or <c>supernova()</c>?</li>
+      <li>[ ] Interpreted the <alert>F statistic</alert>, <alert>df</alert>, and <alert>p-value</alert>?</li>
+      <li>[ ] Conducted <alert>post-hoc tests</alert> (e.g., <c>TukeyHSD</c>) to identify where differences lie?</li>
+      <li>[ ] Checked <alert>residuals</alert> or <alert>assumptions</alert> (optional but good practice)?</li>
+      <li>[ ] Added a <alert>second factor</alert> if relevant (two-way ANOVA)?</li>
+      <li>[ ] Compared models using <alert>AIC</alert> or another fit statistic?</li>
+      <li>[ ] Written a clear interpretation that answers your research question?</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-anova-keyfunctions">
+    <title>Key Functions &amp; Commands</title>
+    <p>
+      The following functions and commands are introduced or reinforced in this chapter to support
+      analysis of variance (ANOVA), post-hoc testing, and model comparison.
+    </p>
+    <ul>
+      <li>
+        <p><c>set.seed()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Ensures reproducibility when generating random data.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>rnorm()</c> <em>(stats)</em></p>
+        <ul>
+          <li>Generates random values from a normal distribution with a specified mean and standard deviation.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>aov()</c> <em>(stats)</em></p>
+        <ul>
+          <li>Fits one-way and two-way analysis of variance (ANOVA) models.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>summary()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Produces summaries of ANOVA model results, including F statistics and p-values.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>supernova()</c> <em>(supernova)</em></p>
+        <ul>
+          <li>Displays ANOVA results in a clear, structured table emphasizing sums of squares and variance explained.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>TukeyHSD()</c> <em>(stats)</em></p>
+        <ul>
+          <li>Performs post-hoc pairwise comparisons following a significant ANOVA.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>plot()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Visualizes post-hoc comparison results, such as Tukey's HSD confidence intervals.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>aictab()</c> <em>(AICcmodavg)</em></p>
+        <ul>
+          <li>Compares competing statistical models using Akaike Information Criterion (AIC).</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-anova-apa">
+    <title>Example APA-style Write-up</title>
+    <p>
+      The following example demonstrates one acceptable way to report the results of a one-way
+      analysis of variance (ANOVA) in APA style.
+    </p>
+    <p>
+      <alert>One-Way Analysis of Variance (ANOVA)</alert>
+    </p>
+    <p>
+      A one-way analysis of variance (ANOVA) revealed a significant effect of study method on
+      memory test scores (see <xref ref="tbl-anova-supernova"/>),
+      <m>F(2, 57) = 24.72, p &lt; .001</m>. Post hoc Tukey's HSD tests indicated that
+      participants in the testing condition scored significantly higher than participants in the
+      flashcards and rereading conditions. Mean scores (<em>M</em> ± <em>SD</em>) were 75.2 ± 8.1
+      for flashcards, 69.8 ± 9.0 for rereading, and 84.9 ± 7.1 for testing, demonstrating that
+      the testing method produced the highest memory performance.
+    </p>
+  </section>
+
+  <section xml:id="sec-anova-tip">
+    <title>💡 <em>Reproducibility Tip:</em></title>
+    <p>
+      When your analysis involves randomness—such as simulated data, resampling, or random
+      assignment—always set a seed using <c>set.seed()</c>.
+    </p>
+    <p>
+      Because we used <c>set.seed(123)</c> when generating the data in this chapter, anyone who
+      runs the code will obtain identical results. This ensures that differences in output are due
+      to changes in code or assumptions, not randomness.
+    </p>
+    <p>
+      Setting a seed is a simple but essential step for reproducible research, especially when
+      teaching, sharing code, or revisiting an analysis later.
+    </p>
+    <p>
+      It does not matter what the seed is set to, as long as it is set to something!
     </p>
   </section>
 
