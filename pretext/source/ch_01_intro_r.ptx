@@ -4,15 +4,29 @@
 
   <introduction>
     <p>
-      Welcome to the programming language R! Whether you have never touched R
-      before or have some prior experience, this chapter is designed to provide
-      the groundwork for programming in R. Before you can do calculus, you need
-      to be able to do addition, subtraction, multiplication, and division.
-      <em>This chapter is exactly that.</em>
+      Welcome to the programming language R!
+    </p>
+    <insight>
+      <title>Data is art, and as you will read many times in this book:</title>
+      <p>
+        R puts the <alert>r</alert> in Artist.
+      </p>
+    </insight>
+    <p>
+      If you have never even touched R, great! If you have experience with R, great!
     </p>
     <p>
-      You do <em>not</em> need to memorize this chapter; think of it as a
-      reference you will return to throughout the book.
+      This chapter is meant more for people who have never touched R before. It is not meant to
+      make you an expert level programmer, but more to provide the groundwork for programming in
+      R. Before you can do calculus, you need to be able to do addition, subtraction,
+      multiplication, and division.
+    </p>
+    <p>
+      <alert>This chapter is exactly that.</alert>
+    </p>
+    <p>
+      You <em>do not</em> need to memorize this chapter; think of it as a reference you will
+      return to throughout the book.
     </p>
   </introduction>
 
@@ -27,32 +41,488 @@
         <li>Create and explore simple data frames</li>
         <li>Access and modify data frame columns using <c>$</c></li>
         <li>Import data from external files such as CSVs and Excel spreadsheets</li>
+        <li>Install, load, and understand the role of R packages</li>
+        <li>Use built-in help tools and error messages to troubleshoot basic issues</li>
       </ul>
+    </p>
+    <p>
+      First, it's important to understand RStudio and its layout.
     </p>
   </section>
 
   <section xml:id="sec-rstudio">
     <title>RStudio</title>
     <p>
-      <!-- Content to be filled in -->
+      Currently we are using RStudio to run R.
+    </p>
+    <figure xml:id="fig--studio-image">
+      <caption>A picture of the RStudio quadrants</caption>
+      <image source="images/r-studio-image.png">
+        <description>A picture of the RStudio quadrants</description>
+      </image>
+    </figure>
+    <p>
+      Here, there are 4 quadrants/panes
+    </p>
+    <ul>
+      <li>
+        <p>Source - top left</p>
+        <ul>
+          <li>This is where 99% of all of your code will be written.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Console - bottom left</p>
+        <ul>
+          <li>This is where we will see if our code ran or if we have errors. That remaining
+          1% of code written from before will be done here.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Environment - top right</p>
+        <ul>
+          <li>This is where you see what is being stored in your environment, such as data,
+          values, and functions.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Files/Plots/Packages/etc - bottom right</p>
+        <ul>
+          <li>There are many tabs here, which are mostly self-explanatory</li>
+        </ul>
+      </li>
+    </ul>
+    <note>
+      <title>Don't panic if your screen looks different!</title>
+      <p>
+        You can click and drag the panes to rearrange them, but the <alert>names</alert> of the
+        quadrants (Source, Console, Environment, Files) will always be the same.
+      </p>
+    </note>
+    <p>
+      Now that we know what we are looking at, let's get into some R code!
+    </p>
+    <p>
+      It was explained that a vast majority of our code will be written in the source quadrant,
+      specifically, in an <alert>R Script</alert>. Once R Studio has been opened, you can go to
+      file, file new, then click on R Script. A brand new R Script has now been opened for you
+      to begin your coding adventure!
     </p>
   </section>
 
   <section xml:id="sec-r-calculator">
     <title>R as a Calculator</title>
     <p>
-      <!-- Content to be filled in -->
+      One of the most amazing parts of R is that it can do math for you, and replace that
+      scientific calculator you're always carrying around. R's math range is absolutely
+      incredible, but for right now, we will start with the basics.
     </p>
+
     <subsection xml:id="sec-intro-calculator-basic">
       <title>Basic Math</title>
       <p>
-        <!-- Content to be filled in -->
+        Speaking all about basics, let's start off by running some simple math.
+      </p>
+      <program language="r">
+        <input>
+2 + 2
+
+10 / 3
+
+5^2
+
+(3 + 7) * 2
+
+5 * 5 * 5 / 37 + 42
+        </input>
+      </program>
+      <p>
+        Here, each line of code is an individual math equation. These are simple (2 + 2), that
+        with a little working memory, could be done in your head. R can be elevated to perform
+        more mathematical functions that require a little more elbow grease.
       </p>
     </subsection>
+
     <subsection xml:id="sec-intro-calculator-functions">
       <title>Built-in Mathematical Functions</title>
       <p>
-        <!-- Content to be filled in -->
+        Building upon <c>2 + 2</c>, R has built in functions to help get our math homework done.
+        Right now we will do more basic things such as square roots, but in the forthcoming
+        chapters, we will build to more advanced statistical analyses.
+      </p>
+      <program language="r">
+        <input>
+# Built-in functions
+sqrt(25) # square root
+
+log(10) # natural log
+
+log10(1000) # base-10 log
+
+round(3.14159, digits = 3) # round the output to only have 3 digits
+
+round(5*5/37, 4) # rounding the output of an equation
+        </input>
+      </program>
+      <p>
+        We did a great job of performing a lot of math. As stated before, each line represents
+        a different mathematical equation. While it is a strong start, there will be many times
+        where we want to store our equations or outputs to call later. This is exactly where
+        variables, objects, and vectors come into play.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-intro-objects">
+    <title>Creating Variables and Assigning Objects</title>
+    <p>
+      In the last piece of code, we did a great job of using R as a calculator. While we were
+      able to calculate the square root of 25, what if we need to save it this way we can call
+      it later? What if we don't want to have to continually run the code <c>sqrt(25)</c> in
+      order to get the output?
+    </p>
+    <p>
+      In R, we are able to create variables and assign values to objects. In R, instead of using
+      the = sign, we use <c>&lt;-</c> to create objects.
+    </p>
+    <p>
+      Note: Once each piece of code is run and the objects are created, we should be able to see
+      them in the "Values" part of our environment pane. It will show the name of the value as
+      well as what it is equal to.
+    </p>
+    <note>
+      <title>Within R, we can always follow this formula:</title>
+      <p>
+        value name <c>&lt;-</c> whatever you want inside the value
+      </p>
+    </note>
+    <p>
+      Now, a few tips:
+    </p>
+    <ul>
+      <li>
+        <p>R does not like spaces. Try to use underscores or elongated words.</p>
+        <ul>
+          <li>For example: <c>first object &lt;- 5</c> does not work, but
+          <c>first_object &lt;- 5</c> does.</li>
+        </ul>
+      </li>
+      <li>
+        <p>R is case sensitive.</p>
+        <ul>
+          <li>For example: <c>x</c> and <c>X</c> would not be considered the same.</li>
+        </ul>
+      </li>
+      <li>
+        <p>R overwrites code.</p>
+        <ul>
+          <li>For example: If I wrote <c>x &lt;- 5</c> on one line and then <c>x &lt;- 6</c>
+          on the next line, x will be equal to 6 and not 5.</li>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      Below is some code to demonstrate.
+    </p>
+    <note>
+      <title>Color and Numbers:</title>
+      <p>
+        Notice how all of the numbers change color in your code.
+      </p>
+    </note>
+    <program language="r">
+      <input>
+# Assigning to objects (variables)
+sqrt(25) # the answer is 5
+
+x &lt;- 5 # Making x equal to 5
+
+# Or, we can save the code we wrote and not the answer
+x &lt;- sqrt(25)
+
+# Updating x
+x &lt;- x + 1 
+x # It is now equal to 6 and not 5
+
+# Objects are case sensitive
+X &lt;- 7
+
+# You can override code and change a variables value
+X &lt;- 5
+
+# Good names: use letters, numbers, underscores; start with a letter
+best_number &lt;- 42
+
+# Inspecting objects
+class(x) # x is numeric, as we already knew!
+      </input>
+    </program>
+    <insight>
+      <title>Creating vs calling:</title>
+      <p>
+        Notice that <alert>creating</alert> and <alert>calling</alert> the data are different.
+        I create <c>x &lt;- 5</c>, but in order to call it, I just run <c>x</c> (after it has
+        been created).
+      </p>
+    </insight>
+    <p>
+      With an object, there is only one value. One thing equals one thing. To build upon objects,
+      we can move to vectors.
+    </p>
+  </section>
+
+  <section xml:id="sec-intro-vectors">
+    <title>Vectors</title>
+    <p>
+      Now that objects have been created, it is time to use those same principles to create
+      <alert>vectors.</alert> Like objects, vectors contain information, just more of it. Before,
+      we had <c>x &lt;- 5</c>, however, what if we wanted x to contain every single letter in
+      the alphabet, and not just one thing (<c>5</c>)?
+    </p>
+    <p>
+      This is exactly where vectors come in.
+    </p>
+    <note>
+      <title>There are two very important things that come into play when creating a vector:</title>
+      <p>
+        <ol>
+          <li>Everything must go inside parenthesis</li>
+          <li>Before the parenthesis, you have to call the <c>c</c> function. The purpose of
+          this is to literally combine values into a vector.</li>
+        </ol>
+      </p>
+      <p>
+        <alert>You're telling R "Please combine everything in the parenthesis into one vector."</alert>
+      </p>
+    </note>
+    <p>
+      For instance, if we wanted to create a vector that has a, b, and c in it, the below code
+      wouldn't work.
+    </p>
+    <program language="text">
+      <input>
+wont_work &lt;- a, b, c # no parenthesis
+
+also_wont_work &lt;- (a, b, c) # no c before the parenthesis
+      </input>
+    </program>
+    <p>
+      Since we have vector examples that <em>don't</em> work, let's get into examples that
+      <em>do</em> work.
+    </p>
+
+    <subsection xml:id="sec-intro-vectors-numeric">
+      <title>Numeric Vectors</title>
+      <p>
+        Numeric vectors contain only numeric values inside of them.
+      </p>
+      <program language="r">
+        <input>
+# Numeric vector
+number_vector &lt;- c(1, 2, 3, 4, 5) # c stands for combine/concatenate 
+
+number_vector
+
+numeric_vector_2 &lt;- c(6:10) # The colon is like saying "everything from 6 to 10"
+
+numeric_vector_2
+
+# The length command tells you how many values are inside the vector
+length(number_vector) # 5
+
+length(numeric_vector_2) # 5
+
+# It is possible to add numeric vectors as long as they're the same length
+
+number_vector + numeric_vector_2
+
+# Vectorized math
+number_vector * 10
+        </input>
+      </program>
+    </subsection>
+
+    <subsection xml:id="sec-intro-vectors-character">
+      <title>Character Vectors</title>
+      <p>
+        Just like with numeric data, we can create vectors with characters inside. Unlike with
+        numeric values in R, characters must be in between quotation marks. Notice once quotation
+        marks are used, everything inside (and the quotation marks themselves) change color in
+        your script.
+      </p>
+      <warning>
+        <title>Quotation Marks</title>
+        <p>
+          Be careful, as the positioning of quotation marks can severely change your vector
+          (see below).
+        </p>
+      </warning>
+      <program language="r">
+        <input>
+# Quotation marks around each of the fruits
+fruits &lt;- c("apple", "banana", "cherry")
+
+fruits
+
+# Quotation marks around the entire string
+Fruits &lt;- c("apple, banana, cherry")
+
+Fruits
+        </input>
+      </program>
+      <p>
+        Take note how in <c>fruits</c> each fruit was it's own value, but in <c>Fruits</c>,
+        they were together.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-intro-vectors-logical">
+      <title>Logical Vectors</title>
+      <insight>
+        <title>Time for a quick question:</title>
+        <p>
+          True or False: logical vectors are possible in R?
+        </p>
+      </insight>
+      <p>
+        <em>True!</em>
+      </p>
+      <p>
+        R is able to handle logistic values (True and False). In R, you can either write it as
+        the full word in all caps or the first letter capitalized:
+      </p>
+      <ul>
+        <li><c>TRUE</c> or <c>FALSE</c></li>
+        <li><c>T</c> or <c>F</c></li>
+      </ul>
+      <insight>
+        <title>See anything in particular regarding your code?</title>
+        <p>
+          Notice how in your code, logic also changes color, the same color as numeric.
+        </p>
+      </insight>
+      <program language="r">
+        <input>
+# Using full word capitalized
+some_truths &lt;- c(TRUE, FALSE, TRUE)
+
+some_truths
+
+class(some_truths)
+
+# Using first letter capitalized
+some_lies &lt;- c(F, F, T)
+
+some_lies
+
+class(some_lies)
+
+# Once you put quotation marks, it makes them a character
+truth_logic &lt;- c("TRUE","FALSE","TRUE")
+
+class(truth_logic) 
+        </input>
+      </program>
+      <p>
+        Above we used the <c>class()</c> command to check to see what type of data we were
+        creating. <c>some_truth</c> and <c>some_lies</c> were both <em>logical</em>, while
+        <c>truth_logic</c> was <em>character</em>.
+      </p>
+      <insight>
+        <title>When creating something in R:</title>
+        <p>
+          It is always <em>crucial</em> to check that what you've created matches your desired
+          output.
+        </p>
+      </insight>
+    </subsection>
+
+    <subsection xml:id="sec-intro-vectors-factors">
+      <title>Factors (categorical)</title>
+      <p>
+        When character values have levels, it becomes categorical data. In R, this is best
+        handled as factors. To turn a character string into factors, utilize the
+        <c>factor()</c> command.
+      </p>
+      <insight>
+        <title>Look at your screen!</title>
+        <p>
+          Notice how when you type the name of a color in R, the text actually changes to that
+          color. R really does put the <alert>r</alert> in Artist!
+        </p>
+      </insight>
+      <program language="r">
+        <input>
+# Creating the colors vector as factors
+colors &lt;- factor(c("red", "blue", "red", "green")) # 4 values
+
+colors
+
+class(colors)
+
+levels(colors) # Checking to see how many levels there are (3)
+        </input>
+      </program>
+      <p>
+        When we called <c>class()</c> we saw that <c>colors</c> was factor, not character. In
+        order to check to see how many <em>levels</em> were inside <c>colors</c>, we used the
+        <c>levels()</c> command, which indicated that there were three: blue, green, and red.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-intro-vectors-indexing">
+      <title>Indexing (1-based in R!)</title>
+      <p>
+        Vectors, unlike objects, have multiple values inside of them. For instance, when we
+        created the vector fruits, it had three values: apple, banana, cherry. Vectors inherently
+        are <alert>indexed</alert> meaning that there is positioning inside of the vector. For
+        fruits, apple would be 1, banana would be 2, and cherry would be 3. In R, we can utilize
+        this indexing to our advantage and call specific positions from vectors. To do this, we
+        will be using brackets.
+      </p>
+      <program language="r">
+        <input>
+# fruits &lt;- c("apple", "banana", "cherry")
+fruits[1] # first element
+
+fruits[2:3] # slice
+        </input>
+      </program>
+      <p>
+        No matter how many values are in a vector, you can always use <c>[]</c> to call specific
+        values.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-intro-vectors-coercion">
+      <title>Type Coercion</title>
+      <p>
+        In the previous sections, we created vectors, but they've all been the same data type.
+        What about if we put some different types of data, for instance, numeric and character,
+        into a vector?
+      </p>
+      <program language="r">
+        <input>
+# Putting two numeric and one character into a vector.
+mix &lt;- c(1, 2, "three")
+
+mix # becomes character
+
+class(mix)
+        </input>
+      </program>
+      <p>
+        It defaults to character!
+      </p>
+      <insight>
+        <title>As a rule of thumb:</title>
+        <p>
+          Quotation marks rule. If a vector has quotation marks, R defaults it to a character
+          string.
+        </p>
+      </insight>
+      <p>
+        With ample discussion around vectors, it is time to build even more: data frames.
       </p>
     </subsection>
   </section>
@@ -60,32 +530,477 @@
   <section xml:id="sec-intro-dataframes">
     <title>Data Frames</title>
     <p>
-      <!-- Content to be filled in -->
+      Vectors are an essential way to store information, but specifically, <alert>one</alert>
+      type of information. When we tried to mix different types of data in one vector, we saw
+      that R did not like that, and considered everything as part of a character string. So,
+      what if we want to be able to have different types of data all in one place?
     </p>
+    <p>
+      This is exactly where data frames come into play. Data frames are the most common way to
+      view data, with maybe the most prominent examples being Microsoft Excel.
+    </p>
+
     <subsection xml:id="sec-intro-dataframes-creating">
       <title>Creating Your Own Data Frame</title>
       <p>
-        <!-- Content to be filled in -->
+        Imagine you have three vectors and you want to turn them into a data frame, with each
+        of the three vectors representing a different column in your data frame. In R, once the
+        vectors have been created, you are able to do exactly this using <c>data.frame()</c>.
+      </p>
+      <program language="r">
+        <input>
+# Build a tiny class roster data frame
+names_vec &lt;- c("John", "Bob", "Carmen", "Sarah")
+
+ages_vec &lt;- c(20, 22, 21, 23)
+
+major_vec &lt;- c("Psych", "Econ", "Psych", "CS")
+
+roster &lt;- data.frame(
+  name = names_vec,
+  age = ages_vec,
+  major = major_vec,
+  stringsAsFactors = FALSE)
+
+roster
+
+class(roster) # Class is now data.frame
+        </input>
+      </program>
+      <p>
+        The data frame <c>roster</c> was created using three different vectors: <c>names_vec</c>,
+        <c>ages_vec</c>, and <c>major_vec</c>. Now, we have an example of both numeric and
+        character values together.
       </p>
     </subsection>
+
     <subsection xml:id="sec-intro-dataframes-exploring">
       <title>Functions to Explore Datasets</title>
       <p>
-        <!-- Content to be filled in -->
+        When exploring datasets, there are some great functions to do this:
+      </p>
+      <ul>
+        <li><c>head()</c>: Returns the first part of data.</li>
+        <li><c>tail()</c>: Returns the last part of data.</li>
+        <li><c>str()</c>: Displays the structure of the data.</li>
+        <li><c>summary()</c>: Provides a summary of summary of your data.</li>
+        <li><c>View()</c>: Opens your dataset as a new window in R.</li>
+        <li><c>colnames()</c>: Returns the names of all of your columns.</li>
+        <li><c>table()</c>: Returns a frequency table.</li>
+        <li><c>nrow()</c>: Returns the total number of rows.</li>
+        <li><c>ncol()</c>: Returns the total number of columns.</li>
+      </ul>
+      <p>
+        Thankfully, R comes preinstalled with datasets to explore and practice R with. Below we
+        will test these functions out using the dataset <em>iris.</em>
+      </p>
+      <program language="r">
+        <input>
+# iris
+head(iris) # By default returns 6 rows
+
+tail(iris) # By default returns 6 rows
+
+str(iris) # Provides the structure of each column
+
+summary(iris) # Provides statistics for each column
+
+colnames(iris) # Provides the column names of your data
+        </input>
+      </program>
+      <p>
+        These are by far not the only ones that <alert>can</alert> or <alert>should</alert> be
+        used. Of course, experiment with other commands to see what works best for your style
+        and data.
       </p>
     </subsection>
+
     <subsection xml:id="sec-intro-dataframes-columns">
       <title>Working With Columns Within Data Frames</title>
       <p>
-        <!-- Content to be filled in -->
+        When we created the roster data frame, it was three columns: name, age, and major.
+        Let's say we wanted to find the median of age in our roster data frame. How can we find
+        the median of <alert>just</alert> the age column?
       </p>
+      <p>
+        In R, to select specific columns in data frames, we can use <c>$</c>. The formula to
+        follow is:
+      </p>
+      <cd>dataset_name$column_name</cd>
+      <p>
+        Below is an example of finding the median of the age column in the roster dataframe.
+      </p>
+      <program language="r">
+        <input>
+median(roster$age)
+        </input>
+      </program>
+      <p>
+        Just like in real life, the dollar sign (<c>$</c>) is very powerful. Not only can we
+        use it to call columns from a dataset, but we can also use it to <alert>make</alert>
+        columns in a dataset that do not exist yet. The formula to follow is:
+      </p>
+      <cd>dataset_name$new_column_name &lt;- new_data</cd>
+      <p>
+        Below are examples of creating a new column in a data frame using the <c>$</c>.
+      </p>
+      <program language="r">
+        <input>
+# Having one value for each row of data
+roster$year &lt;- 2025
+
+# Having a different value for each row of data
+roster$minor &lt;- c("Chemistry", "Biology", "History", "Art")
+
+roster
+        </input>
+      </program>
     </subsection>
+  </section>
+
+  <section xml:id="sec-intro-reading-data">
+    <title>Reading &amp; Writing data</title>
+    <p>
+      So far, we have created our own data in R or used datasets that are prebuilt in R. Most
+      of the time, you will have data that is not currently in R, but you want/need to bring it
+      into R to do an analysis.
+    </p>
+    <p>
+      In the case when you have your own data on your computer that you want to bring into R,
+      there are two main ways:
+    </p>
+    <ul>
+      <li><c>read.csv()</c>: Imports a CSV file into R.</li>
+      <li><c>read_xlsx()</c>: Imports an excel file into R (from the package <c>readxl</c>,
+      but more about packages later).</li>
+      <li><c>getwd()</c>: Gets the path of the directory you are working in.</li>
+      <li><c>setwd()</c>: Sets the path in your directory that you want to work in.</li>
+    </ul>
+    <p>
+      Below is code to assist with uploading data.
+    </p>
+    <program language="r">
+      <input>
+# read.csv example (commented because path varies by machine)
+# my_df &lt;- read.csv("/path/to/your/file.csv")
+
+# Working directory helpers
+# getwd()
+# setwd("/path/where/you/want") # &lt;- avoid hard-coding in projects; we'll cover R Projects later
+#setwd("~/Documents/Work/Brooklyn College/Fall 2025")
+      </input>
+    </program>
   </section>
 
   <section xml:id="sec-intro-packages">
     <title>Packages</title>
     <p>
-      <!-- Content to be filled in -->
+      R is fantastic in many ways. One of, if not the most powerful aspect of R is packages.
+      When you install R and RStudio, there are ample things you can do. But, with packages,
+      there is an <alert>infinite</alert> amount of things you can do.
+    </p>
+    <p>
+      R is open source, which means that anyone can create their own code, and in turn create
+      their own package. Packages contain functions and datasets that are not preinstalled in R
+      but can significantly elevate the capabilities.
+    </p>
+    <p>
+      To install a new package in R, you run the command <c>install.packages()</c> then inside
+      the parenthesis, in quotation marks, put the name of the package you'd like to install.
+    </p>
+    <p>
+      Once you install a package, you do not need to reinstall it (unless it needs to be
+      updated, which R will tell you). However, if you want to use it, you need to use the
+      <c>library()</c> command. This has to be done <alert>every</alert> time you start a new
+      R session.
+    </p>
+    <program language="r">
+      <input>
+# install.packages("tidyverse")
+# library(readxl)
+# library(tidyverse)
+      </input>
+    </program>
+    <p>
+      Packages are going to be an essential part of this course, especially in the next chapter.
+      You can find a list of all the packages
+      <url href="https://r-packages.io/packages">here</url>.
+    </p>
+  </section>
+
+  <section xml:id="sec-intro-mistakes">
+    <title>Getting Comfortable Making Mistakes - Help and Advice</title>
+    <p>
+      As previously stated, there are an innumerable amount of things that can be done in R.
+      With so many capabilities, it is impossible to remember everything and get everything right
+      all the time. Sometimes you may get errors when trying to run code. When your code does
+      not work, try looking for:
+    </p>
+    <ul>
+      <li>Misspelling of function names</li>
+      <li>Unclosed brackets, parenthesis, or quotation marks</li>
+      <li>Spaces in names or columns</li>
+      <li>Not having the <c>&lt;-</c></li>
+      <li>Missing a required field from a function</li>
+    </ul>
+    <p>
+      A good portion of the time, R will provide you with an error message which will have the
+      clues to exactly what is the problem. If at any time you need help, you can ask R. The
+      formula to follow is (no parenthesis in this case):
+    </p>
+    <ul>
+      <li><c>?command_name</c></li>
+    </ul>
+    <p>
+      Imagine for the life of you you are unable to remember what <c>str()</c> does. The below
+      code is an example of how to ask R for help.
+    </p>
+    <program language="r">
+      <input>
+?str
+      </input>
+    </program>
+    <p>
+      Sometimes, you may encounter an issue that is really just giving you problems. In this
+      case, my best advice is to step away from your computer for 5 minutes and take a deep
+      breath. Just like learning a instrument or learning a new language, things take time.
+    </p>
+  </section>
+
+  <section xml:id="sec-intro-takeaways">
+    <title>Key Takeaways</title>
+    <p>
+      This chapter provides the foundational skills needed to begin working with data in R.
+      Here are some key takeaways from the chapter:
+    </p>
+    <ul>
+      <li>R is a programming language designed for <alert>working with data</alert>, where
+      results are stored and reused rather than calculated once and discarded.</li>
+      <li>All work in R is built around <alert>objects</alert>, which allow you to store values,
+      vectors, and datasets for later use.</li>
+      <li><alert>Vectors</alert> store multiple values of the same type, while <alert>data
+      frames</alert> combine multiple vectors into a table where rows represent observations
+      and columns represent variables.</li>
+      <li>R is <alert>case-sensitive</alert> and does not allow spaces in object names, making
+      consistent naming an important habit.</li>
+      <li>Functions in R follow a consistent structure: a function name followed by inputs
+      inside parentheses.</li>
+      <li>Data can be created manually, explored using built-in datasets, or imported from
+      external files such as CSVs or Excel spreadsheets.</li>
+      <li>Packages extend R's functionality and allow you to perform more advanced analyses
+      beyond base R.</li>
+      <li>Getting comfortable <alert>reading error messages and using help tools</alert>
+      (<c>?function_name</c>) is an essential part of working effectively in R.</li>
+      <li>This chapter establishes the foundation for all analyses in the book — later chapters
+      build on these ideas using additional tools, workflows, and statistical methods.</li>
+      <li>Developing consistent workflows and documenting your steps early supports reproducible
+      research, a theme that will be emphasized throughout this book.</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-intro-checklist">
+    <title>Checklist: Before Moving On</title>
+    <p>
+      Before continuing to the next chapter, can you confidently say that you have:
+    </p>
+    <ul>
+      <li>Opened RStudio and can identify the <alert>Source</alert>, <alert>Console</alert>,
+      <alert>Environment</alert>, and <alert>Files/Plots</alert> panes?</li>
+      <li>Run basic arithmetic directly in R and interpreted the output?</li>
+      <li>Created objects using <c>&lt;-</c> and reused them later in your code?</li>
+      <li>Created <alert>numeric</alert>, <alert>character</alert>, and <alert>logical</alert>
+      vectors using <c>c()</c>?</li>
+      <li>Indexed values from a vector using brackets <c>[]</c>?</li>
+      <li>Combined multiple vectors into a <alert>data frame</alert>?</li>
+      <li>Accessed and created data frame columns using <c>$</c>?</li>
+      <li>Used at least one function (e.g., <c>mean()</c>, <c>summary()</c>, <c>str()</c>) and
+      understood its structure?</li>
+      <li>Installed and loaded a package using <c>install.packages()</c> and
+      <c>library()</c>?</li>
+      <li>Used <c>?function_name</c> to look up help when unsure?</li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-intro-key-functions">
+    <title>Key Functions &amp; Commands</title>
+    <p>
+      The following functions, operators, and commands are introduced for the first time in
+      this chapter and form the foundation for working in R.
+    </p>
+    <ul>
+      <li>
+        <p><c>&lt;-</c> <em>(base R)</em></p>
+        <ul>
+          <li>Assigns values to objects for later use.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>c()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Combines multiple values into a single vector.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>:</c> <em>(base R)</em></p>
+        <ul>
+          <li>Creates integer sequences (e.g., <c>1:10</c>).</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>[]</c> <em>(base R)</em></p>
+        <ul>
+          <li>Indexes and subsets elements from vectors or data frames.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>$</c> <em>(base R)</em></p>
+        <ul>
+          <li>Accesses or creates columns within a data frame.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>sqrt()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Computes square roots.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>log()</c> / <c>log10()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Computes natural and base-10 logarithms.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>round()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Rounds numeric values to a specified number of digits.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>class()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Identifies the data type (class) of an object.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>length()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Returns the number of elements in a vector.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>factor()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Converts character data into categorical (factor) variables.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>levels()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Displays the levels associated with a factor.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>data.frame()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Combines vectors into a tabular data structure.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>head()</c> / <c>tail()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Displays the first or last rows of a dataset.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>str()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Displays the internal structure and data types of a dataset.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>summary()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Produces descriptive summaries of variables in a dataset.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>nrow()</c> / <c>ncol()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Returns the number of rows or columns in a dataset.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>colnames()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Displays or modifies column names of a data frame.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>read.csv()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Imports CSV files into R as data frames.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>getwd()</c> / <c>setwd()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Gets or sets the current working directory.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>install.packages()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Installs packages from CRAN.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>library()</c> <em>(base R)</em></p>
+        <ul>
+          <li>Loads an installed package into the current R session.</li>
+        </ul>
+      </li>
+      <li>
+        <p><c>?function_name</c> <em>(base R)</em></p>
+        <ul>
+          <li>Accesses built-in help documentation for a function.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-intro-tip">
+    <title>💡 <em>Reproducibility Tip:</em></title>
+    <p>
+      Just like how your room can get messy without even trying, so can your work in R. You
+      might start with a single R script, but soon there are multiple scripts, datasets, and
+      figures—maybe one script accidentally saved in your Downloads folder while everything else
+      lives somewhere else. Before you realize it, things feel chaotic.
+    </p>
+    <p>
+      One of the easiest ways to prevent this is by using <alert>R Projects</alert>.
+    </p>
+    <p>
+      To create a new R Project, go to <alert>File → New Project</alert>, choose a location on
+      your computer, and give it a meaningful name. From that point on, everything related to
+      that project lives in one place.
+    </p>
+    <p>
+      The benefits of using an R Project include:
+    </p>
+    <ol>
+      <li>You don't need to manually set your working directory—it's handled for you.</li>
+      <li>All of your scripts, data, and output files stay together.</li>
+      <li>Different projects remain cleanly separated, reducing confusion and mistakes.</li>
+    </ol>
+    <p>
+      In RStudio, you can check whether you're working inside a project by looking at the
+      top-right corner. If it says <em>Project (None)</em>, you're not in one. If it shows a
+      project name, you are.
+    </p>
+    <p>
+      Developing the habit of using R Projects early will save you time, reduce errors, and
+      make your work far easier to reproduce—both for yourself and for others.
     </p>
   </section>
 
