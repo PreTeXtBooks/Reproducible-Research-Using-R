@@ -685,10 +685,10 @@ anx_r2 &lt;- round(anx_r^2 * 100, 1)
       <p>
         A Pearson correlation was conducted to examine the relationship between exam anxiety and
         exam performance. There was a statistically significant negative correlation between
-        anxiety scores and exam scores, <alert><em>r</em> = <c>r anx_r</c>, <em>p</em> = <c>r anx_p</c></alert>,
-        indicating that higher anxiety levels were associated with lower exam performance.
-        Approximately <alert><c>r anx_r2</c>%</alert> of the variance in exam scores was shared
-        with anxiety levels.
+        anxiety scores and exam scores (values of <c>anx_r</c>, <c>anx_p</c>, and <c>anx_r2</c>
+        are computed by the code above), indicating that higher anxiety levels were associated
+        with lower exam performance. The percentage of variance in exam scores shared with anxiety
+        levels can be obtained from <c>anx_r2</c>.
       </p>
     </subsection>
 
