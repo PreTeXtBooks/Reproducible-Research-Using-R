@@ -2,19 +2,892 @@
 <chapter xml:id="ch-logistic-regression" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Logistic Regression</title>
 
-  <introduction>
-    <p>
-      This chapter introduces logistic regression for modeling binary outcomes.
-      You will learn how to fit logistic regression models in R, interpret
-      odds ratios, evaluate model performance, and apply the technique to
-      real data.
-    </p>
-  </introduction>
-
   <section xml:id="sec-intro-log-reg">
     <title>Introduction</title>
     <p>
-      <!-- Content to be filled in -->
+      Two chapters ago, we did a great job of creating linear regression models,
+      which was the first time in this book that we created prediction models.
+      With a lot of TLC, we created a y = mx + b (rhymed on purpose) so that
+      whatever future of value of x we had, we could predict what y would be.
+    </p>
+    <p>
+      However, that was when we had numeric data. What happens when we do not have
+      any numeric data? From our last chapter, we know that is where a chi-square
+      comes in, but what if we want to still do some predicting? This is exactly
+      where <alert>Logistic Regression</alert> comes into play.
+    </p>
+
+    <note>
+      <title>The question we are trying to answer is:</title>
+      <p>
+        Can we predict if someone will default on their credit cards based on other
+        factors about them?
+      </p>
+    </note>
+
+    <p>
+      Could you have predicted that there would be another chapter about making
+      predictions...?
+    </p>
+    <p>
+      Using the <c>ISLR2</c> package, we will be working with the <c>Default</c>
+      dataset.
+    </p>
+  </section>
+
+  <section xml:id="sec-log-reg-objectives">
+    <title>Learning Objectives</title>
+    <p>
+      By the end of this chapter, you will be able to:
+    </p>
+    <ul>
+      <li><p>Explain when logistic regression is appropriate and how it differs from linear regression</p></li>
+      <li><p>Interpret probabilities, odds, log-odds, and odds ratios in the context of binary outcomes</p></li>
+      <li><p>Perform exploratory data analysis for a binary response variable, including calculating proportions and odds</p></li>
+      <li><p>Visualize relationships between a binary outcome and predictor variables</p></li>
+      <li><p>Split data into training and testing sets for predictive modeling</p></li>
+      <li><p>Fit a logistic regression model using <c>glm()</c> with a binomial family</p></li>
+      <li><p>Interpret logistic regression coefficients and convert them to odds ratios using <c>exp()</c></p></li>
+      <li><p>Assess model fit using McFadden's pseudo-R²</p></li>
+      <li><p>Evaluate predictor importance and check for multicollinearity using VIF</p></li>
+      <li><p>Generate predicted probabilities and classifications from a fitted model</p></li>
+      <li><p>Evaluate classification performance using confusion matrices, sensitivity, specificity, and balanced accuracy</p></li>
+      <li><p>Assess model discrimination using ROC curves and the Area Under the Curve (AUC)</p></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-log-reg-data">
+    <title>Load and Preview Data</title>
+    <p>
+      First, we need to load the <c>ISLR2</c> package and then we will create our
+      <c>cc_data</c> dataset using the <c>Default</c> dataset, which inside the
+      package.
+    </p>
+
+    <listing xml:id="lst-loading-data-ISLR2">
+      <caption>The skim function provides us with insights into our data that are helpful when first looking at the data.</caption>
+      <program language="r">
+        <code>
+library(ISLR2)
+library(tidyverse)
+
+cc_data &lt;- Default # this data comes from the ISLR2 package
+
+library(skimr)
+
+skim(cc_data)
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      Our data contains 10,000 rows of data, each relating to a particular person.
+      Two variables are <alert>factors</alert>, the other two are
+      <alert>numeric.</alert> The variables are:
+    </p>
+    <ol>
+      <li><p>default: A factor with levels No and Yes indicating whether the customer defaulted on their debt</p></li>
+      <li><p>student: A factor with levels No and Yes indicating whether the customer is a student</p></li>
+      <li><p>balance: The average balance that the customer has remaining on their credit card after making their monthly payment</p></li>
+      <li><p>income: Income of customer</p></li>
+    </ol>
+
+    <note>
+      <title>Regarding the ISLR2 package:</title>
+      <p>
+        <em>The definitions of the columns come directly from the description found
+        in the package</em>
+      </p>
+    </note>
+
+    <p>
+      We have our most crucial data point - if the person did or did not default on
+      their credit card payments. Soon, we will be using the other data points to see
+      if we can predict if someone will or will not default on their payments.
+    </p>
+    <p>
+      First, let's do a little digging to find out more about our data.
+    </p>
+  </section>
+
+  <section xml:id="sec-log-reg-exploration">
+    <title>Exploratory Data Analysis</title>
+    <p>
+      Before we predict if a person defaults or not, it is good to find out more
+      about the default variable, answering some questions like:
+    </p>
+    <ul>
+      <li><p>How many people have defaulted?</p></li>
+      <li><p>What <alert>percentage</alert> of people have defaulted?</p></li>
+      <li><p>What are the <alert>odds</alert> that someone will default?</p></li>
+      <li><p>What are the preliminary relationships between default and the other variables?</p></li>
+    </ul>
+
+    <listing xml:id="lst-proportion-odds">
+      <caption>Counting the number of defaults in the dataset.</caption>
+      <program language="r">
+        <code>
+table(cc_data$default)
+        </code>
+      </program>
+    </listing>
+
+    <listing xml:id="lst-proportion-odds-cat">
+      <caption>Calculating the proportion, percentage, and odds of defaulting.</caption>
+      <program language="r">
+        <code>
+# Proportion of people who default
+p &lt;- mean(cc_data$default == "Yes")
+p*100
+
+odds &lt;- p / (1 - p)
+
+# Below provides us with the default rate
+cat("Default rate:", round(p*100,2), "%\n")
+
+# Below provides us with the odds of someone defaulting
+cat("Odds of defaulting:", round(odds,4), "\n")
+
+# Below provides us with the odds ratio
+cat("Equivalent odds ratio (1 in every", round(1/odds,0), ")\n")
+
+# Cross-tab between student status and default
+cc_data |> count(default, student) |> arrange(desc(n))
+        </code>
+      </program>
+    </listing>
+
+    <listing xml:id="lst-favstats-income-default">
+      <caption>A summarized table uncovering insights into the relationship between income and default.</caption>
+      <program language="r">
+        <code>
+# Quick descriptive stats
+library(mosaic)
+
+favstats(income ~ default, data = cc_data)
+        </code>
+      </program>
+    </listing>
+
+    <listing xml:id="lst-favstats-balance-default">
+      <caption>A summarized table uncovering insights into the relationship between balance and default.</caption>
+      <program language="r">
+        <code>
+favstats(balance ~ default, data = cc_data)
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      Some things that were uncovered in the code above:
+    </p>
+    <ul>
+      <li><p>The probability of someone defaulting is 0.0333.</p></li>
+      <li><p>The percentage of people defaulting is 3.33%.</p></li>
+      <li><p><alert>Note</alert>: Probabilities are always going to be a number between 0 and 1. This is incredibly important later when we are trying to create our line.</p></li>
+      <li><p>1 in every 29 people will default on their credit card. These are the <alert>odds,</alert> which by definition, compare successes (defaults) to failures (non-defaults).</p></li>
+      <li><p>While probabilities are between 0 and 1, odds are between 0 and ∞.</p></li>
+      <li><p>An overwhelming majority of students did not default.</p></li>
+      <li><p>The mean income of people who do not default is only slightly higher than people who do.</p></li>
+      <li><p>The mean balance of people who <alert>do</alert> default is more than <em>double</em> the amount than people who <alert>don't</alert>.</p></li>
+    </ul>
+    <p>
+      Overall, most people don't default on their credit cards, and while we see
+      differences in means, we do not know if the difference is statistically
+      significant or not.
+    </p>
+    <p>
+      Now that we have some insights, it is time to visualize!
+    </p>
+  </section>
+
+  <section xml:id="sec-log-reg-viz">
+    <title>Visualize Relationships</title>
+    <p>
+      We are going to make three different visualizations:
+    </p>
+    <ol>
+      <li><p>A bar plot of defaults</p></li>
+      <li><p>A histogram of balances split by default, and then</p></li>
+      <li><p>A scatterplot of balance and income</p></li>
+    </ol>
+    <p>
+      For fun, we will be utilizing some themes from the <c>ggthemes</c> package.
+      When recreating these on your own, of course feel free to play around and
+      change the themes. As I always say, R puts the r in Artist!
+    </p>
+
+    <listing xml:id="lst-default-bargraph">
+      <caption>Most customers do not default on their credit cards, with defaulters representing only about 3% of the dataset.</caption>
+      <program language="r">
+        <code>
+library(ggthemes)
+
+# Default distribution
+ggplot(cc_data, aes(x = default, fill = default)) +
+  geom_bar() +
+  labs(title = "Count of Defaulters vs Non-Defaulters", y = "Count", x = "Default?") +
+  theme_economist()
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      For a quick review on histograms, see <xref ref="sec-ggplot-histogram"/>.
+    </p>
+
+    <listing xml:id="lst-default-histogram">
+      <caption>While most customers do not default on their credit cards, it seems that people that do have higher balances.</caption>
+      <program language="r">
+        <code>
+# Balance by default
+ggplot(cc_data, aes(x = balance, fill = default)) +
+  geom_histogram(position = "identity", alpha = 0.6, bins = 30) +
+  labs(title = "Higher Balances Increase Likelihood of Default",
+       x = "Average Credit Card Balance ($)", y = "Count") +
+  theme_economist_white()
+        </code>
+      </program>
+    </listing>
+
+    <listing xml:id="lst-default-scatter">
+      <caption>Regardless of if you default or not, there is a negative relationship between Annual Income and Average Credit Card Balance.</caption>
+      <program language="r">
+        <code>
+# Balance vs. Income
+ggplot(cc_data, aes(x = balance, y = income, color = default)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "black", linetype = "dashed") +
+  labs(title = "Customers Who Default Tend to Have Higher Balances",
+       subtitle = "Each point represents a customer",
+       x = "Average Credit Card Balance ($)",
+       y = "Annual Income ($)",
+       color = "Default") +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold"))
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      The visualizations look great! In terms of insights, we see (again) that most
+      people do not default on their credit cards, most balances are around the 800
+      range for non-defaulters and higher for the defaulters, and that as balance
+      increases, income decreases.
+    </p>
+    <p>
+      With a basic understanding of our data, it is now time to do something really
+      fun - split our data!
+    </p>
+  </section>
+
+  <section xml:id="sec-log-reg-splitting-data">
+    <title>Train and Test Split</title>
+    <p>
+      Right now, we have one complete data set. What is amazing about our data is
+      that it is complete. We have 10,000 data points each with the crucial
+      information of if the person did or did not default. Our goal is still to
+      create a model that takes the information we have about the people (if they're
+      a student, their balance, and their income) and use it to predict if a person
+      will or will not default.
+    </p>
+    <p>
+      Ideally, we want this model to be able to predict it for people in the future?
+      When we build it, <alert>how</alert> will we know how accurate it is?
+    </p>
+    <p>
+      In scenarios like this, we can actually split our data into two sets: one for
+      training (creating our model) and one for testing (see how well our model
+      actually works). This is important because we get to test our model using
+      <alert>real</alert> data. It is kind of like practicing a basketball move
+      before you use it in a real game.
+    </p>
+    <p>
+      Our goal: use a decent portion of our real data to test our model, and compare
+      it to data not used in the model. To help with this, we will be using the
+      <c>sample.split()</c> function from the <c>caTools</c> package.
+    </p>
+
+    <listing xml:id="lst-splitting-data">
+      <caption>Splitting the dataset into training (70%) and testing (30%) sets for model validation.</caption>
+      <program language="r">
+        <code>
+# set.seed allows us to get the same split of the data each time we run this code
+set.seed(42)
+
+library(caTools) # Package that helps us split our data into Train and Test sets.
+
+# We are going to be doing a 70/30 split. It is good practice to have most of your data in the training
+sample &lt;- sample.split(cc_data$default, SplitRatio = 0.7)
+
+# This creates our test data, what we will use to train our logistic regression model
+training_data &lt;- subset(cc_data, sample == TRUE)
+
+# This creates our test data, what we will measure our model against
+
+test_data &lt;- subset(cc_data, sample == FALSE)
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      We have successfully split our data into a training and a testing set! Again,
+      most of our data is going to go into the training data set. We want our model
+      to be as successful as possible while also providing enough of a chance to see
+      if it works.
+    </p>
+    <p>
+      We have our training set, so let's get predicting!
+    </p>
+  </section>
+
+  <section xml:id="sec-log-reg-model">
+    <title>Build Logistic Regression Model</title>
+    <introduction>
+
+    <p>
+      When building a logistic regression model, it is going to look very similar to
+      the linear regression model we built starting in <xref ref="sec-linear-reg-model"/>.
+      The major difference from a coding perspective between a linear regression and
+      a logistic regression model is that instead of using <c>lm()</c>, you need to
+      use <c>glm()</c>.
+    </p>
+    <p>
+      Before we create our model, let's take a step back. Logistic regression, just
+      like linear regression, is a tool to help us predict an outcome. Specifically,
+      we are predicting the <alert>probability</alert> of an outcome.
+    </p>
+
+    <note>
+      <title>The formula for the logistic regression is as follows:</title>
+      <p>
+        <me>\log\left(\frac{p}{1 - p}\right) = \beta_0 + \beta_1 \cdot \text{balance} + \beta_2 \cdot \text{income} + \beta_3 \cdot \text{student}</me>
+      </p>
+    </note>
+
+    <p>
+      where (p) is the probability of default. The left-hand side is called the
+      <em>logit</em>, or log-odds. Notice that the right-hand side looks just like
+      a straight-line regression.
+    </p>
+    <p>
+      In Linear Regression, your line goes on forever in both directions. But in
+      probability, you can't be less than 0% or more than 100%. If you used a
+      straight line to predict defaults, the math might eventually say someone has a
+      -20% chance of defaulting, which is impossible.
+    </p>
+    <p>
+      To fix this, we use the Sigmoid Function. This <q>squashes</q> the straight
+      line into an S-curve that stays strictly between 0 and 1.
+    </p>
+
+    <listing xml:id="lst-s-curve">
+      <caption>When plotting the balance and the default, the scatterplot creates a line that is not linear, but in fact an S shape.</caption>
+      <program language="r">
+        <code>
+ggplot(cc_data, aes(x = balance, y = as.numeric(default) - 1)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, color = "red") +
+  labs(y = "Probability of Default", x = "Balance")
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      In the figure above, notice how the red line transitions from a low probability
+      to a high probability as the balance increases. Unlike a straight linear line,
+      this S-curve naturally 'levels off' at 0 and 1, ensuring our predictions remain
+      realistic probabilities.
+    </p>
+    <p>
+      Now, let's get to business and create our logistic regression model.
+    </p>
+
+    <listing xml:id="lst-creating-model">
+      <caption>Logistic Regression Model Predicting the Probability of Credit Default based on Student Status, Account Balance, and Income.</caption>
+      <program language="r">
+        <code>
+# We are using binomial as family since default is yes/no
+
+train_model &lt;- glm(default ~ student + balance + income,
+                   family = "binomial", data = training_data) 
+
+summary(train_model)
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      After we create our model and call <c>summary()</c>, we get an output that
+      should look similar to the outputs we've seen before in this chapter. Taking a
+      look at our wall of words, it is incredibly important to note that the numbers
+      here represent the log-odds
+    </p>
+    <p>
+      Model interpretation:
+    </p>
+    <ol>
+      <li><p>Student (negative coefficient, not significant): Students less likely to default.</p></li>
+      <li><p>Balance (positive, significant): Higher balance = higher odds of default.</p></li>
+      <li><p>Income (tiny effect, not significant).</p></li>
+      <li><p><q>Fisher Scoring iterations: 8</q> means R needed 8 rounds to find best fit.</p></li>
+    </ol>
+    <p>
+      One thing to note is that unlike a linear regression model, logistic regression
+      models take a few tries to create the best model (in this case, 8).
+    </p>
+    <p>
+      While the outputs <alert>look</alert> the same, there is a major difference in
+      the numbers that are output in a logistic regression vs a linear regression.
+      Remember earlier when we calculated the probability of someone defaulting? It
+      was mentioned that probabilities will <alert>always</alert> be a number between
+      0 and 1. But, when we are creating a <em>line</em> in a regression model, we
+      can get any numbers between -∞ and ∞. How does logistic regression, which uses
+      probabilities, make a line then?
+    </p>
+    <p>
+      Log-odds!
+    </p>
+    <p>
+      We need to get a number that actually has a range, and this is exactly where
+      log-odds come in. Because with regression, we need to get a line (and to build
+      a line, we need a formula). Instead of modeling probability, we model the log
+      of the odds. Here is the step by step of how logistic regression works:
+    </p>
+    <ol>
+      <li><p>Start with a probability.</p></li>
+      <li><p>Convert to odds.</p></li>
+      <li><p>Takes the log of the odds</p></li>
+      <li><p>Using those log odds, fits a regression line</p></li>
+      <li><p>Converts it back with a logistic function</p></li>
+    </ol>
+
+    <listing xml:id="lst-convert-log-odds">
+      <caption>Converting log-odds coefficients to odds ratios using exp().</caption>
+      <program language="r">
+        <code>
+# Convert log-odds → odds ratios
+exp(coef(train_model))
+
+# Example: students have 0.43× the odds (≈57% lower odds) of defaulting
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      A very important thing to note is that <alert>odds and probability are not the
+      same thing.</alert> With odds ratios, we are looking to see how much larger or
+      smaller it is than 1.
+    </p>
+    <ul>
+      <li><p>OR = 1 → no change</p></li>
+      <li><p>OR &gt; 1 → increase</p></li>
+      <li><p>OR &lt; 1 → decrease</p></li>
+    </ul>
+    <p>
+      Breaking this down using our model:
+    </p>
+    <ol>
+      <li><p>If you are a student, the odds of you defaulting decrease, as the odds ratio is 0.438. Their odds are 56.2% <alert>lower</alert> than non-students (1 - 0.438). This is a significant difference.</p></li>
+      <li><p>For every dollar your balance increases, the odds of you defaulting increase by 0.58%. This seems small per dollar, but compounds rapidly across real-life balance amounts. For example, increasing the balance by $100 multiplies the odds of default by about 1.78, which is a 78% increase in odds.</p></li>
+      <li><p>The odds ratio for income is so small (OR = 1.000003), that a $1 increase in income has basically no influence on your default odds.</p></li>
+    </ol>
+    </introduction>
+    <subsection xml:id="sec-mcfaddens-r-2">
+      <title>McFadden's Pseudo-R²</title>
+      <p>
+        Unlike in linear regression, logistic regression does not have an R²: (for a
+        review on R²: see <xref ref="sec-linear-reg-model"/>). However, we can use
+        the <c>pR2()</c> function from the <c>pscl</c> library to calculate a pseudo
+        R² value.
+      </p>
+
+      <listing xml:id="lst-McFadden-pseudo-R2">
+        <caption>Calculating McFadden's pseudo-R² to assess model fit.</caption>
+        <program language="r">
+          <code>
+# McFadden's pseudo-R2
+library(pscl)
+
+pR2(train_model)["McFadden"]
+          </code>
+        </program>
+      </listing>
+
+      <p>
+        As of right now, this is a moderately strong model!
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-var-importance">
+      <title>Variable Importance</title>
+      <p>
+        With the <c>varImp()</c> function inside the <c>caret</c> package, we can
+        also see which variables are the most important in our regression model.
+      </p>
+
+      <listing xml:id="lst-variable-importance">
+        <caption>Assessing the relative importance of predictors using varImp().</caption>
+        <program language="r">
+          <code>
+# Variable importance
+library(caret)
+
+varImp(train_model) |> arrange(desc(Overall))
+# balance seems to be the most impactful in our model
+          </code>
+        </program>
+      </listing>
+    </subsection>
+
+    <subsection xml:id="sec-multicollinearity-check">
+      <title>Multicollinearity check</title>
+      <p>
+        Just like in <xref ref="sec-partial-cor"/>, we want to check to see if there
+        is any interactions between some of our variables that may be impacting our
+        regression model. Using the <c>vif()</c> function from the <c>car</c>
+        library, we can see the interactions between our variables in our model.
+      </p>
+
+      <listing xml:id="lst-multicollinearity">
+        <caption>Checking for multicollinearity using Variance Inflation Factors (VIF).</caption>
+        <program language="r">
+          <code>
+# Multicollinearity check
+library(car)
+
+vif(train_model)
+# does not seem to be any multicollinearity
+# anything less than 5 means no multicollinearity
+          </code>
+        </program>
+      </listing>
+
+      <p>
+        As of right now, it is safe to say that there is no multicollinearity, as
+        all values are less than 5.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-log-reg-pred">
+    <title>Make Predictions</title>
+    <p>
+      Before, we took our data and split it into a training set and a test set.
+      Using the training set, we built a logistic regression model. Now that we have
+      it, it is time to test it against our test data!
+    </p>
+    <p>
+      As previously stated, it is best to test our model against real data, because
+      we then get to compare and contrast what our model predicted vs what actually
+      happened. It is now time to do exactly that!
+    </p>
+    <p>
+      We are going to create two new columns in our test data:
+    </p>
+    <ol>
+      <li><p>pred_prob: Our model is going to predict the likelihood of someone defaulting, using that row's data.</p></li>
+      <li><p>pred_class: based on the probability from pred_prob, it is going to either be <q>Yes</q> or <q>No.</q></p></li>
+    </ol>
+
+    <listing xml:id="lst-predicting">
+      <caption>Generating predicted probabilities and class labels for the test set.</caption>
+      <program language="r">
+        <code>
+test_data$pred_prob &lt;- predict(train_model, newdata = test_data, type = "response")
+
+test_data$pred_class &lt;- ifelse(test_data$pred_prob > 0.5, "Yes", "No") |> as.factor()
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      In the above code, we used 0.5 as our cutoff for deciding if a person defaulted
+      or not. 0.5 is a good measure since it is at the halfway point, but it is up
+      to you to decide what the marker should be.
+    </p>
+    <p>
+      With this code complete, our model has now churned out the results (if someone
+      will or will not default on their credit card).
+    </p>
+  </section>
+
+  <section xml:id="sec-log-reg-eval">
+    <title>Evaluate Model</title>
+    <p>
+      Using real data (our test data) and a built logistic regression model, we now
+      have predicted if a person will or will not default on their credit card. The
+      next question is: <alert>how well did our model predict if someone defaulted on
+      their credit card or not?</alert>
+    </p>
+    <p>
+      To do this, we run the command <c>confusionMatrix</c>. This comes from the
+      <c>caret</c> package which we have already loaded.
+    </p>
+
+    <listing xml:id="lst-confusion-matrix">
+      <caption>Confusion Matrix Evaluating Model Predictions Against Actual Default Status on the Test Dataset.</caption>
+      <program language="r">
+        <code>
+conf_matrix &lt;- confusionMatrix(test_data$pred_class, test_data$default, positive = "Yes")
+
+conf_matrix
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      Another wall of data. The first thing we see if a table of Reference vs
+      Prediction. This tells us our true/false negatives/positives. For instance,
+      there were 14 false positives. Most of our data is accurate: 2886 true
+      negatives (most of our data is negative - people do not default).
+    </p>
+    <p>
+      Next, we get some performance metrics. Here is an initial breakdown of what
+      we see:
+    </p>
+    <ul>
+      <li>
+        <p>Accuracy ≈ how often model is correct overall.</p>
+        <ul><li><p>The model is very accurate, at about 97%.</p></li></ul>
+      </li>
+      <li><p>95% CI: Where the accuracy of our model most likely lies.</p></li>
+      <li>
+        <p>No Information Rate (NIR): If we just predicted <q>No</q> for each row, how accurate would we be.</p>
+        <ul><li><p>This is not much different from the actual accuracy.</p></li></ul>
+      </li>
+      <li>
+        <p>P-value [Acc &gt; NIR]: Is our model statistically different than if we just put <q>No</q> for each.</p>
+        <ul><li><p>The p-value is not statistically significant, meaning there is no difference between running our model or just predicting <q>No</q> for each person.</p></li></ul>
+      </li>
+      <li>
+        <p>Sensitivity: how well it finds actual defaults.</p>
+        <ul><li><p>Only 29% of actual defaulters are detected.</p></li></ul>
+      </li>
+      <li>
+        <p>Specificity: how well it identifies non-defaulters.</p>
+        <ul><li><p>It predicts non-defaulters at almost 100%.</p></li></ul>
+      </li>
+      <li><p>High accuracy but low sensitivity means the model misses many rare defaults.</p></li>
+      <li><p>Balanced Accuracy is a better metric for imbalanced data.</p></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-log-reg-roc">
+    <title>ROC Curve + AUC</title>
+    <p>
+      As always, we want to visualize our data. To do this, we can create a special
+      visualization, an <em>ROC CURVE,</em> utilizing the <c>pROC</c> package.
+    </p>
+
+    <listing xml:id="lst-pROC-plot">
+      <caption>Receiver Operating Characteristic (ROC) curve for the logistic regression model predicting credit card default. The curve plots sensitivity against 1 − specificity across all possible classification thresholds. Curves closer to the top-left corner indicate better classification performance. The area under the curve (AUC) summarizes the model's ability to distinguish between defaulters and non-defaulters.</caption>
+      <program language="r">
+        <code>
+library(pROC)
+
+roc_obj &lt;- roc(test_data$default, test_data$pred_prob, levels = c("No", "Yes"))
+plot(roc_obj, col = "darkblue", lwd = 2,
+     main = "ROC Curve – Logistic Regression")
+        </code>
+      </program>
+    </listing>
+
+    <listing xml:id="lst-auc">
+      <caption>Calculating the Area Under the ROC Curve (AUC).</caption>
+      <program language="r">
+        <code>
+auc(roc_obj)
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      Interpretation:
+    </p>
+    <ul>
+      <li><p>ROC curve shows sensitivity vs. 1 - specificity.</p></li>
+      <li><p>AUC = 0.95 → excellent ability to distinguish defaulters from non-defaulters.</p></li>
+      <li><p>Random guessing = 0.5; perfect model = 1.0</p></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-log-reg-interpretation">
+    <title>Interpretation</title>
+    <p>
+      Our logistic regression model predicts the probability that a person will
+      default on their credit card based on balance, income, and student status.
+    </p>
+    <p>
+      Coefficients:
+    </p>
+    <ul>
+      <li>
+        <p>The model found a significant positive relationship between balance and default.</p>
+        <ul>
+          <li><p>As balance increases, the odds of default rise sharply.</p></li>
+          <li><p>The student variable had a negative coefficient, meaning students are less likely to default than non-students (about 57% lower odds, holding other factors constant).</p></li>
+        </ul>
+      </li>
+      <li><p>Income showed a very small, non-significant effect once balance was included.</p></li>
+    </ul>
+    <p>
+      Model Fit:
+    </p>
+    <ul>
+      <li><p>McFadden's R² ≈ 0.46, suggesting the model explains a moderate amount of variation.</p></li>
+      <li><p>The AUC = 0.95, indicating excellent ability to distinguish between defaulters and non-defaulters.</p></li>
+      <li><p>Confusion Matrix: high overall accuracy (~97%), but this is inflated due to the low number of defaults (class imbalance).</p></li>
+      <li><p>The model is excellent at identifying people who will <em>not</em> default, but less effective at catching rare defaults.</p></li>
+    </ul>
+    <p>
+      In short:
+    </p>
+    <ul>
+      <li><p>Balance is the strongest predictor.</p></li>
+      <li><p>Students are less likely to default.</p></li>
+      <li><p>Income doesn't matter much here.</p></li>
+      <li><p>The model performs very well overall.</p></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-log-reg-takeaways">
+    <title>Key Takeaways</title>
+    <ul>
+      <li><p>Logistic Regression predicts the <em>probability</em> of a categorical (binary) outcome.</p></li>
+      <li><p>Instead of fitting a straight line, it models the <alert>log-odds</alert> of the outcome.</p></li>
+      <li><p>Coefficients tell us how each variable changes the <em>log-odds</em> of the event.</p></li>
+      <li><p>Positive coefficients increase the odds; negative ones decrease them.</p></li>
+      <li><p>We exponentiate coefficients (exp()) to interpret them as <alert>odds ratios</alert>.</p></li>
+      <li><p>Example: An odds ratio of 1.50 means 50% higher odds of the outcome.</p></li>
+      <li>
+        <p>AUC (Area Under the Curve) tells how well the model separates the two groups:</p>
+        <ul>
+          <li><p>0.5 = no skill, 0.7–0.8 = good, 0.8–0.9 = great, &gt;0.9 = excellent.</p></li>
+        </ul>
+      </li>
+      <li><p>Accuracy can be misleading when classes are imbalanced — check sensitivity and specificity instead.</p></li>
+      <li><p>ROC curves and confusion matrices help visualize model performance.</p></li>
+      <li><p>Logistic regression is a gateway to machine learning — it's the foundation for classification models in predictive analytics.</p></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-log-reg-checklist">
+    <title>Checklist</title>
+    <p>
+      <alert>When running a logistic regression, have you:</alert>
+    </p>
+    <ul>
+      <li><p>Identified your outcome variable as binary (two categories only)?</p></li>
+      <li><p>Verified your predictors are correctly coded (numeric or factor as needed)?</p></li>
+      <li><p>Explored the data first (EDA, visualizations, proportions, odds)?</p></li>
+      <li><p>Split your data into training and testing sets?</p></li>
+      <li><p>Fit your model using <c>glm(..., family = "binomial")</c>?</p></li>
+      <li><p>Checked model summary for significant predictors?</p></li>
+      <li><p>Converted coefficients to odds ratios using <c>exp()</c>?</p></li>
+      <li><p>Checked for multicollinearity using VIF (&lt; 5 recommended)?</p></li>
+      <li><p>Calculated a Pseudo-R² (e.g., McFadden's R²) to assess model fit?</p></li>
+      <li><p>Generated predicted probabilities (<c>type = "response"</c>) for the test set?</p></li>
+      <li><p>Chosen a classification threshold (e.g., 0.5) and created predicted classes?</p></li>
+      <li><p>Used a confusion matrix to evaluate accuracy, sensitivity, specificity?</p></li>
+      <li><p>Created an ROC curve and reported the AUC value?</p></li>
+      <li><p>Written a clear interpretation that answers your original research question?</p></li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-log-reg-keyfunctions">
+    <title>Key Functions &amp; Commands</title>
+    <p>
+      The following functions and commands are introduced or reinforced in this
+      chapter to support logistic regression modeling, classification, and model
+      evaluation.
+    </p>
+    <ul>
+      <li>
+        <p><c>glm()</c> <em>(stats)</em></p>
+        <ul><li><p>Fits generalized linear models, including logistic regression when using the binomial family.</p></li></ul>
+      </li>
+      <li>
+        <p><c>summary()</c> <em>(base R)</em></p>
+        <ul><li><p>Summarizes logistic regression output, including coefficients, standard errors, and p-values.</p></li></ul>
+      </li>
+      <li>
+        <p><c>exp()</c> <em>(base R)</em></p>
+        <ul><li><p>Converts log-odds coefficients into odds ratios for interpretation.</p></li></ul>
+      </li>
+      <li>
+        <p><c>predict()</c> <em>(stats)</em></p>
+        <ul><li><p>Generates predicted probabilities or classifications from a fitted logistic regression model.</p></li></ul>
+      </li>
+      <li>
+        <p><c>sample.split()</c> <em>(caTools)</em></p>
+        <ul><li><p>Splits data into training and testing sets for model validation.</p></li></ul>
+      </li>
+      <li>
+        <p><c>confusionMatrix()</c> <em>(caret)</em></p>
+        <ul><li><p>Evaluates classification performance using accuracy, sensitivity, specificity, and related metrics.</p></li></ul>
+      </li>
+      <li>
+        <p><c>pR2()</c> <em>(pscl)</em></p>
+        <ul><li><p>Computes pseudo R² measures (e.g., McFadden's R²) for logistic regression models.</p></li></ul>
+      </li>
+      <li>
+        <p><c>varImp()</c> <em>(caret)</em></p>
+        <ul><li><p>Assesses the relative importance of predictors in a classification model.</p></li></ul>
+      </li>
+      <li>
+        <p><c>vif()</c> <em>(car)</em></p>
+        <ul><li><p>Detects multicollinearity among predictors using variance inflation factors.</p></li></ul>
+      </li>
+      <li>
+        <p><c>roc()</c> <em>(pROC)</em></p>
+        <ul><li><p>Constructs a Receiver Operating Characteristic (ROC) curve to evaluate classification performance.</p></li></ul>
+      </li>
+      <li>
+        <p><c>auc()</c> <em>(pROC)</em></p>
+        <ul><li><p>Calculates the Area Under the ROC Curve (AUC) as a summary measure of model discrimination.</p></li></ul>
+      </li>
+    </ul>
+  </section>
+
+  <section xml:id="sec-log-reg-apa">
+    <title>Example APA-style Write-up</title>
+    <p>
+      The following example demonstrates one acceptable way to report the results of
+      a logistic regression analysis in APA style.
+    </p>
+    <p>
+      <alert>Logistic Regression</alert>
+    </p>
+    <p>
+      A logistic regression analysis was conducted to examine whether credit card
+      balance, income, and student status predicted the likelihood of default. The
+      overall logistic regression model was statistically significant,
+      <m>\chi^2(3) = 428.52, p \lt .001</m>, and demonstrated good model fit, as
+      indicated by McFadden's pseudo-<m>R^2 = .46</m>. Higher credit card balances
+      were associated with increased odds of default, whereas students had
+      significantly lower odds of default than non-students. Income was not a
+      significant predictor after accounting for balance and student status.
+    </p>
+  </section>
+
+  <section xml:id="sec-log-reg-tip">
+    <title>💡 Reproducibility Tip:</title>
+    <p>
+      When evaluating predictive models, results can change depending on how the data
+      are split into training and testing sets. To make your results reproducible,
+      always control randomness and clearly document your modeling choices.
+    </p>
+    <p>
+      Using <c>set.seed()</c> (like in the reproducibility tip found in
+      <xref ref="sec-anova-tip"/>) ensures that the same observations are assigned
+      to the training and test sets each time the code is run. In addition, choices
+      such as the train/test split ratio and classification threshold (e.g., 0.5)
+      should be explicitly stated, as they directly affect model performance.
+    </p>
+    <p>
+      Predictive results are only reproducible when both the code <em>and the
+      evaluation decisions</em> are transparent.
     </p>
   </section>
 
