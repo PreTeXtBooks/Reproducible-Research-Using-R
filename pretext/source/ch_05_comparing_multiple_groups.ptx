@@ -143,7 +143,7 @@ memory_summarized
 
     <p>
       Instead of writing all of the code manually, we can utilize the
-      <c>favstats()</c> command from the <c>mosaic</c> package.
+      <c>favstats()</c> command from the <c>mosaic</c> package (<cite key="R-mosaic"/>).
     </p>
 
     <listing xml:id="lst-favstats">
@@ -281,7 +281,7 @@ summary(anova_model)
 
     <p>
       We can also utilize the <c>supernova()</c> function, from the <c>supernova</c>
-      package, for a cleaner output.
+      package (<cite key="R-supernova"/>), for a cleaner output.
     </p>
 
     <listing xml:id="lst-anova-supernova">
@@ -493,7 +493,7 @@ ggplot(memory2, aes(x = method, y = score, color = caffeine, group = caffeine)) 
   <section xml:id="sec-aic-anova">
     <title>Model Comparison With AIC</title>
     <p>
-      Using the <c>aictab()</c> function from the <c>AICcmodavg</c> package, we can
+      Using the <c>aictab()</c> function from the <c>AICcmodavg</c> package (<cite key="R-AICcmodavg"/>), we can
       compare the one-way ANOVA model with the two-way ANOVA model to see what is the
       overall better model of understanding differences in memory scores.
     </p>

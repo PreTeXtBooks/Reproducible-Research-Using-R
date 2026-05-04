@@ -59,7 +59,7 @@
   <section xml:id="sec-log-reg-data">
     <title>Load and Preview Data</title>
     <p>
-      First, we need to load the <c>ISLR2</c> package and then we will create our
+      First, we need to load the <c>ISLR2</c> (<cite key="R-ISLR2"/>) package and then we will create our
       <c>cc_data</c> dataset using the <c>Default</c> dataset, which inside the
       package.
     </p>
@@ -305,7 +305,7 @@ ggplot(cc_data, aes(x = balance, y = income, color = default)) +
     <p>
       Our goal: use a decent portion of our real data to test our model, and compare
       it to data not used in the model. To help with this, we will be using the
-      <c>sample.split()</c> function from the <c>caTools</c> package.
+      <c>sample.split()</c> function from the <c>caTools</c> package (<cite key="R-caTools"/>).
     </p>
 
     <listing xml:id="lst-splitting-data">
@@ -498,7 +498,7 @@ exp(coef(train_model))
       <p>
         Unlike in linear regression, logistic regression does not have an R²: (for a
         review on R²: see <xref ref="sec-linear-reg-model"/>). However, we can use
-        the <c>pR2()</c> function from the <c>pscl</c> library to calculate a pseudo
+        the <c>pR2()</c> function from the <c>pscl</c> library (<cite key="R-pscl"/>) to calculate a pseudo
         R² value.
       </p>
 
@@ -522,7 +522,7 @@ pR2(train_model)["McFadden"]
     <subsection xml:id="sec-var-importance">
       <title>Variable Importance</title>
       <p>
-        With the <c>varImp()</c> function inside the <c>caret</c> package, we can
+        With the <c>varImp()</c> function inside the <c>caret</c> package (<cite key="R-caret"/>), we can
         also see which variables are the most important in our regression model.
       </p>
 
@@ -546,7 +546,7 @@ varImp(train_model) |> arrange(desc(Overall))
         Just like in <xref ref="sec-partial-cor"/>, we want to check to see if there
         is any interactions between some of our variables that may be impacting our
         regression model. Using the <c>vif()</c> function from the <c>car</c>
-        library, we can see the interactions between our variables in our model.
+        library (<cite key="R-car"/>), we can see the interactions between our variables in our model.
       </p>
 
       <listing xml:id="lst-multicollinearity">
