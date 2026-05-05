@@ -125,6 +125,26 @@ fortunes::fortune()   # random quote about R
 cowsay::say("Welcome to tidyverse!", by = "cow")
         </input>
       </program>
+      <console>
+        <output>
+Running as administrator is like heroin... any problems it solves it replaces
+with worse problems.
+   -- Jeff Newmiller (about running R CMD check as administrator)
+      R-help (February 2013)
+
+ _______________________ 
+&lt; Welcome to tidyverse! &gt;
+ ----------------------- 
+      \
+       \
+
+        ^__^ 
+        (oo)\ ________ 
+        (__)\         )\ /\ 
+             ||------w|
+             ||      ||
+        </output>
+      </console>
       <p>
         It isn't always necessary, nor will it be done a lot in this book, but you can use the
         <c>::</c> before the command to specifically mention what package the command is coming
