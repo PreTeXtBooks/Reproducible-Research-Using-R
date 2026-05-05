@@ -148,12 +148,12 @@
         Learning happens when you experiment.
       </p>
 
-      <insight>
+      <assemblage>
         <title>As my father always says:</title>
         <p>
           That's why they put erasers on pencils
         </p>
-      </insight>
+      </assemblage>
 
       <subsubsection xml:id="sec-reproresearchR-package">
         <title>The reproresearchR Package</title>

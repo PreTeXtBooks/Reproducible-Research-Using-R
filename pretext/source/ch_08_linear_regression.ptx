@@ -8,12 +8,12 @@
       In this lesson, we will explore how to use <alert>linear regression</alert> to not only
       understand, but to also predict relationships between variables.
     </p>
-    <note>
+    <assemblage>
       <title>Everyone loves pizza (cowabunga!) and like many pizza establishments, we will be trying to answer the question:</title>
       <p>
         <em>Can we predict the amount of pizza sold based on its price?</em>
       </p>
-    </note>
+    </assemblage>
     <p>
       We'll use a dataset called <c>pizza_prices</c>, which contains weekly pizza sales and
       pricing data.
@@ -52,7 +52,7 @@
       overview of the data.
     </p>
     <program language="r">
-      <code>
+      <input>
 library(tidyverse)
 library(reproresearchR)
 
@@ -61,8 +61,30 @@ pizza_sales&lt;- pizza_prices
 library(skimr)
 
 skim(pizza_sales)
-      </code>
-    </program>
+      </input>
+        <output>
+── Data Summary ────────────────────────
+                           Values     
+Name                       pizza_sales
+Number of rows             156        
+Number of columns          3          
+_______________________               
+Column type frequency:                
+  numeric                  3          
+________________________              
+Group variables            None       
+
+── Variable type: numeric ──────────────────────────────────────────────────────
+  skim_variable n_missing complete_rate     mean        sd       p0      p25
+1 Week                  0             1    78.5     45.2       1       39.8 
+2 Total Volume          0             1 88024.   22864.    55031    74347   
+3 Total Price           0             1     2.66     0.134     2.31     2.58
+       p50      p75      p100 hist 
+1    78.5    117.      156    ▇▇▇▇▇
+2 83889    95113    227177    ▇▃▁▁▁
+3     2.67     2.75      2.96 ▁▃▇▆▂
+        </output>
+      </program>
   </section>
 
   <section xml:id="sec-linear-reg-cleaning-data">
@@ -75,7 +97,7 @@ skim(pizza_sales)
       other cleaning while we are at it.
     </p>
     <program language="r">
-      <code>
+      <input>
 library(janitor)
 
 # Let's get rid of any spaces in the column names
@@ -87,7 +109,7 @@ pizza_sales&lt;- pizza_sales |> select(-1)
 # Let's rename our column names to make things easier
 pizza_sales &lt;- pizza_sales |>
   rename(price = total_price, volume = total_volume)
-      </code>
+      </input>
     </program>
     <p>
       We now have a cleaner dataset we can use!
@@ -107,7 +129,7 @@ pizza_sales &lt;- pizza_sales |>
       numerical variables.
     </p>
     <program language="r">
-      <code>
+      <input>
 # Now, let us graph our data using ggplot
 # As always with ggplot, we have our data, our aesthetics, and our geometry.
 
@@ -122,29 +144,29 @@ pizza_plot &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
   )
 
 pizza_plot
-      </code>
+      </input>
     </program>
     <p>
       If we wanted to use another package instead of ggplot, we could also use the library
       <c>ggformula</c>, which has <c>gf_point()</c>.
     </p>
     <program language="r">
-      <code>
+      <input>
 library(ggformula)
 pizza_plot_ggformula &lt;- gf_point(volume ~ price, data = pizza_sales) |> gf_lm(color ="purple")
 
 pizza_plot_ggformula
-      </code>
+      </input>
     </program>
     <p>
       Here is a side by side comparison of what they look like. Very similar indeed.
     </p>
     <program language="r">
-      <code>
+      <input>
 library(patchwork)
 
 pizza_plot + pizza_plot_ggformula
-      </code>
+      </input>
     </program>
     <p>
       Our data is already telling us a lot. From both of our graphics, we can see that as price
@@ -165,10 +187,22 @@ pizza_plot + pizza_plot_ggformula
       regression model, and this is exactly where correlation comes into play.
     </p>
     <program language="r">
-      <code>
+      <input>
 cor.test(pizza_sales$volume,pizza_sales$price)
-      </code>
-    </program>
+      </input>
+        <output>
+Pearson's product-moment correlation
+
+data:  pizza_sales$volume and pizza_sales$price
+t = -10.8, df = 154, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.7375315 -0.5567684
+sample estimates:
+       cor 
+-0.6564736
+        </output>
+      </program>
     <p>
       When we run a correlation, we are looking for three things:
     </p>
@@ -204,12 +238,12 @@ cor.test(pizza_sales$volume,pizza_sales$price)
       With a linear regression model, we are trying to build the line of best fit and figure out
       the equation for the line.
     </p>
-    <note>
+    <assemblage>
       <title>The formula for a line is:</title>
       <p>
         y = mx + b
       </p>
-    </note>
+    </assemblage>
     <p>
       Where:
       <ul>
@@ -230,14 +264,33 @@ cor.test(pizza_sales$volume,pizza_sales$price)
       </ul>
     </p>
     <program language="r">
-      <code>
+      <input>
 pizza_lm &lt;- lm(volume ~ price, data = pizza_sales)
 # The code above is saving our linear regression model as pizza_lm
 
 summary(pizza_lm)
 # When we call summary on our model, we can find out our key insights
-      </code>
-    </program>
+      </input>
+        <output>
+Call:
+lm(formula = volume ~ price, data = pizza_sales)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-28602 -11685  -1824   8379 110857 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   385442      27575   13.98   &lt;2e-16 ***
+price        -111669      10340  -10.80   &lt;2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 17300 on 154 degrees of freedom
+Multiple R-squared:  0.431,	Adjusted R-squared:  0.4273 
+F-statistic: 116.6 on 1 and 154 DF,  p-value: &lt; 2.2e-16
+        </output>
+      </program>
     <p>
       Congratulations! We have just run our first linear regression model! We have some key
       insights, including:
@@ -263,12 +316,12 @@ summary(pizza_lm)
         <li>F-statistic: This tells us how strong our model is. 116.6 is a high value.</li>
       </ul>
     </p>
-    <note>
+    <assemblage>
       <title>Putting this all together, our line formula is:</title>
       <p>
         y = -111,669x + 385,442
       </p>
-    </note>
+    </assemblage>
     <p>
       All of these insights together mean that this is a very good model to predict volume of
       pizza sold.
@@ -279,18 +332,32 @@ summary(pizza_lm)
       function.
     </p>
     <program language="r">
-      <code>
+      <input>
 # If we want to get the same information from our lm model using a different package
 
 library(broom)
 tidy(pizza_lm)
-      </code>
-    </program>
+      </input>
+        <output>
+# A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)  385442.    27575.      14.0 3.44e-29
+2 price       -111669.    10340.     -10.8 1.36e-20
+        </output>
+      </program>
     <program language="r">
-      <code>
+      <input>
 glance(pizza_lm)
-      </code>
-    </program>
+      </input>
+        <output>
+# A tibble: 1 × 12
+  r.squared adj.r.squared  sigma statistic  p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.431         0.427 17303.      117. 1.36e-20     1 -1743. 3491. 3501.
+# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;
+        </output>
+      </program>
     <p>
       Our finalized equation is y (-111,669 * price) + 385,442. All we need to do is plug in any
       price value, and we can predict the volume of pizza sold.
@@ -299,12 +366,12 @@ glance(pizza_lm)
 
   <section xml:id="sec-residual-checking">
     <title>Checking the residuals</title>
-    <insight>
+    <assemblage>
       <title>To make sure that our data for the line looks good, it is important to answer the question:</title>
       <p>
         How close are our predicted values to our actual values?
       </p>
-    </insight>
+    </assemblage>
     <p>
       To answer this question, we need to figure out the predicted values and then their
       <em>residuals</em> (the difference between the actual vs the predicted value).
@@ -313,11 +380,11 @@ glance(pizza_lm)
       We can do this in R with the two commands below.
     </p>
     <program language="r">
-      <code>
+      <input>
 pizza_sales &lt;- pizza_sales |>
   mutate(predicted = predict(pizza_lm),
          residuals = residuals(pizza_lm))
-      </code>
+      </input>
     </program>
     <p>
       To visually see the difference between the actual values and the predicted values, we can
@@ -325,7 +392,7 @@ pizza_sales &lt;- pizza_sales |>
       our points.
     </p>
     <program language="r">
-      <code>
+      <input>
 # What if we want to see actual vs predicted on our plot?
 pizza_plot_residuals &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
   geom_point(size = 3)  +
@@ -339,7 +406,7 @@ pizza_plot_residuals &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
   )
 
 pizza_plot_residuals
-      </code>
+      </input>
     </program>
     <p>
       With our residuals, we want them to be random. Visually, that means that the residual
@@ -347,7 +414,7 @@ pizza_plot_residuals
       residuals themselves.
     </p>
     <program language="r">
-      <code>
+      <input>
 # Let us graph our residuals to make sure they are random
 ggplot(pizza_sales, aes(x = predicted, y = residuals)) +
   geom_point(color = "blue") +
@@ -358,18 +425,18 @@ ggplot(pizza_sales, aes(x = predicted, y = residuals)) +
     x = "Predicted Volume",
     y = "Residuals"
   )
-      </code>
+      </input>
     </program>
     <p>
       The red line in the graph above has a slight curve, showing that our model is less accurate
       at the extremes (low and high prices). Thankfully, this pattern isn't very pronounced.
     </p>
-    <insight>
+    <assemblage>
       <title>To accompany the visual, we want to statistically test for heteroscedasticity, meaning:</title>
       <p>
         Are the residuals roughly equal in variance across all predicted values?
       </p>
-    </insight>
+    </assemblage>
     <p>
       We will either see:
       <ul>
@@ -382,12 +449,18 @@ ggplot(pizza_sales, aes(x = predicted, y = residuals)) +
       <c>bptest()</c> function from the <c>lmtest</c> package.
     </p>
     <program language="r">
-      <code>
+      <input>
 library(lmtest)
 
 bptest(pizza_lm)
-      </code>
-    </program>
+      </input>
+        <output>
+studentized Breusch-Pagan test
+
+data:  pizza_lm
+BP = 7.7392, df = 1, p-value = 0.005403
+        </output>
+      </program>
     <p>
       The main focus point here is the p-value:
       <ul>
@@ -424,7 +497,7 @@ bptest(pizza_lm)
       pizza shop and another on how much was spent on advertising.
     </p>
     <program language="r">
-      <code>
+      <input>
 # Now, let's add some other variables to our data
 set.seed(42)
 
@@ -435,7 +508,7 @@ pizza_sales &lt;- pizza_sales |>
 # 2) Ad spend
 pizza_sales &lt;- pizza_sales |>
   mutate(ad_spend = round(runif(n(), 800, 6000), 0))
-      </code>
+      </input>
     </program>
     <p>
       Now, since we have multiple variables, we can run what's called multivariate regression
@@ -443,7 +516,7 @@ pizza_sales &lt;- pizza_sales |>
       predictor.
     </p>
     <program language="r">
-      <code>
+      <input>
 m1 &lt;- lm(volume ~ price, data = pizza_sales)                      # baseline
 
 m2 &lt;- lm(volume ~ price + portnoy_visit, data = pizza_sales)      # add portnoy visit
@@ -451,7 +524,7 @@ m2 &lt;- lm(volume ~ price + portnoy_visit, data = pizza_sales)      # add portn
 m3 &lt;- lm(volume ~ price + ad_spend, data = pizza_sales)           # add ad spending
 
 m4 &lt;- lm(volume ~ price + ad_spend + portnoy_visit, data = pizza_sales)  # both
-      </code>
+      </input>
     </program>
     <p>
       Boom! In the code above, we have now run 4 regression models, with every combination
@@ -463,16 +536,23 @@ m4 &lt;- lm(volume ~ price + ad_spend + portnoy_visit, data = pizza_sales)  # bo
       <em>Or</em> we could utilize some commands in R to make our lives much easier.
     </p>
     <program language="r">
-      <code>
+      <input>
 # How do we know which model is the best?
 
 AIC(m1, m2, m3, m4) |> arrange(AIC)
 # This code provides us with an AIC (Akaike Information Criterion) value.
 # The smaller the AIC, the better the model's trade-off between complexity and fit.
-      </code>
-    </program>
+      </input>
+        <output>
+df      AIC
+m2  4 3486.244
+m4  5 3488.239
+m1  3 3491.395
+m3  4 3493.327
+        </output>
+      </program>
     <program language="r">
-      <code>
+      <input>
 # Let's say we want to use the broom function again to do a model comparison
 models &lt;- list(m1, m2, m3, m4)
 # In the code above, we are taking all of our models and putting them into a "list" of models
@@ -483,8 +563,17 @@ names(models) &lt;- c("m1","m2","m3","m4")
 # In the code below, we are saying "Hey, run glance on every single item on the models list and create a data frame
 
 map_df(models, ~glance(.x), .id = "model") |> select(model, r.squared,adj.r.squared,p.value,AIC)
-      </code>
-    </program>
+      </input>
+        <output>
+# A tibble: 4 × 5
+  model r.squared adj.r.squared  p.value   AIC
+  &lt;chr&gt;     &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+1 m1        0.431         0.427 1.36e-20 3491.
+2 m2        0.456         0.449 5.57e-21 3486.
+3 m3        0.431         0.424 1.79e-19 3493.
+4 m4        0.456         0.446 5.07e-20 3488.
+        </output>
+      </program>
     <p>
       With both of these, we now have:
     </p>
@@ -512,11 +601,30 @@ map_df(models, ~glance(.x), .id = "model") |> select(model, r.squared,adj.r.squa
         utilize the code below.
       </p>
       <program language="r">
-        <code>
+        <input>
 full_model &lt;- lm(volume ~ price + ad_spend + portnoy_visit, data = pizza_sales)
 
 step_model &lt;- step(full_model, direction = "both")
-        </code>
+        </input>
+        <output>
+Start:  AIC=3043.53
+volume ~ price + ad_spend + portnoy_visit
+
+                Df  Sum of Sq        RSS    AIC
+- ad_spend       1 1.4575e+06 4.4042e+10 3041.5
+&lt;none&gt;                        4.4041e+10 3043.5
+- portnoy_visit  1 2.0473e+09 4.6088e+10 3048.6
+- price          1 3.1199e+10 7.5240e+10 3125.1
+
+Step:  AIC=3041.54
+volume ~ price + portnoy_visit
+
+                Df  Sum of Sq        RSS    AIC
+&lt;none&gt;                        4.4042e+10 3041.5
++ ad_spend       1 1.4575e+06 4.4041e+10 3043.5
+- portnoy_visit  1 2.0659e+09 4.6108e+10 3046.7
+- price          1 3.1252e+10 7.5294e+10 3123.2
+        </output>
       </program>
     </subsection>
   </section>
@@ -700,12 +808,12 @@ step_model &lt;- step(full_model, direction = "both")
       predictors are included. After fitting the model, report diagnostics—such as residual plots
       and measures of fit—to demonstrate that assumptions were checked.
     </p>
-    <warning>
+    <assemblage>
       <title>Remember:</title>
       <p>
         Adding more variables does not always lead to a better model.
       </p>
-    </warning>
+    </assemblage>
     <p>
       Regression results are only reproducible when both the code <em>and the reasoning behind
       the model</em> are transparent.

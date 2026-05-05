@@ -15,13 +15,13 @@
       seeing if there is a difference between the actual means, which is exactly what we are going
       to be covering today.
     </p>
-    <note>
+    <assemblage>
       <title>In this lesson, we will be answering the question:</title>
       <p>
         <em>Do the Mets or Yankess score a significantly different amount of runs in their
         games?</em>
       </p>
-    </note>
+    </assemblage>
     <p>
       Not only will we be answering this question, but we'll also walk through a complete workflow
       for comparing two groups. Starting from creating and reshaping data, we will move to
@@ -90,23 +90,41 @@
       introduced in <xref ref="sec-intro-dataframes-creating"/>.
     </p>
     <program language="r">
-      <code>
+      <input>
 mets &lt;- data.frame(
   Game = c(1,2,3,4,5,6,7,8,9,10),
   Mets_Score = c(4,20,12,5,3,9,9,10,4,2)) # This is where we manually put our numbers in
 
 head(mets) # This calls the first 6 rows of the data
-      </code>
-    </program>
+      </input>
+        <output>
+Game Mets_Score
+1    1          4
+2    2         20
+3    3         12
+4    4          5
+5    5          3
+6    6          9
+        </output>
+      </program>
     <program language="r">
-      <code>
+      <input>
 yankees &lt;- data.frame(
   Game = c(1:10), # The colon tells R "any number between 1 and 10."
   Yankees_Score = c(3,8,2,3,2,6,5,3,2,7))
 
 tail(yankees) # This calls the last 6 rows of the data
-      </code>
-    </program>
+      </input>
+        <output>
+Game Yankees_Score
+5     5             2
+6     6             6
+7     7             5
+8     8             3
+9     9             2
+10   10             7
+        </output>
+      </program>
     <p>
       Perfect! We created two different data frames, <em>mets</em> and <em>yankees</em> with each
       having the two columns we were looking for.
@@ -116,7 +134,7 @@ tail(yankees) # This calls the last 6 rows of the data
       of the 2025 season.
     </p>
     <program language="r">
-      <code>
+      <input>
 mets_second_ten &lt;- data.frame(
   Game = c(11:20),
   Mets_Score = c(10,0,7,1,8,5,3,3,4,1))
@@ -124,7 +142,7 @@ mets_second_ten &lt;- data.frame(
 yankees_second_ten &lt;- data.frame(
   Game = c(11:20),
   Yankees_Score = c(0,4,1,8,4,4,4,4,6,1))
-      </code>
+      </input>
     </program>
     <p>
       Now, we successfully have datasets for the first 10 and first 20 games of the 2025 MLB
@@ -146,12 +164,12 @@ yankees_second_ten &lt;- data.frame(
         team? We can use a command in base R called <c>rbind</c>. The r stands for <q>rows</q> so
         this command is literally telling R to <q>bind the rows.</q>
       </p>
-      <note>
+      <assemblage>
         <title>When it comes to rbind:</title>
         <p>
           <em>It only works when the column names in the binding datasets are the same.</em>
         </p>
-      </note>
+      </assemblage>
       <p>
         When combining datasets, no matter which method, it is imperative that we check our data
         before and after to make sure the combining process worked how we anticipated. In this
@@ -160,7 +178,7 @@ yankees_second_ten &lt;- data.frame(
         means that there is an issue.
       </p>
       <program language="r">
-        <code>
+        <input>
 # Mets
 nrow(mets) # Seeing how many rows are in mets
 
@@ -176,7 +194,14 @@ nrow(yankees)
 nrow(yankees_second_ten)
 
 yankees_all &lt;- rbind(yankees, yankees_second_ten)
-        </code>
+        </input>
+        <output>
+[1] 10
+[1] 10
+[1] 20
+[1] 10
+[1] 10
+        </output>
       </program>
       <p>
         Success! Both of our datasets have 20 rows.
@@ -196,11 +221,34 @@ yankees_all &lt;- rbind(yankees, yankees_second_ten)
         sure there are 20 rows and 3 columns: Game, Mets_Score, and Yankees_Score.
       </p>
       <program language="r">
-        <code>
+        <input>
 baseball_data &lt;- merge(yankees_all, mets_all, by = "Game")
 
 baseball_data
-        </code>
+        </input>
+        <output>
+Game Yankees_Score Mets_Score
+1     1             3          4
+2     2             8         20
+3     3             2         12
+4     4             3          5
+5     5             2          3
+6     6             6          9
+7     7             5          9
+8     8             3         10
+9     9             2          4
+10   10             7          2
+11   11             0         10
+12   12             4          0
+13   13             1          7
+14   14             8          1
+15   15             4          8
+16   16             4          5
+17   17             4          3
+18   18             4          3
+19   19             6          4
+20   20             1          1
+        </output>
       </program>
       <p>
         Fantastic! We now have one complete dataset with the scores of the Mets and Yankees in the
@@ -248,7 +296,7 @@ baseball_data
           datasets have the same 20 games.
         </p>
         <program language="r">
-          <code>
+          <input>
 library(tidyverse)
 
 baseball_data_sql &lt;- inner_join(yankees_all, mets_all, by = "Game")
@@ -258,8 +306,33 @@ nrow(baseball_data_sql) # Checks the number of rows
 ncol(baseball_data_sql) # Checks the number of columns
 
 baseball_data_sql
-          </code>
-        </program>
+          </input>
+        <output>
+[1] 20
+[1] 3
+   Game Yankees_Score Mets_Score
+1     1             3          4
+2     2             8         20
+3     3             2         12
+4     4             3          5
+5     5             2          3
+6     6             6          9
+7     7             5          9
+8     8             3         10
+9     9             2          4
+10   10             7          2
+11   11             0         10
+12   12             4          0
+13   13             1          7
+14   14             8          1
+15   15             4          8
+16   16             4          5
+17   17             4          3
+18   18             4          3
+19   19             6          4
+20   20             1          1
+        </output>
+      </program>
         <p>
           One of the beautiful things in R is that you can get the same results using different
           code - just like we did here. Our two baseball datasets are identical even though we
@@ -283,7 +356,7 @@ baseball_data_sql
         data from wide to long.
       </p>
       <program language="r">
-        <code>
+        <input>
 # Lets say we want to turn out data from wide format into long format, so we can run
 baseball_data_long &lt;- baseball_data |> pivot_longer(cols = c(Yankees_Score, Mets_Score),
                                                     names_to = "Team",
@@ -292,7 +365,24 @@ baseball_data_long &lt;- baseball_data |> pivot_longer(cols = c(Yankees_Score, M
 nrow(baseball_data_long)
 
 baseball_data_long
-        </code>
+        </input>
+        <output>
+[1] 40
+# A tibble: 40 × 3
+    Game Team          Score
+   &lt;int&gt; &lt;chr&gt;         &lt;dbl&gt;
+ 1     1 Yankees_Score     3
+ 2     1 Mets_Score        4
+ 3     2 Yankees_Score     8
+ 4     2 Mets_Score       20
+ 5     3 Yankees_Score     2
+ 6     3 Mets_Score       12
+ 7     4 Yankees_Score     3
+ 8     4 Mets_Score        5
+ 9     5 Yankees_Score     2
+10     5 Mets_Score        3
+# ℹ 30 more rows
+        </output>
       </program>
     </subsection>
 
@@ -305,14 +395,40 @@ baseball_data_long
         format.
       </p>
       <program language="r">
-        <code>
+        <input>
 # Lets say we want to turn out data from wide format into long format, so we can run
 baseball_data_wide &lt;- baseball_data_long |> pivot_wider(names_from = "Team",
                                                     values_from = "Score")
 nrow(baseball_data_wide)
 
 baseball_data_wide
-        </code>
+        </input>
+        <output>
+[1] 20
+# A tibble: 20 × 3
+    Game Yankees_Score Mets_Score
+   &lt;int&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+ 1     1             3          4
+ 2     2             8         20
+ 3     3             2         12
+ 4     4             3          5
+ 5     5             2          3
+ 6     6             6          9
+ 7     7             5          9
+ 8     8             3         10
+ 9     9             2          4
+10    10             7          2
+11    11             0         10
+12    12             4          0
+13    13             1          7
+14    14             8          1
+15    15             4          8
+16    16             4          5
+17    17             4          3
+18    18             4          3
+19    19             6          4
+20    20             1          1
+        </output>
       </program>
     </subsection>
   </section>
@@ -331,7 +447,7 @@ baseball_data_wide
         that mean and average mean (pun intended) the same thing and are interchangeable words.
       </p>
       <program language="r">
-        <code>
+        <input>
 # Calculating the individual means of the teams scores, we can use our wide format
 yankees_average_score &lt;- mean(baseball_data$Yankees_Score)
 
@@ -347,7 +463,12 @@ mets_average_score
 overall_average &lt;- mean(baseball_data_long$Score)
 
 overall_average
-        </code>
+        </input>
+        <output>
+[1] 3.85
+[1] 6
+[1] 4.925
+        </output>
       </program>
       <p>
         Here is a breakdown of the means:
@@ -372,7 +493,7 @@ overall_average
         <xref ref="sec-ggplot-boxplot"/>.
       </p>
       <program language="r">
-        <code>
+        <input>
 library(ggplot2)
 ggplot(baseball_data_long, aes(Team, Score)) +
   geom_boxplot(outlier.shape = NA) +
@@ -384,7 +505,7 @@ ggplot(baseball_data_long, aes(Team, Score)) +
   y = "Runs Scored"
   ) +
   theme_classic()
-        </code>
+        </input>
       </program>
       <p>
         There has already been a lot of work done with our data, and through both visualizations
@@ -420,26 +541,38 @@ ggplot(baseball_data_long, aes(Team, Score)) +
           </li>
         </ul>
       </p>
-      <insight>
+      <assemblage>
         <title>Rule of thumb:</title>
         <p>
           If you can draw a line connecting observations across groups (same person, matched pair,
           same unit measured twice), it's paired.
         </p>
-      </insight>
+      </assemblage>
       <p>
         For our data, we need to conduct an unpaired t.test.
       </p>
       <program language="r">
-        <code>
+        <input>
 # Unpaired t.test
 baseball_t_test &lt;- t.test(baseball_data$Yankees_Score, baseball_data$Mets_Score, paired = F)
 # From a structural standpoint, if we needed to run a paired t.test, all we would need to do is change "paired = F" to "paired = T"
 
 baseball_t_test
-        </code>
+        </input>
+        <output>
+Welch Two Sample t-test
+
+data:  baseball_data$Yankees_Score and baseball_data$Mets_Score
+t = -1.823, df = 27.274, p-value = 0.07928
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -4.568735  0.268735
+sample estimates:
+mean of x mean of y 
+     3.85      6.00
+        </output>
       </program>
-      <insight>
+      <assemblage>
         <title>If you are working with long data, you cal use the formula:</title>
         <p>
           t.test(y ~ x, data = data_long)
@@ -447,7 +580,7 @@ baseball_t_test
         <p>
           t.test(Score ~ Team, data = baseball_data_long)
         </p>
-      </insight>
+      </assemblage>
       <p>
         The output when we call baseball_t_test tells us something extremely important: p-value.
         When looking at a p-value, we are looking to see if it is above or below the 0.05 mark.
@@ -600,13 +733,13 @@ baseball_t_test
       significant, <m>t(25.9) = 1.80, p = .084</m>. Although the Mets had a higher mean score,
       this result indicates insufficient evidence that the teams differed in average runs scored.
     </p>
-    <note>
+    <assemblage>
       <title>Reporting Note:</title>
       <p>
         The degrees of freedom (<m>25.9</m>) reflect a Welch's <m>t</m>-test, which is the
         default in R and does not assume equal variances between groups.
       </p>
-    </note>
+    </assemblage>
   </section>
 
   <section xml:id="sec-merge-tip">
