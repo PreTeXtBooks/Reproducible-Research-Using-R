@@ -89,7 +89,7 @@
       Mets games and creating a data frame with our data, and utilizing similar techniques
       introduced in <xref ref="sec-intro-dataframes-creating"/>.
     </p>
-    <program language="r">
+    <console prompt="&gt; ">
       <input>
 mets &lt;- data.frame(
   Game = c(1,2,3,4,5,6,7,8,9,10),
@@ -106,8 +106,8 @@ Game Mets_Score
 5    5          3
 6    6          9
         </output>
-      </program>
-    <program language="r">
+      </console>
+    <console prompt="&gt; ">
       <input>
 yankees &lt;- data.frame(
   Game = c(1:10), # The colon tells R "any number between 1 and 10."
@@ -124,7 +124,7 @@ Game Yankees_Score
 9     9             2
 10   10             7
         </output>
-      </program>
+      </console>
     <p>
       Perfect! We created two different data frames, <em>mets</em> and <em>yankees</em> with each
       having the two columns we were looking for.
@@ -134,7 +134,7 @@ Game Yankees_Score
       of the 2025 season.
     </p>
     <program language="r">
-      <input>
+      <code>
 mets_second_ten &lt;- data.frame(
   Game = c(11:20),
   Mets_Score = c(10,0,7,1,8,5,3,3,4,1))
@@ -142,7 +142,7 @@ mets_second_ten &lt;- data.frame(
 yankees_second_ten &lt;- data.frame(
   Game = c(11:20),
   Yankees_Score = c(0,4,1,8,4,4,4,4,6,1))
-      </input>
+      </code>
     </program>
     <p>
       Now, we successfully have datasets for the first 10 and first 20 games of the 2025 MLB
@@ -177,7 +177,7 @@ yankees_second_ten &lt;- data.frame(
         should have 20 rows. We will be checking using <c>nrow</c>, and any number besides 20
         means that there is an issue.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # Mets
 nrow(mets) # Seeing how many rows are in mets
@@ -202,7 +202,7 @@ yankees_all &lt;- rbind(yankees, yankees_second_ten)
 [1] 10
 [1] 10
         </output>
-      </program>
+      </console>
       <p>
         Success! Both of our datasets have 20 rows.
       </p>
@@ -220,7 +220,7 @@ yankees_all &lt;- rbind(yankees, yankees_second_ten)
         which is part of base R. To check that our data has merged successfully, we need to make
         sure there are 20 rows and 3 columns: Game, Mets_Score, and Yankees_Score.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 baseball_data &lt;- merge(yankees_all, mets_all, by = "Game")
 
@@ -249,7 +249,7 @@ Game Yankees_Score Mets_Score
 19   19             6          4
 20   20             1          1
         </output>
-      </program>
+      </console>
       <p>
         Fantastic! We now have one complete dataset with the scores of the Mets and Yankees in the
         first 20 games.
@@ -295,7 +295,7 @@ Game Yankees_Score Mets_Score
           In this case, we are going to use <c>inner_join</c>, since we know that both of our
           datasets have the same 20 games.
         </p>
-        <program language="r">
+        <console prompt="&gt; ">
           <input>
 library(tidyverse)
 
@@ -332,7 +332,7 @@ baseball_data_sql
 19   19             6          4
 20   20             1          1
         </output>
-      </program>
+      </console>
         <p>
           One of the beautiful things in R is that you can get the same results using different
           code - just like we did here. Our two baseball datasets are identical even though we
@@ -355,7 +355,7 @@ baseball_data_sql
         Using the <c>pivot_longer</c> function from the <c>tidyverse</c> package, we can turn our
         data from wide to long.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # Lets say we want to turn out data from wide format into long format, so we can run
 baseball_data_long &lt;- baseball_data |> pivot_longer(cols = c(Yankees_Score, Mets_Score),
@@ -383,7 +383,7 @@ baseball_data_long
 10     5 Mets_Score        3
 # ℹ 30 more rows
         </output>
-      </program>
+      </console>
     </subsection>
 
     <subsection xml:id="sec-long-format">
@@ -394,7 +394,7 @@ baseball_data_long
         wide, here is some code to help. Below, we are turning our baseball_data_long into a wide
         format.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # Lets say we want to turn out data from wide format into long format, so we can run
 baseball_data_wide &lt;- baseball_data_long |> pivot_wider(names_from = "Team",
@@ -429,7 +429,7 @@ baseball_data_wide
 19    19             6          4
 20    20             1          1
         </output>
-      </program>
+      </console>
     </subsection>
   </section>
 
@@ -446,7 +446,7 @@ baseball_data_wide
         Using the <c>mean</c> function, we can simply calculate the mean/s of our data. Just know
         that mean and average mean (pun intended) the same thing and are interchangeable words.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # Calculating the individual means of the teams scores, we can use our wide format
 yankees_average_score &lt;- mean(baseball_data$Yankees_Score)
@@ -469,7 +469,7 @@ overall_average
 [1] 6
 [1] 4.925
         </output>
-      </program>
+      </console>
       <p>
         Here is a breakdown of the means:
         <ul>
@@ -493,7 +493,7 @@ overall_average
         <xref ref="sec-ggplot-boxplot"/>.
       </p>
       <program language="r">
-        <input>
+        <code>
 library(ggplot2)
 ggplot(baseball_data_long, aes(Team, Score)) +
   geom_boxplot(outlier.shape = NA) +
@@ -505,7 +505,7 @@ ggplot(baseball_data_long, aes(Team, Score)) +
   y = "Runs Scored"
   ) +
   theme_classic()
-        </input>
+        </code>
       </program>
       <p>
         There has already been a lot of work done with our data, and through both visualizations
@@ -551,7 +551,7 @@ ggplot(baseball_data_long, aes(Team, Score)) +
       <p>
         For our data, we need to conduct an unpaired t.test.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # Unpaired t.test
 baseball_t_test &lt;- t.test(baseball_data$Yankees_Score, baseball_data$Mets_Score, paired = F)
@@ -571,7 +571,7 @@ sample estimates:
 mean of x mean of y 
      3.85      6.00
         </output>
-      </program>
+      </console>
       <assemblage>
         <title>If you are working with long data, you cal use the formula:</title>
         <p>

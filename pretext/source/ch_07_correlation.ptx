@@ -51,7 +51,7 @@
 
     <listing xml:id="lst-loading-data">
       <caption>The skim function provides us with value information for a first look at our data.</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 library(tidyverse)
 library(reproresearchR)
@@ -93,7 +93,7 @@ Group variables            None
 2 ▃▃▅▇▅
 3 ▁▁▁▆▇
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -127,7 +127,7 @@ Group variables            None
 
     <listing xml:id="lst-cleaning-names">
       <caption>Cleaning column names using clean_names() from the janitor package.</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 library(janitor)
 colnames(examData) # Before we clean the data
@@ -144,7 +144,7 @@ colnames(examData) # After we clean the data
 [3] "exam_score"                       "anxiety_score"                   
 [5] "first_generation_college_student"
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -174,7 +174,7 @@ colnames(examData) # After we clean the data
     <listing xml:id="lst-scatterplot-correlation">
       <caption>Scatterplot showing the relationship between studying time and exam performance, with points colored by if they're a first generation college student and a fitted linear trend line. The upward trend suggests a positive linear association, indicating that students who spend more time studying tend to achieve higher exam scores. This visualization motivates the use of a correlation coefficient to quantify the strength of the relationship.</caption>
       <program language="r">
-        <input>
+        <code>
 p1 &lt;- ggplot(examData, aes(x = studying_hours, y = exam_score)) +
   geom_point(aes(color = first_generation_college_student), size = 3, alpha = 0.8) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -186,14 +186,14 @@ p1 &lt;- ggplot(examData, aes(x = studying_hours, y = exam_score)) +
   )
 
 p1
-        </input>
+        </code>
       </program>
     </listing>
 
     <listing xml:id="lst-anxiety-performance">
       <caption>Scatterplot illustrating the relationship between exam anxiety and exam performance, with a fitted linear trend line. The downward trend indicates a negative linear association, suggesting that higher anxiety levels are associated with lower exam scores. This visualization supports the use of correlation to formally assess the direction and strength of the relationship.</caption>
       <program language="r">
-        <input>
+        <code>
 p2 &lt;- ggplot(examData, aes(x = anxiety_score, y = exam_score)) +
   geom_point(aes(color = first_generation_college_student), size = 3, alpha = 0.8) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -205,14 +205,14 @@ p2 &lt;- ggplot(examData, aes(x = anxiety_score, y = exam_score)) +
   )
 
 p2
-        </input>
+        </code>
       </program>
     </listing>
 
     <listing xml:id="lst-studying-anxiety">
       <caption>Scatterplot displaying the relationship between studying time and exam anxiety, with points colored by if they're a first generation college student and a fitted linear trend line. The negative linear pattern suggests that increased study time is associated with lower anxiety levels, providing visual evidence of a linear relationship prior to computing a correlation coefficient.</caption>
       <program language="r">
-        <input>
+        <code>
 p3 &lt;- ggplot(examData, aes(x = studying_hours, y = anxiety_score)) +
   geom_point(aes(color = first_generation_college_student), size = 3, alpha = 0.8) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -224,7 +224,7 @@ p3 &lt;- ggplot(examData, aes(x = studying_hours, y = anxiety_score)) +
   )
 
 p3
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -259,9 +259,9 @@ p3
     <listing xml:id="lst-pairs">
       <caption>Scatterplot matrix displaying pairwise relationships among studying time, exam performance, and exam anxiety. Each panel shows the relationship between two variables, allowing for simultaneous assessment of direction, strength, and linearity prior to formal correlation analysis.</caption>
       <program language="r">
-        <input>
+        <code>
 pairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -279,11 +279,11 @@ pairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
     <listing xml:id="lst-ggally-correlation">
       <caption>Enhanced scatterplot matrix displaying pairwise relationships among studying time, exam performance, and exam anxiety. The diagonal panels show variable distributions, while off-diagonal panels display scatterplots and correlation coefficients. This visualization allows for simultaneous assessment of linearity, direction, strength of association, and distributional properties prior to formal correlation analysis.</caption>
       <program language="r">
-        <input>
+        <code>
 library(GGally)
 
 ggpairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -328,7 +328,7 @@ ggpairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
 
     <listing xml:id="lst-strength-guidelines">
       <caption>General guidelines for interpreting correlation strength.</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 library(knitr)
 library(kableExtra)
@@ -369,7 +369,7 @@ kable(cor_table,
 &lt;/tbody&gt;
 &lt;/table&gt;
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -379,7 +379,7 @@ kable(cor_table,
 
     <listing xml:id="lst-correlation">
       <caption>Computing Pearson correlation coefficients between pairs of variables.</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 cor(examData$studying_hours, examData$exam_score)     # Study time vs performance
 
@@ -392,7 +392,7 @@ cor(examData$studying_hours, examData$anxiety_score)  # Study time vs anxiety
 [1] -0.4449023
 [1] -0.7122237
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -412,7 +412,7 @@ cor(examData$studying_hours, examData$anxiety_score)  # Study time vs anxiety
 
     <listing xml:id="lst-correlation-test">
       <caption>Testing statistical significance of correlation coefficients using cor.test().</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 cor.test(examData$studying_hours, examData$exam_score)     # Study time vs performance
 
@@ -456,7 +456,7 @@ sample estimates:
        cor 
 -0.7122237
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -494,7 +494,7 @@ sample estimates:
 
     <listing xml:id="lst-matrix-correlation">
       <caption>Correlation Matrix of Exam Performance, Anxiety Scores, and Studying Hours</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # Selecting numeric variables only (if dataset contains non-numeric columns)
 library(tidyverse)
@@ -511,7 +511,7 @@ studying_hours      1.0000000  0.3900419    -0.7122237
 exam_score          0.3900419  1.0000000    -0.4449023
 anxiety_score      -0.7122237 -0.4449023     1.0000000
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -537,7 +537,7 @@ anxiety_score      -0.7122237 -0.4449023     1.0000000
 
     <listing xml:id="lst-r-squared">
       <caption>Calculating the coefficient of determination (R²) from correlation coefficients.</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # R^2 tells us the percentage of variance shared between two variables.
 
@@ -558,7 +558,7 @@ cor(examData$studying_hours, examData$anxiety_score)^2*100
 [1] 15.21327
 [1] 50.72625
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -599,7 +599,7 @@ cor(examData$studying_hours, examData$anxiety_score)^2*100
     <listing xml:id="lst-ppcor-test">
       <caption>Running partial correlations while controlling for a third variable using pcor.test().</caption>
       <program language="r">
-        <input>
+        <code>
 library(ppcor)
 
 # Partial correlation between Anxiety and Exam controlling for Studying
@@ -607,7 +607,7 @@ pcor.test(examData$anxiety_score, examData$exam_score, examData$studying_hours)
 
 # Uno reverse: controlling for Anxiety instead of Studying
 pcor.test(examData$studying_hours, examData$exam_score, examData$anxiety_score)
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -641,7 +641,7 @@ pcor.test(examData$studying_hours, examData$exam_score, examData$anxiety_score)
 
     <listing xml:id="lst-biserial">
       <caption>Converting a categorical variable to binary and running a point-biserial correlation.</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # What do you do when you have a biserial (you're either dead or alive)
 # Or when you have a point-biserial (failed by 1 pts vs failed by 42 pts vs passed by 4pts)
@@ -661,7 +661,7 @@ sample estimates:
       cor 
 0.0304735
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -681,7 +681,7 @@ sample estimates:
 
     <listing xml:id="lst-grouping-college">
       <caption>Correlation Coefficients for Exam Performance by First-Generation Status.</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 examData |>
   group_by(first_generation_college_student) |>
@@ -697,7 +697,7 @@ examData |>
 |No                               |             0.45|              -0.39|
 |Yes                              |             0.34|              -0.51|
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -845,7 +845,7 @@ examData |>
       <listing xml:id="lst-cor-prep">
         <caption>Computing correlation values to use in the APA write-up.</caption>
         <program language="r">
-          <input>
+          <code>
 # Calculate the correlation test
 res_anx &lt;- cor.test(examData$anxiety_score, examData$exam_score)
 
@@ -854,7 +854,7 @@ res_anx &lt;- cor.test(examData$anxiety_score, examData$exam_score)
 anx_r &lt;- round(res_anx$estimate, 2)
 anx_p &lt;- round(res_anx$p.value, 3)
 anx_r2 &lt;- round(anx_r^2 * 100, 1)
-          </input>
+          </code>
         </program>
       </listing>
 

@@ -23,18 +23,35 @@ The book is automatically built and validated when commits are made to pull requ
 
 ## R Code Support
 
-The book includes support for R code examples with syntax highlighting. R code blocks are defined using:
+The book includes support for R code examples. There are two types of R code blocks:
+
+**Code only** (with syntax highlighting, no output):
 
 ```xml
 <program language="r">
-  <input>
+  <code>
 # Your R code here
 x &lt;- 10  # Use &lt; for < in XML
-  </input>
+  </code>
 </program>
 ```
 
-For interactive code blocks, add the `interactive="yes"` attribute.
+**Code with output** (shows code and its R output together):
+
+```xml
+<console prompt="&gt; ">
+  <input>
+# Your R code here
+x &lt;- 10
+x
+  </input>
+  <output>
+[1] 10
+  </output>
+</console>
+```
+
+The `<console>` element renders both the code (bold, prefixed with the R prompt `>`) and the output below it.
 
 ## Images
 

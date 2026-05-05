@@ -253,7 +253,7 @@
           <xref ref="sec-tidyverse-together"/> of the book.
         </p>
         <program language="r">
-          <input>
+          <code>
 library(tidyverse)
 library(palmerpenguins)
 
@@ -263,7 +263,7 @@ penguins_new &lt;- penguins %>%
   mutate(size_category = if_else(body_mass_g >= 3500, "Big","Small")) %>%
   arrange(desc(body_mass_g)) %>%
   rename(penguin_types = species)
-          </input>
+          </code>
         </program>
         <p>
           This code works just as it did in the third chapter. In the R Markdown document, all of
@@ -275,14 +275,14 @@ penguins_new &lt;- penguins %>%
           call what we want to be displayed! For instance, if we want to display the square root
           of 25:
         </p>
-        <program language="r">
+        <console prompt="&gt; ">
           <input>
 sqrt(25)
           </input>
         <output>
 [1] 5
         </output>
-      </program>
+      </console>
         <p>
           With the above R code, our R Markdown file shows both the <c>sqrt(25)</c> code as well
           as the answer (5).
@@ -299,7 +299,7 @@ sqrt(25)
             <xref ref="sec-code-chunks-rmd"/>, we "created" it. Now, let's see what happens when
             we call the output.
           </p>
-          <program language="r">
+          <console prompt="&gt; ">
             <input>
 penguins_new
             </input>
@@ -319,7 +319,7 @@ penguins_new
 10 Adelie        Torgersen           41.8        4450 Big          
 # ℹ 142 more rows
         </output>
-      </program>
+      </console>
           <p>
             By calling <c>penguins_new</c>, the R Markdown document now displays the output,
             which in this case is <c>penguins_new</c>.
@@ -329,7 +329,7 @@ penguins_new
             Using the <c>knitr</c> package, we can display tables with the <c>kable()</c>
             function, which is purposely dedicated to displaying tabular data in R Markdown.
           </p>
-          <program language="r">
+          <console prompt="&gt; ">
             <input>
 library(knitr)
 kable(head(penguins_new), caption = "This is an example of displaying a table using the kable command. On top of the data looking nicer then just a regular output, we can add a caption (and manipulate other aesthetic pieces.")
@@ -346,7 +346,7 @@ Table: This is an example of displaying a table using the kable command. On top 
 |Adelie        |Dream     |           39.8|        4650|Big           |
 |Adelie        |Dream     |           39.6|        4600|Big           |
         </output>
-      </program>
+      </console>
           <p>
             If we compare and contrast the output from just <c>penguins_new</c> vs the output
             from the <c>kable()</c> function, there is a stark difference. One of the most
@@ -382,11 +382,11 @@ Table: This is an example of displaying a table using the kable command. On top 
             <c>fig.cap</c> goes in the top <c>{}</c> of the R chunk.
           </p>
           <program language="r">
-            <input>
+            <code>
 # {r example-ggplot2, fig.cap="An example of a visualization made using ggplot2."}
 ggplot(data = mpg, aes(x = cty, y = hwy)) +
   geom_point()
-            </input>
+            </code>
           </program>
           <p>
             This visualization, which we originally built in Section

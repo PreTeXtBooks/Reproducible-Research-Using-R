@@ -90,7 +90,7 @@
 
     <listing xml:id="lst-creating-our-data">
       <caption>Creating a reproducible dataset with three study method groups.</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 library(tidyverse)
 
@@ -113,7 +113,7 @@ Columns: 2
 $ method &lt;chr&gt; "Flashcards", "Flashcards", "Flashcards", "Flashcards", "Flashc…
 $ score  &lt;dbl&gt; 70.51619, 73.15858, 87.46967, 75.56407, 76.03430, 88.72052, 78.…
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -131,7 +131,7 @@ $ score  &lt;dbl&gt; 70.51619, 73.15858, 87.46967, 75.56407, 76.03430, 88.72052,
 
     <listing xml:id="lst-summary-table">
       <caption>A summarized table grouped by the method, with average, standard deviation, and the number of rows.</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # Creating a summarizing table
 memory_summarized &lt;- memory |>
@@ -152,7 +152,7 @@ memory_summarized
 2 Rereading        69.5     7.47    20
 3 Testing          85.7     6.70    20
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -163,11 +163,11 @@ memory_summarized
     <listing xml:id="lst-favstats">
       <caption>A summarized table using the function favstats() instead of summarize().</caption>
       <program language="r">
-        <input>
+        <code>
 library(mosaic)
 
 favstats(score ~ method, data = memory)
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -198,7 +198,7 @@ favstats(score ~ method, data = memory)
     <listing xml:id="lst-plots-anova">
       <caption>Boxplots showing the distribution of memory test scores for each study technique, highlighting differences in central tendency and variability across groups.</caption>
       <program language="r">
-        <input>
+        <code>
 ggplot(memory, aes(x = method, y = score, fill = method)) +
   geom_boxplot(alpha = 0.7) +
   labs(
@@ -207,14 +207,14 @@ ggplot(memory, aes(x = method, y = score, fill = method)) +
     y = "Memory Test Score"
   ) +
   theme_minimal()
-        </input>
+        </code>
       </program>
     </listing>
 
     <listing xml:id="lst-anova-means-plot">
       <caption>Average memory test scores by study technique. While differences in group means are apparent, statistical significance is assessed using a one-way ANOVA rather than visual inspection alone.</caption>
       <program language="r">
-        <input>
+        <code>
 memory |>
   group_by(method) |>
   summarize(mean_score = mean(score)) |>
@@ -227,7 +227,7 @@ memory |>
     y = "Average Score"
   ) +
   theme_minimal()
-        </input>
+        </code>
       </program>
     </listing>
   </section>
@@ -243,10 +243,10 @@ memory |>
     <listing xml:id="lst-ttest">
       <caption>Attempting to run a t.test on data with more than two groups.</caption>
       <program language="r">
-        <input>
+        <code>
 # Last chapter we learned how to run a t.test. Let's try it out now.
 try(t.test(score ~ method, data = memory))
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -283,7 +283,7 @@ try(t.test(score ~ method, data = memory))
 
     <listing xml:id="lst-anova">
       <caption>One-way ANOVA Summary Table: Studying Method and Memory Scores</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # running an anova
 anova_model &lt;- aov(score ~ method, data = memory)
@@ -297,7 +297,7 @@ Residuals   57   3064    53.8
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -308,10 +308,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
     <listing xml:id="lst-anova-supernova">
       <caption>One-way ANOVA Supernova Table: Studying Method and Memory Scores</caption>
       <program language="r">
-        <input>
+        <code>
 library(supernova)
 supernova(anova_model)  # clearer ANOVA table
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -375,7 +375,7 @@ supernova(anova_model)  # clearer ANOVA table
 
     <listing xml:id="lst-post-hoc">
       <caption>Tukey's Honest Significant Difference (HSD) Post-hoc Comparisons: Pairwise Mean Differences Between Study Techniques</caption>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 TukeyHSD(anova_model)
         </input>
@@ -391,7 +391,7 @@ Rereading-Flashcards -6.594305 -12.173359 -1.015251 0.0167319
 Testing-Flashcards    9.612406   4.033352 15.191460 0.0003304
 Testing-Rereading    16.206711  10.627657 21.785765 0.0000000
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -417,9 +417,9 @@ Testing-Rereading    16.206711  10.627657 21.785765 0.0000000
     <listing xml:id="lst-post-hoc-plot">
       <caption>Tukey's HSD post-hoc comparison plot showing confidence intervals for pairwise mean differences between study techniques. Each horizontal line represents a comparison between two groups; intervals that do not cross zero indicate statistically significant differences following a significant ANOVA.</caption>
       <program language="r">
-        <input>
+        <code>
 plot(TukeyHSD(anova_model))
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -457,13 +457,13 @@ plot(TukeyHSD(anova_model))
     <listing xml:id="lst-adding-caffeine">
       <caption>Adding a caffeine variable to the memory dataset.</caption>
       <program language="r">
-        <input>
+        <code>
 # Let's say we also measured caffeine intake (low vs high)
 set.seed(42)
 memory2 &lt;- memory |>
   mutate(
     caffeine = rep(c("Low", "High"), times = 30))
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -477,12 +477,12 @@ memory2 &lt;- memory |>
     <listing xml:id="lst-interaction">
       <caption>Two-way ANOVA Supernova Table: Studying Method, Memory Scores, and Caffeine</caption>
       <program language="r">
-        <input>
+        <code>
 # To see the interaction between method and caffeine levels, we add a *
 anova_2 &lt;- aov(score ~ method * caffeine, data = memory2)
 
 supernova(anova_2)
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -496,7 +496,7 @@ supernova(anova_2)
     <listing xml:id="lst-interaction-plot">
       <caption>Interaction plot between Study Method and Caffeine Level. The near-parallel lines indicate that caffeine does not significantly alter the effectiveness of different study methods.</caption>
       <program language="r">
-        <input>
+        <code>
 ggplot(memory2, aes(x = method, y = score, color = caffeine, group = caffeine)) +
   stat_summary(fun = mean, geom = "point") +
   stat_summary(fun = mean, geom = "line") +
@@ -504,7 +504,7 @@ ggplot(memory2, aes(x = method, y = score, color = caffeine, group = caffeine)) 
        x = "Study Method",
        y = "Mean Memory Score") +
   theme_minimal()
-        </input>
+        </code>
       </program>
     </listing>
 
@@ -534,7 +534,7 @@ ggplot(memory2, aes(x = method, y = score, color = caffeine, group = caffeine)) 
     <listing xml:id="lst-model-comparison">
       <caption>Model Comparison using AIC: Evaluating One-Way vs. Two-Way ANOVA for Memory Performance</caption>
       <program language="r">
-        <input>
+        <code>
 # Compare one-way vs. two-way models
 library(AICcmodavg)
 model.set &lt;- list(
@@ -544,7 +544,7 @@ model.set &lt;- list(
 model.names &lt;- c("One-way", "Two-way")
 
 aictab(model.set, modnames = model.names)
-        </input>
+        </code>
       </program>
     </listing>
 

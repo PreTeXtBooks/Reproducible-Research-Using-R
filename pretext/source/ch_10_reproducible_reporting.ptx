@@ -293,7 +293,7 @@ editor: visual
           <xref ref="sec-tidyverse-together"/> of the book.
         </p>
         <program language="r">
-          <input>
+          <code>
 library(tidyverse)
 library(palmerpenguins)
 
@@ -303,7 +303,7 @@ penguins_new &lt;- penguins |>
   mutate(size_category = if_else(body_mass_g >= 3500, "Big","Small")) |>
   arrange(desc(body_mass_g)) |>
   rename(penguin_types = species)
-          </input>
+          </code>
         </program>
         <p>
           This code works just as it did in the third chapter. In the Quarto document, all of the
@@ -315,14 +315,14 @@ penguins_new &lt;- penguins |>
           call what we want to be displayed! For instance, if we want to display the square root
           of 25 (like in <xref ref="sec-intro-calculator-functions"/>):
         </p>
-        <program language="r">
+        <console prompt="&gt; ">
           <input>
 sqrt(25)
           </input>
         <output>
 [1] 5
         </output>
-      </program>
+      </console>
         <p>
           With the above R code, our Quarto document shows both the <c>sqrt(25)</c> code as well
           as the answer (5).
@@ -363,7 +363,7 @@ sqrt(25)
             <xref ref="sec-code-chunks"/>, we "created" it. Now, let's see what happens when we
             call the output.
           </p>
-          <program language="r">
+          <console prompt="&gt; ">
             <input>
 penguins_new
             </input>
@@ -383,7 +383,7 @@ penguins_new
 10 Adelie        Torgersen           41.8        4450 Big          
 # ℹ 142 more rows
         </output>
-      </program>
+      </console>
           <p>
             By calling <c>penguins_new</c>, the Quarto document now displays the output, which
             in this case is <c>penguins_new</c>.
@@ -395,7 +395,7 @@ penguins_new
               display, make sure its name starts with <c>tbl-</c>.
             </p>
           </assemblage>
-          <program language="r">
+          <console prompt="&gt; ">
             <input>
 #| label: tbl-penguins_new_display
 #| tbl-cap: "Showing what a plain table looks like in a Quarto document."
@@ -417,7 +417,7 @@ penguins_new
 10 Adelie        Torgersen           41.8        4450 Big          
 # ℹ 142 more rows
         </output>
-      </program>
+      </console>
           <p>
             Now, that works, but in Quarto, there is an even better way to display tables. Using
             the <c>knitr</c> package (<cite key="R-knitr"/>), we can display tables with the
@@ -441,7 +441,7 @@ penguins_new
               <c>kableExtra</c> package.
             </p>
           </assemblage>
-          <program language="r">
+          <console prompt="&gt; ">
             <input>
 #| label: tbl-penguins_new_display_kable
 library(knitr)
@@ -459,7 +459,7 @@ Table: This is an example of displaying a table using the kable command. On top 
 |Adelie        |Dream     |           39.8|        4650|Big           |
 |Adelie        |Dream     |           39.6|        4600|Big           |
         </output>
-      </program>
+      </console>
           <p>
             If we compare and contrast the output from just <c>penguins_new</c> vs the output
             from the <c>kable()</c> function, there is a stark difference. One of the most
@@ -512,13 +512,13 @@ Table: This is an example of displaying a table using the kable command. On top 
             caption, you can use <c>fig-cap:</c> on a line with the <c>#|</c>.
           </p>
           <program language="r">
-            <input>
+            <code>
 #| label: fig-example-ggplot2
 #| fig-cap: "An example of a visualization made using ggplot2."
 library(ggplot2)
 ggplot(data = mpg, aes(x = cty, y = hwy)) +
   geom_point()
-            </input>
+            </code>
           </program>
           <p>
             This visualization, which we originally built in Section

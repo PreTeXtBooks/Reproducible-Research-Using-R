@@ -87,7 +87,7 @@ install.packages("cowsay")
         an R session, <alert>you do</alert> need to load it. This can be done using the command
         <c>library()</c>.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 library(tidyverse)
 library(palmerpenguins)
@@ -102,7 +102,7 @@ sessionInfo()$otherPkgs |> names()
  [5] "dplyr"          "purrr"          "readr"          "tidyr"         
  [9] "tibble"         "ggplot2"        "tidyverse"
         </output>
-      </program>
+      </console>
       <p>
         We have successfully loaded all of the packages (and in turn all of their contents). That
         means that as long as we do not close this R session, we can utilize the packages.
@@ -116,12 +116,12 @@ sessionInfo()$otherPkgs |> names()
         Below the animal is <q>cow</q> but try some other ones (I suggest <q>dragon</q>).
       </p>
       <program language="r">
-        <input>
+        <code>
 # Fun packages
 fortunes::fortune()   # random quote about R
 
 cowsay::say("Welcome to tidyverse!", by = "cow")
-        </input>
+        </code>
       </program>
       <p>
         It isn't always necessary, nor will it be done a lot in this book, but you can use the
@@ -150,10 +150,10 @@ install.packages("nycOpenData")
         Now we load it and call the function.
       </p>
       <program language="r">
-        <input>
+        <code>
 library(nycOpenData)
 head(nyc_311())
-        </input>
+        </code>
       </program>
       <p>
         With some examples under our belt, let's move to the tidyverse!
@@ -229,7 +229,7 @@ head(nyc_311())
         Piping is telling R the sequence you want things to be done in code, and uses <c>|&gt;</c>.
         Below is an example of how you would write something.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # In base R, to find the square root of a number, we would use this:
 sqrt(42)
@@ -241,7 +241,7 @@ sqrt(42)
 [1] 6.480741
 [1] 6.480741
         </output>
-      </program>
+      </console>
       <assemblage>
         <title>The Native Pipe <c>|&gt;</c> vs. <c>%&gt;%</c></title>
         <p>
@@ -266,7 +266,7 @@ sqrt(42)
         the <c>str_trim()</c> removes leading and trailing whitespace in a string. Both are a part
         of the <c>stringr</c> package in the <c>tidyverse</c>.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 str_to_upper(str_trim(" i love r! "))
 
@@ -281,7 +281,7 @@ str_to_upper(str_trim(" i love r! "))
 [1] "I LOVE R!"
 [1] "I LOVE R!"
         </output>
-      </program>
+      </console>
       <p>
         Those two pieces of code do the same thing, but they look <alert>very</alert> different:
       </p>
@@ -324,7 +324,7 @@ str_to_upper(str_trim(" i love r! "))
         We have a dataset that we don't quite know too much about. Let's first find out some
         information about it using what we learned from base R in the last chapter.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 ncol(penguins)      # Finding out the number of columns
 
@@ -339,7 +339,7 @@ colnames(penguins)  # Finding out the names of the columns
 [4] "bill_depth_mm"     "flipper_length_mm" "body_mass_g"      
 [7] "sex"               "year"
         </output>
-      </program>
+      </console>
       <p>
         Great, we now know that there are 344 rows of data, 8 columns, and all the column names.
         We know that there are different types of penguins, and that the species is a column in
@@ -353,7 +353,7 @@ colnames(penguins)  # Finding out the names of the columns
           Keep only distinct rows from a data frame.
         </p>
       </assemblage>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 penguins |> distinct(species)
         </input>
@@ -365,14 +365,14 @@ penguins |> distinct(species)
 2 Gentoo   
 3 Chinstrap
         </output>
-      </program>
+      </console>
       <p>
         That one line of code filtered through all 344 rows and figured out that there are only
         three different species of penguins in the <c>penguins</c> dataset. But it doesn't stop
         there - you can also use the <c>distinct()</c> command to see distinct combinations of
         data too. For example:
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 penguins |> distinct(species, island)
         </input>
@@ -386,7 +386,7 @@ penguins |> distinct(species, island)
 4 Gentoo    Biscoe   
 5 Chinstrap Dream
         </output>
-      </program>
+      </console>
       <p>
         Very interesting! We can see that the <q>Adelie</q> species is found on three different
         islands, whereas the other two species are only found on one island each (and different
@@ -411,7 +411,7 @@ penguins |> distinct(species, island)
           Changes which columns exist.
         </p>
       </assemblage>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 penguins |> select(species, island, bill_length_mm, body_mass_g)
         </input>
@@ -431,13 +431,13 @@ penguins |> select(species, island, bill_length_mm, body_mass_g)
 10 Adelie  Torgersen           42          4250
 # ℹ 334 more rows
         </output>
-      </program>
+      </console>
       <p>
         Instead of using the actual column names, we can use the column indices - which number
         (in order). Below is an example using the column indexes (hint: it uses a comma and a
         colon.)
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 # This is saying let's take the first column, and then every column from 3 to 5
 penguins |> select(1,3:5)
@@ -458,7 +458,7 @@ penguins |> select(1,3:5)
 10 Adelie            42            20.2               190
 # ℹ 334 more rows
         </output>
-      </program>
+      </console>
       <p>
         Note that no matter if we specifically named the columns or used their index numbers, we
         get the same result. <alert>However</alert> using column numbers works, but can break if
@@ -507,7 +507,7 @@ penguins |> select(1,3:5)
       <p>
         We will filter for only rows that have the word Adelie inside the species column.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 penguins |>
   filter(species == "Adelie")
@@ -529,7 +529,7 @@ penguins |>
 # ℹ 142 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
       <p>
         With that piece of code, the output only returned rows where Adelie is the species.
       </p>
@@ -551,7 +551,7 @@ penguins |>
           Important: rows that return have to meet <alert>both</alert> criteria. If in that row
           either none, or even one, of the criteria are met, then that row will not return.
         </p>
-        <program language="r">
+        <console prompt="&gt; ">
           <input>
 penguins |>
   filter(species == "Adelie" &amp; island == "Torgersen")
@@ -573,14 +573,14 @@ penguins |>
 # ℹ 42 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
         <p>
           That returned exactly what we wanted. But, what if we changed our mind. We want to
           return rows that <alert>either</alert> have <q>Adelie</q> as their species
           <alert>or</alert> the island is <q>Torgersen</q>. Instead of using the <c>&amp;</c>
           symbol, we need to use the <c>|</c> symbol.
         </p>
-        <program language="r">
+        <console prompt="&gt; ">
           <input>
 penguins |>
   filter(species == "Adelie" | island == "Torgersen")
@@ -602,7 +602,7 @@ penguins |>
 # ℹ 142 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
         <p>
           Now, instead of returning rows that have both <q>Adelie</q> and <q>Torgersen</q>, the
           code returns rows where either species is equal to <q>Adelie</q> or island is equal to
@@ -617,7 +617,7 @@ penguins |>
           the first filters for any body mass over 4,000 grams, and the second filters for species
           that are either <c>Adelie</c> or <c>Gentoo</c>.
         </p>
-        <program language="r">
+        <console prompt="&gt; ">
           <input>
 penguins |> filter(body_mass_g &gt;= 4000)
           </input>
@@ -638,8 +638,8 @@ penguins |> filter(body_mass_g &gt;= 4000)
 # ℹ 167 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
-        <program language="r">
+      </console>
+        <console prompt="&gt; ">
           <input>
 penguins |> filter(species %in% c("Adelie", "Gentoo"))
           </input>
@@ -660,7 +660,7 @@ penguins |> filter(species %in% c("Adelie", "Gentoo"))
 # ℹ 266 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
       </subsubsection>
 
       <subsubsection xml:id="sec-tidyverse-filter-na">
@@ -671,7 +671,7 @@ penguins |> filter(species %in% c("Adelie", "Gentoo"))
           utilize <c>is.na()</c> to filter for which are NA and the <c>drop_na()</c> to remove
           all rows that have <alert>at least</alert> one NA value.
         </p>
-        <program language="r">
+        <console prompt="&gt; ">
           <input>
 penguins |> filter(is.na(body_mass_g))    # Filter for rows that have missing data
           </input>
@@ -683,8 +683,8 @@ penguins |> filter(is.na(body_mass_g))    # Filter for rows that have missing da
 2 Gentoo  Biscoe                NA            NA                NA          NA
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
-        <program language="r">
+      </console>
+        <console prompt="&gt; ">
           <input>
 penguins |> drop_na(body_mass_g)          # Filters for rows that don't have missing data
           </input>
@@ -705,7 +705,7 @@ penguins |> drop_na(body_mass_g)          # Filters for rows that don't have mis
 # ℹ 332 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
         <p>
           As a cautionary tale, always be careful with how you handle NA values, as different
           situations really do require different handling of NA values.
@@ -730,7 +730,7 @@ penguins |> drop_na(body_mass_g)          # Filters for rows that don't have mis
           orders the rows of a data frame.
         </p>
       </assemblage>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 penguins |> arrange(body_mass_g)          # ascending order
         </input>
@@ -751,8 +751,8 @@ penguins |> arrange(body_mass_g)          # ascending order
 # ℹ 334 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
-      <program language="r">
+      </console>
+      <console prompt="&gt; ">
         <input>
 penguins |> arrange(desc(body_mass_g))    # descending order
         </input>
@@ -773,7 +773,7 @@ penguins |> arrange(desc(body_mass_g))    # descending order
 # ℹ 334 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
     </subsection>
 
     <subsection xml:id="sec-tidyverse-mutate">
@@ -790,13 +790,13 @@ penguins |> arrange(desc(body_mass_g))    # descending order
         </p>
       </assemblage>
       <program language="r">
-        <input>
+        <code>
 # Base R
 penguins$bill_ratio &lt;- penguins$bill_length_mm / penguins$bill_depth_mm
 
 penguins &lt;- penguins |>
   mutate(bill_ratio = bill_length_mm / bill_depth_mm)
-        </input>
+        </code>
       </program>
       <p>
         Both of these examples are the same in the sense that a new column, bill_ratio, is
@@ -817,7 +817,7 @@ penguins &lt;- penguins |>
         <c>if_else()</c> where we first add the criteria we want to build a column using, the
         value if it fits the criteria, and the value if it does not fit the criteria.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 penguins |>
   mutate(size_category = if_else(body_mass_g &gt;= 3500, "Big","Small"))
@@ -840,7 +840,7 @@ penguins |>
 # ℹ 4 more variables: sex &lt;fct&gt;, year &lt;int&gt;, bill_ratio &lt;dbl&gt;,
 #   size_category &lt;chr&gt;
         </output>
-      </program>
+      </console>
       <p>
         That code creates the size_category, with the code saying:
       </p>
@@ -860,7 +860,7 @@ penguins |>
           there are three or more criteria, we can use the <c>case_when()</c> command. Instead of
           having just <q>Big</q> and <q>Small</q>, let's add the category <q>Gigantic</q>.
         </p>
-        <program language="r">
+        <console prompt="&gt; ">
           <input>
 penguins |>
   mutate(size_category = case_when(
@@ -888,7 +888,7 @@ penguins |>
 # ℹ 4 more variables: sex &lt;fct&gt;, year &lt;int&gt;, bill_ratio &lt;dbl&gt;,
 #   size_category &lt;chr&gt;
         </output>
-      </program>
+      </console>
         <p>
           Now, still using the body_mass_g column, we still create the size_category column, just
           with three different values inside instead of two.
@@ -912,7 +912,7 @@ penguins |>
       <p>
         As an example, let's change the name of the species column to penguin_types.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 penguins |> rename(penguin_types = species)
         </input>
@@ -934,7 +934,7 @@ penguins |> rename(penguin_types = species)
 # ℹ 4 more variables: body_mass_g &lt;int&gt;, sex &lt;fct&gt;, year &lt;int&gt;,
 #   bill_ratio &lt;dbl&gt;
         </output>
-      </program>
+      </console>
       <p>
         With all we can do, it is time to put <c>tidyverse</c> to the test and perform our
         functions together!
@@ -953,14 +953,14 @@ penguins |> rename(penguin_types = species)
         arranges data.
       </p>
       <program language="r">
-        <input>
+        <code>
 penguins_new &lt;- penguins |>
   select(species, island, bill_length_mm, body_mass_g) |>
   filter(species == "Adelie") |>
   mutate(size_category = if_else(body_mass_g &gt;= 3500, "Big","Small")) |>
   arrange(desc(body_mass_g)) |>
   rename(penguin_types = species)
-        </input>
+        </code>
       </program>
       <p>
         Here is the step by step breakdown of what exactly the code above does:
@@ -1016,7 +1016,7 @@ penguins_new &lt;- penguins |>
         Using base R, we can use the <c>table()</c> command, and in the <c>tidyverse</c>, we can
         use the <c>count()</c> command.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 table(penguins$species)
         </input>
@@ -1024,8 +1024,8 @@ table(penguins$species)
 Adelie Chinstrap    Gentoo 
       152        68       124
         </output>
-      </program>
-      <program language="r">
+      </console>
+      <console prompt="&gt; ">
         <input>
 penguins |> count(species, sort = TRUE)
         </input>
@@ -1037,7 +1037,7 @@ penguins |> count(species, sort = TRUE)
 2 Gentoo      124
 3 Chinstrap    68
         </output>
-      </program>
+      </console>
       <p>
         We now have exactly what we wanted - the number of rows in the dataset for each species.
         This is great for finding counts, but there may be cases where we need more summarized
@@ -1056,7 +1056,7 @@ penguins |> count(species, sort = TRUE)
         Below, we will be finding out the total number of rows in the dataset per species and the
         mean body mass of each species.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 penguins |>
   group_by(species) |>
@@ -1072,7 +1072,7 @@ penguins |>
 2 Chinstrap    68     3733.
 3 Gentoo      124     5076.
         </output>
-      </program>
+      </console>
       <p>
         Voilà! This table has summarized data per each of the three species of penguins. Notice
         that here we used the <c>n()</c> command instead of <c>count()</c> as it works better
@@ -1114,7 +1114,7 @@ filter(species == "Adelie") # RIGHT
         Below is an example of this. We can utilize <c>na.rm =</c> command, which by default is
         set to <q>FALSE</q>.
       </p>
-      <program language="r">
+      <console prompt="&gt; ">
         <input>
 mean(penguins$body_mass_g)                 # Returns NA if any missing
 
@@ -1124,7 +1124,7 @@ mean(penguins$body_mass_g, na.rm = TRUE)   # CORRECT
 [1] NA
 [1] 4201.754
         </output>
-      </program>
+      </console>
       <p>
         As you can see, the addition of <c>na.rm = "TRUE"</c> removes the NA value and calculates
         the average.
