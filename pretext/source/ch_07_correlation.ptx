@@ -44,7 +44,7 @@
     <title>Loading Our Data</title>
     <p>
       We start by importing the necessary packages, loading our data from the
-      <c>reproresearchR</c> package, and quickly doing an overview of the data. For
+      <c>reproresearchR</c> package (<cite key="R-reproresearchR"/>), and quickly doing an overview of the data. For
       a quick review on loading data into R, refer back to
       <xref ref="sec-intro-reading-data"/>.
     </p>
@@ -234,7 +234,7 @@ pairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
     </p>
     <p>
       We can get even fancier and use the command <c>ggpairs</c> from the
-      <c>GGally</c> package.
+      <c>GGally</c> package (<cite key="R-GGally"/>).
     </p>
 
     <listing xml:id="lst-ggally-correlation">
@@ -464,7 +464,7 @@ cor(examData$studying_hours, examData$anxiety_score)^2*100
       and exam scores.
     </p>
     <p>
-      To account for this, we can utilize the <c>ppcor</c> library and run a partial
+      To account for this, we can utilize the <c>ppcor</c> library (<cite key="R-ppcor"/>) and run a partial
       correlation using the <c>pcor.test()</c> command.
     </p>
 
