@@ -77,6 +77,8 @@ library(skimr)
 
 skim(cc_data)
         </input>
+      </program>
+      <console>
         <output>
 ── Data Summary ────────────────────────
                            Values 
@@ -103,7 +105,7 @@ Group variables            None
 1  1164.  2608. ▁▃▇▃▁
 2 42889. 87751. ▁▃▇▂▁
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -155,11 +157,13 @@ Group variables            None
         <input>
 table(cc_data$default)
         </input>
+      </program>
+      <console>
         <output>
 No  Yes 
 9677  323
         </output>
-      </program>
+      </console>
     </listing>
 
     <listing xml:id="lst-proportion-odds-cat">
@@ -184,6 +188,8 @@ cat("Equivalent odds ratio (1 in every", round(1/odds,0), ")\n")
 # Cross-tab between student status and default
 cc_data |> count(default, student) |> arrange(desc(n))
         </input>
+      </program>
+      <console>
         <output>
 [1] 3.23
 Default rate: 3.23 %
@@ -195,7 +201,7 @@ Equivalent odds ratio (1 in every 30 )
 3     Yes      No  221
 4     Yes     Yes  102
         </output>
-      </program>
+      </console>
     </listing>
 
     <listing xml:id="lst-favstats-income-default">
@@ -455,6 +461,8 @@ train_model &lt;- glm(default ~ student + balance + income,
 
 summary(train_model)
         </input>
+      </program>
+      <console>
         <output>
 Call:
 glm(formula = default ~ student + balance + income, family = "binomial", 
@@ -477,7 +485,7 @@ AIC: 2004.1
 
 Number of Fisher Scoring iterations: 6
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -534,11 +542,13 @@ exp(coef(train_model))
 
 # Example: students have 0.43× the odds (≈57% lower odds) of defaulting
         </input>
+      </program>
+      <console>
         <output>
 (Intercept)  studentYes     balance      income 
  0.03350596  0.94988012  1.00005753  0.99999887
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -578,12 +588,14 @@ library(pscl)
 
 pR2(train_model)["McFadden"]
           </input>
+      </program>
+        <console>
         <output>
 fitting null model for pseudo-r2
     McFadden 
 0.0001688776
         </output>
-      </program>
+      </console>
       </listing>
 
       <p>
@@ -608,13 +620,15 @@ library(caret)
 varImp(train_model) |> arrange(desc(Overall))
 # balance seems to be the most impactful in our model
           </input>
+      </program>
+        <console>
         <output>
 Overall
 balance    0.4117110
 studentYes 0.3443112
 income     0.2248744
         </output>
-      </program>
+      </console>
       </listing>
     </subsection>
 
@@ -638,11 +652,13 @@ vif(train_model)
 # does not seem to be any multicollinearity
 # anything less than 5 means no multicollinearity
           </input>
+      </program>
+        <console>
         <output>
 student  balance   income 
 1.000040 1.000591 1.000558
         </output>
-      </program>
+      </console>
       </listing>
 
       <p>
@@ -715,6 +731,8 @@ conf_matrix &lt;- confusionMatrix(test_data$pred_class, test_data$default, posit
 
 conf_matrix
         </input>
+      </program>
+      <console>
         <output>
 Confusion Matrix and Statistics
 
@@ -743,7 +761,7 @@ Prediction   No  Yes
                                           
        'Positive' Class : Yes
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -809,10 +827,12 @@ plot(roc_obj, col = "darkblue", lwd = 2,
         <input>
 auc(roc_obj)
         </input>
+      </program>
+      <console>
         <output>
 Area under the curve: 0.5576
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>

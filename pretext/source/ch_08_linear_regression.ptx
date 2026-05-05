@@ -62,6 +62,8 @@ library(skimr)
 
 skim(pizza_sales)
       </input>
+      </program>
+    <console>
         <output>
 ── Data Summary ────────────────────────
                            Values     
@@ -84,7 +86,7 @@ Group variables            None
 2 83889    95113    227177    ▇▃▁▁▁
 3     2.67     2.75      2.96 ▁▃▇▆▂
         </output>
-      </program>
+      </console>
   </section>
 
   <section xml:id="sec-linear-reg-cleaning-data">
@@ -190,6 +192,8 @@ pizza_plot + pizza_plot_ggformula
       <input>
 cor.test(pizza_sales$volume,pizza_sales$price)
       </input>
+      </program>
+    <console>
         <output>
 Pearson's product-moment correlation
 
@@ -202,7 +206,7 @@ sample estimates:
        cor 
 -0.6564736
         </output>
-      </program>
+      </console>
     <p>
       When we run a correlation, we are looking for three things:
     </p>
@@ -271,6 +275,8 @@ pizza_lm &lt;- lm(volume ~ price, data = pizza_sales)
 summary(pizza_lm)
 # When we call summary on our model, we can find out our key insights
       </input>
+      </program>
+    <console>
         <output>
 Call:
 lm(formula = volume ~ price, data = pizza_sales)
@@ -290,7 +296,7 @@ Residual standard error: 17300 on 154 degrees of freedom
 Multiple R-squared:  0.431,	Adjusted R-squared:  0.4273 
 F-statistic: 116.6 on 1 and 154 DF,  p-value: &lt; 2.2e-16
         </output>
-      </program>
+      </console>
     <p>
       Congratulations! We have just run our first linear regression model! We have some key
       insights, including:
@@ -338,6 +344,8 @@ F-statistic: 116.6 on 1 and 154 DF,  p-value: &lt; 2.2e-16
 library(broom)
 tidy(pizza_lm)
       </input>
+      </program>
+    <console>
         <output>
 # A tibble: 2 × 5
   term        estimate std.error statistic  p.value
@@ -345,11 +353,13 @@ tidy(pizza_lm)
 1 (Intercept)  385442.    27575.      14.0 3.44e-29
 2 price       -111669.    10340.     -10.8 1.36e-20
         </output>
-      </program>
+      </console>
     <program language="r">
       <input>
 glance(pizza_lm)
       </input>
+      </program>
+    <console>
         <output>
 # A tibble: 1 × 12
   r.squared adj.r.squared  sigma statistic  p.value    df logLik   AIC   BIC
@@ -357,7 +367,7 @@ glance(pizza_lm)
 1     0.431         0.427 17303.      117. 1.36e-20     1 -1743. 3491. 3501.
 # ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;
         </output>
-      </program>
+      </console>
     <p>
       Our finalized equation is y (-111,669 * price) + 385,442. All we need to do is plug in any
       price value, and we can predict the volume of pizza sold.
@@ -454,13 +464,15 @@ library(lmtest)
 
 bptest(pizza_lm)
       </input>
+      </program>
+    <console>
         <output>
 studentized Breusch-Pagan test
 
 data:  pizza_lm
 BP = 7.7392, df = 1, p-value = 0.005403
         </output>
-      </program>
+      </console>
     <p>
       The main focus point here is the p-value:
       <ul>
@@ -543,6 +555,8 @@ AIC(m1, m2, m3, m4) |> arrange(AIC)
 # This code provides us with an AIC (Akaike Information Criterion) value.
 # The smaller the AIC, the better the model's trade-off between complexity and fit.
       </input>
+      </program>
+    <console>
         <output>
 df      AIC
 m2  4 3486.244
@@ -550,7 +564,7 @@ m4  5 3488.239
 m1  3 3491.395
 m3  4 3493.327
         </output>
-      </program>
+      </console>
     <program language="r">
       <input>
 # Let's say we want to use the broom function again to do a model comparison
@@ -564,6 +578,8 @@ names(models) &lt;- c("m1","m2","m3","m4")
 
 map_df(models, ~glance(.x), .id = "model") |> select(model, r.squared,adj.r.squared,p.value,AIC)
       </input>
+      </program>
+    <console>
         <output>
 # A tibble: 4 × 5
   model r.squared adj.r.squared  p.value   AIC
@@ -573,7 +589,7 @@ map_df(models, ~glance(.x), .id = "model") |> select(model, r.squared,adj.r.squa
 3 m3        0.431         0.424 1.79e-19 3493.
 4 m4        0.456         0.446 5.07e-20 3488.
         </output>
-      </program>
+      </console>
     <p>
       With both of these, we now have:
     </p>
@@ -606,6 +622,8 @@ full_model &lt;- lm(volume ~ price + ad_spend + portnoy_visit, data = pizza_sale
 
 step_model &lt;- step(full_model, direction = "both")
         </input>
+      </program>
+      <console>
         <output>
 Start:  AIC=3043.53
 volume ~ price + ad_spend + portnoy_visit
@@ -625,7 +643,7 @@ volume ~ price + portnoy_visit
 - portnoy_visit  1 2.0659e+09 4.6108e+10 3046.7
 - price          1 3.1252e+10 7.5294e+10 3123.2
         </output>
-      </program>
+      </console>
     </subsection>
   </section>
 

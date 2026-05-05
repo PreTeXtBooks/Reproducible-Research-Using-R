@@ -107,13 +107,15 @@ memory &lt;- tibble(
 
 glimpse(memory)
         </input>
+      </program>
+      <console>
         <output>
 Rows: 60
 Columns: 2
 $ method &lt;chr&gt; "Flashcards", "Flashcards", "Flashcards", "Flashcards", "Flashc…
 $ score  &lt;dbl&gt; 70.51619, 73.15858, 87.46967, 75.56407, 76.03430, 88.72052, 78.…
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -144,6 +146,8 @@ memory_summarized &lt;- memory |>
 
 memory_summarized
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 3 × 4
   method     mean_score sd_score     n
@@ -152,7 +156,7 @@ memory_summarized
 2 Rereading        69.5     7.47    20
 3 Testing          85.7     6.70    20
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -290,6 +294,8 @@ anova_model &lt;- aov(score ~ method, data = memory)
 
 summary(anova_model)
         </input>
+      </program>
+      <console>
         <output>
 Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 method       2   2657  1328.5   24.72 1.87e-08 ***
@@ -297,7 +303,7 @@ Residuals   57   3064    53.8
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -379,6 +385,8 @@ supernova(anova_model)  # clearer ANOVA table
         <input>
 TukeyHSD(anova_model)
         </input>
+      </program>
+      <console>
         <output>
 Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -391,7 +399,7 @@ Rereading-Flashcards -6.594305 -12.173359 -1.015251 0.0167319
 Testing-Flashcards    9.612406   4.033352 15.191460 0.0003304
 Testing-Rereading    16.206711  10.627657 21.785765 0.0000000
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>

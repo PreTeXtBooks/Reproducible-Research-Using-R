@@ -319,10 +319,12 @@ penguins_new &lt;- penguins |>
           <input>
 sqrt(25)
           </input>
+      </program>
+        <console>
         <output>
 [1] 5
         </output>
-      </program>
+      </console>
         <p>
           With the above R code, our Quarto document shows both the <c>sqrt(25)</c> code as well
           as the answer (5).
@@ -367,6 +369,8 @@ sqrt(25)
             <input>
 penguins_new
             </input>
+      </program>
+          <console>
         <output>
 # A tibble: 152 × 5
    penguin_types island    bill_length_mm body_mass_g size_category
@@ -383,7 +387,7 @@ penguins_new
 10 Adelie        Torgersen           41.8        4450 Big          
 # ℹ 142 more rows
         </output>
-      </program>
+      </console>
           <p>
             By calling <c>penguins_new</c>, the Quarto document now displays the output, which
             in this case is <c>penguins_new</c>.
@@ -401,6 +405,8 @@ penguins_new
 #| tbl-cap: "Showing what a plain table looks like in a Quarto document."
 penguins_new
             </input>
+      </program>
+          <console>
         <output>
 # A tibble: 152 × 5
    penguin_types island    bill_length_mm body_mass_g size_category
@@ -417,7 +423,7 @@ penguins_new
 10 Adelie        Torgersen           41.8        4450 Big          
 # ℹ 142 more rows
         </output>
-      </program>
+      </console>
           <p>
             Now, that works, but in Quarto, there is an even better way to display tables. Using
             the <c>knitr</c> package (<cite key="R-knitr"/>), we can display tables with the
@@ -447,6 +453,8 @@ penguins_new
 library(knitr)
 kable(head(penguins_new), caption = "This is an example of displaying a table using the kable command. On top of the data looking nicer than just a regular output, we can add a caption (and manipulate other aesthetic pieces.")
             </input>
+      </program>
+          <console>
         <output>
 Table: This is an example of displaying a table using the kable command. On top of the data looking nicer than just a regular output, we can add a caption (and manipulate other aesthetic pieces.
 
@@ -459,7 +467,7 @@ Table: This is an example of displaying a table using the kable command. On top 
 |Adelie        |Dream     |           39.8|        4650|Big           |
 |Adelie        |Dream     |           39.6|        4600|Big           |
         </output>
-      </program>
+      </console>
           <p>
             If we compare and contrast the output from just <c>penguins_new</c> vs the output
             from the <c>kable()</c> function, there is a stark difference. One of the most

@@ -152,6 +152,8 @@ barplot(values, xlab = "X-axis", ylab = "Y-axis", main ="Base R Bar Chart")
         <input>
 kable(head(mpg), caption = "A base R dataset: Fuel economy data from 1999 to 2008 for 38 popular models of cars.")
         </input>
+      </program>
+      <console>
         <output>
 Table: A base R dataset: Fuel economy data from 1999 to 2008 for 38 popular models of cars.
 
@@ -164,7 +166,7 @@ Table: A base R dataset: Fuel economy data from 1999 to 2008 for 38 popular mode
 |audi         |a4    |   2.8| 1999|   6|auto(l5)   |f   |  16|  26|p  |compact |
 |audi         |a4    |   2.8| 1999|   6|manual(m5) |f   |  18|  26|p  |compact |
         </output>
-      </program>
+      </console>
     </listing>
 
     <listing xml:id="lst-economics-kable">
@@ -173,6 +175,8 @@ Table: A base R dataset: Fuel economy data from 1999 to 2008 for 38 popular mode
         <input>
 kable(head(economics), caption = "A base R dataset: US Economic Time Series.")
         </input>
+      </program>
+      <console>
         <output>
 Table: A base R dataset: US Economic Time Series.
 
@@ -185,7 +189,7 @@ Table: A base R dataset: US Economic Time Series.
 |1967-11-01 | 517.4| 199498|    12.8|     4.7|     3066|
 |1967-12-01 | 525.1| 199657|    11.8|     4.8|     3018|
         </output>
-      </program>
+      </console>
     </listing>
 
     <listing xml:id="lst-diamonds-kable">
@@ -194,6 +198,8 @@ Table: A base R dataset: US Economic Time Series.
         <input>
 kable(head(diamonds), caption = "A base R dataset: Prices of over 50,000 round cut diamonds.")
         </input>
+      </program>
+      <console>
         <output>
 Table: A base R dataset: Prices of over 50,000 round cut diamonds.
 
@@ -206,7 +212,7 @@ Table: A base R dataset: Prices of over 50,000 round cut diamonds.
 |  0.31|Good      |J     |SI2     |  63.3|    58|   335| 4.34| 4.35| 2.75|
 |  0.24|Very Good |J     |VVS2    |  62.8|    57|   336| 3.94| 3.96| 2.48|
         </output>
-      </program>
+      </console>
     </listing>
 
     <listing xml:id="lst-mtcars-kable">
@@ -215,6 +221,8 @@ Table: A base R dataset: Prices of over 50,000 round cut diamonds.
         <input>
 kable(head(mtcars), caption = "A base R dataset: Motor Trend Car Road Tests.")
         </input>
+      </program>
+      <console>
         <output>
 Table: A base R dataset: Motor Trend Car Road Tests.
 
@@ -227,7 +235,7 @@ Table: A base R dataset: Motor Trend Car Road Tests.
 |Hornet Sportabout | 18.7|   8|  360| 175| 3.15| 3.440| 17.02|  0|  0|    3|    2|
 |Valiant           | 18.1|   6|  225| 105| 2.76| 3.460| 20.22|  1|  0|    3|    1|
         </output>
-      </program>
+      </console>
     </listing>
 
     <p>
@@ -493,6 +501,8 @@ class_counts &lt;- mpg |>
 
 kable(class_counts, caption = "Pre-summarized values")
             </input>
+      </program>
+          <console>
         <output>
 Table: Pre-summarized values
 
@@ -506,7 +516,7 @@ Table: Pre-summarized values
 |subcompact | 35|
 |suv        | 62|
         </output>
-      </program>
+      </console>
         </listing>
 
         <p>
@@ -846,6 +856,8 @@ summ_hwy &lt;- mpg |>
 
 summ_hwy
           </input>
+      </program>
+        <console>
         <output>
 # A tibble: 7 × 3
   class      mean_hwy se_hwy
@@ -858,7 +870,7 @@ summ_hwy
 6 subcompact     28.1  0.909
 7 suv            18.1  0.378
         </output>
-      </program>
+      </console>
       </listing>
 
       <p>

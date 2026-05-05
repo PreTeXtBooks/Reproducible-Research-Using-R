@@ -97,12 +97,14 @@ library(cowsay)
 # Quick sanity check that packages are loaded
 sessionInfo()$otherPkgs |> names()
         </input>
+      </program>
+      <console>
         <output>
 [1] "palmerpenguins" "lubridate"      "forcats"        "stringr"       
  [5] "dplyr"          "purrr"          "readr"          "tidyr"         
  [9] "tibble"         "ggplot2"        "tidyverse"
         </output>
-      </program>
+      </console>
       <p>
         We have successfully loaded all of the packages (and in turn all of their contents). That
         means that as long as we do not close this R session, we can utilize the packages.
@@ -237,11 +239,13 @@ sqrt(42)
 # With piping, we could rewrite it like this:
 42 |> sqrt()
         </input>
+      </program>
+      <console>
         <output>
 [1] 6.480741
 [1] 6.480741
         </output>
-      </program>
+      </console>
       <assemblage>
         <title>The Native Pipe <c>|&gt;</c> vs. <c>%&gt;%</c></title>
         <p>
@@ -277,11 +281,13 @@ str_to_upper(str_trim(" i love r! "))
 #   str_trim() |>
 #  str_to_upper()
         </input>
+      </program>
+      <console>
         <output>
 [1] "I LOVE R!"
 [1] "I LOVE R!"
         </output>
-      </program>
+      </console>
       <p>
         Those two pieces of code do the same thing, but they look <alert>very</alert> different:
       </p>
@@ -332,6 +338,8 @@ nrow(penguins)      # Finding out the number of rows
 
 colnames(penguins)  # Finding out the names of the columns
         </input>
+      </program>
+      <console>
         <output>
 [1] 8
 [1] 344
@@ -339,7 +347,7 @@ colnames(penguins)  # Finding out the names of the columns
 [4] "bill_depth_mm"     "flipper_length_mm" "body_mass_g"      
 [7] "sex"               "year"
         </output>
-      </program>
+      </console>
       <p>
         Great, we now know that there are 344 rows of data, 8 columns, and all the column names.
         We know that there are different types of penguins, and that the species is a column in
@@ -357,6 +365,8 @@ colnames(penguins)  # Finding out the names of the columns
         <input>
 penguins |> distinct(species)
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 3 × 1
   species  
@@ -365,7 +375,7 @@ penguins |> distinct(species)
 2 Gentoo   
 3 Chinstrap
         </output>
-      </program>
+      </console>
       <p>
         That one line of code filtered through all 344 rows and figured out that there are only
         three different species of penguins in the <c>penguins</c> dataset. But it doesn't stop
@@ -376,6 +386,8 @@ penguins |> distinct(species)
         <input>
 penguins |> distinct(species, island)
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 5 × 2
   species   island   
@@ -386,7 +398,7 @@ penguins |> distinct(species, island)
 4 Gentoo    Biscoe   
 5 Chinstrap Dream
         </output>
-      </program>
+      </console>
       <p>
         Very interesting! We can see that the <q>Adelie</q> species is found on three different
         islands, whereas the other two species are only found on one island each (and different
@@ -415,6 +427,8 @@ penguins |> distinct(species, island)
         <input>
 penguins |> select(species, island, bill_length_mm, body_mass_g)
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 344 × 4
    species island    bill_length_mm body_mass_g
@@ -431,7 +445,7 @@ penguins |> select(species, island, bill_length_mm, body_mass_g)
 10 Adelie  Torgersen           42          4250
 # ℹ 334 more rows
         </output>
-      </program>
+      </console>
       <p>
         Instead of using the actual column names, we can use the column indices - which number
         (in order). Below is an example using the column indexes (hint: it uses a comma and a
@@ -442,6 +456,8 @@ penguins |> select(species, island, bill_length_mm, body_mass_g)
 # This is saying let's take the first column, and then every column from 3 to 5
 penguins |> select(1,3:5)
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 344 × 4
    species bill_length_mm bill_depth_mm flipper_length_mm
@@ -458,7 +474,7 @@ penguins |> select(1,3:5)
 10 Adelie            42            20.2               190
 # ℹ 334 more rows
         </output>
-      </program>
+      </console>
       <p>
         Note that no matter if we specifically named the columns or used their index numbers, we
         get the same result. <alert>However</alert> using column numbers works, but can break if
@@ -512,6 +528,8 @@ penguins |> select(1,3:5)
 penguins |>
   filter(species == "Adelie")
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 152 × 8
    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -529,7 +547,7 @@ penguins |>
 # ℹ 142 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
       <p>
         With that piece of code, the output only returned rows where Adelie is the species.
       </p>
@@ -556,6 +574,8 @@ penguins |>
 penguins |>
   filter(species == "Adelie" &amp; island == "Torgersen")
           </input>
+      </program>
+        <console>
         <output>
 # A tibble: 52 × 8
    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -573,7 +593,7 @@ penguins |>
 # ℹ 42 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
         <p>
           That returned exactly what we wanted. But, what if we changed our mind. We want to
           return rows that <alert>either</alert> have <q>Adelie</q> as their species
@@ -585,6 +605,8 @@ penguins |>
 penguins |>
   filter(species == "Adelie" | island == "Torgersen")
           </input>
+      </program>
+        <console>
         <output>
 # A tibble: 152 × 8
    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -602,7 +624,7 @@ penguins |>
 # ℹ 142 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
         <p>
           Now, instead of returning rows that have both <q>Adelie</q> and <q>Torgersen</q>, the
           code returns rows where either species is equal to <q>Adelie</q> or island is equal to
@@ -621,6 +643,8 @@ penguins |>
           <input>
 penguins |> filter(body_mass_g &gt;= 4000)
           </input>
+      </program>
+        <console>
         <output>
 # A tibble: 177 × 8
    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -638,11 +662,13 @@ penguins |> filter(body_mass_g &gt;= 4000)
 # ℹ 167 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
         <program language="r">
           <input>
 penguins |> filter(species %in% c("Adelie", "Gentoo"))
           </input>
+      </program>
+        <console>
         <output>
 # A tibble: 276 × 8
    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -660,7 +686,7 @@ penguins |> filter(species %in% c("Adelie", "Gentoo"))
 # ℹ 266 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
       </subsubsection>
 
       <subsubsection xml:id="sec-tidyverse-filter-na">
@@ -675,6 +701,8 @@ penguins |> filter(species %in% c("Adelie", "Gentoo"))
           <input>
 penguins |> filter(is.na(body_mass_g))    # Filter for rows that have missing data
           </input>
+      </program>
+        <console>
         <output>
 # A tibble: 2 × 8
   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -683,11 +711,13 @@ penguins |> filter(is.na(body_mass_g))    # Filter for rows that have missing da
 2 Gentoo  Biscoe                NA            NA                NA          NA
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
         <program language="r">
           <input>
 penguins |> drop_na(body_mass_g)          # Filters for rows that don't have missing data
           </input>
+      </program>
+        <console>
         <output>
 # A tibble: 342 × 8
    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -705,7 +735,7 @@ penguins |> drop_na(body_mass_g)          # Filters for rows that don't have mis
 # ℹ 332 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
         <p>
           As a cautionary tale, always be careful with how you handle NA values, as different
           situations really do require different handling of NA values.
@@ -734,6 +764,8 @@ penguins |> drop_na(body_mass_g)          # Filters for rows that don't have mis
         <input>
 penguins |> arrange(body_mass_g)          # ascending order
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 344 × 8
    species   island   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -751,11 +783,13 @@ penguins |> arrange(body_mass_g)          # ascending order
 # ℹ 334 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
       <program language="r">
         <input>
 penguins |> arrange(desc(body_mass_g))    # descending order
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 344 × 8
    species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -773,7 +807,7 @@ penguins |> arrange(desc(body_mass_g))    # descending order
 # ℹ 334 more rows
 # ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
         </output>
-      </program>
+      </console>
     </subsection>
 
     <subsection xml:id="sec-tidyverse-mutate">
@@ -822,6 +856,8 @@ penguins &lt;- penguins |>
 penguins |>
   mutate(size_category = if_else(body_mass_g &gt;= 3500, "Big","Small"))
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 344 × 10
    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -840,7 +876,7 @@ penguins |>
 # ℹ 4 more variables: sex &lt;fct&gt;, year &lt;int&gt;, bill_ratio &lt;dbl&gt;,
 #   size_category &lt;chr&gt;
         </output>
-      </program>
+      </console>
       <p>
         That code creates the size_category, with the code saying:
       </p>
@@ -870,6 +906,8 @@ penguins |>
     TRUE ~ "Unknown"   # catch-all for NAs or anything else
   ))
           </input>
+      </program>
+        <console>
         <output>
 # A tibble: 344 × 10
    species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -888,7 +926,7 @@ penguins |>
 # ℹ 4 more variables: sex &lt;fct&gt;, year &lt;int&gt;, bill_ratio &lt;dbl&gt;,
 #   size_category &lt;chr&gt;
         </output>
-      </program>
+      </console>
         <p>
           Now, still using the body_mass_g column, we still create the size_category column, just
           with three different values inside instead of two.
@@ -916,6 +954,8 @@ penguins |>
         <input>
 penguins |> rename(penguin_types = species)
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 344 × 9
    penguin_types island    bill_length_mm bill_depth_mm flipper_length_mm
@@ -934,7 +974,7 @@ penguins |> rename(penguin_types = species)
 # ℹ 4 more variables: body_mass_g &lt;int&gt;, sex &lt;fct&gt;, year &lt;int&gt;,
 #   bill_ratio &lt;dbl&gt;
         </output>
-      </program>
+      </console>
       <p>
         With all we can do, it is time to put <c>tidyverse</c> to the test and perform our
         functions together!
@@ -1020,15 +1060,19 @@ penguins_new &lt;- penguins |>
         <input>
 table(penguins$species)
         </input>
+      </program>
+      <console>
         <output>
 Adelie Chinstrap    Gentoo 
       152        68       124
         </output>
-      </program>
+      </console>
       <program language="r">
         <input>
 penguins |> count(species, sort = TRUE)
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 3 × 2
   species       n
@@ -1037,7 +1081,7 @@ penguins |> count(species, sort = TRUE)
 2 Gentoo      124
 3 Chinstrap    68
         </output>
-      </program>
+      </console>
       <p>
         We now have exactly what we wanted - the number of rows in the dataset for each species.
         This is great for finding counts, but there may be cases where we need more summarized
@@ -1064,6 +1108,8 @@ penguins |>
     n         = n(),
     mean_mass = mean(body_mass_g, na.rm = TRUE))
         </input>
+      </program>
+      <console>
         <output>
 # A tibble: 3 × 3
   species       n mean_mass
@@ -1072,7 +1118,7 @@ penguins |>
 2 Chinstrap    68     3733.
 3 Gentoo      124     5076.
         </output>
-      </program>
+      </console>
       <p>
         Voilà! This table has summarized data per each of the three species of penguins. Notice
         that here we used the <c>n()</c> command instead of <c>count()</c> as it works better
@@ -1120,11 +1166,13 @@ mean(penguins$body_mass_g)                 # Returns NA if any missing
 
 mean(penguins$body_mass_g, na.rm = TRUE)   # CORRECT
         </input>
+      </program>
+      <console>
         <output>
 [1] NA
 [1] 4201.754
         </output>
-      </program>
+      </console>
       <p>
         As you can see, the addition of <c>na.rm = "TRUE"</c> removes the NA value and calculates
         the average.

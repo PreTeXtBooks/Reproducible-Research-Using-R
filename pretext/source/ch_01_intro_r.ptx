@@ -142,6 +142,8 @@
 
 5 * 5 * 5 / 37 + 42
                 </input>
+      </program>
+      <console>
         <output>
 [1] 4
 [1] 3.333333
@@ -149,7 +151,7 @@
 [1] 20
 [1] 45.37838
         </output>
-      </program>
+      </console>
 
       <p>
         Here, each line of code is an individual math equation. These are simple
@@ -181,6 +183,8 @@ round(3.14159, digits = 3) # round the output to only have 3 digits
 
 round(5*5/37, 4) # rounding the output of an equation
                 </input>
+      </program>
+      <console>
         <output>
 [1] 5
 [1] 2.302585
@@ -188,7 +192,7 @@ round(5*5/37, 4) # rounding the output of an equation
 [1] 3.142
 [1] 0.6757
         </output>
-      </program>
+      </console>
 
       <p>
         We did a great job of performing a lot of math. As stated before, each line
@@ -285,12 +289,14 @@ best_number &lt;- 42
 # Inspecting objects
 class(x) # x is numeric, as we already knew!
               </input>
+      </program>
+    <console>
         <output>
 [1] 5
 [1] 6
 [1] "numeric"
         </output>
-      </program>
+      </console>
 
     <assemblage>
       <title>Creating vs calling:</title>
@@ -379,6 +385,8 @@ number_vector + numeric_vector_2
 # Vectorized math
 number_vector * 10
                 </input>
+      </program>
+      <console>
         <output>
 [1] 1 2 3 4 5
 [1]  6  7  8  9 10
@@ -387,7 +395,7 @@ number_vector * 10
 [1]  7  9 11 13 15
 [1] 10 20 30 40 50
         </output>
-      </program>
+      </console>
     </subsection>
 
     <subsection xml:id="sec-intro-vectors-character">
@@ -419,11 +427,13 @@ Fruits &lt;- c("apple, banana, cherry")
 
 Fruits
                 </input>
+      </program>
+      <console>
         <output>
 [1] "apple"  "banana" "cherry"
 [1] "apple, banana, cherry"
         </output>
-      </program>
+      </console>
 
       <p>
         Take note how in <c>fruits</c> each fruit was it's own value, but in
@@ -481,6 +491,8 @@ truth_logic &lt;- c("TRUE","FALSE","TRUE")
 
 class(truth_logic)
                 </input>
+      </program>
+      <console>
         <output>
 [1]  TRUE FALSE  TRUE
 [1] "logical"
@@ -488,7 +500,7 @@ class(truth_logic)
 [1] "logical"
 [1] "character"
         </output>
-      </program>
+      </console>
 
       <p>
         Above we used the <c>class()</c> command to check to see what type of data
@@ -532,13 +544,15 @@ class(colors)
 
 levels(colors) # Checking to see how many levels there are (3)
                 </input>
+      </program>
+      <console>
         <output>
 [1] red   blue  red   green
 Levels: blue green red
 [1] "factor"
 [1] "blue"  "green" "red"
         </output>
-      </program>
+      </console>
 
       <p>
         When we called <c>class()</c> we saw that <c>colors</c> was factor, not
@@ -566,11 +580,13 @@ fruits[1] # first element
 
 fruits[2:3] # slice
                 </input>
+      </program>
+      <console>
         <output>
 [1] "apple"
 [1] "banana" "cherry"
         </output>
-      </program>
+      </console>
 
       <p>
         No matter how many values are in a vector, you can always use <c>[]</c> to
@@ -595,11 +611,13 @@ mix # becomes character
 
 class(mix)
                 </input>
+      </program>
+      <console>
         <output>
 [1] "1"     "2"     "three"
 [1] "character"
         </output>
-      </program>
+      </console>
 
       <p>
         It defaults to character!
@@ -663,6 +681,8 @@ roster
 
 class(roster) # Class is now data.frame
                 </input>
+      </program>
+      <console>
         <output>
 name age major
 1   John  20 Psych
@@ -671,7 +691,7 @@ name age major
 4  Sarah  23    CS
 [1] "data.frame"
         </output>
-      </program>
+      </console>
 
       <p>
         The data frame <c>roster</c> was created using three different vectors:
@@ -714,6 +734,8 @@ summary(iris) # Provides statistics for each column
 
 colnames(iris) # Provides the column names of your data
                 </input>
+      </program>
+      <console>
         <output>
 Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -751,7 +773,7 @@ Sepal.Length Sepal.Width Petal.Length Petal.Width Species
                 
 [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
         </output>
-      </program>
+      </console>
 
       <p>
         These are by far not the only ones that <alert>can</alert> or <alert>should</alert>
@@ -780,10 +802,12 @@ Sepal.Length Sepal.Width Petal.Length Petal.Width Species
         <input>
 median(roster$age)
                 </input>
+      </program>
+      <console>
         <output>
 [1] 21.5
         </output>
-      </program>
+      </console>
 
       <p>
         Just like in real life, the dollar sign ($) is very powerful. Now only can we use
@@ -805,6 +829,8 @@ roster$minor &lt;- c("Chemistry", "Biology", "History", "Art")
 
 roster
                 </input>
+      </program>
+      <console>
         <output>
 name age major year     minor
 1   John  20 Psych 2025 Chemistry
@@ -812,7 +838,7 @@ name age major year     minor
 3 Carmen  21 Psych 2025   History
 4  Sarah  23    CS 2025       Art
         </output>
-      </program>
+      </console>
     </subsection>
   </section>
 
