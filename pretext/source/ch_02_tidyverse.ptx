@@ -88,7 +88,7 @@ install.packages("cowsay")
         <c>library()</c>.
       </p>
       <program language="r">
-        <code>
+        <input>
 library(tidyverse)
 library(palmerpenguins)
 library(fortunes)
@@ -96,7 +96,12 @@ library(cowsay)
 
 # Quick sanity check that packages are loaded
 sessionInfo()$otherPkgs |> names()
-        </code>
+        </input>
+        <output>
+[1] "palmerpenguins" "lubridate"      "forcats"        "stringr"       
+ [5] "dplyr"          "purrr"          "readr"          "tidyr"         
+ [9] "tibble"         "ggplot2"        "tidyverse"
+        </output>
       </program>
       <p>
         We have successfully loaded all of the packages (and in turn all of their contents). That
@@ -111,12 +116,12 @@ sessionInfo()$otherPkgs |> names()
         Below the animal is <q>cow</q> but try some other ones (I suggest <q>dragon</q>).
       </p>
       <program language="r">
-        <code>
+        <input>
 # Fun packages
 fortunes::fortune()   # random quote about R
 
 cowsay::say("Welcome to tidyverse!", by = "cow")
-        </code>
+        </input>
       </program>
       <p>
         It isn't always necessary, nor will it be done a lot in this book, but you can use the
@@ -145,10 +150,10 @@ install.packages("nycOpenData")
         Now we load it and call the function.
       </p>
       <program language="r">
-        <code>
+        <input>
 library(nycOpenData)
 head(nyc_311())
-        </code>
+        </input>
       </program>
       <p>
         With some examples under our belt, let's move to the tidyverse!
@@ -225,22 +230,26 @@ head(nyc_311())
         Below is an example of how you would write something.
       </p>
       <program language="r">
-        <code>
+        <input>
 # In base R, to find the square root of a number, we would use this:
 sqrt(42)
 
 # With piping, we could rewrite it like this:
 42 |> sqrt()
-        </code>
+        </input>
+        <output>
+[1] 6.480741
+[1] 6.480741
+        </output>
       </program>
-      <note>
+      <assemblage>
         <title>The Native Pipe <c>|&gt;</c> vs. <c>%&gt;%</c></title>
         <p>
           The native pipe <c>|&gt;</c> is built into R and is the modern standard. However, you
           will often see older code using <c>%&gt;%</c>. That version requires the
           <alert>magrittr</alert> or <alert>tidyverse</alert> package to be loaded to work.
         </p>
-      </note>
+      </assemblage>
       <p>
         In base R, code is written inside out. What I mean by that is that base R code is often
         evaluated from the inside out. You take the 42 (inside the square root) and then square
@@ -258,7 +267,7 @@ sqrt(42)
         of the <c>stringr</c> package in the <c>tidyverse</c>.
       </p>
       <program language="r">
-        <code>
+        <input>
 str_to_upper(str_trim(" i love r! "))
 
 " i love r! " |> str_trim() |> str_to_upper()
@@ -267,7 +276,11 @@ str_to_upper(str_trim(" i love r! "))
 # " Adelie " |>
 #   str_trim() |>
 #  str_to_upper()
-        </code>
+        </input>
+        <output>
+[1] "I LOVE R!"
+[1] "I LOVE R!"
+        </output>
       </program>
       <p>
         Those two pieces of code do the same thing, but they look <alert>very</alert> different:
@@ -283,12 +296,12 @@ str_to_upper(str_trim(" i love r! "))
         <alert>The first starts with a function, the second starts with what we want the
         function(s) to be applied to.</alert>
       </p>
-      <insight>
+      <assemblage>
         <title>When piping, the rule of thumb is:</title>
         <p>
           Each line in a pipeline should perform one clear transformation.
         </p>
-      </insight>
+      </assemblage>
     </subsection>
   </section>
 
@@ -312,13 +325,20 @@ str_to_upper(str_trim(" i love r! "))
         information about it using what we learned from base R in the last chapter.
       </p>
       <program language="r">
-        <code>
+        <input>
 ncol(penguins)      # Finding out the number of columns
 
 nrow(penguins)      # Finding out the number of rows
 
 colnames(penguins)  # Finding out the names of the columns
-        </code>
+        </input>
+        <output>
+[1] 8
+[1] 344
+[1] "species"           "island"            "bill_length_mm"   
+[4] "bill_depth_mm"     "flipper_length_mm" "body_mass_g"      
+[7] "sex"               "year"
+        </output>
       </program>
       <p>
         Great, we now know that there are 344 rows of data, 8 columns, and all the column names.
@@ -327,16 +347,24 @@ colnames(penguins)  # Finding out the names of the columns
         types of penguin species in this dataset. <alert>Or</alert> we could use the
         <c>distinct()</c> function to get this information.
       </p>
-      <insight>
+      <assemblage>
         <title><c>distinct()</c></title>
         <p>
           Keep only distinct rows from a data frame.
         </p>
-      </insight>
+      </assemblage>
       <program language="r">
-        <code>
+        <input>
 penguins |> distinct(species)
-        </code>
+        </input>
+        <output>
+# A tibble: 3 × 1
+  species  
+  &lt;fct&gt;    
+1 Adelie   
+2 Gentoo   
+3 Chinstrap
+        </output>
       </program>
       <p>
         That one line of code filtered through all 344 rows and figured out that there are only
@@ -345,9 +373,19 @@ penguins |> distinct(species)
         data too. For example:
       </p>
       <program language="r">
-        <code>
+        <input>
 penguins |> distinct(species, island)
-        </code>
+        </input>
+        <output>
+# A tibble: 5 × 2
+  species   island   
+  &lt;fct&gt;     &lt;fct&gt;    
+1 Adelie    Torgersen
+2 Adelie    Biscoe   
+3 Adelie    Dream    
+4 Gentoo    Biscoe   
+5 Chinstrap Dream
+        </output>
       </program>
       <p>
         Very interesting! We can see that the <q>Adelie</q> species is found on three different
@@ -367,16 +405,32 @@ penguins |> distinct(species, island)
         bill_length_mm, and body_mass_g. How do we select for only those? We can use the
         <c>select()</c> command!
       </p>
-      <insight>
+      <assemblage>
         <title><c>select()</c></title>
         <p>
           Changes which columns exist.
         </p>
-      </insight>
+      </assemblage>
       <program language="r">
-        <code>
+        <input>
 penguins |> select(species, island, bill_length_mm, body_mass_g)
-        </code>
+        </input>
+        <output>
+# A tibble: 344 × 4
+   species island    bill_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1        3750
+ 2 Adelie  Torgersen           39.5        3800
+ 3 Adelie  Torgersen           40.3        3250
+ 4 Adelie  Torgersen           NA            NA
+ 5 Adelie  Torgersen           36.7        3450
+ 6 Adelie  Torgersen           39.3        3650
+ 7 Adelie  Torgersen           38.9        3625
+ 8 Adelie  Torgersen           39.2        4675
+ 9 Adelie  Torgersen           34.1        3475
+10 Adelie  Torgersen           42          4250
+# ℹ 334 more rows
+        </output>
       </program>
       <p>
         Instead of using the actual column names, we can use the column indices - which number
@@ -384,10 +438,26 @@ penguins |> select(species, island, bill_length_mm, body_mass_g)
         colon.)
       </p>
       <program language="r">
-        <code>
+        <input>
 # This is saying let's take the first column, and then every column from 3 to 5
 penguins |> select(1,3:5)
-        </code>
+        </input>
+        <output>
+# A tibble: 344 × 4
+   species bill_length_mm bill_depth_mm flipper_length_mm
+   &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
+ 1 Adelie            39.1          18.7               181
+ 2 Adelie            39.5          17.4               186
+ 3 Adelie            40.3          18                 195
+ 4 Adelie            NA            NA                  NA
+ 5 Adelie            36.7          19.3               193
+ 6 Adelie            39.3          20.6               190
+ 7 Adelie            38.9          17.8               181
+ 8 Adelie            39.2          19.6               195
+ 9 Adelie            34.1          18.1               193
+10 Adelie            42            20.2               190
+# ℹ 334 more rows
+        </output>
       </program>
       <p>
         Note that no matter if we specifically named the columns or used their index numbers, we
@@ -418,12 +488,12 @@ penguins |> select(1,3:5)
         command. But, when we want to filter the data inside a dataset, we utilize the
         <c>filter()</c> command.
       </p>
-      <insight>
+      <assemblage>
         <title><c>filter()</c></title>
         <p>
           Changes which rows exist.
         </p>
-      </insight>
+      </assemblage>
       <p>
         Let's say that we want to filter for only the penguin species Adelie. If you do not know
         what they look like, here is a picture:
@@ -438,10 +508,27 @@ penguins |> select(1,3:5)
         We will filter for only rows that have the word Adelie inside the species column.
       </p>
       <program language="r">
-        <code>
+        <input>
 penguins |>
   filter(species == "Adelie")
-        </code>
+        </input>
+        <output>
+# A tibble: 152 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 142 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+        </output>
       </program>
       <p>
         With that piece of code, the output only returned rows where Adelie is the species.
@@ -465,11 +552,28 @@ penguins |>
           either none, or even one, of the criteria are met, then that row will not return.
         </p>
         <program language="r">
-          <code>
+          <input>
 penguins |>
   filter(species == "Adelie" &amp; island == "Torgersen")
-          </code>
-        </program>
+          </input>
+        <output>
+# A tibble: 52 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 42 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+        </output>
+      </program>
         <p>
           That returned exactly what we wanted. But, what if we changed our mind. We want to
           return rows that <alert>either</alert> have <q>Adelie</q> as their species
@@ -477,11 +581,28 @@ penguins |>
           symbol, we need to use the <c>|</c> symbol.
         </p>
         <program language="r">
-          <code>
+          <input>
 penguins |>
   filter(species == "Adelie" | island == "Torgersen")
-          </code>
-        </program>
+          </input>
+        <output>
+# A tibble: 152 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 142 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+        </output>
+      </program>
         <p>
           Now, instead of returning rows that have both <q>Adelie</q> and <q>Torgersen</q>, the
           code returns rows where either species is equal to <q>Adelie</q> or island is equal to
@@ -497,15 +618,49 @@ penguins |>
           that are either <c>Adelie</c> or <c>Gentoo</c>.
         </p>
         <program language="r">
-          <code>
+          <input>
 penguins |> filter(body_mass_g &gt;= 4000)
-          </code>
-        </program>
+          </input>
+        <output>
+# A tibble: 177 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.2          19.6               195        4675
+ 2 Adelie  Torgersen           42            20.2               190        4250
+ 3 Adelie  Torgersen           34.6          21.1               198        4400
+ 4 Adelie  Torgersen           42.5          20.7               197        4500
+ 5 Adelie  Torgersen           46            21.5               194        4200
+ 6 Adelie  Dream               39.2          21.1               196        4150
+ 7 Adelie  Dream               39.8          19.1               184        4650
+ 8 Adelie  Dream               44.1          19.7               196        4400
+ 9 Adelie  Dream               39.6          18.8               190        4600
+10 Adelie  Dream               42.3          21.2               191        4150
+# ℹ 167 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+        </output>
+      </program>
         <program language="r">
-          <code>
+          <input>
 penguins |> filter(species %in% c("Adelie", "Gentoo"))
-          </code>
-        </program>
+          </input>
+        <output>
+# A tibble: 276 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 266 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+        </output>
+      </program>
       </subsubsection>
 
       <subsubsection xml:id="sec-tidyverse-filter-na">
@@ -517,15 +672,40 @@ penguins |> filter(species %in% c("Adelie", "Gentoo"))
           all rows that have <alert>at least</alert> one NA value.
         </p>
         <program language="r">
-          <code>
+          <input>
 penguins |> filter(is.na(body_mass_g))    # Filter for rows that have missing data
-          </code>
-        </program>
+          </input>
+        <output>
+# A tibble: 2 × 8
+  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+1 Adelie  Torgersen             NA            NA                NA          NA
+2 Gentoo  Biscoe                NA            NA                NA          NA
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+        </output>
+      </program>
         <program language="r">
-          <code>
+          <input>
 penguins |> drop_na(body_mass_g)          # Filters for rows that don't have missing data
-          </code>
-        </program>
+          </input>
+        <output>
+# A tibble: 342 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           36.7          19.3               193        3450
+ 5 Adelie  Torgersen           39.3          20.6               190        3650
+ 6 Adelie  Torgersen           38.9          17.8               181        3625
+ 7 Adelie  Torgersen           39.2          19.6               195        4675
+ 8 Adelie  Torgersen           34.1          18.1               193        3475
+ 9 Adelie  Torgersen           42            20.2               190        4250
+10 Adelie  Torgersen           37.8          17.1               186        3300
+# ℹ 332 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+        </output>
+      </program>
         <p>
           As a cautionary tale, always be careful with how you handle NA values, as different
           situations really do require different handling of NA values.
@@ -544,21 +724,55 @@ penguins |> drop_na(body_mass_g)          # Filters for rows that don't have mis
         organize our data very nicely. There are only two options: ascending or descending order.
         By default, <c>arrange()</c> orders the data in ascending order.
       </p>
-      <insight>
+      <assemblage>
         <title><c>arrange()</c></title>
         <p>
           orders the rows of a data frame.
         </p>
-      </insight>
+      </assemblage>
       <program language="r">
-        <code>
+        <input>
 penguins |> arrange(body_mass_g)          # ascending order
-        </code>
+        </input>
+        <output>
+# A tibble: 344 × 8
+   species   island   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;     &lt;fct&gt;             &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Chinstrap Dream              46.9          16.6               192        2700
+ 2 Adelie    Biscoe             36.5          16.6               181        2850
+ 3 Adelie    Biscoe             36.4          17.1               184        2850
+ 4 Adelie    Biscoe             34.5          18.1               187        2900
+ 5 Adelie    Dream              33.1          16.1               178        2900
+ 6 Adelie    Torgers…           38.6          17                 188        2900
+ 7 Chinstrap Dream              43.2          16.6               187        2900
+ 8 Adelie    Biscoe             37.9          18.6               193        2925
+ 9 Adelie    Dream              37.5          18.9               179        2975
+10 Adelie    Dream              37            16.9               185        3000
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+        </output>
       </program>
       <program language="r">
-        <code>
+        <input>
 penguins |> arrange(desc(body_mass_g))    # descending order
-        </code>
+        </input>
+        <output>
+# A tibble: 344 × 8
+   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Gentoo  Biscoe           49.2          15.2               221        6300
+ 2 Gentoo  Biscoe           59.6          17                 230        6050
+ 3 Gentoo  Biscoe           51.1          16.3               220        6000
+ 4 Gentoo  Biscoe           48.8          16.2               222        6000
+ 5 Gentoo  Biscoe           45.2          16.4               223        5950
+ 6 Gentoo  Biscoe           49.8          15.9               229        5950
+ 7 Gentoo  Biscoe           48.4          14.6               213        5850
+ 8 Gentoo  Biscoe           49.3          15.7               217        5850
+ 9 Gentoo  Biscoe           55.1          16                 230        5850
+10 Gentoo  Biscoe           49.5          16.2               229        5800
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+        </output>
       </program>
     </subsection>
 
@@ -569,20 +783,20 @@ penguins |> arrange(desc(body_mass_g))    # descending order
         <c>$</c> symbol. In <c>tidyverse</c>, we can also create new columns, but instead of
         using the <c>$</c>, we can use the <c>mutate()</c> command.
       </p>
-      <insight>
+      <assemblage>
         <title><c>mutate()</c></title>
         <p>
           Changes or creates columns.
         </p>
-      </insight>
+      </assemblage>
       <program language="r">
-        <code>
+        <input>
 # Base R
 penguins$bill_ratio &lt;- penguins$bill_length_mm / penguins$bill_depth_mm
 
 penguins &lt;- penguins |>
   mutate(bill_ratio = bill_length_mm / bill_depth_mm)
-        </code>
+        </input>
       </program>
       <p>
         Both of these examples are the same in the sense that a new column, bill_ratio, is
@@ -604,10 +818,28 @@ penguins &lt;- penguins |>
         value if it fits the criteria, and the value if it does not fit the criteria.
       </p>
       <program language="r">
-        <code>
+        <input>
 penguins |>
   mutate(size_category = if_else(body_mass_g &gt;= 3500, "Big","Small"))
-        </code>
+        </input>
+        <output>
+# A tibble: 344 × 10
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 334 more rows
+# ℹ 4 more variables: sex &lt;fct&gt;, year &lt;int&gt;, bill_ratio &lt;dbl&gt;,
+#   size_category &lt;chr&gt;
+        </output>
       </program>
       <p>
         That code creates the size_category, with the code saying:
@@ -629,7 +861,7 @@ penguins |>
           having just <q>Big</q> and <q>Small</q>, let's add the category <q>Gigantic</q>.
         </p>
         <program language="r">
-          <code>
+          <input>
 penguins |>
   mutate(size_category = case_when(
     body_mass_g &lt;= 3500 ~ "Small",
@@ -637,8 +869,26 @@ penguins |>
     body_mass_g > 4000 ~ "Gigantic",
     TRUE ~ "Unknown"   # catch-all for NAs or anything else
   ))
-          </code>
-        </program>
+          </input>
+        <output>
+# A tibble: 344 × 10
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 334 more rows
+# ℹ 4 more variables: sex &lt;fct&gt;, year &lt;int&gt;, bill_ratio &lt;dbl&gt;,
+#   size_category &lt;chr&gt;
+        </output>
+      </program>
         <p>
           Now, still using the body_mass_g column, we still create the size_category column, just
           with three different values inside instead of two.
@@ -653,19 +903,37 @@ penguins |>
         the ones that you want. That could be for aesthetic purposes or more practical reasons.
         Either way, to change the name of a column, you can use the <c>rename()</c> command.
       </p>
-      <insight>
+      <assemblage>
         <title>The formula to use when renaming columns using the <c>rename()</c> command is:</title>
         <p>
           <m>New Name = OldName</m>
         </p>
-      </insight>
+      </assemblage>
       <p>
         As an example, let's change the name of the species column to penguin_types.
       </p>
       <program language="r">
-        <code>
+        <input>
 penguins |> rename(penguin_types = species)
-        </code>
+        </input>
+        <output>
+# A tibble: 344 × 9
+   penguin_types island    bill_length_mm bill_depth_mm flipper_length_mm
+   &lt;fct&gt;         &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
+ 1 Adelie        Torgersen           39.1          18.7               181
+ 2 Adelie        Torgersen           39.5          17.4               186
+ 3 Adelie        Torgersen           40.3          18                 195
+ 4 Adelie        Torgersen           NA            NA                  NA
+ 5 Adelie        Torgersen           36.7          19.3               193
+ 6 Adelie        Torgersen           39.3          20.6               190
+ 7 Adelie        Torgersen           38.9          17.8               181
+ 8 Adelie        Torgersen           39.2          19.6               195
+ 9 Adelie        Torgersen           34.1          18.1               193
+10 Adelie        Torgersen           42            20.2               190
+# ℹ 334 more rows
+# ℹ 4 more variables: body_mass_g &lt;int&gt;, sex &lt;fct&gt;, year &lt;int&gt;,
+#   bill_ratio &lt;dbl&gt;
+        </output>
       </program>
       <p>
         With all we can do, it is time to put <c>tidyverse</c> to the test and perform our
@@ -685,14 +953,14 @@ penguins |> rename(penguin_types = species)
         arranges data.
       </p>
       <program language="r">
-        <code>
+        <input>
 penguins_new &lt;- penguins |>
   select(species, island, bill_length_mm, body_mass_g) |>
   filter(species == "Adelie") |>
   mutate(size_category = if_else(body_mass_g &gt;= 3500, "Big","Small")) |>
   arrange(desc(body_mass_g)) |>
   rename(penguin_types = species)
-        </code>
+        </input>
       </program>
       <p>
         Here is the step by step breakdown of what exactly the code above does:
@@ -716,13 +984,13 @@ penguins_new &lt;- penguins |>
         species and then went to rename the column to penguin_types. That code above would not
         work because in that code, species wouldn't have been selected for.
       </p>
-      <warning>
+      <assemblage>
         <title>Important:</title>
         <p>
           In tidyverse pipelines, the order of functions matters. Each step depends on the output
           of the previous step.
         </p>
-      </warning>
+      </assemblage>
       <p>
         Now that we've put it all together, let's check out some more things we can do in
         <c>tidyverse</c>.
@@ -749,14 +1017,26 @@ penguins_new &lt;- penguins |>
         use the <c>count()</c> command.
       </p>
       <program language="r">
-        <code>
+        <input>
 table(penguins$species)
-        </code>
+        </input>
+        <output>
+Adelie Chinstrap    Gentoo 
+      152        68       124
+        </output>
       </program>
       <program language="r">
-        <code>
+        <input>
 penguins |> count(species, sort = TRUE)
-        </code>
+        </input>
+        <output>
+# A tibble: 3 × 2
+  species       n
+  &lt;fct&gt;     &lt;int&gt;
+1 Adelie      152
+2 Gentoo      124
+3 Chinstrap    68
+        </output>
       </program>
       <p>
         We now have exactly what we wanted - the number of rows in the dataset for each species.
@@ -777,13 +1057,21 @@ penguins |> count(species, sort = TRUE)
         mean body mass of each species.
       </p>
       <program language="r">
-        <code>
+        <input>
 penguins |>
   group_by(species) |>
   summarize(
     n         = n(),
     mean_mass = mean(body_mass_g, na.rm = TRUE))
-        </code>
+        </input>
+        <output>
+# A tibble: 3 × 3
+  species       n mean_mass
+  &lt;fct&gt;     &lt;int&gt;     &lt;dbl&gt;
+1 Adelie      152     3701.
+2 Chinstrap    68     3733.
+3 Gentoo      124     5076.
+        </output>
       </program>
       <p>
         Voilà! This table has summarized data per each of the three species of penguins. Notice
@@ -827,11 +1115,15 @@ filter(species == "Adelie") # RIGHT
         set to <q>FALSE</q>.
       </p>
       <program language="r">
-        <code>
+        <input>
 mean(penguins$body_mass_g)                 # Returns NA if any missing
 
 mean(penguins$body_mass_g, na.rm = TRUE)   # CORRECT
-        </code>
+        </input>
+        <output>
+[1] NA
+[1] 4201.754
+        </output>
       </program>
       <p>
         As you can see, the addition of <c>na.rm = "TRUE"</c> removes the NA value and calculates
@@ -863,13 +1155,13 @@ penguins
         As mentioned before, there may be times where there are packages being loaded that have
         conflicting function names. For instance <c>dplyr::filter</c> vs <c>stats::filter</c>.
       </p>
-      <insight>
+      <assemblage>
         <title>In the case when you need to specifically call the package with the command, make
         sure to use the formula:</title>
         <p>
           <m>package::function()</m>
         </p>
-      </insight>
+      </assemblage>
     </subsection>
   </section>
 

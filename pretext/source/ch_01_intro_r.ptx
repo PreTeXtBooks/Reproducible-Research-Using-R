@@ -7,12 +7,12 @@
       Welcome to the programming language R!
     </p>
 
-    <insight>
+    <assemblage>
       <title>Data is art, and as you will read many times in this book:</title>
       <p>
         R puts the <alert>r</alert> in Artist.
       </p>
-    </insight>
+    </assemblage>
 
     <p>
       If you have never even touched R, great! If you have experience with R, great!
@@ -95,13 +95,13 @@
       </li>
     </ul>
 
-    <note>
+    <assemblage>
       <title>Don't panic if your screen looks different!</title>
       <p>
         You can click and drag the panes to rearrange them, but the <alert>names</alert>
         of the quadrants (Source, Console, Environment, Files) will always be the same.
       </p>
-    </note>
+    </assemblage>
 
     <p>
       Now that we know what we are looking at, let's get into some R code!
@@ -131,7 +131,7 @@
       </p>
 
       <program language="r">
-        <code>
+        <input>
 2 + 2
 
 10 / 3
@@ -141,7 +141,14 @@
 (3 + 7) * 2
 
 5 * 5 * 5 / 37 + 42
-        </code>
+                </input>
+        <output>
+[1] 4
+[1] 3.333333
+[1] 25
+[1] 20
+[1] 45.37838
+        </output>
       </program>
 
       <p>
@@ -162,7 +169,7 @@
       </p>
 
       <program language="r">
-        <code>
+        <input>
 # Built-in functions
 sqrt(25) # square root
 
@@ -173,7 +180,14 @@ log10(1000) # base-10 log
 round(3.14159, digits = 3) # round the output to only have 3 digits
 
 round(5*5/37, 4) # rounding the output of an equation
-        </code>
+                </input>
+        <output>
+[1] 5
+[1] 2.302585
+[1] 3
+[1] 3.142
+[1] 0.6757
+        </output>
       </program>
 
       <p>
@@ -203,12 +217,12 @@ round(5*5/37, 4) # rounding the output of an equation
       the name of the value as well as what it is equal to.
     </p>
 
-    <note>
+    <assemblage>
       <title>Within R, we can always follow this formula:</title>
       <p>
         value name <c>&lt;-</c> whatever you want inside the value
       </p>
-    </note>
+    </assemblage>
 
     <p>
       Now, a few tips:
@@ -238,15 +252,15 @@ round(5*5/37, 4) # rounding the output of an equation
       Below is some code to demonstrate.
     </p>
 
-    <note>
+    <assemblage>
       <title>Color and Numbers:</title>
       <p>
         Notice how all of the numbers change color in your code.
       </p>
-    </note>
+    </assemblage>
 
     <program language="r">
-      <code>
+        <input>
 # Assigning to objects (variables)
 sqrt(25) # the answer is 5
 
@@ -270,17 +284,22 @@ best_number &lt;- 42
 
 # Inspecting objects
 class(x) # x is numeric, as we already knew!
-      </code>
-    </program>
+              </input>
+        <output>
+[1] 5
+[1] 6
+[1] "numeric"
+        </output>
+      </program>
 
-    <insight>
+    <assemblage>
       <title>Creating vs calling:</title>
       <p>
         Notice that <alert>creating</alert> and <alert>calling</alert> the data are
         different. I create <c>x &lt;- 5</c>, but in order to call it, I just run
         <c>x</c> (after it has been created).
       </p>
-    </insight>
+    </assemblage>
 
     <p>
       With an object, there is only one value. One thing equals one thing. To build
@@ -302,7 +321,7 @@ class(x) # x is numeric, as we already knew!
       This is exactly where vectors come in.
     </p>
 
-    <note>
+    <assemblage>
       <title>There are two very important things that come into play when creating a vector:</title>
       <ol>
         <li><p>Everything must go inside parenthesis</p></li>
@@ -311,7 +330,7 @@ class(x) # x is numeric, as we already knew!
       <p>
         <alert>You're telling R <q>Please combine everything in the parenthesis into one vector.</q></alert>
       </p>
-    </note>
+    </assemblage>
 
     <p>
       For instance, if we wanted to create a vector that has a, b, and c in it, the
@@ -338,7 +357,7 @@ also_wont_work &lt;- (a, b, c) # no c before the parenthesis
       </p>
 
       <program language="r">
-        <code>
+        <input>
 # Numeric vector
 number_vector &lt;- c(1, 2, 3, 4, 5) # c stands for combine/concatenate
 
@@ -359,7 +378,15 @@ number_vector + numeric_vector_2
 
 # Vectorized math
 number_vector * 10
-        </code>
+                </input>
+        <output>
+[1] 1 2 3 4 5
+[1]  6  7  8  9 10
+[1] 5
+[1] 5
+[1]  7  9 11 13 15
+[1] 10 20 30 40 50
+        </output>
       </program>
     </subsection>
 
@@ -372,16 +399,16 @@ number_vector * 10
         quotation marks themselves) change color in your script.
       </p>
 
-      <warning>
+      <assemblage>
         <title>Quotation Marks</title>
         <p>
           Be careful, as the positioning of quotation marks can severely change
           your vector (see below).
         </p>
-      </warning>
+      </assemblage>
 
       <program language="r">
-        <code>
+        <input>
 # Quotation marks around each of the fruits
 fruits &lt;- c("apple", "banana", "cherry")
 
@@ -391,7 +418,11 @@ fruits
 Fruits &lt;- c("apple, banana, cherry")
 
 Fruits
-        </code>
+                </input>
+        <output>
+[1] "apple"  "banana" "cherry"
+[1] "apple, banana, cherry"
+        </output>
       </program>
 
       <p>
@@ -403,12 +434,12 @@ Fruits
     <subsection xml:id="sec-intro-vectors-logical">
       <title>Logical Vectors</title>
 
-      <insight>
+      <assemblage>
         <title>Time for a quick question:</title>
         <p>
           True or False: logical vectors are possible in R?
         </p>
-      </insight>
+      </assemblage>
 
       <p>
         <em>True!</em>
@@ -422,15 +453,15 @@ Fruits
         <li><p><c>T</c> or <c>F</c></p></li>
       </ul>
 
-      <insight>
+      <assemblage>
         <title>See anything in particular regarding your code?</title>
         <p>
           Notice how in your code, logic also changes color, the same color as numeric.
         </p>
-      </insight>
+      </assemblage>
 
       <program language="r">
-        <code>
+        <input>
 # Using full word capitalized
 some_truths &lt;- c(TRUE, FALSE, TRUE)
 
@@ -449,7 +480,14 @@ class(some_lies)
 truth_logic &lt;- c("TRUE","FALSE","TRUE")
 
 class(truth_logic)
-        </code>
+                </input>
+        <output>
+[1]  TRUE FALSE  TRUE
+[1] "logical"
+[1] FALSE FALSE  TRUE
+[1] "logical"
+[1] "character"
+        </output>
       </program>
 
       <p>
@@ -458,13 +496,13 @@ class(truth_logic)
         <em>logical</em>, while <c>truth_logic</c> was <em>character</em>.
       </p>
 
-      <insight>
+      <assemblage>
         <title>When creating something in R:</title>
         <p>
           It is always <em>crucial</em> to check that what you've created matches
           your desired output.
         </p>
-      </insight>
+      </assemblage>
     </subsection>
 
     <subsection xml:id="sec-intro-vectors-factors">
@@ -475,16 +513,16 @@ class(truth_logic)
         the <c>factor()</c> command.
       </p>
 
-      <insight>
+      <assemblage>
         <title>Look at your screen!</title>
         <p>
           Notice how when you type the name of a color in R, the text actually changes
           to that color. R really does put the <alert>r</alert> in Artist!
         </p>
-      </insight>
+      </assemblage>
 
       <program language="r">
-        <code>
+        <input>
 # Creating the colors vector as factors
 colors &lt;- factor(c("red", "blue", "red", "green")) # 4 values
 
@@ -493,7 +531,13 @@ colors
 class(colors)
 
 levels(colors) # Checking to see how many levels there are (3)
-        </code>
+                </input>
+        <output>
+[1] red   blue  red   green
+Levels: blue green red
+[1] "factor"
+[1] "blue"  "green" "red"
+        </output>
       </program>
 
       <p>
@@ -516,12 +560,16 @@ levels(colors) # Checking to see how many levels there are (3)
       </p>
 
       <program language="r">
-        <code>
+        <input>
 # fruits &lt;- c("apple", "banana", "cherry")
 fruits[1] # first element
 
 fruits[2:3] # slice
-        </code>
+                </input>
+        <output>
+[1] "apple"
+[1] "banana" "cherry"
+        </output>
       </program>
 
       <p>
@@ -539,27 +587,31 @@ fruits[2:3] # slice
       </p>
 
       <program language="r">
-        <code>
+        <input>
 # Putting two numeric and one character into a vector.
 mix &lt;- c(1, 2, "three")
 
 mix # becomes character
 
 class(mix)
-        </code>
+                </input>
+        <output>
+[1] "1"     "2"     "three"
+[1] "character"
+        </output>
       </program>
 
       <p>
         It defaults to character!
       </p>
 
-      <insight>
+      <assemblage>
         <title>As a rule of thumb:</title>
         <p>
           Quotation marks rule. If a vector has quotation marks, R defaults it to
           a character string.
         </p>
-      </insight>
+      </assemblage>
 
       <p>
         With ample discussion around vectors, it is time to build even more: data frames.
@@ -593,7 +645,7 @@ class(mix)
       </p>
 
       <program language="r">
-        <code>
+        <input>
 # Build a tiny class roster data frame
 names_vec &lt;- c("John", "Bob", "Carmen", "Sarah")
 
@@ -610,7 +662,15 @@ roster &lt;- data.frame(
 roster
 
 class(roster) # Class is now data.frame
-        </code>
+                </input>
+        <output>
+name age major
+1   John  20 Psych
+2    Bob  22  Econ
+3 Carmen  21 Psych
+4  Sarah  23    CS
+[1] "data.frame"
+        </output>
       </program>
 
       <p>
@@ -642,7 +702,7 @@ class(roster) # Class is now data.frame
       </p>
 
       <program language="r">
-        <code>
+        <input>
 # iris
 head(iris) # By default returns 6 rows
 
@@ -653,7 +713,44 @@ str(iris) # Provides the structure of each column
 summary(iris) # Provides statistics for each column
 
 colnames(iris) # Provides the column names of your data
-        </code>
+                </input>
+        <output>
+Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+    Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+145          6.7         3.3          5.7         2.5 virginica
+146          6.7         3.0          5.2         2.3 virginica
+147          6.3         2.5          5.0         1.9 virginica
+148          6.5         3.0          5.2         2.0 virginica
+149          6.2         3.4          5.4         2.3 virginica
+150          5.9         3.0          5.1         1.8 virginica
+'data.frame':	150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+ Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+ Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+       Species  
+ setosa    :50  
+ versicolor:50  
+ virginica :50  
+                
+                
+                
+[1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+        </output>
       </program>
 
       <p>
@@ -680,9 +777,12 @@ colnames(iris) # Provides the column names of your data
       </p>
 
       <program language="r">
-        <code>
+        <input>
 median(roster$age)
-        </code>
+                </input>
+        <output>
+[1] 21.5
+        </output>
       </program>
 
       <p>
@@ -696,7 +796,7 @@ median(roster$age)
       </p>
 
       <program language="r">
-        <code>
+        <input>
 # Having one value for each row of data
 roster$year &lt;- 2025
 
@@ -704,7 +804,14 @@ roster$year &lt;- 2025
 roster$minor &lt;- c("Chemistry", "Biology", "History", "Art")
 
 roster
-        </code>
+                </input>
+        <output>
+name age major year     minor
+1   John  20 Psych 2025 Chemistry
+2    Bob  22  Econ 2025   Biology
+3 Carmen  21 Psych 2025   History
+4  Sarah  23    CS 2025       Art
+        </output>
       </program>
     </subsection>
   </section>
@@ -731,7 +838,7 @@ roster
     </p>
 
     <program language="r">
-      <code>
+        <input>
 # read.csv example (commented because path varies by machine)
 # my_df &lt;- read.csv("/path/to/your/file.csv")
 
@@ -739,8 +846,8 @@ roster
 # getwd()
 # setwd("/path/where/you/want") # &lt;- avoid hard-coding in projects; we'll cover R Projects later
 #setwd("~/Documents/Work/Brooklyn College/Fall 2025")
-      </code>
-    </program>
+              </input>
+      </program>
   </section>
 
   <section xml:id="sec-intro-packages">
@@ -769,12 +876,12 @@ roster
     </p>
 
     <program language="r">
-      <code>
+        <input>
 # install.packages("tidyverse")
 # library(readxl)
 # library(tidyverse)
-      </code>
-    </program>
+              </input>
+      </program>
 
     <p>
       Packages are going to be an essential part of this course, especially in the next
@@ -812,10 +919,10 @@ roster
     </p>
 
     <program language="r">
-      <code>
+        <input>
 ?str
-      </code>
-    </program>
+              </input>
+      </program>
 
     <p>
       Sometimes, you may encounter an issue that is really just giving you problems. In
