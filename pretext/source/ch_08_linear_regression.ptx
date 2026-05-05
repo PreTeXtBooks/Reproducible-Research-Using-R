@@ -51,7 +51,7 @@
       <c>reproresearchR</c> package (<cite key="R-reproresearchR"/>), and quickly doing an
       overview of the data.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 library(tidyverse)
 library(reproresearchR)
@@ -62,6 +62,8 @@ library(skimr)
 
 skim(pizza_sales)
       </input>
+      </program>
+    <console>
         <output>
 ── Data Summary ────────────────────────
                            Values     
@@ -97,7 +99,7 @@ Group variables            None
       other cleaning while we are at it.
     </p>
     <program language="r">
-      <code>
+      <input>
 library(janitor)
 
 # Let's get rid of any spaces in the column names
@@ -109,7 +111,7 @@ pizza_sales&lt;- pizza_sales |> select(-1)
 # Let's rename our column names to make things easier
 pizza_sales &lt;- pizza_sales |>
   rename(price = total_price, volume = total_volume)
-      </code>
+      </input>
     </program>
     <p>
       We now have a cleaner dataset we can use!
@@ -129,7 +131,7 @@ pizza_sales &lt;- pizza_sales |>
       numerical variables.
     </p>
     <program language="r">
-      <code>
+      <input>
 # Now, let us graph our data using ggplot
 # As always with ggplot, we have our data, our aesthetics, and our geometry.
 
@@ -144,29 +146,29 @@ pizza_plot &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
   )
 
 pizza_plot
-      </code>
+      </input>
     </program>
     <p>
       If we wanted to use another package instead of ggplot, we could also use the library
       <c>ggformula</c>, which has <c>gf_point()</c>.
     </p>
     <program language="r">
-      <code>
+      <input>
 library(ggformula)
 pizza_plot_ggformula &lt;- gf_point(volume ~ price, data = pizza_sales) |> gf_lm(color ="purple")
 
 pizza_plot_ggformula
-      </code>
+      </input>
     </program>
     <p>
       Here is a side by side comparison of what they look like. Very similar indeed.
     </p>
     <program language="r">
-      <code>
+      <input>
 library(patchwork)
 
 pizza_plot + pizza_plot_ggformula
-      </code>
+      </input>
     </program>
     <p>
       Our data is already telling us a lot. From both of our graphics, we can see that as price
@@ -186,10 +188,12 @@ pizza_plot + pizza_plot_ggformula
       We are first trying to figure out what variables, if any, should be included in our linear
       regression model, and this is exactly where correlation comes into play.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 cor.test(pizza_sales$volume,pizza_sales$price)
       </input>
+      </program>
+    <console>
         <output>
 Pearson's product-moment correlation
 
@@ -263,7 +267,7 @@ sample estimates:
         <li>lm(what we want to predict ~ the predictor, data = our dataset)</li>
       </ul>
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 pizza_lm &lt;- lm(volume ~ price, data = pizza_sales)
 # The code above is saving our linear regression model as pizza_lm
@@ -271,6 +275,8 @@ pizza_lm &lt;- lm(volume ~ price, data = pizza_sales)
 summary(pizza_lm)
 # When we call summary on our model, we can find out our key insights
       </input>
+      </program>
+    <console>
         <output>
 Call:
 lm(formula = volume ~ price, data = pizza_sales)
@@ -331,13 +337,15 @@ F-statistic: 116.6 on 1 and 154 DF,  p-value: &lt; 2.2e-16
       helpful when making statistical objects into nicer tibbles, using the <c>tidy()</c>
       function.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 # If we want to get the same information from our lm model using a different package
 
 library(broom)
 tidy(pizza_lm)
       </input>
+      </program>
+    <console>
         <output>
 # A tibble: 2 × 5
   term        estimate std.error statistic  p.value
@@ -346,10 +354,12 @@ tidy(pizza_lm)
 2 price       -111669.    10340.     -10.8 1.36e-20
         </output>
       </console>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 glance(pizza_lm)
       </input>
+      </program>
+    <console>
         <output>
 # A tibble: 1 × 12
   r.squared adj.r.squared  sigma statistic  p.value    df logLik   AIC   BIC
@@ -380,11 +390,11 @@ glance(pizza_lm)
       We can do this in R with the two commands below.
     </p>
     <program language="r">
-      <code>
+      <input>
 pizza_sales &lt;- pizza_sales |>
   mutate(predicted = predict(pizza_lm),
          residuals = residuals(pizza_lm))
-      </code>
+      </input>
     </program>
     <p>
       To visually see the difference between the actual values and the predicted values, we can
@@ -392,7 +402,7 @@ pizza_sales &lt;- pizza_sales |>
       our points.
     </p>
     <program language="r">
-      <code>
+      <input>
 # What if we want to see actual vs predicted on our plot?
 pizza_plot_residuals &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
   geom_point(size = 3)  +
@@ -406,7 +416,7 @@ pizza_plot_residuals &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
   )
 
 pizza_plot_residuals
-      </code>
+      </input>
     </program>
     <p>
       With our residuals, we want them to be random. Visually, that means that the residual
@@ -414,7 +424,7 @@ pizza_plot_residuals
       residuals themselves.
     </p>
     <program language="r">
-      <code>
+      <input>
 # Let us graph our residuals to make sure they are random
 ggplot(pizza_sales, aes(x = predicted, y = residuals)) +
   geom_point(color = "blue") +
@@ -425,7 +435,7 @@ ggplot(pizza_sales, aes(x = predicted, y = residuals)) +
     x = "Predicted Volume",
     y = "Residuals"
   )
-      </code>
+      </input>
     </program>
     <p>
       The red line in the graph above has a slight curve, showing that our model is less accurate
@@ -448,12 +458,14 @@ ggplot(pizza_sales, aes(x = predicted, y = residuals)) +
       The Breusch-Pagan test provides insights for this. To perform this in R, we will use the
       <c>bptest()</c> function from the <c>lmtest</c> package.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 library(lmtest)
 
 bptest(pizza_lm)
       </input>
+      </program>
+    <console>
         <output>
 studentized Breusch-Pagan test
 
@@ -497,7 +509,7 @@ BP = 7.7392, df = 1, p-value = 0.005403
       pizza shop and another on how much was spent on advertising.
     </p>
     <program language="r">
-      <code>
+      <input>
 # Now, let's add some other variables to our data
 set.seed(42)
 
@@ -508,7 +520,7 @@ pizza_sales &lt;- pizza_sales |>
 # 2) Ad spend
 pizza_sales &lt;- pizza_sales |>
   mutate(ad_spend = round(runif(n(), 800, 6000), 0))
-      </code>
+      </input>
     </program>
     <p>
       Now, since we have multiple variables, we can run what's called multivariate regression
@@ -516,7 +528,7 @@ pizza_sales &lt;- pizza_sales |>
       predictor.
     </p>
     <program language="r">
-      <code>
+      <input>
 m1 &lt;- lm(volume ~ price, data = pizza_sales)                      # baseline
 
 m2 &lt;- lm(volume ~ price + portnoy_visit, data = pizza_sales)      # add portnoy visit
@@ -524,7 +536,7 @@ m2 &lt;- lm(volume ~ price + portnoy_visit, data = pizza_sales)      # add portn
 m3 &lt;- lm(volume ~ price + ad_spend, data = pizza_sales)           # add ad spending
 
 m4 &lt;- lm(volume ~ price + ad_spend + portnoy_visit, data = pizza_sales)  # both
-      </code>
+      </input>
     </program>
     <p>
       Boom! In the code above, we have now run 4 regression models, with every combination
@@ -535,7 +547,7 @@ m4 &lt;- lm(volume ~ price + ad_spend + portnoy_visit, data = pizza_sales)  # bo
       models manually, but that would require a lot of working memory power on our end.
       <em>Or</em> we could utilize some commands in R to make our lives much easier.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 # How do we know which model is the best?
 
@@ -543,6 +555,8 @@ AIC(m1, m2, m3, m4) |> arrange(AIC)
 # This code provides us with an AIC (Akaike Information Criterion) value.
 # The smaller the AIC, the better the model's trade-off between complexity and fit.
       </input>
+      </program>
+    <console>
         <output>
 df      AIC
 m2  4 3486.244
@@ -551,7 +565,7 @@ m1  3 3491.395
 m3  4 3493.327
         </output>
       </console>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 # Let's say we want to use the broom function again to do a model comparison
 models &lt;- list(m1, m2, m3, m4)
@@ -564,6 +578,8 @@ names(models) &lt;- c("m1","m2","m3","m4")
 
 map_df(models, ~glance(.x), .id = "model") |> select(model, r.squared,adj.r.squared,p.value,AIC)
       </input>
+      </program>
+    <console>
         <output>
 # A tibble: 4 × 5
   model r.squared adj.r.squared  p.value   AIC
@@ -600,12 +616,14 @@ map_df(models, ~glance(.x), .id = "model") |> select(model, r.squared,adj.r.squa
         If you are looking to compare multiple regression models in a faster way, you could also
         utilize the code below.
       </p>
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 full_model &lt;- lm(volume ~ price + ad_spend + portnoy_visit, data = pizza_sales)
 
 step_model &lt;- step(full_model, direction = "both")
         </input>
+      </program>
+      <console>
         <output>
 Start:  AIC=3043.53
 volume ~ price + ad_spend + portnoy_visit

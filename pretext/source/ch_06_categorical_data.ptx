@@ -64,7 +64,7 @@
       with the <c>skim()</c> function from the <c>skimr</c> package (<cite key="R-skimr"/>) to
       investigate our data.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 library(tidyverse)
 library(reproresearchR)
@@ -75,6 +75,8 @@ library(skimr)
 
 skim(infection)
       </input>
+      </program>
+    <console>
         <output>
 ── Data Summary ────────────────────────
                            Values   
@@ -114,11 +116,13 @@ Group variables            None
       First, we check the balance of our groups to ensure the randomization worked and to see the
       overall infection rate. We can start with using <c>table()</c>.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 # All three are at the same frequency
 table(infection$Treatment)
       </input>
+      </program>
+    <console>
         <output>
 Control     Cranberry Lactobacillus 
            50            50            50
@@ -127,11 +131,13 @@ Control     Cranberry Lactobacillus
     <p>
       Using the <c>count()</c> function, we can perform essentially the same thing.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 # Showing there are more people that were not infected vs infected
 infection |> count(Infection)
       </input>
+      </program>
+    <console>
         <output>
 # A tibble: 2 × 2
   Infection     n
@@ -145,7 +151,7 @@ infection |> count(Infection)
       different treatments. While <c>table()</c> works, we will use <c>xtabs()</c> for a cleaner,
       formula-based approach.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 library(knitr)
 
@@ -154,6 +160,8 @@ contingency_table &lt;- xtabs(~Treatment + Infection, data = infection)
 
 kable(contingency_table, caption = "Contingency table displaying the frequency of infection status across treatment groups.")
       </input>
+      </program>
+    <console>
         <output>
 Table: Contingency table displaying the frequency of infection status across treatment groups.
 
@@ -168,13 +176,15 @@ Table: Contingency table displaying the frequency of infection status across tre
       In R formulas, the variable before the + becomes the rows, and the variable after the +
       becomes the columns. If we reverse the formula, we transpose the table.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 # Reversing the formula to see the change in orientation
 reverse_table &lt;- xtabs(~Infection + Treatment, data = infection)
 
 kable(reverse_table, caption = "Contingency table displaying the same infection data with rows and columns reversed to illustrate how formula order affects table orientation.")
       </input>
+      </program>
+    <console>
         <output>
 Table: Contingency table displaying the same infection data with rows and columns reversed to illustrate how formula order affects table orientation.
 
@@ -198,7 +208,7 @@ Table: Contingency table displaying the same infection data with rows and column
       <c>adorn_pct_formatting()</c>, and <c>adorn_ns()</c> functions.
     </p>
     <program language="r">
-      <code>
+      <input>
 library(janitor)
 
 c_table &lt;- infection |>
@@ -209,7 +219,7 @@ c_table &lt;- infection |>
   adorn_ns()                              # Combines counts + percentages
 
 kable(c_table, caption = "Distribution of infection status within each treatment group, reported as row percentages with counts (n).")
-      </code>
+      </input>
     </program>
     <p>
       From a percentage standpoint, we see that 84% of people who were given <em>cranberries</em>
@@ -245,7 +255,7 @@ kable(c_table, caption = "Distribution of infection status within each treatment
       </p>
     </assemblage>
     <program language="r">
-      <code>
+      <input>
 # We can use the library ggthemes to add some flavor to our plots
 library(ggthemes)
 
@@ -258,10 +268,10 @@ stacked &lt;- ggplot(infection, aes(x = Treatment, fill = Infection)) +
     x = "Treatment"
   ) +
   theme_solarized()
-      </code>
+      </input>
     </program>
     <program language="r">
-      <code>
+      <input>
 # Creating a grouped bar chart
 grouped &lt;- ggplot(infection, aes(x = Treatment, fill = Infection)) +
   geom_bar(position = "dodge") +
@@ -279,31 +289,31 @@ grouped &lt;- ggplot(infection, aes(x = Treatment, fill = Infection)) +
     fill = "Infection Outcome"
   ) +
   theme_classic()
-      </code>
+      </input>
     </program>
     <p>
       Using the <c>patchwork</c> package (<cite key="R-patchwork"/>), we can add two or more plots
       together using the <c>+</c> symbol.
     </p>
     <program language="r">
-      <code>
+      <input>
 # We can put them side by side to compare what they look like
 library(patchwork)
 
 grouped + stacked + plot_annotation(title = "Visualizing Infection Outcomes by Treatment (Stacked Vs. Grouped")
-      </code>
+      </input>
     </program>
     <p>
       To make our graphs more interactive with our users, we can utilize the <c>ggplotly()</c>
       function from the <c>plotly</c> package (<cite key="R-plotly"/>) (<cite key="R-webshot2"/>).
     </p>
     <program language="r">
-      <code>
+      <input>
 # We can also use the plotly package to make the visual more interactive
 library(plotly)
 
 ggplotly(grouped)
-      </code>
+      </input>
     </program>
     <assemblage>
       <title>When using ggplotly:</title>
@@ -320,10 +330,12 @@ ggplotly(grouped)
       visualizations. It is time to run what is called a <alert>chi-square</alert> test. This
       allows us to see if two categorical variables are related to each other.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 chisq.test(contingency_table)
       </input>
+      </program>
+    <console>
         <output>
 Pearson's Chi-squared test
 
@@ -351,7 +363,7 @@ X-squared = 7.7759, df = 2, p-value = 0.02049
       that <alert>cranberry</alert> is looking like the leader, but we can become more solidified
       on that stance.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 chi_square_test &lt;- chisq.test(contingency_table)
 
@@ -383,6 +395,8 @@ chi_square_test$residuals
 # More like an actual z-score
 chi_square_test$stdres
       </input>
+      </program>
+    <console>
         <output>
 X-squared 
   7.77592 
@@ -425,7 +439,7 @@ Treatment              No       Yes
       <em>key</em> to understanding our data.
     </p>
     <program language="r">
-      <code>
+      <input>
 # 1. Extract observed and expected counts from our test object
 obs_exp_data &lt;- data.frame(
   Treatment = rep(rownames(chi_square_test$observed), 2),
@@ -452,7 +466,7 @@ ggplot(plot_data, aes(x = Treatment, y = Counts, fill = Type)) +
     y = "Number of Participants"
   ) +
   theme_minimal()
-      </code>
+      </input>
     </program>
     <p>
       Our deep dive uncovered some very important things about our experiment:
@@ -486,7 +500,7 @@ ggplot(plot_data, aes(x = Treatment, y = Counts, fill = Type)) +
       <c>CrossTable()</c> command. <em>Beware</em>, this can at first be overwhelming, as a lot
       of information is thrown at you.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 library(gmodels)
 
@@ -499,6 +513,8 @@ CrossTable(infection$Treatment, infection$Infection,
            prop.r = TRUE,        # shows row proportions
            prop.c = TRUE)        # shows column proportions
       </input>
+      </program>
+    <console>
         <output>
 Cell Contents
 |-------------------------|
@@ -581,13 +597,15 @@ Chi^2 =  7.77592     d.f. =  2     p =  0.0204871
         What percentage of the X^2 value is each contribution responsible for?
       </p>
     </assemblage>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 # Calculate contribution to chi-square statistic
 contributions &lt;- ((chi_square_test$observed-chi_square_test$expected)^2)/chi_square_test$expected
 
 contributions
       </input>
+      </program>
+    <console>
         <output>
 Infection
 Treatment              No       Yes
@@ -602,12 +620,14 @@ Treatment              No       Yes
         <m>X^2= ((observed-expected)^2)/expected</m>
       </p>
     </assemblage>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 percent_contributions &lt;- contributions / chi_square_test$statistic * 100
 
 percent_contributions
       </input>
+      </program>
+    <console>
         <output>
 Infection
 Treatment              No       Yes
@@ -626,7 +646,7 @@ Treatment              No       Yes
       (<cite key="R-pheatmap"/>) comes in handy with the <c>pheatmap()</c> function..
     </p>
     <program language="r">
-      <code>
+      <input>
 library(pheatmap)
 
 # Create heatmap for percentage contributions
@@ -635,7 +655,7 @@ pheatmap(percent_contributions,
          cluster_rows = FALSE,
          cluster_cols = FALSE,
          main = "% Contribution to Chi-Square Statistic")
-      </code>
+      </input>
     </program>
     <p>
       That glaring, deep red box? That is the <alert>cranberry</alert> yes cell!
@@ -669,17 +689,17 @@ pheatmap(percent_contributions,
       the <c>rcompanion</c> package (<cite key="R-rcompanion"/>).
     </p>
     <program language="r">
-      <code>
+      <input>
 library(rcompanion)
 
 cramerV(contingency_table)
-      </code>
+      </input>
     </program>
     <p>
       The value derived from this is <alert>0.23</alert>. Again, similar to the correlation
       coefficient, there are guidelines that can be utilized to understand the strength.
     </p>
-    <console prompt="&gt; ">
+    <program language="r">
       <input>
 library(kableExtra)
 
@@ -693,6 +713,8 @@ kable(cramerV_table,
       booktabs = TRUE,
       caption = "Guidelines for interpreting the strength of association using Cramer's V. These ranges provide general heuristics for describing effect size in categorical analyses and should be interpreted in context rather than as strict cutoffs.")
       </input>
+      </program>
+    <console>
         <output>
 Table: Guidelines for interpreting the strength of association using Cramer's V. These ranges provide general heuristics for describing effect size in categorical analyses and should be interpreted in context rather than as strict cutoffs.
 

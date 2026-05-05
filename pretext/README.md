@@ -29,29 +29,31 @@ The book includes support for R code examples. There are two types of R code blo
 
 ```xml
 <program language="r">
-  <code>
+  <input>
 # Your R code here
 x &lt;- 10  # Use &lt; for < in XML
-  </code>
+  </input>
 </program>
 ```
 
-**Code with output** (shows code and its R output together):
+**Code with output** (shows code then its R output):
 
 ```xml
-<console prompt="&gt; ">
+<program language="r">
   <input>
 # Your R code here
 x &lt;- 10
 x
   </input>
+</program>
+<console>
   <output>
 [1] 10
   </output>
 </console>
 ```
 
-The `<console>` element renders both the code (bold, prefixed with the R prompt `>`) and the output below it.
+The `<program>` element renders the R code with syntax highlighting, and the separate `<console>` element renders the output below it.
 
 ## Images
 

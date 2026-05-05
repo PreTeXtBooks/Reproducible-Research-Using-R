@@ -130,7 +130,7 @@
         Speaking all about basics, let's start off by running some simple math.
       </p>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 2 + 2
 
@@ -142,6 +142,8 @@
 
 5 * 5 * 5 / 37 + 42
                 </input>
+      </program>
+      <console>
         <output>
 [1] 4
 [1] 3.333333
@@ -168,7 +170,7 @@
         analyses.
       </p>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # Built-in functions
 sqrt(25) # square root
@@ -181,6 +183,8 @@ round(3.14159, digits = 3) # round the output to only have 3 digits
 
 round(5*5/37, 4) # rounding the output of an equation
                 </input>
+      </program>
+      <console>
         <output>
 [1] 5
 [1] 2.302585
@@ -259,7 +263,7 @@ round(5*5/37, 4) # rounding the output of an equation
       </p>
     </assemblage>
 
-    <console prompt="&gt; ">
+    <program language="r">
         <input>
 # Assigning to objects (variables)
 sqrt(25) # the answer is 5
@@ -285,6 +289,8 @@ best_number &lt;- 42
 # Inspecting objects
 class(x) # x is numeric, as we already knew!
               </input>
+      </program>
+    <console>
         <output>
 [1] 5
 [1] 6
@@ -356,7 +362,7 @@ also_wont_work &lt;- (a, b, c) # no c before the parenthesis
         Numeric vectors contain only numeric values inside of them.
       </p>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # Numeric vector
 number_vector &lt;- c(1, 2, 3, 4, 5) # c stands for combine/concatenate
@@ -379,6 +385,8 @@ number_vector + numeric_vector_2
 # Vectorized math
 number_vector * 10
                 </input>
+      </program>
+      <console>
         <output>
 [1] 1 2 3 4 5
 [1]  6  7  8  9 10
@@ -407,7 +415,7 @@ number_vector * 10
         </p>
       </assemblage>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # Quotation marks around each of the fruits
 fruits &lt;- c("apple", "banana", "cherry")
@@ -419,6 +427,8 @@ Fruits &lt;- c("apple, banana, cherry")
 
 Fruits
                 </input>
+      </program>
+      <console>
         <output>
 [1] "apple"  "banana" "cherry"
 [1] "apple, banana, cherry"
@@ -460,7 +470,7 @@ Fruits
         </p>
       </assemblage>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # Using full word capitalized
 some_truths &lt;- c(TRUE, FALSE, TRUE)
@@ -481,6 +491,8 @@ truth_logic &lt;- c("TRUE","FALSE","TRUE")
 
 class(truth_logic)
                 </input>
+      </program>
+      <console>
         <output>
 [1]  TRUE FALSE  TRUE
 [1] "logical"
@@ -521,7 +533,7 @@ class(truth_logic)
         </p>
       </assemblage>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # Creating the colors vector as factors
 colors &lt;- factor(c("red", "blue", "red", "green")) # 4 values
@@ -532,6 +544,8 @@ class(colors)
 
 levels(colors) # Checking to see how many levels there are (3)
                 </input>
+      </program>
+      <console>
         <output>
 [1] red   blue  red   green
 Levels: blue green red
@@ -559,13 +573,15 @@ Levels: blue green red
         specific positions from vectors. To do this, we will be using brackets.
       </p>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # fruits &lt;- c("apple", "banana", "cherry")
 fruits[1] # first element
 
 fruits[2:3] # slice
                 </input>
+      </program>
+      <console>
         <output>
 [1] "apple"
 [1] "banana" "cherry"
@@ -586,7 +602,7 @@ fruits[2:3] # slice
         numeric and character, into a vector?
       </p>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # Putting two numeric and one character into a vector.
 mix &lt;- c(1, 2, "three")
@@ -595,6 +611,8 @@ mix # becomes character
 
 class(mix)
                 </input>
+      </program>
+      <console>
         <output>
 [1] "1"     "2"     "three"
 [1] "character"
@@ -644,7 +662,7 @@ class(mix)
         <c>data.frame()</c>.
       </p>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # Build a tiny class roster data frame
 names_vec &lt;- c("John", "Bob", "Carmen", "Sarah")
@@ -663,6 +681,8 @@ roster
 
 class(roster) # Class is now data.frame
                 </input>
+      </program>
+      <console>
         <output>
 name age major
 1   John  20 Psych
@@ -701,7 +721,7 @@ name age major
         Below we will test these functions out using the dataset <em>iris.</em>
       </p>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # iris
 head(iris) # By default returns 6 rows
@@ -714,6 +734,8 @@ summary(iris) # Provides statistics for each column
 
 colnames(iris) # Provides the column names of your data
                 </input>
+      </program>
+      <console>
         <output>
 Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -776,10 +798,12 @@ Sepal.Length Sepal.Width Petal.Length Petal.Width Species
         Below is an example of finding the median of the age column in the roster dataframe.
       </p>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 median(roster$age)
                 </input>
+      </program>
+      <console>
         <output>
 [1] 21.5
         </output>
@@ -795,7 +819,7 @@ median(roster$age)
         Below are examples of creating a new column in a data frame using the $.
       </p>
 
-      <console prompt="&gt; ">
+      <program language="r">
         <input>
 # Having one value for each row of data
 roster$year &lt;- 2025
@@ -805,6 +829,8 @@ roster$minor &lt;- c("Chemistry", "Biology", "History", "Art")
 
 roster
                 </input>
+      </program>
+      <console>
         <output>
 name age major year     minor
 1   John  20 Psych 2025 Chemistry
@@ -838,7 +864,7 @@ name age major year     minor
     </p>
 
     <program language="r">
-        <code>
+        <input>
 # read.csv example (commented because path varies by machine)
 # my_df &lt;- read.csv("/path/to/your/file.csv")
 
@@ -846,7 +872,7 @@ name age major year     minor
 # getwd()
 # setwd("/path/where/you/want") # &lt;- avoid hard-coding in projects; we'll cover R Projects later
 #setwd("~/Documents/Work/Brooklyn College/Fall 2025")
-              </code>
+              </input>
       </program>
   </section>
 
@@ -876,11 +902,11 @@ name age major year     minor
     </p>
 
     <program language="r">
-        <code>
+        <input>
 # install.packages("tidyverse")
 # library(readxl)
 # library(tidyverse)
-              </code>
+              </input>
       </program>
 
     <p>
@@ -919,9 +945,9 @@ name age major year     minor
     </p>
 
     <program language="r">
-        <code>
+        <input>
 ?str
-              </code>
+              </input>
       </program>
 
     <p>
