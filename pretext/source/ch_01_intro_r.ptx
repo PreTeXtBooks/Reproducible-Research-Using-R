@@ -328,12 +328,14 @@ class(x) # x is numeric, as we already knew!
     </p>
 
     <assemblage>
-      <title>There are two very important things that come into play when creating a vector:</title>
+      <title>There are two very important things that come into play when creating a vector</title>
+  <p>
       <ol>
         <li><p>Everything must go inside parenthesis</p></li>
         <li><p>Before the parenthesis, you have to call the <c>c</c> function. The purpose of this is to literally combine values into a vector.</p></li>
       </ol>
-      <p>
+   </p>
+     <p>
         <alert>You're telling R <q>Please combine everything in the parenthesis into one vector.</q></alert>
       </p>
     </assemblage>
