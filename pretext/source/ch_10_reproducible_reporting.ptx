@@ -426,7 +426,7 @@ penguins_new
       </console>
           <p>
             Now, that works, but in Quarto, there is an even better way to display tables. Using
-            the <c>knitr</c> package (<cite key="R-knitr"/>), we can display tables with the
+            the <c>knitr</c> package (<xref ref="R-knitr"/>), we can display tables with the
             <c>kable()</c> function, which is purposely dedicated to displaying tabular data in
             Quarto.
           </p>

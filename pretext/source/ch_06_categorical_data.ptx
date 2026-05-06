@@ -55,13 +55,13 @@
     <title>Loading Our Data</title>
     <p>
       This chapter uses the <c>infection_treatment</c> dataset from the companion R
-      <c>reproresearchR</c> package (<cite key="R-reproresearchR"/>). Refer back to
+      <c>reproresearchR</c> package (<xref ref="R-reproresearchR"/>). Refer back to
       <xref ref="sec-loading-packages"/> to find out more about the <c>reproresearchR</c>
       package if needed.
     </p>
     <p>
       Instead of using the <c>summary()</c> or <c>str()</c> functions, we are going to experiment
-      with the <c>skim()</c> function from the <c>skimr</c> package (<cite key="R-skimr"/>) to
+      with the <c>skim()</c> function from the <c>skimr</c> package (<xref ref="R-skimr"/>) to
       investigate our data.
     </p>
     <program language="r">
@@ -203,7 +203,7 @@ Table: Contingency table displaying the same infection data with rows and column
       <alert>Let's find out.</alert>
     </p>
     <p>
-      We will call on the help of the <c>janitor</c> package (<cite key="R-janitor"/>),
+      We will call on the help of the <c>janitor</c> package (<xref ref="R-janitor"/>),
       specifically the <c>tabyl()</c>, <c>adorn_totals()</c>, <c>adorn_percentages()</c>,
       <c>adorn_pct_formatting()</c>, and <c>adorn_ns()</c> functions.
     </p>
@@ -245,7 +245,7 @@ kable(c_table, caption = "Distribution of infection status within each treatment
       <title>Adding Flavor to Your Visualizations</title>
       <p>
         If you'd like to enhance the aesthetic of your plots, consider using the <c>ggthemes</c>
-        package (<cite key="R-ggthemes"/>). It provides a variety of alternative themes that can
+        package (<xref ref="R-ggthemes"/>). It provides a variety of alternative themes that can
         quickly change the look and feel of your graphics.
       </p>
       <p>
@@ -292,7 +292,7 @@ grouped &lt;- ggplot(infection, aes(x = Treatment, fill = Infection)) +
       </input>
     </program>
     <p>
-      Using the <c>patchwork</c> package (<cite key="R-patchwork"/>), we can add two or more plots
+      Using the <c>patchwork</c> package (<xref ref="R-patchwork"/>), we can add two or more plots
       together using the <c>+</c> symbol.
     </p>
     <program language="r">
@@ -305,7 +305,7 @@ grouped + stacked + plot_annotation(title = "Visualizing Infection Outcomes by T
     </program>
     <p>
       To make our graphs more interactive with our users, we can utilize the <c>ggplotly()</c>
-      function from the <c>plotly</c> package (<cite key="R-plotly"/>) (<cite key="R-webshot2"/>).
+      function from the <c>plotly</c> package (<xref ref="R-plotly"/>) (<xref ref="R-webshot2"/>).
     </p>
     <program language="r">
       <input>
@@ -496,7 +496,7 @@ ggplot(plot_data, aes(x = Treatment, y = Counts, fill = Type)) +
   <section xml:id="sec-cross-tables">
     <title>Cross Tables</title>
     <p>
-      In the <c>gmodels</c> package (<cite key="R-gmodels"/>) we are able to utilize the
+      In the <c>gmodels</c> package (<xref ref="R-gmodels"/>) we are able to utilize the
       <c>CrossTable()</c> command. <em>Beware</em>, this can at first be overwhelming, as a lot
       of information is thrown at you.
     </p>
@@ -643,7 +643,7 @@ Treatment              No       Yes
     <p>
       You already know that visualizations really help paint the picture, and <em>chi-square
       contributions</em> are not exempt. For this, the <c>pheatmap</c> package
-      (<cite key="R-pheatmap"/>) comes in handy with the <c>pheatmap()</c> function..
+      (<xref ref="R-pheatmap"/>) comes in handy with the <c>pheatmap()</c> function..
     </p>
     <program language="r">
       <input>
@@ -686,7 +686,7 @@ pheatmap(percent_contributions,
       Cramer's V tells you the strength of the relationship between two categorical variables,
       similar to correlation coefficient It is important to note that this measures effect size.
       This is <alert>not</alert> a statistic. We can utilize the <c>cramerV()</c> command from
-      the <c>rcompanion</c> package (<cite key="R-rcompanion"/>).
+      the <c>rcompanion</c> package (<xref ref="R-rcompanion"/>).
     </p>
     <program language="r">
       <input>

@@ -57,7 +57,7 @@
       <title>Installing Packages</title>
       <p>
         In order to install packages, we can utilize the <c>install.packages()</c> command. Let's
-        install our first official package, the <c>tidyverse</c> package (<cite key="R-tidyverse"/>).
+        install our first official package, the <c>tidyverse</c> package (<xref ref="R-tidyverse"/>).
       </p>
       <program language="text">
         <code>
@@ -110,11 +110,11 @@ sessionInfo()$otherPkgs |> names()
         means that as long as we do not close this R session, we can utilize the packages.
       </p>
       <p>
-        The <c>palmerpenguins</c> package (<cite key="R-palmerpenguins"/>) we will be using in this
+        The <c>palmerpenguins</c> package (<xref ref="R-palmerpenguins"/>) we will be using in this
         chapter. Before then, I want to show you that R is fun and diverse. The package
-        <c>fortunes</c> (<cite key="R-fortunes"/>) provides you a random R quote with the function
+        <c>fortunes</c> (<xref ref="R-fortunes"/>) provides you a random R quote with the function
         <c>fortune()</c> and the <c>say()</c> command from the <c>cowsay</c> package
-        (<cite key="R-cowsay"/>) provides a beautiful animal saying whatever you want it to say.
+        (<xref ref="R-cowsay"/>) provides a beautiful animal saying whatever you want it to say.
         Below the animal is <q>cow</q> but try some other ones (I suggest <q>dragon</q>).
       </p>
       <program language="r">
@@ -133,7 +133,7 @@ cowsay::say("Welcome to tidyverse!", by = "cow")
       </p>
       <p>
         To further illustrate the diversity of R packages, let's introduce an example of working
-        with live, real-world data using the <c>nycOpenData</c> package (<cite key="R-nycOpenData"/>).
+        with live, real-world data using the <c>nycOpenData</c> package (<xref ref="R-nycOpenData"/>).
         This package connects directly to the NYC Open Data Portal and displays the most recent data
         happening in the city. By using the <c>nyc_311()</c> function, we can gather the five most
         recent 311 calls in New York City. The fun thing is that every time you open this chapter,
