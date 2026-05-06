@@ -737,6 +737,12 @@ library(rcompanion)
 cramerV(contingency_table)
       </input>
     </program>
+    <console>
+        <output>
+Cramer V 
+0.2300265 
+        </output>
+      </console>
     <p>
       The value derived from this is <alert>0.23</alert>. Again, similar to the correlation
       coefficient, there are guidelines that can be utilized to understand the strength.
