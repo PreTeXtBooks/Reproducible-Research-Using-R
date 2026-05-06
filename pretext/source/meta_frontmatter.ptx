@@ -22,18 +22,6 @@
     <titlepage-items/>
   </titlepage>
 
-  <abstract>
-    <p>
-      <em>Reproducible Research Using R</em> is an open educational resource
-      (OER) designed to help students, researchers, and practitioners build
-      confidence using R as a complete research tool—from data import and
-      visualization to statistical analysis and polished reporting. The goal of
-      this book is not just to teach <em>what</em> buttons to press or
-      <em>which</em> functions to call, but to teach a workflow that is
-      transparent, explainable, and most importantly, reproducible.
-    </p>
-  </abstract>
-
   <preface xml:id="preface-about">
     <title>About This Book</title>
     <p>
@@ -44,6 +32,9 @@
       code; it was about learning how to think clearly, document decisions, and
       produce work that others (and your future self) can understand and reuse.
     </p>
+<p>
+<alert>Reproducible Research in R</alert> is an open educational resource (OER) designed to help students, researchers, and practitioners build confidence using R as a complete research tool—from data import and visualization to statistical analysis and polished reporting. The goal of this book is not just to teach what buttons to press or which functions to call, but to teach a <alert>workflow</alert> that is transparent, explainable, and most importantly, reproducible.
+</p>
     <p>
       This book was created in conjunction with the Open Educational Resources
       initiative at Brooklyn College and is freely available for learning,
