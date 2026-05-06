@@ -270,6 +270,12 @@ stacked &lt;- ggplot(infection, aes(x = Treatment, fill = Infection)) +
   theme_solarized()
       </input>
     </program>
+    <figure xml:id="fig-ggplot-infection-treatment-stacked">
+      <caption>Stacked bar chart showing the proportion of participants who were infected or not infected within each treatment group. Each bar represents a treatment, with segments indicating the relative frequency of infection outcomes.</caption>
+      <image source="images/stacked-barchart-infection.png" width="80%">
+        <description>A stacked bar chart showing proportions of infection outcomes (No/Yes) for each treatment group: Control, Cranberry, and Lactobacillus. Cranberry has the highest proportion of non-infected participants.</description>
+      </image>
+    </figure>
     <program language="r">
       <input>
 # Creating a grouped bar chart
@@ -291,6 +297,12 @@ grouped &lt;- ggplot(infection, aes(x = Treatment, fill = Infection)) +
   theme_classic()
       </input>
     </program>
+    <figure xml:id="fig-ggplot-infection-treatment-grouped">
+      <caption>Grouped bar chart displaying the raw counts of infected and not infected participants for each treatment type. Bars are shown side by side to facilitate direct comparison of observed frequencies across treatment groups.</caption>
+      <image source="images/grouped-barchart-infection.png" width="80%">
+        <description>A grouped bar chart showing counts of infection outcomes (No/Yes) side by side for each treatment group: Control, Cranberry, and Lactobacillus. Count labels appear above each bar.</description>
+      </image>
+    </figure>
     <p>
       Using the <c>patchwork</c> package (<xref ref="R-patchwork"/>), we can add two or more plots
       together using the <c>+</c> symbol.
@@ -303,6 +315,12 @@ library(patchwork)
 grouped + stacked + plot_annotation(title = "Visualizing Infection Outcomes by Treatment (Stacked Vs. Grouped")
       </input>
     </program>
+    <figure xml:id="fig-grouped-stacked-patchwork">
+      <caption>Side-by-side comparison of stacked and grouped bar charts visualizing infection outcomes by treatment type. The grouped chart highlights raw counts while the stacked chart emphasizes proportional differences.</caption>
+      <image source="images/patchwork-stacked-grouped.png" width="90%">
+        <description>Two bar charts placed side by side: on the left, a grouped bar chart showing raw counts, and on the right, a stacked bar chart showing proportions for each treatment group.</description>
+      </image>
+    </figure>
     <p>
       To make our graphs more interactive with our users, we can utilize the <c>ggplotly()</c>
       function from the <c>plotly</c> package (<xref ref="R-plotly"/>) (<xref ref="R-webshot2"/>).
@@ -468,6 +486,12 @@ ggplot(plot_data, aes(x = Treatment, y = Counts, fill = Type)) +
   theme_minimal()
       </input>
     </program>
+    <figure xml:id="fig-observed-vs-expected">
+      <caption>Comparison of observed vs. expected counts across treatment groups, faceted by infection outcome. The grey bars represent the expected distribution if there were no relationship between treatment and infection; deviations from grey indicate cells driving the significant chi-square result.</caption>
+      <image source="images/observed-vs-expected.png" width="85%">
+        <description>A faceted bar chart with two panels (No and Yes infection) showing observed (red) and expected (grey) counts for each treatment group. The Cranberry group shows the largest deviation from expected in the Yes panel.</description>
+      </image>
+    </figure>
     <p>
       Our deep dive uncovered some very important things about our experiment:
       <ul>
@@ -657,6 +681,12 @@ pheatmap(percent_contributions,
          main = "% Contribution to Chi-Square Statistic")
       </input>
     </program>
+    <figure xml:id="fig-pheatmap">
+      <caption>Heatmap showing the percentage contribution of each cell to the overall chi-square statistic. Darker shading indicates cells contributing more strongly to the chi-square value. The Cranberry/Yes cell contributes approximately 45% of the statistic.</caption>
+      <image source="images/pheatmap-contribution.png" width="65%">
+        <description>A heatmap with treatments (Control, Cranberry, Lactobacillus) as rows and infection outcomes (No, Yes) as columns. Cells are shaded by their percentage contribution to the chi-square statistic, with numerical values displayed. The Cranberry/Yes cell is the darkest, indicating the largest contribution.</description>
+      </image>
+    </figure>
     <p>
       That glaring, deep red box? That is the <alert>cranberry</alert> yes cell!
     </p>

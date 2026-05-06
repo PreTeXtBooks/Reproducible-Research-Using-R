@@ -202,6 +202,12 @@ ggplot(memory, aes(x = method, y = score, fill = method)) +
   theme_minimal()
         </input>
       </program>
+      <figure xml:id="fig-plots-anova">
+        <caption>Boxplots showing the distribution of memory test scores for each study technique, highlighting differences in central tendency and variability across groups.</caption>
+        <image source="images/anova-boxplot.png" width="80%">
+          <description>Three side-by-side boxplots showing memory test score distributions for Flashcards, Rereading, and Testing study techniques. Testing shows the highest median score, while Rereading shows the lowest.</description>
+        </image>
+      </figure>
 
       <program language="r">
         <input>
@@ -219,6 +225,12 @@ memory |>
   theme_minimal()
         </input>
       </program>
+      <figure xml:id="fig-anova-means-plot">
+        <caption>Average memory test scores by study technique. While differences in group means are apparent, statistical significance is assessed using a one-way ANOVA rather than visual inspection alone.</caption>
+        <image source="images/anova-means-plot.png" width="80%">
+          <description>A bar chart showing average memory test scores for Flashcards (76.1), Rereading (69.5), and Testing (85.7) study techniques, with count labels above each bar.</description>
+        </image>
+      </figure>
   </section>
 
   <section xml:id="sec-anova-t-test">
@@ -400,6 +412,12 @@ Testing-Rereading    16.206711  10.627657 21.785765 0.0000000
 plot(TukeyHSD(anova_model))
         </input>
       </program>
+      <figure xml:id="fig-post-hoc-plot">
+        <caption>Tukey's HSD post-hoc comparison plot showing confidence intervals for pairwise mean differences between study techniques. Intervals not crossing zero indicate statistically significant differences following the significant ANOVA.</caption>
+        <image source="images/post-hoc-plot.png" width="75%">
+          <description>A horizontal dot plot with confidence intervals for three pairwise comparisons: Testing minus Rereading, Testing minus Flashcards, and Rereading minus Flashcards. A vertical dashed line at zero separates significant from non-significant differences. All intervals exclude zero, indicating all comparisons are significant.</description>
+        </image>
+      </figure>
 
     <p>
       Taking all this into consideration:
@@ -476,6 +494,12 @@ ggplot(memory2, aes(x = method, y = score, color = caffeine, group = caffeine)) 
   theme_minimal()
         </input>
       </program>
+      <figure xml:id="fig-interaction-plot">
+        <caption>Interaction plot between Study Method and Caffeine Level. The near-parallel lines indicate that caffeine does not significantly alter the effectiveness of different study methods.</caption>
+        <image source="images/interaction-plot.png" width="75%">
+          <description>A line graph showing mean memory scores for High and Low caffeine groups across three study methods. The two lines are nearly parallel, indicating no significant interaction between caffeine level and study method.</description>
+        </image>
+      </figure>
 
     <assemblage>
       <title>What the p-value is actually telling you:</title>
