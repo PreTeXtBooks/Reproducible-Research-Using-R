@@ -48,7 +48,7 @@
     <title>Loading Our Data</title>
     <p>
       We start by importing the necessary packages, reading in our data from the
-      <c>reproresearchR</c> package (<cite key="R-reproresearchR"/>), and quickly doing an
+      <c>reproresearchR</c> package (<xref ref="R-reproresearchR"/>), and quickly doing an
       overview of the data.
     </p>
     <program language="r">

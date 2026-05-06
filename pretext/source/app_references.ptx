@@ -8,7 +8,121 @@
       The following references include the R packages, books, and resources cited throughout
       this book.
     </p>
-    <references/>
+    <references>
+
+      <biblio type="raw" xml:id="R-AICcmodavg">
+        Mazerolle, Marc J. (2025). <title>AICcmodavg: Model Selection and Multimodel Inference Based on (Q)AIC(c)</title>. R package version 2.3-4. <url href="https://CRAN.R-project.org/package=AICcmodavg"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-car">
+        Fox, John, Sanford Weisberg, and Brad Price (2024). <title>car: Companion to Applied Regression</title>. R package version 3.1-3. <url href="https://r-forge.r-project.org/projects/car/"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-caret">
+        Kuhn, Max (2024). <title>caret: Classification and Regression Training</title>. R package version 7.0-1. <url href="https://github.com/topepo/caret/"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-caTools">
+        Tuszynski, Jarek (2024). <title>caTools: Tools: Moving Window Statistics, GIF, Base64, ROC AUC, etc</title>. R package version 1.18.3. <url href="https://CRAN.R-project.org/package=caTools"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-cowsay">
+        Chamberlain, Scott and Amanda Dobbyn (2025). <title>cowsay: Messages, Warnings, Strings with Ascii Animals</title>. R package version 1.2.0. <url href="https://github.com/sckott/cowsay"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-fortunes">
+        Zeileis, Achim and the R community (2016). <title>fortunes: R Fortunes</title>. R package version 1.5-4. <url href="https://CRAN.R-project.org/package=fortunes"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-GGally">
+        Schloerke, Barret et al. (2025). <title>GGally: Extension to ggplot2</title>. R package version 2.4.0. <url href="https://ggobi.github.io/ggally/"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-ggplot2">
+        Wickham, Hadley et al. (2025). <title>ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</title>. R package version 4.0.0. <url href="https://ggplot2.tidyverse.org"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-ggthemes">
+        Arnold, Jeffrey B. (2024). <title>ggthemes: Extra Themes, Scales and Geoms for ggplot2</title>. R package version 5.1.0. <url href="https://jrnold.github.io/ggthemes/"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-gmodels">
+        Warnes, Gregory R. et al. (2024). <title>gmodels: Various R Programming Tools for Model Fitting</title>. R package version 2.19.1. <url href="https://github.com/r-gregmisc/gmodels"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-ISLR2">
+        James, Gareth, Daniela Witten, Trevor Hastie, and Rob Tibshirani (2022). <title>ISLR2: Introduction to Statistical Learning, Second Edition</title>. R package version 1.3-2. <url href="https://www.statlearning.com"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-janitor">
+        Firke, Sam (2024). <title>janitor: Simple Tools for Examining and Cleaning Dirty Data</title>. R package version 2.2.1. <url href="https://github.com/sfirke/janitor"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-knitr">
+        Xie, Yihui (2025). <title>knitr: A General-Purpose Package for Dynamic Report Generation in R</title>. R package version 1.50. <url href="https://yihui.org/knitr/"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-mosaic">
+        Pruim, Randall, Daniel T. Kaplan, and Nicholas J. Horton (2025). <title>mosaic: Project MOSAIC Statistics and Mathematics Teaching Utilities</title>. R package version 1.9.2. <url href="https://github.com/ProjectMOSAIC/mosaic"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-nycOpenData">
+        Martinez, Christian (2026). <title>nycOpenData: Convenient Access to NYC Open Data API Endpoints</title>. R package version 0.1.6. <url href="https://martinezc1.github.io/nycOpenData/"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-palmerpenguins">
+        Horst, Allison, Alison Hill, and Kristen Gorman (2022). <title>palmerpenguins: Palmer Archipelago (Antarctica) Penguin Data</title>. R package version 0.1.1. <url href="https://allisonhorst.github.io/palmerpenguins/"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-patchwork">
+        Pedersen, Thomas Lin (2025). <title>patchwork: The Composer of Plots</title>. R package version 1.3.2. <url href="https://patchwork.data-imaginist.com"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-pheatmap">
+        Kolde, Raivo (2025). <title>pheatmap: Pretty Heatmaps</title>. R package version 1.0.13. <url href="https://CRAN.R-project.org/package=pheatmap"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-plotly">
+        Sievert, Carson et al. (2025). <title>plotly: Create Interactive Web Graphics via plotly.js</title>. R package version 4.11.0. <url href="https://plotly-r.com"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-ppcor">
+        Kim, Seongho (2015). <title>ppcor: Partial and Semi-Partial (Part) Correlation</title>. R package version 1.1. <url href="https://CRAN.R-project.org/package=ppcor"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-pscl">
+        Jackman, Simon (2024). <title>pscl: Political Science Computational Laboratory</title>. R package version 1.5.9. <url href="https://github.com/atahk/pscl"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-quartets">
+        D'Agostino McGowan, Lucy (2023). <title>quartets: Datasets to Help Teach Statistics</title>. R package version 0.1.1. <url href="https://github.com/r-causal/quartets"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-rcompanion">
+        Mangiafico, Salvatore (2025). <title>rcompanion: Functions to Support Extension Education Program Evaluation</title>. R package version 2.5.0. <url href="https://CRAN.R-project.org/package=rcompanion"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-reproresearchR">
+        Martinez, Christian (2026). <title>reproresearchR: Companion Package for Reproducible Research Using R</title>. R package. <url href="https://github.com/martinezc1/reproresearchR"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-skimr">
+        Waring, Elin et al. (2025). <title>skimr: Compact and Flexible Summaries of Data</title>. R package version 2.2.1. <url href="https://docs.ropensci.org/skimr/"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-supernova">
+        Blake, Adam et al. (2024). <title>supernova: Judd, McClelland, and Ryan Formatting for ANOVA Output</title>. R package version 3.0.0. <url href="https://github.com/UCLATALL/supernova"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-tidyverse">
+        Wickham, Hadley (2023). <title>tidyverse: Easily Install and Load the Tidyverse</title>. R package version 2.0.0. <url href="https://tidyverse.tidyverse.org"/>.
+      </biblio>
+
+      <biblio type="raw" xml:id="R-webshot2">
+        Chang, Winston (2025). <title>webshot2: Take Screenshots of Web Pages</title>. R package version 0.1.2. <url href="https://rstudio.github.io/webshot2/"/>.
+      </biblio>
+
+    </references>
   </section>
 
 </appendix>

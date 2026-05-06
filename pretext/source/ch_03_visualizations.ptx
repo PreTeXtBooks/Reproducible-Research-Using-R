@@ -19,7 +19,7 @@
 
     <p>
       You may be thinking <q>how powerful can a visualization even be?</q> That is a
-      great question, that Anscombe's quartet will help answer (<cite key="R-quartets"/>).
+      great question, that Anscombe's quartet will help answer (<xref ref="R-quartets"/>).
     </p>
     <p>
       Quick history lesson. In 1973 (before the invention of R), a statistician named
@@ -118,7 +118,7 @@ ggplot(anscombe_quartet, aes(x = x, y = y)) +
     <title>Base R</title>
     <p>
       One of the strongest qualities in R is its ability to create visualizations,
-      powered by <c>ggplot2</c> (<cite key="R-ggplot2"/>). However, it is possible to use base R to create
+      powered by <c>ggplot2</c> (<xref ref="R-ggplot2"/>). However, it is possible to use base R to create
       plots as well. It is recommended to use ggplot2; however, you may encounter
       base R plots in older scripts or documentation, so an example is included for
       familiarity.

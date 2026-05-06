@@ -99,7 +99,7 @@ pizza_plot <- ggplot(pizza_sales, aes(x = price, y = volume)) +
 pizza_plot
 ```
 
-If we wanted to use another package instead of ggplot, we could also use the library `ggformula` (\@-Rggformula), whihc has `gf_point()`.
+If we wanted to use another package instead of ggplot, we could also use the library `ggformula` (@R-ggformula), which has `gf_point()`.
 
 ```{r}
 #| label: fig-scatter-ggformula
@@ -205,7 +205,7 @@ y = -111,669x + 385,442
 
 All of these insights together mean that this is a very good model to predict volume of pizza sold.
 
-In R, we always want to explore different packages. The `broom` package (\@-Rbroom) in R is very helpful when making statistical objects into nicer tibbles, usig the `tidy()` function.
+In R, we always want to explore different packages. The `broom` package (@R-broom) in R is very helpful when making statistical objects into nicer tibbles, using the `tidy()` function.
 
 ```{r}
 #| label: tbl-lm-with-broom-tidy
@@ -297,7 +297,7 @@ We will either see:
 -   Homoscedasticity: residuals are equally spread (good)
 -   Heteroscedasticity: residuals get wider or narrower as predictions change (bad)
 
-The Breusch-Pagan test provides insights for this. To perform this in R, we will use the `bptest()` function from the `lmtest` package (\@-Rlmtest).
+The Breusch-Pagan test provides insights for this. To perform this in R, we will use the `bptest()` function from the `lmtest` package (@R-lmtest).
 
 ```{r}
 #| label: tbl-bptest-using-lmtest
