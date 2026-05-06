@@ -149,7 +149,7 @@ pizza_plot
       </input>
     </program>
     <figure xml:id="fig-scatter-price-volume">
-      <caption>Scatterplot showing the relationship between pizza price and weekly sales volume, with a fitted linear trend line. The downward slope indicates a negative linear association: higher prices are associated with lower sales volume.</caption>
+      <caption>Scatterplot showing the relationship between pizza price and weekly sales volume, with a fitted linear trend line. The downward slope indicates a negative linear association, suggesting that higher prices are associated with lower sales volume. This visualization is used to assess linearity and motivate the use of correlation and linear regression.</caption>
       <image source="images/scatter-price-volume.png" width="80%">
         <description>A scatterplot with price on the x-axis and volume on the y-axis. Each point represents a week of sales data. A linear trend line with negative slope is fitted through the data.</description>
       </image>
@@ -167,7 +167,7 @@ pizza_plot_ggformula
       </input>
     </program>
     <figure xml:id="fig-scatter-ggformula">
-      <caption>Scatterplot of pizza price and weekly sales volume created using the ggformula package, with a fitted linear regression line in purple. This plot conveys the same negative relationship as the ggplot2 version.</caption>
+      <caption>Scatterplot of pizza price and weekly sales volume created using the ggformula package, with a fitted linear regression line. This plot conveys the same information as the ggplot version, demonstrating that different visualization frameworks can be used to explore linear relationships.</caption>
       <image source="images/scatter-ggformula.png" width="80%">
         <description>A scatterplot with price on the x-axis and volume on the y-axis, created using ggformula. A purple linear trend line shows the negative relationship between price and volume.</description>
       </image>
@@ -183,7 +183,7 @@ pizza_plot + pizza_plot_ggformula
       </input>
     </program>
     <figure xml:id="fig-patchwork-regression">
-      <caption>Side-by-side comparison of scatterplots generated using ggplot2 and ggformula. Both visualizations display the same negative linear relationship between pizza price and sales volume.</caption>
+      <caption>Side-by-side comparison of scatterplots generated using ggplot2 and ggformula. Both visualizations display the same negative linear relationship between pizza price and sales volume, illustrating that different plotting systems can yield equivalent analytical insights.</caption>
       <image source="images/patchwork-regression.png" width="90%">
         <description>Two scatterplots placed side by side: the left uses ggplot2 with a red trend line, and the right uses ggformula with a purple trend line. Both show the same negative association between pizza price and sales volume.</description>
       </image>
@@ -436,6 +436,12 @@ pizza_plot_residuals &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
 pizza_plot_residuals
       </input>
     </program>
+    <figure xml:id="fig-scatterplot-with-residual-lines">
+      <caption>Scatterplot of pizza price and sales volume with residual lines connecting observed values to model predictions. Each gray line represents a residual, illustrating the difference between actual sales and values predicted by the linear regression model.</caption>
+      <image source="images/scatterplot-with-residual-lines.png" width="80%">
+        <description>A scatterplot with price on the x-axis and volume on the y-axis. Gray vertical lines connect each observed point to the fitted regression line, visually representing the residuals for each observation.</description>
+      </image>
+    </figure>
     <p>
       With our residuals, we want them to be random. Visually, that means that the residual
       values should be scattered on an x-y plane without a pattern. To see this, we can graph the
@@ -455,6 +461,12 @@ ggplot(pizza_sales, aes(x = predicted, y = residuals)) +
   )
       </input>
     </program>
+    <figure xml:id="fig-graphing-residuals">
+      <caption>Residuals plotted against predicted sales volume from the linear regression model. Random scatter around the horizontal zero line indicates homoscedasticity, while systematic patterns would suggest violations of regression assumptions.</caption>
+      <image source="images/graphing-residuals.png" width="80%">
+        <description>A scatter plot with predicted volume on the x-axis and residuals on the y-axis. Blue points are scattered around a dashed horizontal line at zero, with a dotted red smooth curve overlaid to show any systematic pattern in the residuals.</description>
+      </image>
+    </figure>
     <p>
       The red line in the graph above has a slight curve, showing that our model is less accurate
       at the extremes (low and high prices). Thankfully, this pattern isn't very pronounced.
