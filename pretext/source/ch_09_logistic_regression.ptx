@@ -92,16 +92,16 @@ Group variables            None
 
 ── Variable type: factor ───────────────────────────────────────────────────────
   skim_variable n_missing complete_rate ordered n_unique top_counts         
-1 default               0             1 FALSE          2 No: 9677, Yes: 323 
-2 student               0             1 FALSE          2 No: 7033, Yes: 2967
+1 default               0             1 FALSE          2 No: 9667, Yes: 333 
+2 student               0             1 FALSE          2 No: 7056, Yes: 2944
 
 ── Variable type: numeric ──────────────────────────────────────────────────────
-  skim_variable n_missing complete_rate   mean     sd      p0    p25    p50
-1 balance               0             1   835.   488.   -836.   508.   837.
-2 income                0             1 33625. 13524. -16042. 24300. 33667.
-     p75   p100 hist 
-1  1164.  2608. ▁▃▇▃▁
-2 42889. 87751. ▁▃▇▂▁
+  skim_variable n_missing complete_rate     mean        sd     p0     p25        p50
+1 balance               0             1   835.37 	  483.71	 0.00	  481.73	  823.64	
+2 income                0             1 33516.98	13336.64 771.97	21340.46	34552.64
+       p75      p100  hist 
+1  1166.31	 2654.32  ▆▇▅▁▁
+2 43807.73	73554.23	▂▇▇▅▁
         </output>
       </console>
 
@@ -165,33 +165,65 @@ No  Yes
 # Proportion of people who default
 p &lt;- mean(cc_data$default == "Yes")
 p*100
+        </input>
+      </program>
+      <console>
+        <output>
+[1] 3.33
+        </output>
+      </console>
 
+      <program language="r">
+        <input>
 odds &lt;- p / (1 - p)
 
 # Below provides us with the default rate
 cat("Default rate:", round(p*100,2), "%\n")
+        </input>
+      </program>
+      <console>
+        <output>
+Default rate: 3.33 %
+        </output>
+      </console>
 
+      <program language="r">
+        <input>
 # Below provides us with the odds of someone defaulting
 cat("Odds of defaulting:", round(odds,4), "\n")
+        </input>
+      </program>
+      <console>
+        <output>
+Odds of defaulting: 0.0344 
+        </output>
+      </console>
 
+      <program language="r">
+        <input>
 # Below provides us with the odds ratio
 cat("Equivalent odds ratio (1 in every", round(1/odds,0), ")\n")
+        </input>
+      </program>
+      <console>
+        <output>
+Equivalent odds ratio (1 in every 29 )
+</output>
+      </console>
 
+      <program language="r">
+        <input>
 # Cross-tab between student status and default
 cc_data |> count(default, student) |> arrange(desc(n))
         </input>
       </program>
       <console>
         <output>
-[1] 3.23
-Default rate: 3.23 %
-Odds of defaulting: 0.0334 
-Equivalent odds ratio (1 in every 30 )
   default student    n
-1      No      No 6812
-2      No     Yes 2865
-3     Yes      No  221
-4     Yes     Yes  102
+1      No      No 6850
+2      No     Yes 2817
+3     Yes      No  206
+4     Yes     Yes  127
         </output>
       </console>
 
@@ -204,11 +236,32 @@ favstats(income ~ default, data = cc_data)
         </input>
       </program>
 
+      <console>
+        <output>
+  default       min       Q1   median       Q3      max     mean       sd    n
+1      No  771.9677 21405.06 34589.49 43823.76 73554.23 33566.17 13318.25 9667
+2     Yes 9663.7882 19027.51 31515.34 43067.33 66466.46 32089.15 13804.22  333
+  missing
+1       0
+2       0
+        </output>
+      </console>
+
       <program language="r">
         <input>
 favstats(balance ~ default, data = cc_data)
         </input>
       </program>
+      <console>
+        <output>
+  default      min        Q1    median       Q3      max      mean       sd
+1      No   0.0000  465.7146  802.8571 1128.249 2391.008  803.9438 456.4762
+2     Yes 652.3971 1511.6110 1789.0934 1988.870 2654.323 1747.8217 341.2668
+     n missing
+1 9667       0
+2  333       0
+        </output>
+      </console>
 
     <p>
       Some things that were uncovered in the code above:
@@ -304,7 +357,7 @@ ggplot(cc_data, aes(x = balance, y = income, color = default)) +
         </input>
       </program>
       <figure xml:id="fig-default-scatter">
-        <caption>Regardless of default status, there is a negative relationship between Annual Income and Average Credit Card Balance.</caption>
+        <caption>Regardless of if you default or not, there is a negative relationship between Annual Income and Average Credit Card Balance.</caption>
         <image source="images/default-scatter.png" width="80%">
           <description>A scatterplot with credit card balance on the x-axis and annual income on the y-axis. Points are colored by default status. A dashed trend line shows the overall negative association between balance and income.</description>
         </image>
@@ -428,7 +481,7 @@ ggplot(cc_data, aes(x = balance, y = as.numeric(default) - 1)) +
         </input>
       </program>
       <figure xml:id="fig-s-curve">
-        <caption>When plotting the balance and the default, the scatterplot creates a line that is not linear, but in fact an S shape. The red sigmoid curve shows the probability of default increases with higher balances.</caption>
+        <caption>When plotting the balance and the default, the scatterplot creates a line that is not linear, but in fact an S shape.</caption>
         <image source="images/s-curve.png" width="80%">
           <description>A scatterplot with credit card balance on the x-axis and probability of default (0 or 1) on the y-axis. Points are clustered along the bottom (no default) and top (default). A red S-shaped sigmoid curve rises from near 0 probability at low balances to near 1 at high balances.</description>
         </image>
@@ -462,20 +515,20 @@ glm(formula = default ~ student + balance + income, family = "binomial",
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -3.396e+00  2.184e-01 -15.547   &lt;2e-16 ***
-studentYes  -5.142e-02  1.493e-01  -0.344    0.731    
-balance      5.753e-05  1.397e-04   0.412    0.681    
-income      -1.126e-06  5.006e-06  -0.225    0.822    
+(Intercept) -1.090e+01  5.931e-01 -18.372  &lt; 2e-16 ***
+studentYes  -8.245e-01  2.835e-01  -2.908  0.00364 ** 
+balance      5.796e-03  2.805e-04  20.661  &lt; 2e-16 ***
+income       2.768e-06  9.736e-06   0.284  0.77614    
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 1996.4  on 6999  degrees of freedom
-Residual deviance: 1996.1  on 6996  degrees of freedom
-AIC: 2004.1
+    Null deviance: 2043.8  on 6999  degrees of freedom
+Residual deviance: 1098.2  on 6996  degrees of freedom
+AIC: 1106.2
 
-Number of Fisher Scoring iterations: 6
+Number of Fisher Scoring iterations: 8
         </output>
       </console>
 
@@ -534,8 +587,8 @@ exp(coef(train_model))
       </program>
       <console>
         <output>
-(Intercept)  studentYes     balance      income 
- 0.03350596  0.94988012  1.00005753  0.99999887
+ (Intercept)   studentYes      balance       income 
+1.850225e-05 4.384379e-01 1.005813e+00 1.000003e+00 
         </output>
       </console>
 
@@ -579,7 +632,7 @@ pR2(train_model)["McFadden"]
         <output>
 fitting null model for pseudo-r2
     McFadden 
-0.0001688776
+0.4626515 
         </output>
       </console>
 
@@ -606,10 +659,10 @@ varImp(train_model) |> arrange(desc(Overall))
       </program>
         <console>
         <output>
-Overall
-balance    0.4117110
-studentYes 0.3443112
-income     0.2248744
+              Overall
+balance    20.6607703
+studentYes  2.9080015
+income      0.2843578
         </output>
       </console>
     </subsection>
@@ -635,8 +688,8 @@ vif(train_model)
       </program>
         <console>
         <output>
-student  balance   income 
-1.000040 1.000591 1.000558
+ student  balance   income 
+2.671007 1.072618 2.593366 
         </output>
       </console>
 
@@ -712,28 +765,29 @@ Confusion Matrix and Statistics
 
           Reference
 Prediction   No  Yes
-       No  2903   97
-       Yes    0    0
+       No  2886   71
+       Yes   14   29
                                           
-               Accuracy : 0.9677          
-                 95% CI : (0.9607, 0.9737)
-    No Information Rate : 0.9677          
-    P-Value [Acc &gt; NIR] : 0.527           
+               Accuracy : 0.9717          
+                 95% CI : (0.9651, 0.9773)
+    No Information Rate : 0.9667          
+    P-Value [Acc > NIR] : 0.06743         
                                           
-                  Kappa : 0               
+                  Kappa : 0.3934          
                                           
- Mcnemar's Test P-Value : &lt;2e-16          
+ Mcnemar's Test P-Value : 1.247e-09       
                                           
-            Sensitivity : 0.00000         
-            Specificity : 1.00000         
-         Pos Pred Value :     NaN         
-         Neg Pred Value : 0.96767         
-             Prevalence : 0.03233         
-         Detection Rate : 0.00000         
-   Detection Prevalence : 0.00000         
-      Balanced Accuracy : 0.50000         
+            Sensitivity : 0.290000        
+            Specificity : 0.995172        
+         Pos Pred Value : 0.674419        
+         Neg Pred Value : 0.975989        
+             Prevalence : 0.033333        
+         Detection Rate : 0.009667        
+   Detection Prevalence : 0.014333        
+      Balanced Accuracy : 0.642586        
                                           
-       'Positive' Class : Yes
+       'Positive' Class : Yes             
+                                    
         </output>
       </console>
 
@@ -798,7 +852,7 @@ auc(roc_obj)
       </program>
       <console>
         <output>
-Area under the curve: 0.5576
+Area under the curve: 0.9529
         </output>
       </console>
 
