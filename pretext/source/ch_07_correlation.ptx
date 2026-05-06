@@ -341,10 +341,10 @@ ggpairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
       <console>
         <output>
 Absolute value of r	     Strength of relationship
-r < 0.25	             No relationship
-0.25 < r < 0.5	         Weak relationship
-0.5 < r < 0.75	         Moderate relationship
-r > 0.75	             Strong relationship
+r &lt; 0.25	             No relationship
+0.25 &lt; r &lt; 0.5	         Weak relationship
+0.5 &lt; r &lt; 0.75	         Moderate relationship
+r &gt; 0.75	             Strong relationship
         </output>
       </console>
 
