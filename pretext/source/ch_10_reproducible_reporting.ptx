@@ -528,6 +528,12 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
   geom_point()
             </input>
           </program>
+          <figure xml:id="fig-mpg-scatter-quarto">
+            <caption>An example of a visualization made using ggplot2. This scatterplot displays the relationship between city mileage (<c>cty</c>) and highway mileage (<c>hwy</c>) from the <c>mpg</c> dataset.</caption>
+            <image source="images/mpg-scatter.png" width="80%">
+              <description>A scatterplot with city mileage on the x-axis and highway mileage on the y-axis, showing a positive relationship between the two variables across 234 vehicles in the mpg dataset.</description>
+            </image>
+          </figure>
           <p>
             This visualization, which we originally built in Section
             <xref ref="sec-ggplot-scatterplot"/>, not only displays the data, but provides a
