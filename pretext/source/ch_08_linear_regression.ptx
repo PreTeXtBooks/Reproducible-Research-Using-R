@@ -148,6 +148,12 @@ pizza_plot &lt;- ggplot(pizza_sales, aes(x = price, y = volume)) +
 pizza_plot
       </input>
     </program>
+    <figure xml:id="fig-scatter-price-volume">
+      <caption>Scatterplot showing the relationship between pizza price and weekly sales volume, with a fitted linear trend line. The downward slope indicates a negative linear association: higher prices are associated with lower sales volume.</caption>
+      <image source="images/scatter-price-volume.png" width="80%">
+        <description>A scatterplot with price on the x-axis and volume on the y-axis. Each point represents a week of sales data. A linear trend line with negative slope is fitted through the data.</description>
+      </image>
+    </figure>
     <p>
       If we wanted to use another package instead of ggplot, we could also use the library
       <c>ggformula</c>, which has <c>gf_point()</c>.
@@ -160,6 +166,12 @@ pizza_plot_ggformula &lt;- gf_point(volume ~ price, data = pizza_sales) |> gf_lm
 pizza_plot_ggformula
       </input>
     </program>
+    <figure xml:id="fig-scatter-ggformula">
+      <caption>Scatterplot of pizza price and weekly sales volume created using the ggformula package, with a fitted linear regression line in purple. This plot conveys the same negative relationship as the ggplot2 version.</caption>
+      <image source="images/scatter-ggformula.png" width="80%">
+        <description>A scatterplot with price on the x-axis and volume on the y-axis, created using ggformula. A purple linear trend line shows the negative relationship between price and volume.</description>
+      </image>
+    </figure>
     <p>
       Here is a side by side comparison of what they look like. Very similar indeed.
     </p>
@@ -170,6 +182,12 @@ library(patchwork)
 pizza_plot + pizza_plot_ggformula
       </input>
     </program>
+    <figure xml:id="fig-patchwork-regression">
+      <caption>Side-by-side comparison of scatterplots generated using ggplot2 and ggformula. Both visualizations display the same negative linear relationship between pizza price and sales volume.</caption>
+      <image source="images/patchwork-regression.png" width="90%">
+        <description>Two scatterplots placed side by side: the left uses ggplot2 with a red trend line, and the right uses ggformula with a purple trend line. Both show the same negative association between pizza price and sales volume.</description>
+      </image>
+    </figure>
     <p>
       Our data is already telling us a lot. From both of our graphics, we can see that as price
       is going up, volume is going down, indicating a negative correlation. Our line also seems

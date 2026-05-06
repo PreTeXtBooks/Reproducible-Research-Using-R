@@ -260,6 +260,12 @@ ggplot(cc_data, aes(x = default, fill = default)) +
   theme_economist()
         </input>
       </program>
+      <figure xml:id="fig-default-bargraph">
+        <caption>Most customers do not default on their credit cards, with defaulters representing only about 3% of the dataset.</caption>
+        <image source="images/default-bargraph.png" width="70%">
+          <description>A bar chart showing the count of No defaults (9,677) and Yes defaults (323). The No bar is much taller, confirming that defaults are rare in the dataset.</description>
+        </image>
+      </figure>
 
     <p>
       For a quick review on histograms, see <xref ref="sec-ggplot-histogram"/>.
@@ -275,6 +281,12 @@ ggplot(cc_data, aes(x = balance, fill = default)) +
   theme_economist_white()
         </input>
       </program>
+      <figure xml:id="fig-default-histogram">
+        <caption>While most customers do not default on their credit cards, it seems that people who do have higher balances.</caption>
+        <image source="images/default-histogram.png" width="80%">
+          <description>An overlapping histogram showing credit card balance distributions for defaulters (Yes, red) and non-defaulters (No, teal). Non-defaulters cluster at lower balances while defaulters show a distribution shifted toward higher balances.</description>
+        </image>
+      </figure>
 
       <program language="r">
         <input>
@@ -291,6 +303,12 @@ ggplot(cc_data, aes(x = balance, y = income, color = default)) +
   theme(plot.title = element_text(face = "bold"))
         </input>
       </program>
+      <figure xml:id="fig-default-scatter">
+        <caption>Regardless of default status, there is a negative relationship between Annual Income and Average Credit Card Balance.</caption>
+        <image source="images/default-scatter.png" width="80%">
+          <description>A scatterplot with credit card balance on the x-axis and annual income on the y-axis. Points are colored by default status. A dashed trend line shows the overall negative association between balance and income.</description>
+        </image>
+      </figure>
 
     <p>
       The visualizations look great! In terms of insights, we see (again) that most
@@ -409,6 +427,12 @@ ggplot(cc_data, aes(x = balance, y = as.numeric(default) - 1)) +
   labs(y = "Probability of Default", x = "Balance")
         </input>
       </program>
+      <figure xml:id="fig-s-curve">
+        <caption>When plotting the balance and the default, the scatterplot creates a line that is not linear, but in fact an S shape. The red sigmoid curve shows the probability of default increases with higher balances.</caption>
+        <image source="images/s-curve.png" width="80%">
+          <description>A scatterplot with credit card balance on the x-axis and probability of default (0 or 1) on the y-axis. Points are clustered along the bottom (no default) and top (default). A red S-shaped sigmoid curve rises from near 0 probability at low balances to near 1 at high balances.</description>
+        </image>
+      </figure>
 
     <p>
       In the figure above, notice how the red line transitions from a low probability

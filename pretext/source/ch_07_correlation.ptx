@@ -184,6 +184,12 @@ p1 &lt;- ggplot(examData, aes(x = studying_hours, y = exam_score)) +
 p1
         </input>
       </program>
+      <figure xml:id="fig-scatterplot-correlation">
+        <caption>Scatterplot showing the relationship between studying time and exam performance, with points colored by first-generation college student status and a fitted linear trend line. The upward trend suggests a positive linear association.</caption>
+        <image source="images/scatterplot-studying-exam.png" width="80%">
+          <description>A scatterplot with studying hours on the x-axis and exam score on the y-axis. Points are colored by first-generation college student status. A linear trend line shows a positive association: more study time correlates with higher exam scores.</description>
+        </image>
+      </figure>
 
       <program language="r">
         <input>
@@ -200,6 +206,12 @@ p2 &lt;- ggplot(examData, aes(x = anxiety_score, y = exam_score)) +
 p2
         </input>
       </program>
+      <figure xml:id="fig-anxiety-performance">
+        <caption>Scatterplot illustrating the relationship between exam anxiety and exam performance, with a fitted linear trend line. The downward trend indicates a negative linear association: higher anxiety levels are associated with lower exam scores.</caption>
+        <image source="images/scatterplot-anxiety-exam.png" width="80%">
+          <description>A scatterplot with anxiety score on the x-axis and exam score on the y-axis. Points are colored by first-generation college student status. A linear trend line shows a negative association: higher anxiety correlates with lower exam scores.</description>
+        </image>
+      </figure>
 
       <program language="r">
         <input>
@@ -216,6 +228,12 @@ p3 &lt;- ggplot(examData, aes(x = studying_hours, y = anxiety_score)) +
 p3
         </input>
       </program>
+      <figure xml:id="fig-studying-anxiety">
+        <caption>Scatterplot displaying the relationship between studying time and exam anxiety, with a fitted linear trend line. The negative pattern suggests that increased study time is associated with lower anxiety levels.</caption>
+        <image source="images/scatterplot-studying-anxiety.png" width="80%">
+          <description>A scatterplot with studying hours on the x-axis and anxiety score on the y-axis. Points are colored by first-generation college student status. A linear trend line shows a negative association: more study time correlates with lower anxiety.</description>
+        </image>
+      </figure>
 
     <p>
       Intuitively, these graphs make sense (which is what we want to see). From a
@@ -250,6 +268,12 @@ p3
 pairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
         </input>
       </program>
+      <figure xml:id="fig-pairs">
+        <caption>Scatterplot matrix displaying pairwise relationships among studying time, exam performance, and exam anxiety. Each panel shows the relationship between two variables, allowing simultaneous assessment of direction, strength, and linearity.</caption>
+        <image source="images/pairs-plot.png" width="80%">
+          <description>A 3x3 scatterplot matrix showing pairwise relationships between studying_hours, exam_score, and anxiety_score. The diagonal shows variable names, and off-diagonal panels show scatterplots of the corresponding variable pair.</description>
+        </image>
+      </figure>
 
     <p>
       This creates a scatterplot for all of the columns we specify. It may take a
@@ -269,6 +293,12 @@ library(GGally)
 ggpairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
         </input>
       </program>
+      <figure xml:id="fig-ggally-correlation">
+        <caption>Enhanced scatterplot matrix displaying pairwise relationships among studying time, exam performance, and exam anxiety. Diagonal panels show variable distributions, while off-diagonal panels display scatterplots and correlation coefficients.</caption>
+        <image source="images/ggally-correlation.png" width="80%">
+          <description>A 3x3 enhanced scatterplot matrix. The diagonal panels show histograms for each variable. The lower triangle shows scatterplots with linear trend lines, and the upper triangle shows correlation coefficients (Cor values).</description>
+        </image>
+      </figure>
 
     <p>
       This not only creates the three scatterplots, but also creates a histogram in
