@@ -221,6 +221,18 @@ c_table &lt;- infection |>
 kable(c_table, caption = "Distribution of infection status within each treatment group, reported as row percentages with counts (n).")
       </input>
     </program>
+    <console>
+        <output>
+Table: Distribution of infection status within each treatment group, reported as row percentages with counts (n).
+
+|Treatment     |No          |Yes        |
+|:-------------|:-----------|:----------|
+|Control       |64.0% ( 32) |36.0% (18) |
+|Cranberry     |84.0% ( 42) |16.0% ( 8) |
+|Lactobacillus |60.0% ( 30) |40.0% (20) |
+|Total         |69.3% (104) |30.7% (46) |
+        </output>
+      </console>
     <p>
       From a percentage standpoint, we see that 84% of people who were given <em>cranberries</em>
       were not infected! That is much higher than either other treatment options, and the total
