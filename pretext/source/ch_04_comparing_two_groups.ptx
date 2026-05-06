@@ -523,6 +523,12 @@ ggplot(baseball_data_long, aes(Team, Score)) +
   theme_classic()
         </input>
       </program>
+      <figure xml:id="fig-baseball-boxplot">
+        <caption>Distribution of runs scored by the New York Yankees and New York Mets across the first 20 games of the 2025 season. Boxplots summarize the central tendency and spread of scores for each team, while individual points represent runs scored in each game.</caption>
+        <image source="images/baseball-boxplot.png" width="80%">
+          <description>A horizontal boxplot showing runs scored by the Yankees and Mets across the first 20 games of the 2025 MLB season. The x-axis shows runs scored from 0 to 20, and the y-axis shows the two teams. Individual game scores are overlaid as jittered points.</description>
+        </image>
+      </figure>
       <p>
         There has already been a lot of work done with our data, and through both visualizations
         and summary statistics, we have an idea of where our groups differ. The next step of
