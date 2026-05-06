@@ -185,7 +185,7 @@ p1
         </input>
       </program>
       <figure xml:id="fig-scatterplot-correlation">
-        <caption>Scatterplot showing the relationship between studying time and exam performance, with points colored by first-generation college student status and a fitted linear trend line. The upward trend suggests a positive linear association.</caption>
+        <caption>Scatterplot showing the relationship between studying time and exam performance, with points colored by if they’re a first generation college student and a fitted linear trend line. The upward trend suggests a positive linear association, indicating that students who spend more time studying tend to achieve higher exam scores. This visualization motivates the use of a correlation coefficient to quantify the strength of the relationship.</caption>
         <image source="images/scatterplot-studying-exam.png" width="80%">
           <description>A scatterplot with studying hours on the x-axis and exam score on the y-axis. Points are colored by first-generation college student status. A linear trend line shows a positive association: more study time correlates with higher exam scores.</description>
         </image>
@@ -207,8 +207,7 @@ p2
         </input>
       </program>
       <figure xml:id="fig-anxiety-performance">
-        <caption>Scatterplot illustrating the relationship between exam anxiety and exam performance, with a fitted linear trend line. The downward trend indicates a negative linear association: higher anxiety levels are associated with lower exam scores.</caption>
-        <image source="images/scatterplot-anxiety-exam.png" width="80%">
+        <caption>Scatterplot illustrating the relationship between exam anxiety and exam performance, with a fitted linear trend line. The downward trend indicates a negative linear association, suggesting that higher anxiety levels are associated with lower exam scores. This visualization supports the use of correlation to formally assess the direction and strength of the relationship.</caption>        <image source="images/scatterplot-anxiety-exam.png" width="80%">
           <description>A scatterplot with anxiety score on the x-axis and exam score on the y-axis. Points are colored by first-generation college student status. A linear trend line shows a negative association: higher anxiety correlates with lower exam scores.</description>
         </image>
       </figure>
@@ -229,7 +228,7 @@ p3
         </input>
       </program>
       <figure xml:id="fig-studying-anxiety">
-        <caption>Scatterplot displaying the relationship between studying time and exam anxiety, with a fitted linear trend line. The negative pattern suggests that increased study time is associated with lower anxiety levels.</caption>
+        <caption>Scatterplot displaying the relationship between studying time and exam anxiety, with points colored by if they’re a first generation college student and a fitted linear trend line. The negative linear pattern suggests that increased study time is associated with lower anxiety levels, providing visual evidence of a linear relationship prior to computing a correlation coefficient.</caption>
         <image source="images/scatterplot-studying-anxiety.png" width="80%">
           <description>A scatterplot with studying hours on the x-axis and anxiety score on the y-axis. Points are colored by first-generation college student status. A linear trend line shows a negative association: more study time correlates with lower anxiety.</description>
         </image>
@@ -269,7 +268,7 @@ pairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
         </input>
       </program>
       <figure xml:id="fig-pairs">
-        <caption>Scatterplot matrix displaying pairwise relationships among studying time, exam performance, and exam anxiety. Each panel shows the relationship between two variables, allowing simultaneous assessment of direction, strength, and linearity.</caption>
+        <caption>Scatterplot matrix displaying pairwise relationships among studying time, exam performance, and exam anxiety. Each panel shows the relationship between two variables, allowing for simultaneous assessment of direction, strength, and linearity prior to formal correlation analysis.</caption>
         <image source="images/pairs-plot.png" width="80%">
           <description>A 3x3 scatterplot matrix showing pairwise relationships between studying_hours, exam_score, and anxiety_score. The diagonal shows variable names, and off-diagonal panels show scatterplots of the corresponding variable pair.</description>
         </image>
@@ -294,7 +293,7 @@ ggpairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
         </input>
       </program>
       <figure xml:id="fig-ggally-correlation">
-        <caption>Enhanced scatterplot matrix displaying pairwise relationships among studying time, exam performance, and exam anxiety. Diagonal panels show variable distributions, while off-diagonal panels display scatterplots and correlation coefficients.</caption>
+        <caption>Enhanced scatterplot matrix displaying pairwise relationships among studying time, exam performance, and exam anxiety. The diagonal panels show variable distributions, while off-diagonal panels display scatterplots and correlation coefficients. This visualization allows for simultaneous assessment of linearity, direction, strength of association, and distributional properties prior to formal correlation analysis.</caption>
         <image source="images/ggally-correlation.png" width="80%">
           <description>A 3x3 enhanced scatterplot matrix. The diagonal panels show histograms for each variable. The lower triangle shows scatterplots with linear trend lines, and the upper triangle shows correlation coefficients (Cor values).</description>
         </image>
@@ -339,48 +338,13 @@ ggpairs(examData[, c("studying_hours", "exam_score", "anxiety_score")])
       strength. <em>However, different disciplines may have different guidelines.</em>
     </p>
 
-      <program language="r">
-        <input>
-library(knitr)
-library(kableExtra)
-
-cor_table &lt;- data.frame(
-  "Absolute value of r" = c("r &lt; 0.25", "0.25 &lt; r &lt; 0.5", "0.5 &lt; r &lt; 0.75", "r > 0.75"),
-  "Strength of relationship" = c("No relationship", "Weak relationship", "Moderate relationship", "Strong relationship"), check.names = FALSE)
-
-kable(cor_table, 
-      booktabs = TRUE) |>
-  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
-        </input>
-      </program>
       <console>
         <output>
-&lt;table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Absolute value of r &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Strength of relationship &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; r &amp;lt; 0.25 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; No relationship &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 0.25 &amp;lt; r &amp;lt; 0.5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Weak relationship &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 0.5 &amp;lt; r &amp;lt; 0.75 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Moderate relationship &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; r &amp;gt; 0.75 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Strong relationship &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+Absolute value of r	     Strength of relationship
+r < 0.25	             No relationship
+0.25 < r < 0.5	         Weak relationship
+0.5 < r < 0.75	         Moderate relationship
+r > 0.75	             Strong relationship
         </output>
       </console>
 
@@ -616,6 +580,18 @@ pcor.test(examData$studying_hours, examData$exam_score, examData$anxiety_score)
         </input>
       </program>
 
+      <console>
+        <output>
+    estimate    p.value statistic   n gp  Method
+1 -0.2585344 0.00977182 -2.635883 100  1 pearson
+
+   estimate   p.value statistic   n gp  Method
+1 0.1163946 0.2512544  1.154199 100  1 pearson
+        </output>
+      </console>
+
+
+
     <p>
       After controlling for studying time, we now see that:
     </p>
@@ -845,24 +821,13 @@ examData |>
     <subsection xml:id="sec-cor-apa-bivariate">
       <title>Bivariate Correlation</title>
 
-        <program language="r">
-          <input>
-# Calculate the correlation test
-res_anx &lt;- cor.test(examData$anxiety_score, examData$exam_score)
-
-# Save specific values as easy-to-use objects
-# We use 'estimate' for r and 'p.value' for p
-anx_r &lt;- round(res_anx$estimate, 2)
-anx_p &lt;- round(res_anx$p.value, 3)
-anx_r2 &lt;- round(anx_r^2 * 100, 1)
-          </input>
-        </program>
-
       <p>
         A Pearson correlation was conducted to examine the relationship between exam
         anxiety and exam performance. There was a statistically significant negative
-        correlation between anxiety scores and exam scores, indicating that higher
+        correlation between anxiety scores and exam scores, r = -0.44, p = 0, indicating
+        that higher
         anxiety levels were associated with lower exam performance.
+Approximately 19.4% of the variance in exam scores was shared with anxiety levels.
       </p>
     </subsection>
 
