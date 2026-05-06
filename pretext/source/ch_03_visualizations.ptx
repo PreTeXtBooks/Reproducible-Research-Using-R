@@ -77,6 +77,12 @@ ggplot(anscombe_quartet, aes(x = x, y = y)) +
   facet_wrap(~dataset)
         </input>
       </program>
+      <figure xml:id="fig-anscombe-quartet">
+        <caption>While the four datasets looked identical in the table, the visualized Anscombe datasets show an entirely different picture.</caption>
+        <image source="images/anscombe-quartet.png" width="90%">
+          <description>Four scatter plots arranged in a 2x2 grid showing Anscombe I through IV. Each has a linear trend line, but the point patterns differ dramatically: I is roughly linear, II is curved, III is linear with one outlier, and IV has all points at one x-value except one.</description>
+        </image>
+      </figure>
 
     <p>
       With our visualization, we are introduced to an entirely different way of seeing
@@ -137,6 +143,12 @@ values &lt;- c(100, 17, 45, 55, 44)
 barplot(values, xlab = "X-axis", ylab = "Y-axis", main ="Base R Bar Chart")
         </input>
       </program>
+      <figure xml:id="fig-baser-barplot">
+        <caption>An example of a bar chart created using base R.</caption>
+        <image source="images/baser-barplot.png" width="80%">
+          <description>A bar chart created using base R's barplot() function showing five bars of varying heights (100, 17, 45, 55, 44) with X-axis and Y-axis labels and the title "Base R Bar Chart".</description>
+        </image>
+      </figure>
   </section>
 
   <section xml:id="sec-ggplot">
@@ -277,6 +289,12 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
   geom_point()
           </input>
         </program>
+        <figure xml:id="fig-example-ggplot2">
+          <caption>An example of a visualization made using ggplot2.</caption>
+          <image source="images/basic-ggplot2-scatter.png" width="80%">
+            <description>A scatterplot of city miles per gallon (x-axis) versus highway miles per gallon (y-axis) for the mpg dataset, showing a positive relationship between the two variables.</description>
+          </image>
+        </figure>
 
       <p>
         This is our first ggplot (a scatterplot) we have created, so let's break this down:
@@ -326,6 +344,12 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
   geom_point()
           </input>
         </program>
+        <figure xml:id="fig-basic-scatterplot">
+          <caption>A basic example of a scatterplot using ggplot2.</caption>
+          <image source="images/basic-scatterplot.png" width="80%">
+            <description>A scatterplot showing city MPG on the x-axis and highway MPG on the y-axis, with each point representing a vehicle in the mpg dataset.</description>
+          </image>
+        </figure>
 
       <p>
         Typically it is best practice to have a <q>line of best fit</q> when creating
@@ -341,6 +365,12 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_smooth(method = "lm") # lm stands for "linear model"
           </input>
         </program>
+        <figure xml:id="fig-scatterplot-lm">
+          <caption>An example of a scatterplot with a line of best fit.</caption>
+          <image source="images/scatterplot-lm.png" width="80%">
+            <description>A scatterplot of city MPG versus highway MPG with a blue linear regression line and shaded confidence interval added using geom_smooth.</description>
+          </image>
+        </figure>
 
       <p>
         Notice that to add <c>geom_smooth</c>, which is another layer of our
@@ -366,6 +396,12 @@ ggplot(data = mpg, aes(x = cty, y = hwy, color = class, shape = drv)) +
   geom_smooth(method = "lm", se = TRUE) # adds a line of best fit
           </input>
         </program>
+        <figure xml:id="fig-scatterplot-advanced">
+          <caption>A scatterplot incorporating multiple aesthetics and faceting.</caption>
+          <image source="images/scatterplot-advanced.png" width="90%">
+            <description>A faceted scatterplot of city vs highway MPG broken out by vehicle class. Points are colored by class and shaped by drivetrain, with individual linear trend lines per facet.</description>
+          </image>
+        </figure>
     </subsection>
 
     <subsection xml:id="sec-ggplot-bar-column">
@@ -390,6 +426,12 @@ ggplot(mpg, aes(x = class)) +
   geom_bar()
             </input>
           </program>
+          <figure xml:id="fig-basic-barchart">
+            <caption>An example of a basic bar chart.</caption>
+            <image source="images/basic-barchart.png" width="80%">
+              <description>A bar chart showing counts of vehicles by class in the mpg dataset. The suv class has the most vehicles, followed by compact and subcompact.</description>
+            </image>
+          </figure>
 
         <p>
           Depending on how long the variable names are, it may be best to switch the
@@ -407,6 +449,12 @@ ggplot(mpg, aes(x = manufacturer)) +
   labs(title = "Counts by Manufacturer", x = "", y = "Count")
             </input>
           </program>
+          <figure xml:id="fig-barchart-coordflip">
+            <caption>An example of a coordinate flipped bar chart.</caption>
+            <image source="images/barchart-coordflip.png" width="80%">
+              <description>A horizontal bar chart showing vehicle counts by manufacturer, with bars colored steel blue and the axes flipped so manufacturer names appear on the y-axis for readability.</description>
+            </image>
+          </figure>
 
         <p>
           Depending on the audience, a stacked bar chart may be the best way to
@@ -429,6 +477,12 @@ ggplot(mpg, aes(x = manufacturer, fill = drv)) +
   theme_minimal()
             </input>
           </program>
+          <figure xml:id="fig-stacked-barchart">
+            <caption>An example of a stacked bar chart.</caption>
+            <image source="images/stacked-barchart.png" width="80%">
+              <description>A horizontal stacked bar chart showing vehicle counts by manufacturer, with each bar divided by drivetrain type (4-wheel, front-wheel, rear-wheel drive) shown in different colors.</description>
+            </image>
+          </figure>
 
         <p>
           If you need to create a grouped bar chart instead, you can add
@@ -450,6 +504,12 @@ ggplot(mpg, aes(x = manufacturer, fill = drv)) +
   theme_minimal()
             </input>
           </program>
+          <figure xml:id="fig-grouped-barchart">
+            <caption>An example of a grouped bar chart.</caption>
+            <image source="images/grouped-barchart.png" width="80%">
+              <description>A horizontal grouped bar chart where each manufacturer has separate side-by-side bars for each drivetrain type, making it easier to compare drivetrain counts within each manufacturer.</description>
+            </image>
+          </figure>
       </subsubsection>
 
       <subsubsection xml:id="sec-ggplot-column">
@@ -494,6 +554,12 @@ ggplot(class_counts, aes(x = class, y = n)) +
   geom_col()
             </input>
           </program>
+          <figure xml:id="fig-basic-columnchart">
+            <caption>An example of a basic column chart.</caption>
+            <image source="images/basic-columnchart.png" width="80%">
+              <description>A basic column chart showing the pre-summarized count of vehicles by class in the mpg dataset, with class on the x-axis and count on the y-axis.</description>
+            </image>
+          </figure>
 
         <p>
           There are a few things you can do to a column chart to add some flavor.
@@ -515,6 +581,12 @@ ggplot(class_counts, aes(x = reorder(class, n), y = n, fill = class)) +
   theme(legend.position = "none")
             </input>
           </program>
+          <figure xml:id="fig-columnchart-aesthetics">
+            <caption>An example of a column chart with polished aesthetics.</caption>
+            <image source="images/columnchart-aesthetics.png" width="80%">
+              <description>A horizontal column chart sorted by count, with each vehicle class shown in a different color and the legend removed since class names are on the y-axis.</description>
+            </image>
+          </figure>
 
         <assemblage>
           <title>Legends in a graph and redundancy.</title>
@@ -550,6 +622,12 @@ ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 3)
             </input>
           </program>
+          <figure xml:id="fig-basic-histogram">
+            <caption>An example of a basic histogram.</caption>
+            <image source="images/basic-histogram.png" width="80%">
+              <description>A basic histogram of highway miles per gallon from the mpg dataset, with bins of width 3, showing the distribution is roughly bell-shaped centered around 25 mpg.</description>
+            </image>
+          </figure>
 
         <p>
           R automatically assigns bins when creating a histogram unless otherwise
@@ -569,6 +647,12 @@ ggplot(mpg, aes(hwy)) +
   labs(title = "Highway MPG Distribution", x = "Highway MPG", y = "Frequency")
             </input>
           </program>
+          <figure xml:id="fig-styled-histogram">
+            <caption>An example of a styled histogram.</caption>
+            <image source="images/styled-histogram.png" width="80%">
+              <description>A styled histogram of highway MPG with red bars and orange borders, using bins of width 5 with a boundary at 0, titled "Highway MPG Distribution".</description>
+            </image>
+          </figure>
 
         <p>
           In the case that you need a stacked histogram, below is code to create that.
@@ -585,6 +669,12 @@ ggplot(mpg, aes(hwy, fill = class)) +
   theme(legend.position = "bottom")
             </input>
           </program>
+          <figure xml:id="fig-filled-histogram">
+            <caption>An example of a filled histogram.</caption>
+            <image source="images/filled-histogram.png" width="80%">
+              <description>A stacked histogram of highway MPG where each bin is colored by vehicle class, showing how different classes contribute to the overall distribution.</description>
+            </image>
+          </figure>
       </subsubsection>
 
       <subsubsection xml:id="sec-ggplot-density">
@@ -602,6 +692,12 @@ ggplot(diamonds, aes(x = price)) +
   geom_density()
             </input>
           </program>
+          <figure xml:id="fig-basic-densityplot">
+            <caption>An example of a basic density plot.</caption>
+            <image source="images/basic-densityplot.png" width="80%">
+              <description>A density plot of diamond prices showing a right-skewed distribution with most diamonds priced under $5,000 and a long tail extending to higher prices.</description>
+            </image>
+          </figure>
 
         <p>
           In the below example, the visualization is filtering within the data portion
@@ -625,6 +721,12 @@ ggplot(diamonds |> filter(cut %in% c("Good", "Ideal", "Premium")),
   theme(legend.position = "bottom")
             </input>
           </program>
+          <figure xml:id="fig-grouped-densityplot">
+            <caption>An example of a grouped density plot.</caption>
+            <image source="images/grouped-densityplot.png" width="80%">
+              <description>A grouped density plot showing price distributions for three diamond cuts (Good, Ideal, Premium) as overlapping lines in different colors, with a legend at the bottom.</description>
+            </image>
+          </figure>
       </subsubsection>
     </subsection>
 
@@ -664,6 +766,12 @@ ggplot(mpg, aes(x = class, y = hwy)) +
   labs(title = "Highway MPG by Vehicle Class", x = "Vehicle Class", y = "Highway MPG")
           </input>
         </program>
+        <figure xml:id="fig-basic-boxplot">
+          <caption>An example of a basic boxplot.</caption>
+          <image source="images/basic-boxplot.png" width="80%">
+            <description>A boxplot showing the distribution of highway MPG for each vehicle class. Compact and subcompact vehicles tend to have higher highway MPG, while pickups and SUVs have lower MPG.</description>
+          </image>
+        </figure>
 
       <p>
         Sometimes the points on a boxplot (or any plot) can be indistinguishable due
@@ -682,6 +790,12 @@ ggplot(mpg, aes(class, hwy)) +
        x = "", y = "Highway MPG")
           </input>
         </program>
+        <figure xml:id="fig-jittered-boxplot">
+          <caption>An example of a boxplot with jittered points.</caption>
+          <image source="images/jittered-boxplot.png" width="80%">
+            <description>A horizontal boxplot showing highway MPG by vehicle class with individual data points jittered around each box, giving a clearer picture of the underlying data distribution.</description>
+          </image>
+        </figure>
     </subsection>
 
     <subsection xml:id="sec-ggplot-line">
@@ -700,6 +814,12 @@ ggplot(economics, aes(x = date, y = unemploy)) +
        x = "Date", y = "Number Unemployed (thousands)")
           </input>
         </program>
+        <figure xml:id="fig-basic-linegraph">
+          <caption>An example of a basic line graph.</caption>
+          <image source="images/basic-linegraph.png" width="80%">
+            <description>A line graph showing US unemployment over time from the economics dataset, with date on the x-axis and number unemployed (in thousands) on the y-axis. The line shows an overall upward trend with fluctuations.</description>
+          </image>
+        </figure>
 
       <p>
         Like in the scatterplot, you can add a line of best fit.
@@ -715,6 +835,12 @@ ggplot(economics, aes(date, unemploy)) +
        x = "Date", y = "Number Unemployed (thousands)")
           </input>
         </program>
+        <figure xml:id="fig-lm-linegraph">
+          <caption>An example of a line graph with a LM line of best fit.</caption>
+          <image source="images/lm-linegraph.png" width="80%">
+            <description>A line graph of US unemployment over time with a red linear regression trend line added, showing the overall upward trend in unemployment despite short-term fluctuations.</description>
+          </image>
+        </figure>
 
       <p>
         Instead of using <q>lm</q> for our method, let's try <q>loess</q> and see
@@ -730,6 +856,12 @@ ggplot(economics, aes(date, unemploy)) +
        x = "Date", y = "Number Unemployed (thousands)")
           </input>
         </program>
+        <figure xml:id="fig-loess-linegraph">
+          <caption>An example of a line graph with a LOESS smooth.</caption>
+          <image source="images/loess-linegraph.png" width="80%">
+            <description>A line graph of US unemployment over time with a blue LOESS smooth curve and confidence band, showing a flexible fit that captures the non-linear trend in unemployment over the decades.</description>
+          </image>
+        </figure>
     </subsection>
 
     <subsection xml:id="sec-ggplot-text">
@@ -745,6 +877,24 @@ ggplot(economics, aes(date, unemploy)) +
 # BASIC: label extreme points
 mpg_extremes &lt;- mpg |> slice_max(order_by = hwy, n = 5)
 mpg_extremes
+          </input>
+        </program>
+        <console>
+          <output>
+# A tibble: 6 × 11
+  manufacturer model      displ  year   cyl trans      drv     cty   hwy fl    class     
+  &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     
+1 honda        civic        1.8  2008     4 auto(l5)   f        25    36 r     subcompact
+2 honda        civic        1.8  2008     4 auto(l5)   f        24    36 c     subcompact
+3 toyota       corolla      1.8  2008     4 manual(m5) f        28    37 r     compact   
+4 volkswagen   jetta        1.9  1999     4 manual(m5) f        33    44 d     compact   
+5 volkswagen   new beetle   1.9  1999     4 manual(m5) f        35    44 d     subcompact
+6 volkswagen   new beetle   1.9  1999     4 auto(l4)   f        29    41 d     subcompact
+          </output>
+        </console>
+
+        <program language="r">
+          <input>
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   geom_text(data = mpg_extremes, aes(label = model), nudge_y = 1, size = 3) +
@@ -752,9 +902,15 @@ ggplot(mpg, aes(displ, hwy)) +
        x = "Engine Displacement (L)", y = "Highway MPG")
           </input>
         </program>
+        <figure xml:id="fig-basic-textplot">
+          <caption>An example of adding text inside a plot.</caption>
+          <image source="images/textplot.png" width="80%">
+            <description>A scatterplot of engine displacement versus highway MPG with text labels added to the five data points with the highest highway MPG, identifying the vehicle models.</description>
+          </image>
+        </figure>
 
       <p>
-        The code above first identifies the top three hwy values using
+        The code above first identifies the top five hwy values using
         <c>slice_max()</c>, pairs that with <c>geom_text()</c> and labels only the
         extreme data points. Now, viewers can read from the plot which model of cars
         have the best highway miles per gallon.
@@ -810,6 +966,12 @@ ggplot(summ_hwy, aes(class, mean_hwy)) +
   labs(title = "Mean Highway MPG (± SE) by Class", x = "", y = "Mean Highway MPG")
           </input>
         </program>
+        <figure xml:id="fig-basic-error-plot">
+          <caption>An example of a plot with error bars.</caption>
+          <image source="images/error-plot.png" width="80%">
+            <description>A horizontal dot plot showing mean highway MPG by vehicle class with error bars representing the standard error. Compact and subcompact vehicles have the highest mean highway MPG.</description>
+          </image>
+        </figure>
     </subsection>
 
     <subsection xml:id="sec-ggplot-ref-lines">
@@ -835,6 +997,12 @@ ggplot(mpg, aes(displ, hwy)) +
        x = "Engine Displacement (L)", y = "Highway MPG")
           </input>
         </program>
+        <figure xml:id="fig-horizontal-referenceline">
+          <caption>An example of a plot with a horizontal reference line.</caption>
+          <image source="images/horizontal-referenceline.png" width="80%">
+            <description>A scatterplot of engine displacement versus highway MPG with a dashed horizontal reference line at the overall mean highway MPG, helping identify which vehicles are above or below average.</description>
+          </image>
+        </figure>
 
         <program language="r">
           <input>
@@ -846,6 +1014,12 @@ ggplot(mpg, aes(displ, hwy)) +
        x = "Engine Displacement (L)", y = "Highway MPG")
           </input>
         </program>
+        <figure xml:id="fig-vertical-referenceline">
+          <caption>An example of a plot with a vertical reference line.</caption>
+          <image source="images/vertical-referenceline.png" width="80%">
+            <description>A scatterplot of engine displacement versus highway MPG with a dotted vertical reference line at engine displacement equal to 3L, separating smaller and larger engines.</description>
+          </image>
+        </figure>
     </subsection>
   </section>
 
