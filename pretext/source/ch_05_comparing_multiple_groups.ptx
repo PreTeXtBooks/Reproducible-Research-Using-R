@@ -166,6 +166,19 @@ favstats(score ~ method, data = memory)
         </input>
       </program>
 
+      <console>
+        <output>
+      method      min       Q1   median       Q3       max     mean       sd  n
+1 Flashcards 59.26706 71.05157 75.95988 79.38981  89.29531 76.13299 7.781323 20
+2  Rereading 54.81976 64.14098 68.74051 76.49688  81.28433 69.53869 7.469448 20
+3    Testing 74.15873 82.06821 84.75004 89.43416 100.18269 85.74540 6.701384 20
+  missing
+1       0
+2       0
+3       0
+        </output>
+      </console>
+
     <p>
       Some things we now see:
     </p>
@@ -247,6 +260,12 @@ memory |>
 try(t.test(score ~ method, data = memory))
         </input>
       </program>
+      <console>
+        <output>
+Error in t.test.formula(formula, data = data, ...) : 
+  grouping factor must have exactly 2 levels
+        </output>
+      </console>
 
     <p>
       It does not work! The reason being is that while t.test compare means, they are
@@ -308,7 +327,20 @@ library(supernova)
 supernova(anova_model)  # clearer ANOVA table
         </input>
       </program>
+              
+      <console>
+        <output>
+ Analysis of Variance Table (Type III SS)
+ Model: score ~ method
 
+                               SS df       MS      F   PRE     p
+ ----- --------------- | -------- -- -------- ------ ----- -----
+ Model (error reduced) | 2656.938  2 1328.469 24.716 .4644 .0000
+ Error (from model)    | 3063.753 57   53.750                   
+ ----- --------------- | -------- -- -------- ------ ----- -----
+ Total (empty model)   | 5720.691 59   96.961     
+        </output>
+      </console>
     <p>
       Just as the <c>aov</c> command should look similar, the output of running the
       anova should look familiar. Reviewing the data we get:
@@ -476,6 +508,23 @@ supernova(anova_2)
         </input>
       </program>
 
+      <console>
+        <output>
+ Analysis of Variance Table (Type III SS)
+ Model: score ~ method * caffeine
+
+                                         SS df      MS      F   PRE     p
+ --------------- --------------- | -------- -- ------- ------ ----- -----
+           Model (error reduced) | 2777.807  5 555.561 10.194 .4856 .0000
+          method                 | 1746.636  2 873.318 16.025 .3725 .0000
+        caffeine                 |   39.360  1  39.360  0.722 .0132 .3992
+ method:caffeine                 |  117.439  2  58.720  1.077 .0384 .3477
+           Error (from model)    | 2942.885 54  54.498                   
+ --------------- --------------- | -------- -- ------- ------ ----- -----
+           Total (empty model)   | 5720.691 59  96.961    
+        </output>
+      </console>
+
     <p>
       Interestingly, when we go to the p-values, we see that neither caffeine nor the
       interaction (how caffeine influences method) are statistically significant. This
@@ -537,6 +586,16 @@ model.names &lt;- c("One-way", "Two-way")
 aictab(model.set, modnames = model.names)
         </input>
       </program>
+
+      <console>
+        <output>
+Model selection based on AICc:
+
+        K   AICc Delta_AICc AICcWt Cum.Wt      LL
+One-way 4 414.98       0.00   0.92   0.92 -203.13
+Two-way 7 419.99       5.01   0.08   1.00 -201.92
+        </output>
+      </console>
 
     <p>
       We will review model comparisons in more detail in <xref ref="sec-more-variables"/>.
