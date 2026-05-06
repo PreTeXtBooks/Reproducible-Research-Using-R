@@ -26,8 +26,6 @@
       Francis Anscombe created four unique datasets, which all had identical summary statistics.
     </p>
 
-    <listing xml:id="lst-anscombe">
-      <caption>A breakdown of summary statistics from the four individual datasets Anscombe created.</caption>
       <program language="r">
         <input>
 library(tidyverse)
@@ -44,10 +42,21 @@ anscombe_quartet |>
   kable(digits = 2,caption = "A breakdown of summary statistics from the four individual datasets Anscombe created.")
         </input>
       </program>
-    </listing>
+      <console>
+        <output>
+Table: A breakdown of summary statistics from the four individual datasets Anscombe created.
+
+|dataset     | mean_x| variance_x| mean_y| variance_y| correlation|
+|:-----------|------:|----------:|------:|----------:|-----------:|
+|Anscombe I  |      9|         11|    7.5|       4.13|        0.82|
+|Anscombe II |      9|         11|    7.5|       4.13|        0.82|
+|Anscombe III|      9|         11|    7.5|       4.12|        0.82|
+|Anscombe IV |      9|         11|    7.5|       4.12|        0.82|
+        </output>
+      </console>
 
     <p>
-      As <xref ref="lst-anscombe"/> shows, all four of the different datasets show the
+      As the table above shows, all four of the different datasets show the
       same means, variances, and correlations (more on that in chapter 6). With
       <em>just</em> these summary statistics, you'd likely think <q>eh, all the data is
       the same, these datasets are basically identical.</q>
@@ -60,8 +69,6 @@ anscombe_quartet |>
       the table shows.
     </p>
 
-    <listing xml:id="lst-Anscombe-graph">
-      <caption>While the four datasets looked identical in the table, the visualized Anscombe datasets show an entirely different picture.</caption>
       <program language="r">
         <input>
 ggplot(anscombe_quartet, aes(x = x, y = y)) +
@@ -70,7 +77,6 @@ ggplot(anscombe_quartet, aes(x = x, y = y)) +
   facet_wrap(~dataset)
         </input>
       </program>
-    </listing>
 
     <p>
       With our visualization, we are introduced to an entirely different way of seeing
@@ -124,8 +130,6 @@ ggplot(anscombe_quartet, aes(x = x, y = y)) +
       familiarity.
     </p>
 
-    <listing xml:id="lst-baseR-plot">
-      <caption>An example of a bar chart created using base R.</caption>
       <program language="r">
         <input>
 values &lt;- c(100, 17, 45, 55, 44)
@@ -133,7 +137,6 @@ values &lt;- c(100, 17, 45, 55, 44)
 barplot(values, xlab = "X-axis", ylab = "Y-axis", main ="Base R Bar Chart")
         </input>
       </program>
-    </listing>
   </section>
 
   <section xml:id="sec-ggplot">
@@ -146,8 +149,6 @@ barplot(values, xlab = "X-axis", ylab = "Y-axis", main ="Base R Bar Chart")
       <c>ggplot2</c> also comes with prepacked data that can be utilized.
     </p>
 
-    <listing xml:id="lst-mpg-kable">
-      <caption>A base R dataset: Fuel economy data from 1999 to 2008 for 38 popular models of cars.</caption>
       <program language="r">
         <input>
 kable(head(mpg), caption = "A base R dataset: Fuel economy data from 1999 to 2008 for 38 popular models of cars.")
@@ -167,10 +168,7 @@ Table: A base R dataset: Fuel economy data from 1999 to 2008 for 38 popular mode
 |audi         |a4    |   2.8| 1999|   6|manual(m5) |f   |  18|  26|p  |compact |
         </output>
       </console>
-    </listing>
 
-    <listing xml:id="lst-economics-kable">
-      <caption>A base R dataset: US Economic Time Series.</caption>
       <program language="r">
         <input>
 kable(head(economics), caption = "A base R dataset: US Economic Time Series.")
@@ -190,10 +188,7 @@ Table: A base R dataset: US Economic Time Series.
 |1967-12-01 | 525.1| 199657|    11.8|     4.8|     3018|
         </output>
       </console>
-    </listing>
 
-    <listing xml:id="lst-diamonds-kable">
-      <caption>A base R dataset: Prices of over 50,000 round cut diamonds.</caption>
       <program language="r">
         <input>
 kable(head(diamonds), caption = "A base R dataset: Prices of over 50,000 round cut diamonds.")
@@ -213,10 +208,7 @@ Table: A base R dataset: Prices of over 50,000 round cut diamonds.
 |  0.24|Very Good |J     |VVS2    |  62.8|    57|   336| 3.94| 3.96| 2.48|
         </output>
       </console>
-    </listing>
 
-    <listing xml:id="lst-mtcars-kable">
-      <caption>A base R dataset: Motor Trend Car Road Tests.</caption>
       <program language="r">
         <input>
 kable(head(mtcars), caption = "A base R dataset: Motor Trend Car Road Tests.")
@@ -236,7 +228,6 @@ Table: A base R dataset: Motor Trend Car Road Tests.
 |Valiant           | 18.1|   6|  225| 105| 2.76| 3.460| 20.22|  1|  0|    3|    1|
         </output>
       </console>
-    </listing>
 
     <p>
       Additionally, <c>ggplot2</c> is part of the <c>tidyverse</c> package. So, you
@@ -280,15 +271,12 @@ Table: A base R dataset: Motor Trend Car Road Tests.
         Here is an example of a basic graph made with ggplot:
       </p>
 
-      <listing xml:id="lst-example-ggplot2">
-        <caption>An example of a visualization made using ggplot2.</caption>
         <program language="r">
           <input>
 ggplot(data = mpg, aes(x = cty, y = hwy)) +
   geom_point()
           </input>
         </program>
-      </listing>
 
       <p>
         This is our first ggplot (a scatterplot) we have created, so let's break this down:
@@ -332,15 +320,12 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
         The geometry that needs to be specified is <c>geom_point()</c>.
       </p>
 
-      <listing xml:id="lst-basic-scatterplot">
-        <caption>A basic example of a scatterplot using ggplot2.</caption>
         <program language="r">
           <input>
 ggplot(data = mpg, aes(x = cty, y = hwy)) +
   geom_point()
           </input>
         </program>
-      </listing>
 
       <p>
         Typically it is best practice to have a <q>line of best fit</q> when creating
@@ -348,8 +333,6 @@ ggplot(data = mpg, aes(x = cty, y = hwy)) +
         the <c>geom_smooth()</c> command.
       </p>
 
-      <listing xml:id="lst-ggplot2-scatterplot-lm">
-        <caption>An example of a scatterplot with a line of best fit.</caption>
         <program language="r">
           <input>
 # Line of Best Fit
@@ -358,7 +341,6 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_smooth(method = "lm") # lm stands for "linear model"
           </input>
         </program>
-      </listing>
 
       <p>
         Notice that to add <c>geom_smooth</c>, which is another layer of our
@@ -369,8 +351,6 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
         Let's add some more information to our scatterplot.
       </p>
 
-      <listing xml:id="lst-scatterplot-advanced">
-        <caption>A scatterplot incorporating multiple aesthetics and faceting.</caption>
         <program language="r">
           <input>
 ggplot(data = mpg, aes(x = cty, y = hwy, color = class, shape = drv)) +
@@ -386,7 +366,6 @@ ggplot(data = mpg, aes(x = cty, y = hwy, color = class, shape = drv)) +
   geom_smooth(method = "lm", se = TRUE) # adds a line of best fit
           </input>
         </program>
-      </listing>
     </subsection>
 
     <subsection xml:id="sec-ggplot-bar-column">
@@ -404,8 +383,6 @@ ggplot(data = mpg, aes(x = cty, y = hwy, color = class, shape = drv)) +
           For a bar chart, the geometry used is <c>geom_bar()</c>.
         </p>
 
-        <listing xml:id="lst-basic-barchart">
-          <caption>An example of a basic bar chart.</caption>
           <program language="r">
             <input>
 # BASIC (counts by class) - geom_bar() counts rows automatically
@@ -413,7 +390,6 @@ ggplot(mpg, aes(x = class)) +
   geom_bar()
             </input>
           </program>
-        </listing>
 
         <p>
           Depending on how long the variable names are, it may be best to switch the
@@ -423,8 +399,6 @@ ggplot(mpg, aes(x = class)) +
           you can utilize the <c>coord_flip()</c> command.
         </p>
 
-        <listing xml:id="lst-barplot-coordflip">
-          <caption>An example of a coordinate flipped bar chart.</caption>
           <program language="r">
             <input>
 ggplot(mpg, aes(x = manufacturer)) +
@@ -433,7 +407,6 @@ ggplot(mpg, aes(x = manufacturer)) +
   labs(title = "Counts by Manufacturer", x = "", y = "Count")
             </input>
           </program>
-        </listing>
 
         <p>
           Depending on the audience, a stacked bar chart may be the best way to
@@ -441,8 +414,6 @@ ggplot(mpg, aes(x = manufacturer)) +
           <c>ggplot</c> does the rest.
         </p>
 
-        <listing xml:id="lst-stacked-barchart-example">
-          <caption>An example of a stacked bar chart.</caption>
           <program language="r">
             <input>
 # What if we want a stacked bar chart (default with fill)?
@@ -458,15 +429,12 @@ ggplot(mpg, aes(x = manufacturer, fill = drv)) +
   theme_minimal()
             </input>
           </program>
-        </listing>
 
         <p>
           If you need to create a grouped bar chart instead, you can add
           <c>position = "dodge"</c> to create your visual.
         </p>
 
-        <listing xml:id="lst-grouped-barchart">
-          <caption>An example of a grouped bar chart.</caption>
           <program language="r">
             <input>
 #What if we want a grouped bar chart
@@ -482,7 +450,6 @@ ggplot(mpg, aes(x = manufacturer, fill = drv)) +
   theme_minimal()
             </input>
           </program>
-        </listing>
       </subsubsection>
 
       <subsubsection xml:id="sec-ggplot-column">
@@ -491,8 +458,6 @@ ggplot(mpg, aes(x = manufacturer, fill = drv)) +
           Column charts work best when you have pre-summarized values, and not raw values.
         </p>
 
-        <listing xml:id="lst-pre-summarizing-values">
-          <caption>Pre-summarized values</caption>
           <program language="r">
             <input>
 # USING PRE-SUMMARIZED VALUES - geom_col() requires explicit values
@@ -517,22 +482,18 @@ Table: Pre-summarized values
 |suv        | 62|
         </output>
       </console>
-        </listing>
 
         <p>
           Once the values have been summarized explicitly, you use <c>geom_col()</c>
           to create a column chart.
         </p>
 
-        <listing xml:id="lst-basic-columnchart">
-          <caption>An example of a basic column chart.</caption>
           <program language="r">
             <input>
 ggplot(class_counts, aes(x = class, y = n)) +
   geom_col()
             </input>
           </program>
-        </listing>
 
         <p>
           There are a few things you can do to a column chart to add some flavor.
@@ -544,8 +505,6 @@ ggplot(class_counts, aes(x = class, y = n)) +
           <li><p>Depending on the bars, you can change the <c>legend.position</c> to a particular spot (or remove it entirely) from the visualization.</p></li>
         </ul>
 
-        <listing xml:id="lst-columnchart-aesthetics">
-          <caption>An example of a column chart with polished aesthetics.</caption>
           <program language="r">
             <input>
 # PLUS AESTHETICS (polished)
@@ -556,7 +515,6 @@ ggplot(class_counts, aes(x = reorder(class, n), y = n, fill = class)) +
   theme(legend.position = "none")
             </input>
           </program>
-        </listing>
 
         <assemblage>
           <title>Legends in a graph and redundancy.</title>
@@ -585,8 +543,6 @@ ggplot(class_counts, aes(x = reorder(class, n), y = n, fill = class)) +
           For the geometry of a histogram, you use <c>geom_histogram()</c>.
         </p>
 
-        <listing xml:id="lst-basic-histogram">
-          <caption>An example of a basic histogram.</caption>
           <program language="r">
             <input>
 # BASIC
@@ -594,7 +550,6 @@ ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 3)
             </input>
           </program>
-        </listing>
 
         <p>
           R automatically assigns bins when creating a histogram unless otherwise
@@ -605,8 +560,6 @@ ggplot(mpg, aes(x = hwy)) +
           <li><p>boundary: use <c>boundary</c> to set the separation between the bins</p></li>
         </ul>
 
-        <listing xml:id="lst-styled-histogram">
-          <caption>An example of a styled histogram.</caption>
           <program language="r">
             <input>
 # STYLED (bin edges + colors)
@@ -616,15 +569,12 @@ ggplot(mpg, aes(hwy)) +
   labs(title = "Highway MPG Distribution", x = "Highway MPG", y = "Frequency")
             </input>
           </program>
-        </listing>
 
         <p>
           In the case that you need a stacked histogram, below is code to create that.
           The secret here is using the <c>fill</c> command.
         </p>
 
-        <listing xml:id="lst-filled-histogram">
-          <caption>An example of a filled histogram.</caption>
           <program language="r">
             <input>
 # MAPPED FILL (stacked by class)
@@ -635,7 +585,6 @@ ggplot(mpg, aes(hwy, fill = class)) +
   theme(legend.position = "bottom")
             </input>
           </program>
-        </listing>
       </subsubsection>
 
       <subsubsection xml:id="sec-ggplot-density">
@@ -646,8 +595,6 @@ ggplot(mpg, aes(hwy, fill = class)) +
           The geometry for a density plot is <c>geom_density()</c>.
         </p>
 
-        <listing xml:id="lst-basic-densityplot">
-          <caption>An example of a basic density plot.</caption>
           <program language="r">
             <input>
 # BASIC
@@ -655,7 +602,6 @@ ggplot(diamonds, aes(x = price)) +
   geom_density()
             </input>
           </program>
-        </listing>
 
         <p>
           In the below example, the visualization is filtering within the data portion
@@ -669,8 +615,6 @@ ggplot(diamonds, aes(x = price)) +
           <p>If there was no filtering, this code would still separate into different lines.</p>
         </assemblage>
 
-        <listing xml:id="lst-grouped-densityplot">
-          <caption>An example of a grouped density plot.</caption>
           <program language="r">
             <input>
 # GROUPED
@@ -681,7 +625,6 @@ ggplot(diamonds |> filter(cut %in% c("Good", "Ideal", "Premium")),
   theme(legend.position = "bottom")
             </input>
           </program>
-        </listing>
       </subsubsection>
     </subsection>
 
@@ -713,8 +656,6 @@ ggplot(diamonds |> filter(cut %in% c("Good", "Ideal", "Premium")),
         The geometry for a boxplot is <c>geom_boxplot()</c>.
       </p>
 
-      <listing xml:id="lst-basic-boxplot">
-        <caption>An example of a basic boxplot.</caption>
         <program language="r">
           <input>
 # BASIC
@@ -723,7 +664,6 @@ ggplot(mpg, aes(x = class, y = hwy)) +
   labs(title = "Highway MPG by Vehicle Class", x = "Vehicle Class", y = "Highway MPG")
           </input>
         </program>
-      </listing>
 
       <p>
         Sometimes the points on a boxplot (or any plot) can be indistinguishable due
@@ -731,8 +671,6 @@ ggplot(mpg, aes(x = class, y = hwy)) +
         command.
       </p>
 
-      <listing xml:id="lst-jittered-boxplot">
-        <caption>An example of a boxplot with jittered points.</caption>
         <program language="r">
           <input>
 # WITH JITTERED POINTS OVERLAID
@@ -744,7 +682,6 @@ ggplot(mpg, aes(class, hwy)) +
        x = "", y = "Highway MPG")
           </input>
         </program>
-      </listing>
     </subsection>
 
     <subsection xml:id="sec-ggplot-line">
@@ -754,8 +691,6 @@ ggplot(mpg, aes(class, hwy)) +
         created. The geometry for a line graph is <c>geom_line()</c>.
       </p>
 
-      <listing xml:id="lst-basic-linegraph">
-        <caption>An example of a basic line graph.</caption>
         <program language="r">
           <input>
 # BASIC: unemployment over time
@@ -765,14 +700,11 @@ ggplot(economics, aes(x = date, y = unemploy)) +
        x = "Date", y = "Number Unemployed (thousands)")
           </input>
         </program>
-      </listing>
 
       <p>
         Like in the scatterplot, you can add a line of best fit.
       </p>
 
-      <listing xml:id="lst-lm-linegraph">
-        <caption>An example of line graph with a LM line of best fit.</caption>
         <program language="r">
           <input>
 # PLUS: LM vs LOESS contrast
@@ -783,15 +715,12 @@ ggplot(economics, aes(date, unemploy)) +
        x = "Date", y = "Number Unemployed (thousands)")
           </input>
         </program>
-      </listing>
 
       <p>
         Instead of using <q>lm</q> for our method, let's try <q>loess</q> and see
         our results.
       </p>
 
-      <listing xml:id="lst-loess-linegraph">
-        <caption>An example of line graph with a LM line of best fit.</caption>
         <program language="r">
           <input>
 ggplot(economics, aes(date, unemploy)) +
@@ -801,7 +730,6 @@ ggplot(economics, aes(date, unemploy)) +
        x = "Date", y = "Number Unemployed (thousands)")
           </input>
         </program>
-      </listing>
     </subsection>
 
     <subsection xml:id="sec-ggplot-text">
@@ -812,8 +740,6 @@ ggplot(economics, aes(date, unemploy)) +
         To do this, utilize the <c>geom_text()</c> command.
       </p>
 
-      <listing xml:id="lst-basic-textplot">
-        <caption>An example of adding text inside a plot.</caption>
         <program language="r">
           <input>
 # BASIC: label extreme points
@@ -826,7 +752,6 @@ ggplot(mpg, aes(displ, hwy)) +
        x = "Engine Displacement (L)", y = "Highway MPG")
           </input>
         </program>
-      </listing>
 
       <p>
         The code above first identifies the top three hwy values using
@@ -843,8 +768,6 @@ ggplot(mpg, aes(displ, hwy)) +
         the mean and standard error for your values.
       </p>
 
-      <listing xml:id="lst-computing-standard-error">
-        <caption>Creating a summarized table for mean and standard error, which will be utilized for the error bars.</caption>
         <program language="r">
           <input>
 # Compute mean &amp; standard error for hwy by class
@@ -871,15 +794,12 @@ summ_hwy
 7 suv            18.1  0.378
         </output>
       </console>
-      </listing>
 
       <p>
         Once completed, you can utilize the <c>geom_errorbar()</c> command to add
         error bars to your plot.
       </p>
 
-      <listing xml:id="lst-basic-error-plot">
-        <caption>An example of a plot with error bars.</caption>
         <program language="r">
           <input>
 # Points + error bars (plot error bars first so points sit on top)
@@ -890,7 +810,6 @@ ggplot(summ_hwy, aes(class, mean_hwy)) +
   labs(title = "Mean Highway MPG (± SE) by Class", x = "", y = "Mean Highway MPG")
           </input>
         </program>
-      </listing>
     </subsection>
 
     <subsection xml:id="sec-ggplot-ref-lines">
@@ -904,8 +823,6 @@ ggplot(summ_hwy, aes(class, mean_hwy)) +
         or vertical reference lines, respectively.
       </p>
 
-      <listing xml:id="lst-horizontal-referencelines">
-        <caption>An example of plot with a horizontal reference line.</caption>
         <program language="r">
           <input>
 # Horizontal line at overall mean
@@ -918,10 +835,7 @@ ggplot(mpg, aes(displ, hwy)) +
        x = "Engine Displacement (L)", y = "Highway MPG")
           </input>
         </program>
-      </listing>
 
-      <listing xml:id="lst-vertical-referencelines">
-        <caption>An example of plot with a vertical reference line.</caption>
         <program language="r">
           <input>
 # Vertical line at displ = 3
@@ -932,7 +846,6 @@ ggplot(mpg, aes(displ, hwy)) +
        x = "Engine Displacement (L)", y = "Highway MPG")
           </input>
         </program>
-      </listing>
     </subsection>
   </section>
 
