@@ -111,7 +111,7 @@
 
     <paragraphs>
       <title>Chapter Anatomy</title>
-      <p>
+      <p></p><p>
         The breakdown of the book is as follows:
         <ul>
           <li>
@@ -163,7 +163,7 @@
 
     <paragraphs>
       <title>Code, Data, and Reproducibility</title>
-      <p>
+      <p></p><p>
         All code in this book is meant to be <alert>run</alert>,
         <alert>modified</alert>, and occasionally <alert>broken</alert>.
         Learning happens when you experiment.
@@ -176,14 +176,14 @@
 
     <paragraphs>
       <title>The reproresearchR Package</title>
-      <p>
+      <p></p><p>
         The datasets used throughout this book are provided in the companion R
         package <c>reproresearchR</c>, allowing readers to load data directly
         into R without manually downloading files. This ensures that all
         examples run the same way for everyone. All figures, tables, and
         analyses in this book are generated directly from code—never copied and
         pasted from external software—so that every result is fully
-        reproducible.
+        reproducible. Chapters 6-8 all use data from the package.
       </p>
       <p>
         The <c>reproresearchR</c> package also includes two versions of each
@@ -209,7 +209,7 @@
 
     <paragraphs>
       <title>R and RStudio</title>
-      <p>
+      <p></p><p>
         If it isn't already evident, this textbook is about the programming
         language R. If you want to work with R on your computer, it is
         suggested that you have both:
@@ -227,7 +227,7 @@
 
     <paragraphs>
       <title>The NYC Open Data Student Gallery</title>
-      <p>
+      <p></p><p>
         This textbook is part of a broader reproducible research initiative
         built around real civic data. Students at Brooklyn College used the
         workflow outlined in this book to conduct original research projects
@@ -257,7 +257,7 @@
 
     <paragraphs>
       <title>Acknowledgments</title>
-      <p>
+      <p></p><p>
         This book would not exist without the curiosity, questions, and
         persistence of students at Brooklyn College. Their willingness to
         wrestle with messy data and imperfect code shaped both the content and
@@ -272,7 +272,7 @@
 
     <paragraphs>
       <title>License</title>
-      <p>
+      <p></p><p>
         This work is licensed under a
         <url href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License (CC BY 4.0)</url>.
       </p>
@@ -293,7 +293,7 @@
 
     <paragraphs>
       <title>How to Cite</title>
-      <p>
+      <p></p><p>
         If you use this textbook in your teaching, research, or projects, please
         cite it as:
       </p>
@@ -318,7 +318,7 @@
 
   <preface xml:id="preface-ptx-version">
     <title>Note on This PreTeXt Edition</title>
-    <p>
+      <p></p><p>
       This is a <url href="https://pretextbook.org/">PreTeXt</url> conversion of
       <em>Reproducible Research Using R</em>, originally written by
       <url href="https://github.com/martinezc1">Christian Martinez</url>.
