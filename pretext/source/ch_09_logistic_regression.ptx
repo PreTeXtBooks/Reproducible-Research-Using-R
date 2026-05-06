@@ -844,6 +844,12 @@ plot(roc_obj, col = "darkblue", lwd = 2,
      main = "ROC Curve – Logistic Regression")
         </input>
       </program>
+      <figure xml:id="fig-roc-curve">
+        <caption>Receiver Operating Characteristic (ROC) curve for the logistic regression model predicting credit card default. The curve plots sensitivity against 1 − specificity across all possible classification thresholds. Curves closer to the top-left corner indicate better classification performance. The area under the curve (AUC) summarizes the model's ability to distinguish between defaulters and non-defaulters.</caption>
+        <image source="images/roc-curve.png" width="80%">
+          <description>A ROC curve plot with specificity on the x-axis (from 1.0 to 0.0) and sensitivity on the y-axis (from 0.0 to 1.0). A dark blue curve hugs the top-left corner, indicating strong model performance. A gray diagonal reference line represents random guessing.</description>
+        </image>
+      </figure>
 
       <program language="r">
         <input>
